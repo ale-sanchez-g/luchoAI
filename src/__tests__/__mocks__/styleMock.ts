@@ -1,1 +1,2 @@
-export default {};
+const styleMock: Record<string, string> = {};
+export default styleMock;

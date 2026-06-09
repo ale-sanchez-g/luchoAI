@@ -7,7 +7,7 @@ import CoachChat from '@/components/CoachChat';
 import ApiKeySetup from '@/components/ApiKeySetup';
 import Header from '@/components/Header';
 
-export default function CoachPage(): JSX.Element {
+export default function CoachPage() {
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [playerProfile, setPlayerProfile] = useState<PlayerProfile | null>(null);
   const [ready, setReady] = useState(false);

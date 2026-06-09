@@ -7,7 +7,7 @@ interface ApiKeySetupProps {
   onKeySet: () => void;
 }
 
-export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps): JSX.Element {
+export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
   const [key, setKey] = useState('');
   const [error, setError] = useState('');
 
@@ -44,7 +44,10 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps): JSX.Element
               id="apiKey"
               type="password"
               value={key}
-              onChange={(e) => { setKey(e.target.value); setError(''); }}
+              onChange={(e) => {
+                setKey(e.target.value);
+                setError('');
+              }}
               placeholder="sk-ant-..."
               className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-sm"
               required
@@ -59,9 +62,7 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps): JSX.Element
           </button>
         </form>
 
-        <p className="text-xs text-gray-400 mt-4 text-center">
-          Get your key at console.anthropic.com
-        </p>
+        <p className="text-xs text-gray-400 mt-4 text-center">Get your key at console.anthropic.com</p>
       </div>
     </div>
   );

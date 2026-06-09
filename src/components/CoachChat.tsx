@@ -26,7 +26,7 @@ function buildWelcome(profile: PlayerProfile | null): Message {
   };
 }
 
-export default function CoachChat({ apiKey, playerProfile }: CoachChatProps): JSX.Element {
+export default function CoachChat({ apiKey, playerProfile }: CoachChatProps) {
   const [messages, setMessages] = useState<Message[]>([buildWelcome(playerProfile)]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -57,7 +57,12 @@ export default function CoachChat({ apiKey, playerProfile }: CoachChatProps): JS
       const reply = await sendMessage(apiKey, messages, userMessage.content, playerProfile);
       setMessages((prev) => [
         ...prev,
-        { id: (Date.now() + 1).toString(), role: 'assistant', content: reply, timestamp: new Date() },
+        {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: reply,
+          timestamp: new Date(),
+        },
       ]);
     } catch {
       setError('Could not reach your coach. Check your API key and try again.');

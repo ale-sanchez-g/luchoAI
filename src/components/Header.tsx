@@ -10,7 +10,7 @@ const NAV = [
   { href: '/profile', label: 'Profile' },
 ];
 
-export default function Header(): JSX.Element {
+export default function Header() {
   const pathname = usePathname();
 
   return (

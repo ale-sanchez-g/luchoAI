@@ -12,10 +12,7 @@ interface PlayerProfileFormProps {
 const POSITIONS: PlayerProfile['position'][] = ['goalkeeper', 'defender', 'midfielder', 'forward'];
 const LEVELS: PlayerProfile['skillLevel'][] = ['beginner', 'intermediate', 'advanced'];
 
-export default function PlayerProfileForm({
-  initialProfile,
-  onSave,
-}: PlayerProfileFormProps): JSX.Element {
+export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProfileFormProps) {
   const [profile, setProfile] = useState<PlayerProfile>(
     initialProfile ?? {
       name: '',
@@ -99,7 +96,10 @@ export default function PlayerProfileForm({
           <select
             value={profile.skillLevel}
             onChange={(e) =>
-              setProfile((p) => ({ ...p, skillLevel: e.target.value as PlayerProfile['skillLevel'] }))
+              setProfile((p) => ({
+                ...p,
+                skillLevel: e.target.value as PlayerProfile['skillLevel'],
+              }))
             }
             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-sm"
           >

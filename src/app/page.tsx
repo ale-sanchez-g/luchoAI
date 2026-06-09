@@ -16,18 +16,16 @@ const FEATURES = [
   {
     icon: '⚽',
     title: 'Skill Development',
-    description:
-      'From basic dribbling to advanced tactics — grow every aspect of your game.',
+    description: 'From basic dribbling to advanced tactics — grow every aspect of your game.',
   },
   {
     icon: '💪',
     title: 'Built for Young Players',
-    description:
-      'Encouraging, age-appropriate coaching designed for players aged 8–18.',
+    description: 'Encouraging, age-appropriate coaching designed for players aged 8–18.',
   },
 ];
 
-export default function HomePage(): JSX.Element {
+export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pitch-dark via-pitch-green to-green-400">
       <div className="max-w-4xl mx-auto px-4 py-16">

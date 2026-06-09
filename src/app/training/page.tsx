@@ -7,7 +7,7 @@ import TrainingPlanView from '@/components/TrainingPlan';
 import ApiKeySetup from '@/components/ApiKeySetup';
 import Header from '@/components/Header';
 
-export default function TrainingPage(): JSX.Element {
+export default function TrainingPage() {
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [playerProfile, setPlayerProfile] = useState<PlayerProfile | null>(null);
   const [ready, setReady] = useState(false);

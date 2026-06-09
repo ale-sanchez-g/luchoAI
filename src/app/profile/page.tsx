@@ -7,7 +7,7 @@ import PlayerProfileForm from '@/components/PlayerProfile';
 import ApiKeySetup from '@/components/ApiKeySetup';
 import Header from '@/components/Header';
 
-export default function ProfilePage(): JSX.Element {
+export default function ProfilePage() {
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [playerProfile, setPlayerProfile] = useState<PlayerProfile | null>(null);
   const [saved, setSaved] = useState(false);

@@ -9,10 +9,7 @@ interface TrainingPlanViewProps {
   playerProfile: PlayerProfile | null;
 }
 
-export default function TrainingPlanView({
-  apiKey,
-  playerProfile,
-}: TrainingPlanViewProps): JSX.Element {
+export default function TrainingPlanView({ apiKey, playerProfile }: TrainingPlanViewProps) {
   const [plan, setPlan] = useState<TrainingPlan | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
