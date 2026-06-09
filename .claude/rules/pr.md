@@ -2,10 +2,11 @@
 
 ## Before Opening a PR
 
-- All tests must pass locally.
-- No linting errors.
+- `npm run lint` must pass with zero errors.
+- `npm run build` must succeed (catches static-export issues).
+- `npm test` must pass.
 - No new `console.log` statements left in code.
-- `.env` or secrets must never be committed.
+- `.env.local` or any file containing `sk-ant-` keys must never be committed.
 
 ## PR Title
 
@@ -15,6 +16,8 @@ feat(scope): short description
 fix(scope): short description
 chore(scope): short description
 ```
+
+Scopes: `coach`, `training`, `profile`, `ui`, `ci`, `docs`, `deps`
 
 ## PR Description Template
 
@@ -26,8 +29,10 @@ chore(scope): short description
 - List key changes
 
 ## Test Plan
-- [ ] Unit tests added/updated
-- [ ] Manual testing steps described
+- [ ] `npm run build` passes
+- [ ] `npm test` passes
+- [ ] Manually tested in browser
+- [ ] AI interactions tested end-to-end (if touching claude.ts or prompts.ts)
 
 ## Screenshots (if UI change)
 ```
