@@ -1,40 +1,28 @@
-# Claude Code Repository Template
+# LuchoAI ⚽
 
-A batteries-included template for projects that use [Claude Code](https://claude.ai/code) as an AI coding assistant.
+An AI-augmented coaching platform for young football (soccer) players aged 8–18. Get personalized training plans, technical skill advice, and tactical guidance powered by Claude AI.
 
-## What's Included
+## Features
 
-| Path | Purpose |
-|------|---------|
-| `CLAUDE.md` | Project overview loaded every Claude session |
-| `CLAUDE.local.md` | Local/personal overrides (gitignored) |
-| `.mcp.json` | MCP server integrations (GitHub, Postgres, Slack) |
-| `.claude/settings.json` | Permissions, env vars, hooks |
-| `.claude/rules/` | Coding standards Claude must follow |
-| `.claude/commands/` | Custom slash commands (`/project:review`, `/project:deploy`) |
-| `.claude/skills/` | Auto-triggered skill modules |
-| `.claude/agents/` | Specialised sub-agents (`@code-reviewer`, `@security-auditor`) |
-| `.claude/hooks/` | Shell hooks that run on tool events |
+- **AI Coach Chat** — Ask your personal AI coach anything about football, technique, and tactics
+- **Training Plan Generator** — Generate a personalized weekly training plan based on your position and skill level
+- **Player Profile** — Set up your profile so coaching is tailored to your age, position, and goals
 
 ## Quick Start
 
-1. **Use this template** — click "Use this template" on GitHub.
-2. **Edit `CLAUDE.md`** — fill in your project's tech stack, architecture, and conventions.
-3. **Configure `.mcp.json`** — remove integrations you don't need; set env vars for those you do.
-4. **Review `.claude/settings.json`** — adjust allowed/denied bash commands to match your toolchain.
-5. **Customise the rules** — update `.claude/rules/` to match your team's standards.
-
-## Gitignore Recommendations
-
-Add these to your `.gitignore`:
-
-```
-CLAUDE.local.md
-.claude/settings.local.json
-.env
+```bash
+npm install
+npm run dev
 ```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) and enter your [Anthropic API key](https://console.anthropic.com) to start.
 
-- [Claude Code Docs](https://docs.anthropic.com/claude-code)
-- [MCP Servers](https://modelcontextprotocol.io)
+## Deploy
+
+This app is deployed as a static site on GitHub Pages. Enable GitHub Pages in repo **Settings → Pages → Source: GitHub Actions**, then push to `main`.
+
+Live URL: `https://ale-sanchez-g.github.io/luchoAI/`
+
+## Development
+
+See [CLAUDE.md](./CLAUDE.md) for full architecture, conventions, and AI integration details.
