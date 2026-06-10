@@ -2,11 +2,15 @@
 
 An AI-augmented coaching platform for young football (soccer) players aged 8–18. Get personalized training plans, technical skill advice, and tactical guidance powered by Claude AI.
 
+![LuchoAI home page](public/screenshot-home.png)
+
 ## Features
 
 - **AI Coach Chat** — Ask your personal AI coach anything about football, technique, and tactics
 - **Training Plan Generator** — Generate a personalized weekly training plan based on your position and skill level
 - **Player Profile** — Set up your profile so coaching is tailored to your age, position, and goals
+
+![AI Coach setup screen](public/screenshot-coach.png)
 
 ## Quick Start
 
