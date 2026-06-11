@@ -1,6 +1,10 @@
 import { sendMessage, generateTrainingPlan } from '@/lib/claude';
 import type { Message, PlayerProfile, AIProviderConfig } from '@/types';
 
+jest.mock('jsonrepair', () => ({
+  jsonrepair: jest.fn((s: string) => s),
+}));
+
 const mockCreate = jest.fn();
 jest.mock('@anthropic-ai/sdk', () =>
   jest.fn().mockImplementation(() => ({
@@ -284,6 +288,25 @@ describe('generateTrainingPlan', () => {
       });
 
       const plan = await generateTrainingPlan(HF_CONFIG, SAMPLE_PROFILE);
+      expect(plan.weeklyGoal).toBe('Improve dribbling');
+    });
+
+    it('repairs malformed JSON via jsonrepair before parsing', async () => {
+      const { jsonrepair: mockRepair } = jest.requireMock('jsonrepair') as {
+        jsonrepair: jest.Mock;
+      };
+      // Simulate model output with a trailing comma (invalid JSON that jsonrepair would fix)
+      const brokenJson = JSON.stringify(VALID_PLAN).replace(
+        '"Focus on your weaker foot"',
+        '"Focus on your weaker foot",'
+      );
+      mockRepair.mockImplementationOnce(() => JSON.stringify(VALID_PLAN));
+      mockHfChatCompletion.mockResolvedValueOnce({
+        choices: [{ message: { content: brokenJson } }],
+      });
+
+      const plan = await generateTrainingPlan(HF_CONFIG, SAMPLE_PROFILE);
+      expect(mockRepair).toHaveBeenCalledWith(brokenJson);
       expect(plan.weeklyGoal).toBe('Improve dribbling');
     });
   });
