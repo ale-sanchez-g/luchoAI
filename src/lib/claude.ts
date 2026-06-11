@@ -2,8 +2,25 @@ import Anthropic from '@anthropic-ai/sdk';
 import type { Message, PlayerProfile, TrainingPlan } from '@/types';
 import { buildSystemPrompt } from './prompts';
 
+const MODEL_ID = 'claude-opus-4-8' as const;
+const MAX_CONTEXT_MESSAGES = 20;
+
 function createClient(apiKey: string): Anthropic {
   return new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
+}
+
+function validateTrainingPlan(parsed: unknown): Omit<TrainingPlan, 'generatedAt'> {
+  if (typeof parsed !== 'object' || parsed === null) {
+    throw new Error('Invalid training plan: expected an object');
+  }
+  const p = parsed as Record<string, unknown>;
+  if (typeof p.weeklyGoal !== 'string') {
+    throw new Error('Invalid training plan: weeklyGoal must be a string');
+  }
+  if (!Array.isArray(p.sessions)) {
+    throw new Error('Invalid training plan: sessions must be an array');
+  }
+  return p as Omit<TrainingPlan, 'generatedAt'>;
 }
 
 export async function sendMessage(
@@ -14,13 +31,14 @@ export async function sendMessage(
 ): Promise<string> {
   const client = createClient(apiKey);
 
+  const contextHistory = history.slice(-MAX_CONTEXT_MESSAGES);
   const messages = [
-    ...history.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
+    ...contextHistory.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
     { role: 'user' as const, content: newUserMessage },
   ];
 
   const response = await client.messages.create({
-    model: 'claude-opus-4-8',
+    model: MODEL_ID,
     max_tokens: 1024,
     system: buildSystemPrompt(playerProfile),
     messages,
@@ -38,7 +56,7 @@ export async function generateTrainingPlan(
   const client = createClient(apiKey);
 
   const response = await client.messages.create({
-    model: 'claude-opus-4-8',
+    model: MODEL_ID,
     max_tokens: 2048,
     system: buildSystemPrompt(playerProfile),
     messages: [
@@ -75,6 +93,6 @@ export async function generateTrainingPlan(
   const jsonMatch = block.text.match(/\{[\s\S]*\}/);
   if (!jsonMatch) throw new Error('No JSON found in training plan response');
 
-  const parsed = JSON.parse(jsonMatch[0]) as Omit<TrainingPlan, 'generatedAt'>;
-  return { ...parsed, generatedAt: new Date() };
+  const plan = validateTrainingPlan(JSON.parse(jsonMatch[0]));
+  return { ...plan, generatedAt: new Date() };
 }

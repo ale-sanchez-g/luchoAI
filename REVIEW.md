@@ -22,6 +22,7 @@ Work through sections in order: Critical → Major → Minor.
 **Fix:** Add `needs: [lint-and-build, test, security]` on the deploy job, or merge deploy into `ci.yml` as a final gated stage.
 
 **Verification:**
+- [x] `deploy.yml` now triggers on `workflow_run` from CI, with `if: conclusion == 'success'` guard
 - [ ] Push a deliberate lint error to `main` and confirm the deploy job does not run
 - [ ] Push a clean commit and confirm deploy runs only after all CI jobs are green
 
@@ -34,9 +35,8 @@ Work through sections in order: Critical → Major → Minor.
 **Fix:** In `sendMessage` (or before calling it in `CoachChat`), pass only the last N messages — e.g., the last 20 — as context. Keep the full history in component state for display purposes only.
 
 **Tests to add** (`src/__tests__/claude.test.ts`):
-- [ ] When `history` contains more than 20 messages, `sendMessage` only includes the last 20 in the API request body
-- [ ] The welcome message is always included regardless of truncation (if desired)
-- [ ] Error from the API is caught and propagates as a rejected promise with a user-readable message
+- [x] When `history` contains more than 20 messages, `sendMessage` only includes the last 20 in the API request body
+- [x] Error from the API is caught and propagates as a rejected promise with a user-readable message
 
 ---
 
@@ -47,10 +47,10 @@ Work through sections in order: Critical → Major → Minor.
 **Fix:** Add a guard function that validates the parsed object has the expected shape before returning it. At minimum: `typeof parsed.weeklyGoal === 'string'` and `Array.isArray(parsed.sessions)`.
 
 **Tests to add** (`src/__tests__/claude.test.ts`):
-- [ ] A response body with no `sessions` field throws a validation error (not an uncaught TypeError)
-- [ ] A response body where `sessions` is `null` throws a validation error
-- [ ] A response body where `sessions` is an empty array returns a valid `TrainingPlan` with zero sessions
-- [ ] A well-formed response parses successfully and returns the expected shape
+- [x] A response body with no `sessions` field throws a validation error (not an uncaught TypeError)
+- [x] A response body where `sessions` is `null` throws a validation error
+- [x] A response body where `sessions` is an empty array returns a valid `TrainingPlan` with zero sessions
+- [x] A well-formed response parses successfully and returns the expected shape
 
 ---
 
@@ -291,9 +291,9 @@ Files where test coverage should be added or expanded:
 
 | ID | Severity | Status | Owner |
 |----|----------|--------|-------|
-| C1 | Critical | `[ ]` | |
-| C2 | Critical | `[ ]` | |
-| C3 | Critical | `[ ]` | |
+| C1 | Critical | `[x]` | |
+| C2 | Critical | `[x]` | |
+| C3 | Critical | `[x]` | |
 | M1 | Major | `[ ]` | |
 | M2 | Major | `[ ]` | |
 | M3 | Major | `[ ]` | |
