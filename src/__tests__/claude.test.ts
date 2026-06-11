@@ -189,10 +189,15 @@ describe('generateTrainingPlan', () => {
     ],
   };
 
+  // Anthropic uses assistant prefill: the model continues from '{', so mock text omits the leading '{'
+  function withoutOpeningBrace(plan: object): string {
+    return JSON.stringify(plan).slice(1);
+  }
+
   describe('anthropic provider', () => {
     it('throws a validation error when the response has no sessions field', async () => {
       mockCreate.mockResolvedValueOnce({
-        content: [{ type: 'text', text: JSON.stringify({ weeklyGoal: 'Get fit' }) }],
+        content: [{ type: 'text', text: withoutOpeningBrace({ weeklyGoal: 'Get fit' }) }],
       });
 
       await expect(generateTrainingPlan(ANTHROPIC_CONFIG, SAMPLE_PROFILE)).rejects.toThrow(
@@ -202,7 +207,7 @@ describe('generateTrainingPlan', () => {
 
     it('parses a well-formed response and returns the expected shape', async () => {
       mockCreate.mockResolvedValueOnce({
-        content: [{ type: 'text', text: JSON.stringify(VALID_PLAN) }],
+        content: [{ type: 'text', text: withoutOpeningBrace(VALID_PLAN) }],
       });
 
       const plan = await generateTrainingPlan(ANTHROPIC_CONFIG, SAMPLE_PROFILE);
@@ -214,9 +219,7 @@ describe('generateTrainingPlan', () => {
 
     it('returns a valid TrainingPlan when sessions is an empty array', async () => {
       mockCreate.mockResolvedValueOnce({
-        content: [
-          { type: 'text', text: JSON.stringify({ weeklyGoal: 'Rest week', sessions: [] }) },
-        ],
+        content: [{ type: 'text', text: withoutOpeningBrace({ weeklyGoal: 'Rest week', sessions: [] }) }],
       });
 
       const plan = await generateTrainingPlan(ANTHROPIC_CONFIG, SAMPLE_PROFILE);
@@ -224,24 +227,19 @@ describe('generateTrainingPlan', () => {
       expect(plan.sessions).toEqual([]);
     });
 
-    it('extracts JSON wrapped in a markdown code fence', async () => {
-      const fenced = `Here is your plan:\n\`\`\`json\n${JSON.stringify(VALID_PLAN)}\n\`\`\``;
+    it('sends the assistant prefill message to force JSON output', async () => {
       mockCreate.mockResolvedValueOnce({
-        content: [{ type: 'text', text: fenced }],
+        content: [{ type: 'text', text: withoutOpeningBrace(VALID_PLAN) }],
       });
 
-      const plan = await generateTrainingPlan(ANTHROPIC_CONFIG, SAMPLE_PROFILE);
-      expect(plan.weeklyGoal).toBe('Improve dribbling');
-    });
+      await generateTrainingPlan(ANTHROPIC_CONFIG, SAMPLE_PROFILE);
 
-    it('extracts JSON preceded by explanatory text using brace-depth tracking', async () => {
-      const withPreamble = `Sure! Here is the plan:\n${JSON.stringify(VALID_PLAN)}\nHope that helps!`;
-      mockCreate.mockResolvedValueOnce({
-        content: [{ type: 'text', text: withPreamble }],
-      });
-
-      const plan = await generateTrainingPlan(ANTHROPIC_CONFIG, SAMPLE_PROFILE);
-      expect(plan.weeklyGoal).toBe('Improve dribbling');
+      const { messages } = mockCreate.mock.calls[0][0] as {
+        messages: { role: string; content: string }[];
+      };
+      const last = messages[messages.length - 1];
+      expect(last.role).toBe('assistant');
+      expect(last.content).toBe('{');
     });
   });
 
@@ -254,6 +252,17 @@ describe('generateTrainingPlan', () => {
       const plan = await generateTrainingPlan(OPENAI_CONFIG, SAMPLE_PROFILE);
       expect(plan.weeklyGoal).toBe('Improve dribbling');
       expect(plan.generatedAt).toBeInstanceOf(Date);
+    });
+
+    it('requests json_object response_format', async () => {
+      mockOpenAICreate.mockResolvedValueOnce({
+        choices: [{ message: { content: JSON.stringify(VALID_PLAN) } }],
+      });
+
+      await generateTrainingPlan(OPENAI_CONFIG, SAMPLE_PROFILE);
+
+      const callArgs = mockOpenAICreate.mock.calls[0][0] as { response_format: unknown };
+      expect(callArgs.response_format).toEqual({ type: 'json_object' });
     });
   });
 
