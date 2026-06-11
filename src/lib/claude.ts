@@ -23,24 +23,29 @@ function validateTrainingPlan(parsed: unknown): Omit<TrainingPlan, 'generatedAt'
   return p as Omit<TrainingPlan, 'generatedAt'>;
 }
 
-const TRAINING_PLAN_PROMPT = `Create a detailed 1-week training plan for me. Include 4 sessions with specific drills, durations, and coaching points. Respond with only valid JSON matching this exact shape, no markdown:
+const TRAINING_PLAN_PROMPT = `Create a personalised 1-week football training plan with exactly 4 sessions.
+
+Output ONLY a single raw JSON object — no markdown, no code fences, no text before or after the JSON.
+Your entire response must start with { and end with }.
+
+Required JSON schema (all fields are required):
 {
-  "weeklyGoal": "string",
+  "weeklyGoal": "One sentence describing the week's main focus",
   "sessions": [
     {
-      "id": "string",
-      "title": "string",
+      "id": "session-1",
+      "title": "Session name",
       "duration": 60,
-      "focus": "string",
+      "focus": "Main technical focus",
       "drills": [
         {
-          "name": "string",
+          "name": "Drill name",
           "duration": 10,
-          "description": "string",
-          "coachingPoints": ["string"]
+          "description": "What to do",
+          "coachingPoints": ["Coaching tip 1", "Coaching tip 2"]
         }
       ],
-      "notes": "string"
+      "notes": "Overall session tip"
     }
   ]
 }`;
@@ -74,17 +79,20 @@ async function generateTrainingPlanAnthropic(
   playerProfile: PlayerProfile,
 ): Promise<TrainingPlan> {
   const client = new Anthropic({ apiKey: config.apiKey, dangerouslyAllowBrowser: true });
+  // Prefill the assistant turn with '{' so the model is forced to continue the JSON object
   const response = await client.messages.create({
     model: config.model,
     max_tokens: 2048,
     system: buildSystemPrompt(playerProfile),
-    messages: [{ role: 'user', content: TRAINING_PLAN_PROMPT }],
+    messages: [
+      { role: 'user', content: TRAINING_PLAN_PROMPT },
+      { role: 'assistant', content: '{' },
+    ],
   });
   const block = response.content[0];
   if (block.type !== 'text') throw new Error('Unexpected response type');
-  const jsonMatch = block.text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error('No JSON found in training plan response');
-  const plan = validateTrainingPlan(JSON.parse(jsonMatch[0]));
+  // The model continues from the prefill '{', so we prepend it back
+  const plan = validateTrainingPlan(JSON.parse('{' + block.text));
   return { ...plan, generatedAt: new Date() };
 }
 
@@ -120,6 +128,7 @@ async function generateTrainingPlanOpenAI(
   const response = await client.chat.completions.create({
     model: config.model,
     max_tokens: 2048,
+    response_format: { type: 'json_object' },
     messages: [
       { role: 'system', content: buildSystemPrompt(playerProfile) },
       { role: 'user', content: TRAINING_PLAN_PROMPT },
@@ -127,9 +136,7 @@ async function generateTrainingPlanOpenAI(
   });
   const content = response.choices[0]?.message?.content;
   if (!content) throw new Error('Empty response from OpenAI');
-  const jsonMatch = content.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error('No JSON found in training plan response');
-  const plan = validateTrainingPlan(JSON.parse(jsonMatch[0]));
+  const plan = validateTrainingPlan(JSON.parse(content));
   return { ...plan, generatedAt: new Date() };
 }
 
@@ -165,12 +172,10 @@ async function generateTrainingPlanGemini(
   const model = genAI.getGenerativeModel({
     model: config.model,
     systemInstruction: buildSystemPrompt(playerProfile),
+    generationConfig: { responseMimeType: 'application/json' },
   });
   const result = await model.generateContent(TRAINING_PLAN_PROMPT);
-  const text = result.response.text();
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error('No JSON found in training plan response');
-  const plan = validateTrainingPlan(JSON.parse(jsonMatch[0]));
+  const plan = validateTrainingPlan(JSON.parse(result.response.text()));
   return { ...plan, generatedAt: new Date() };
 }
 
@@ -213,9 +218,7 @@ async function generateTrainingPlanHuggingFace(
   });
   const content = response.choices[0]?.message?.content;
   if (!content) throw new Error('Empty response from Hugging Face');
-  const jsonMatch = content.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error('No JSON found in training plan response');
-  const plan = validateTrainingPlan(JSON.parse(jsonMatch[0]));
+  const plan = validateTrainingPlan(JSON.parse(content));
   return { ...plan, generatedAt: new Date() };
 }
 
