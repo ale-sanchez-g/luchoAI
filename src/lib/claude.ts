@@ -7,6 +7,27 @@ import { buildSystemPrompt } from './prompts';
 
 const MAX_CONTEXT_MESSAGES = 20;
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function extractJSON(text: string): string {
+  // Prefer JSON inside a markdown code fence (```json ... ``` or ``` ... ```)
+  const fenceMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+  if (fenceMatch) return fenceMatch[1];
+
+  // Find the outermost JSON object by tracking brace depth instead of a greedy regex
+  const start = text.indexOf('{');
+  if (start === -1) throw new Error('No JSON object found in response');
+  let depth = 0;
+  for (let i = start; i < text.length; i++) {
+    if (text[i] === '{') depth++;
+    else if (text[i] === '}') {
+      depth--;
+      if (depth === 0) return text.slice(start, i + 1);
+    }
+  }
+  throw new Error('Unterminated JSON object in response');
+}
+
 // ─── Validation ───────────────────────────────────────────────────────────────
 
 function validateTrainingPlan(parsed: unknown): Omit<TrainingPlan, 'generatedAt'> {
@@ -82,9 +103,7 @@ async function generateTrainingPlanAnthropic(
   });
   const block = response.content[0];
   if (block.type !== 'text') throw new Error('Unexpected response type');
-  const jsonMatch = block.text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error('No JSON found in training plan response');
-  const plan = validateTrainingPlan(JSON.parse(jsonMatch[0]));
+  const plan = validateTrainingPlan(JSON.parse(extractJSON(block.text)));
   return { ...plan, generatedAt: new Date() };
 }
 
@@ -127,9 +146,7 @@ async function generateTrainingPlanOpenAI(
   });
   const content = response.choices[0]?.message?.content;
   if (!content) throw new Error('Empty response from OpenAI');
-  const jsonMatch = content.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error('No JSON found in training plan response');
-  const plan = validateTrainingPlan(JSON.parse(jsonMatch[0]));
+  const plan = validateTrainingPlan(JSON.parse(extractJSON(content)));
   return { ...plan, generatedAt: new Date() };
 }
 
@@ -168,9 +185,7 @@ async function generateTrainingPlanGemini(
   });
   const result = await model.generateContent(TRAINING_PLAN_PROMPT);
   const text = result.response.text();
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error('No JSON found in training plan response');
-  const plan = validateTrainingPlan(JSON.parse(jsonMatch[0]));
+  const plan = validateTrainingPlan(JSON.parse(extractJSON(text)));
   return { ...plan, generatedAt: new Date() };
 }
 
@@ -213,9 +228,7 @@ async function generateTrainingPlanHuggingFace(
   });
   const content = response.choices[0]?.message?.content;
   if (!content) throw new Error('Empty response from Hugging Face');
-  const jsonMatch = content.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) throw new Error('No JSON found in training plan response');
-  const plan = validateTrainingPlan(JSON.parse(jsonMatch[0]));
+  const plan = validateTrainingPlan(JSON.parse(extractJSON(content)));
   return { ...plan, generatedAt: new Date() };
 }
 

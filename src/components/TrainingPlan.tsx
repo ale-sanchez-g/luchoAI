@@ -21,8 +21,9 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
     try {
       const generated = await generateTrainingPlan(providerConfig, playerProfile);
       setPlan(generated);
-    } catch {
-      setError('Could not generate training plan. Please try again.');
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : String(err);
+      setError(`Could not generate training plan: ${detail}`);
     } finally {
       setLoading(false);
     }

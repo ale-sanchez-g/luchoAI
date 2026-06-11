@@ -223,6 +223,26 @@ describe('generateTrainingPlan', () => {
       expect(plan.weeklyGoal).toBe('Rest week');
       expect(plan.sessions).toEqual([]);
     });
+
+    it('extracts JSON wrapped in a markdown code fence', async () => {
+      const fenced = `Here is your plan:\n\`\`\`json\n${JSON.stringify(VALID_PLAN)}\n\`\`\``;
+      mockCreate.mockResolvedValueOnce({
+        content: [{ type: 'text', text: fenced }],
+      });
+
+      const plan = await generateTrainingPlan(ANTHROPIC_CONFIG, SAMPLE_PROFILE);
+      expect(plan.weeklyGoal).toBe('Improve dribbling');
+    });
+
+    it('extracts JSON preceded by explanatory text using brace-depth tracking', async () => {
+      const withPreamble = `Sure! Here is the plan:\n${JSON.stringify(VALID_PLAN)}\nHope that helps!`;
+      mockCreate.mockResolvedValueOnce({
+        content: [{ type: 'text', text: withPreamble }],
+      });
+
+      const plan = await generateTrainingPlan(ANTHROPIC_CONFIG, SAMPLE_PROFILE);
+      expect(plan.weeklyGoal).toBe('Improve dribbling');
+    });
   });
 
   describe('openai provider', () => {
