@@ -1,5 +1,46 @@
 # LuchoAI — Code Review Action Plan
 
+---
+
+## Multi-Provider AI Feature (branch `claude/multi-provider-ai-selection-1pqlo6`)
+
+This section summarises the changes introduced by the multi-provider AI selection feature.
+
+### What changed
+
+- `src/types/index.ts` — Added `AIProvider` union type and `AIProviderConfig` interface
+- `src/lib/providers.ts` — New file: provider + model registry (Anthropic, OpenAI, Gemini, Hugging Face)
+- `src/lib/storage.ts` — Added `getProviderConfig` / `setProviderConfig` / `clearProviderConfig`; legacy `luchoai_api_key` is still read as a fallback for backwards compatibility
+- `src/lib/claude.ts` — Replaced single-provider Anthropic client with a unified multi-provider dispatcher; public API signature changed from `(apiKey, ...)` to `(providerConfig, ...)`
+- `src/components/ApiKeySetup.tsx` — Replaced simple key input with provider + model selector UI
+- `src/components/CoachChat.tsx`, `TrainingPlan.tsx` — Props updated from `apiKey: string` to `providerConfig: AIProviderConfig`
+- `src/app/coach/page.tsx`, `training/page.tsx`, `profile/page.tsx` — State migrated from `apiKey` to `providerConfig`; coach page gains a "Switch" button
+- `src/__tests__/storage.test.ts`, `claude.test.ts` — Tests updated and expanded for all four providers
+- `.github/workflows/ci.yml` — Secrets scan extended to cover OpenAI and Hugging Face key patterns
+- `README.md` — Updated with provider table and revised architecture section
+
+### New dependency surface
+
+Three new browser-compatible SDKs are added:
+
+| Package | Version | Notes |
+|---|---|---|
+| `openai` | latest | `dangerouslyAllowBrowser: true` required |
+| `@google/generative-ai` | latest | No extra flags needed for browser use |
+| `@huggingface/inference` | latest | Uses `chatCompletion` — requires models that support the Messages API |
+
+### Storage migration
+
+`getProviderConfig()` reads `luchoai_provider_config` first. If absent it falls back to `luchoai_api_key` and returns a synthetic Anthropic config, so existing users are not logged out on upgrade.
+
+### Areas to watch
+
+- **CORS for Hugging Face**: some HF model endpoints enforce origin restrictions in certain regions; users may see network errors on models that do not support browser-direct inference. Mitigation: document this in the UI or add a proxy option in a future iteration.
+- **Key validation for Gemini**: the current check is `key.length > 20`, which is intentionally permissive because Google AI Studio keys do not follow a fixed prefix. A more precise check could be added once the key format stabilises.
+- **Model IDs drift**: provider model IDs are hardcoded in `providers.ts`. If providers rename or deprecate models the hardcoded IDs will silently fail at runtime. Consider fetching the model list dynamically or adding a fallback error message.
+
+---
+
 Generated from engineering manager review of branch `claude/claude-md-docs-mmeq4j`.
 Work through sections in order: Critical → Major → Minor.
 

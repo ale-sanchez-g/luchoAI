@@ -37,3 +37,4 @@ next-env.d.ts
 # Claude local overrides (machine-specific, not committed)
 CLAUDE.local.md
 .claude/settings.local.json
+.claude/worktrees/

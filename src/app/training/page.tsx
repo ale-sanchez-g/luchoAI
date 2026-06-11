@@ -1,34 +1,34 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getApiKey, getPlayerProfile } from '@/lib/storage';
-import type { PlayerProfile } from '@/types';
+import { getProviderConfig, getPlayerProfile } from '@/lib/storage';
+import type { PlayerProfile, AIProviderConfig } from '@/types';
 import TrainingPlanView from '@/components/TrainingPlan';
 import ApiKeySetup from '@/components/ApiKeySetup';
 import Header from '@/components/Header';
 
 export default function TrainingPage() {
-  const [apiKey, setApiKey] = useState<string | null>(null);
+  const [providerConfig, setProviderConfig] = useState<AIProviderConfig | null>(null);
   const [playerProfile, setPlayerProfile] = useState<PlayerProfile | null>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setApiKey(getApiKey());
+    setProviderConfig(getProviderConfig());
     setPlayerProfile(getPlayerProfile());
     setReady(true);
   }, []);
 
   if (!ready) return <div className="min-h-screen bg-gray-50" />;
 
-  if (!apiKey) {
-    return <ApiKeySetup onKeySet={() => setApiKey(getApiKey())} />;
+  if (!providerConfig) {
+    return <ApiKeySetup onKeySet={() => setProviderConfig(getProviderConfig())} />;
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
       <main className="max-w-2xl mx-auto px-4 py-8">
-        <TrainingPlanView apiKey={apiKey} playerProfile={playerProfile} />
+        <TrainingPlanView providerConfig={providerConfig} playerProfile={playerProfile} />
       </main>
     </div>
   );

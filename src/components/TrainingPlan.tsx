@@ -1,15 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import type { TrainingPlan, PlayerProfile } from '@/types';
+import type { TrainingPlan, PlayerProfile, AIProviderConfig } from '@/types';
 import { generateTrainingPlan } from '@/lib/claude';
 
 interface TrainingPlanViewProps {
-  apiKey: string;
+  providerConfig: AIProviderConfig;
   playerProfile: PlayerProfile | null;
 }
 
-export default function TrainingPlanView({ apiKey, playerProfile }: TrainingPlanViewProps) {
+export default function TrainingPlanView({ providerConfig, playerProfile }: TrainingPlanViewProps) {
   const [plan, setPlan] = useState<TrainingPlan | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -19,7 +19,7 @@ export default function TrainingPlanView({ apiKey, playerProfile }: TrainingPlan
     setLoading(true);
     setError('');
     try {
-      const generated = await generateTrainingPlan(apiKey, playerProfile);
+      const generated = await generateTrainingPlan(providerConfig, playerProfile);
       setPlan(generated);
     } catch {
       setError('Could not generate training plan. Please try again.');

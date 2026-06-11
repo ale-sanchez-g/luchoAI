@@ -1,5 +1,5 @@
 import { sendMessage, generateTrainingPlan } from '@/lib/claude';
-import type { Message, PlayerProfile } from '@/types';
+import type { Message, PlayerProfile, AIProviderConfig } from '@/types';
 
 const mockCreate = jest.fn();
 jest.mock('@anthropic-ai/sdk', () =>
@@ -7,6 +7,55 @@ jest.mock('@anthropic-ai/sdk', () =>
     messages: { create: mockCreate },
   }))
 );
+
+const mockOpenAICreate = jest.fn();
+jest.mock('openai', () =>
+  jest.fn().mockImplementation(() => ({
+    chat: { completions: { create: mockOpenAICreate } },
+  }))
+);
+
+const mockGeminiGenerateContent = jest.fn();
+const mockGeminiSendMessage = jest.fn();
+jest.mock('@google/generative-ai', () => ({
+  GoogleGenerativeAI: jest.fn().mockImplementation(() => ({
+    getGenerativeModel: jest.fn().mockReturnValue({
+      generateContent: mockGeminiGenerateContent,
+      startChat: jest.fn().mockReturnValue({ sendMessage: mockGeminiSendMessage }),
+    }),
+  })),
+}));
+
+const mockHfChatCompletion = jest.fn();
+jest.mock('@huggingface/inference', () => ({
+  HfInference: jest.fn().mockImplementation(() => ({
+    chatCompletion: mockHfChatCompletion,
+  })),
+}));
+
+const ANTHROPIC_CONFIG: AIProviderConfig = {
+  provider: 'anthropic',
+  model: 'claude-opus-4-8',
+  apiKey: 'sk-ant-key',
+};
+
+const OPENAI_CONFIG: AIProviderConfig = {
+  provider: 'openai',
+  model: 'gpt-4o',
+  apiKey: 'sk-openai-key',
+};
+
+const GEMINI_CONFIG: AIProviderConfig = {
+  provider: 'gemini',
+  model: 'gemini-2.0-flash',
+  apiKey: 'AIza-test-key',
+};
+
+const HF_CONFIG: AIProviderConfig = {
+  provider: 'huggingface',
+  model: 'mistralai/Mistral-7B-Instruct-v0.3',
+  apiKey: 'hf_test-key',
+};
 
 const SAMPLE_PROFILE: PlayerProfile = {
   name: 'Lucho',
@@ -29,111 +78,184 @@ function makeHistory(count: number): Message[] {
 describe('sendMessage', () => {
   beforeEach(() => {
     mockCreate.mockClear();
+    mockOpenAICreate.mockClear();
+    mockGeminiSendMessage.mockClear();
+    mockHfChatCompletion.mockClear();
   });
 
-  it('passes only the last 20 messages from history when history exceeds 20', async () => {
-    mockCreate.mockResolvedValueOnce({
-      content: [{ type: 'text', text: 'Great question!' }],
+  describe('anthropic provider', () => {
+    it('passes only the last 20 messages from history when history exceeds 20', async () => {
+      mockCreate.mockResolvedValueOnce({
+        content: [{ type: 'text', text: 'Great question!' }],
+      });
+      const history = makeHistory(25);
+
+      await sendMessage(ANTHROPIC_CONFIG, history, 'new message', null);
+
+      const { messages } = mockCreate.mock.calls[0][0] as { messages: { content: string }[] };
+      expect(messages).toHaveLength(21);
+      expect(messages[0].content).toBe('Message 5');
+      expect(messages[20].content).toBe('new message');
     });
-    const history = makeHistory(25);
 
-    await sendMessage('sk-ant-key', history, 'new message', null);
+    it('includes all messages when history is within the 20-message limit', async () => {
+      mockCreate.mockResolvedValueOnce({
+        content: [{ type: 'text', text: 'Sure!' }],
+      });
 
-    const { messages } = mockCreate.mock.calls[0][0] as { messages: { content: string }[] };
-    // 20 from history + 1 new user message = 21 total
-    expect(messages).toHaveLength(21);
-    // history[5] is the first message included (messages 0–4 dropped)
-    expect(messages[0].content).toBe('Message 5');
-    // last entry is the new user message
-    expect(messages[20].content).toBe('new message');
-  });
+      await sendMessage(ANTHROPIC_CONFIG, makeHistory(10), 'new message', null);
 
-  it('includes all messages when history is within the 20-message limit', async () => {
-    mockCreate.mockResolvedValueOnce({
-      content: [{ type: 'text', text: 'Sure!' }],
+      const { messages } = mockCreate.mock.calls[0][0] as { messages: unknown[] };
+      expect(messages).toHaveLength(11);
     });
-    const history = makeHistory(10);
 
-    await sendMessage('sk-ant-key', history, 'new message', null);
+    it('propagates API errors as a rejected promise', async () => {
+      mockCreate.mockRejectedValueOnce(new Error('Rate limit exceeded'));
 
-    const { messages } = mockCreate.mock.calls[0][0] as { messages: unknown[] };
-    expect(messages).toHaveLength(11);
+      await expect(sendMessage(ANTHROPIC_CONFIG, [], 'hello', null)).rejects.toThrow(
+        'Rate limit exceeded'
+      );
+    });
   });
 
-  it('propagates API errors as a rejected promise', async () => {
-    mockCreate.mockRejectedValueOnce(new Error('Rate limit exceeded'));
+  describe('openai provider', () => {
+    it('sends message using OpenAI and returns content', async () => {
+      mockOpenAICreate.mockResolvedValueOnce({
+        choices: [{ message: { content: 'OpenAI response' } }],
+      });
 
-    await expect(sendMessage('sk-ant-key', [], 'hello', null)).rejects.toThrow(
-      'Rate limit exceeded'
-    );
+      const result = await sendMessage(OPENAI_CONFIG, [], 'hello', null);
+      expect(result).toBe('OpenAI response');
+    });
+
+    it('throws when OpenAI returns empty content', async () => {
+      mockOpenAICreate.mockResolvedValueOnce({ choices: [{ message: { content: null } }] });
+
+      await expect(sendMessage(OPENAI_CONFIG, [], 'hello', null)).rejects.toThrow(
+        'Empty response from OpenAI'
+      );
+    });
+  });
+
+  describe('gemini provider', () => {
+    it('sends message using Gemini and returns text', async () => {
+      mockGeminiSendMessage.mockResolvedValueOnce({
+        response: { text: () => 'Gemini response' },
+      });
+
+      const result = await sendMessage(GEMINI_CONFIG, [], 'hello', null);
+      expect(result).toBe('Gemini response');
+    });
+  });
+
+  describe('huggingface provider', () => {
+    it('sends message using HuggingFace and returns content', async () => {
+      mockHfChatCompletion.mockResolvedValueOnce({
+        choices: [{ message: { content: 'HF response' } }],
+      });
+
+      const result = await sendMessage(HF_CONFIG, [], 'hello', null);
+      expect(result).toBe('HF response');
+    });
   });
 });
 
 describe('generateTrainingPlan', () => {
   beforeEach(() => {
     mockCreate.mockClear();
+    mockOpenAICreate.mockClear();
+    mockGeminiGenerateContent.mockClear();
+    mockHfChatCompletion.mockClear();
   });
 
-  function mockApiResponse(json: unknown): void {
-    mockCreate.mockResolvedValueOnce({
-      content: [{ type: 'text', text: JSON.stringify(json) }],
+  const VALID_PLAN = {
+    weeklyGoal: 'Improve dribbling',
+    sessions: [
+      {
+        id: 's1',
+        title: 'Dribbling session',
+        duration: 60,
+        focus: 'Ball control',
+        drills: [
+          {
+            name: 'Cone weave',
+            duration: 10,
+            description: 'Weave through cones',
+            coachingPoints: ['Keep the ball close'],
+          },
+        ],
+        notes: 'Focus on your weaker foot',
+      },
+    ],
+  };
+
+  describe('anthropic provider', () => {
+    it('throws a validation error when the response has no sessions field', async () => {
+      mockCreate.mockResolvedValueOnce({
+        content: [{ type: 'text', text: JSON.stringify({ weeklyGoal: 'Get fit' }) }],
+      });
+
+      await expect(generateTrainingPlan(ANTHROPIC_CONFIG, SAMPLE_PROFILE)).rejects.toThrow(
+        /sessions/
+      );
     });
-  }
 
-  it('throws a validation error when the response has no sessions field', async () => {
-    mockApiResponse({ weeklyGoal: 'Get fit' });
+    it('parses a well-formed response and returns the expected shape', async () => {
+      mockCreate.mockResolvedValueOnce({
+        content: [{ type: 'text', text: JSON.stringify(VALID_PLAN) }],
+      });
 
-    await expect(generateTrainingPlan('sk-ant-key', SAMPLE_PROFILE)).rejects.toThrow(
-      /sessions/
-    );
+      const plan = await generateTrainingPlan(ANTHROPIC_CONFIG, SAMPLE_PROFILE);
+
+      expect(plan.weeklyGoal).toBe('Improve dribbling');
+      expect(plan.sessions).toHaveLength(1);
+      expect(plan.generatedAt).toBeInstanceOf(Date);
+    });
+
+    it('returns a valid TrainingPlan when sessions is an empty array', async () => {
+      mockCreate.mockResolvedValueOnce({
+        content: [
+          { type: 'text', text: JSON.stringify({ weeklyGoal: 'Rest week', sessions: [] }) },
+        ],
+      });
+
+      const plan = await generateTrainingPlan(ANTHROPIC_CONFIG, SAMPLE_PROFILE);
+      expect(plan.weeklyGoal).toBe('Rest week');
+      expect(plan.sessions).toEqual([]);
+    });
   });
 
-  it('throws a validation error when sessions is null', async () => {
-    mockApiResponse({ weeklyGoal: 'Get fit', sessions: null });
+  describe('openai provider', () => {
+    it('parses a training plan from OpenAI', async () => {
+      mockOpenAICreate.mockResolvedValueOnce({
+        choices: [{ message: { content: JSON.stringify(VALID_PLAN) } }],
+      });
 
-    await expect(generateTrainingPlan('sk-ant-key', SAMPLE_PROFILE)).rejects.toThrow(
-      /sessions/
-    );
+      const plan = await generateTrainingPlan(OPENAI_CONFIG, SAMPLE_PROFILE);
+      expect(plan.weeklyGoal).toBe('Improve dribbling');
+      expect(plan.generatedAt).toBeInstanceOf(Date);
+    });
   });
 
-  it('returns a valid TrainingPlan when sessions is an empty array', async () => {
-    mockApiResponse({ weeklyGoal: 'Rest week', sessions: [] });
+  describe('gemini provider', () => {
+    it('parses a training plan from Gemini', async () => {
+      mockGeminiGenerateContent.mockResolvedValueOnce({
+        response: { text: () => JSON.stringify(VALID_PLAN) },
+      });
 
-    const plan = await generateTrainingPlan('sk-ant-key', SAMPLE_PROFILE);
-
-    expect(plan.weeklyGoal).toBe('Rest week');
-    expect(plan.sessions).toEqual([]);
-    expect(plan.generatedAt).toBeInstanceOf(Date);
+      const plan = await generateTrainingPlan(GEMINI_CONFIG, SAMPLE_PROFILE);
+      expect(plan.weeklyGoal).toBe('Improve dribbling');
+    });
   });
 
-  it('parses a well-formed response and returns the expected shape', async () => {
-    const rawPlan = {
-      weeklyGoal: 'Improve dribbling',
-      sessions: [
-        {
-          id: 's1',
-          title: 'Dribbling session',
-          duration: 60,
-          focus: 'Ball control',
-          drills: [
-            {
-              name: 'Cone weave',
-              duration: 10,
-              description: 'Weave through cones',
-              coachingPoints: ['Keep the ball close'],
-            },
-          ],
-          notes: 'Focus on your weaker foot',
-        },
-      ],
-    };
-    mockApiResponse(rawPlan);
+  describe('huggingface provider', () => {
+    it('parses a training plan from HuggingFace', async () => {
+      mockHfChatCompletion.mockResolvedValueOnce({
+        choices: [{ message: { content: JSON.stringify(VALID_PLAN) } }],
+      });
 
-    const plan = await generateTrainingPlan('sk-ant-key', SAMPLE_PROFILE);
-
-    expect(plan.weeklyGoal).toBe('Improve dribbling');
-    expect(plan.sessions).toHaveLength(1);
-    expect(plan.sessions[0].id).toBe('s1');
-    expect(plan.generatedAt).toBeInstanceOf(Date);
+      const plan = await generateTrainingPlan(HF_CONFIG, SAMPLE_PROFILE);
+      expect(plan.weeklyGoal).toBe('Improve dribbling');
+    });
   });
 });
