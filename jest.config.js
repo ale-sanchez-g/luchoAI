@@ -12,6 +12,8 @@ const config = {
     '**/__tests__/**/*.test.ts',
     '**/__tests__/**/*.test.tsx',
   ],
+  testPathIgnorePatterns: ['/node_modules/', '/.claude/worktrees/'],
+  modulePathIgnorePatterns: ['/.claude/worktrees/'],
 };
 
 module.exports = config;
