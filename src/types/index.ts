@@ -1,3 +1,11 @@
+export type AIProvider = 'anthropic' | 'openai' | 'gemini' | 'huggingface';
+
+export interface AIProviderConfig {
+  provider: AIProvider;
+  model: string;
+  apiKey: string;
+}
+
 export interface PlayerProfile {
   name: string;
   age: number;

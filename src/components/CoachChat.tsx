@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import type { Message, PlayerProfile } from '@/types';
+import type { Message, PlayerProfile, AIProviderConfig } from '@/types';
 import { sendMessage } from '@/lib/claude';
 import MessageBubble from './MessageBubble';
 
 interface CoachChatProps {
-  apiKey: string;
+  providerConfig: AIProviderConfig;
   playerProfile: PlayerProfile | null;
 }
 
@@ -26,7 +26,7 @@ function buildWelcome(profile: PlayerProfile | null): Message {
   };
 }
 
-export default function CoachChat({ apiKey, playerProfile }: CoachChatProps) {
+export default function CoachChat({ providerConfig, playerProfile }: CoachChatProps) {
   const [messages, setMessages] = useState<Message[]>([buildWelcome(playerProfile)]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -54,7 +54,7 @@ export default function CoachChat({ apiKey, playerProfile }: CoachChatProps) {
     setError('');
 
     try {
-      const reply = await sendMessage(apiKey, messages, userMessage.content, playerProfile);
+      const reply = await sendMessage(providerConfig, messages, userMessage.content, playerProfile);
       setMessages((prev) => [
         ...prev,
         {
