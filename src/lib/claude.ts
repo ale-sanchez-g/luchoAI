@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { HfInference } from '@huggingface/inference';
+import { jsonrepair } from 'jsonrepair';
 import type { Message, PlayerProfile, TrainingPlan, AIProviderConfig } from '@/types';
 import { buildSystemPrompt } from './prompts';
 
@@ -218,7 +219,9 @@ async function generateTrainingPlanHuggingFace(
   });
   const content = response.choices[0]?.message?.content;
   if (!content) throw new Error('Empty response from Hugging Face');
-  const plan = validateTrainingPlan(JSON.parse(content));
+  // Small open-source models often produce near-valid JSON (missing commas, unescaped
+  // newlines in strings, trailing commas). jsonrepair fixes these without a custom parser.
+  const plan = validateTrainingPlan(JSON.parse(jsonrepair(content)));
   return { ...plan, generatedAt: new Date() };
 }
 
