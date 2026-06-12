@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { TrainingPlan, PlayerProfile, AIProviderConfig } from '@/types';
 import { generateTrainingPlan } from '@/lib/claude';
+import { loadContextBatches } from '@/lib/context';
+import type { ContextMessage } from '@/lib/context';
 
 interface TrainingPlanViewProps {
   providerConfig: AIProviderConfig;
@@ -13,13 +15,20 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
   const [plan, setPlan] = useState<TrainingPlan | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [contextMessages, setContextMessages] = useState<ContextMessage[]>([]);
+
+  useEffect(() => {
+    if (playerProfile) {
+      loadContextBatches(playerProfile).then(setContextMessages);
+    }
+  }, [playerProfile]);
 
   async function handleGenerate(): Promise<void> {
     if (!playerProfile) return;
     setLoading(true);
     setError('');
     try {
-      const generated = await generateTrainingPlan(providerConfig, playerProfile);
+      const generated = await generateTrainingPlan(providerConfig, playerProfile, contextMessages);
       setPlan(generated);
     } catch (err) {
       const detail = err instanceof Error ? err.message : String(err);

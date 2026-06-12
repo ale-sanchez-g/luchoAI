@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from 'react';
 import type { Message, PlayerProfile, AIProviderConfig } from '@/types';
 import { sendMessage } from '@/lib/claude';
+import { loadContextBatches } from '@/lib/context';
+import type { ContextMessage } from '@/lib/context';
 import MessageBubble from './MessageBubble';
 
 interface CoachChatProps {
@@ -31,7 +33,12 @@ export default function CoachChat({ providerConfig, playerProfile }: CoachChatPr
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [contextMessages, setContextMessages] = useState<ContextMessage[]>([]);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    loadContextBatches(playerProfile).then(setContextMessages);
+  }, [playerProfile]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -54,7 +61,7 @@ export default function CoachChat({ providerConfig, playerProfile }: CoachChatPr
     setError('');
 
     try {
-      const reply = await sendMessage(providerConfig, messages, userMessage.content, playerProfile);
+      const reply = await sendMessage(providerConfig, messages, userMessage.content, playerProfile, contextMessages);
       setMessages((prev) => [
         ...prev,
         {
