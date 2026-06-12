@@ -192,14 +192,15 @@ async function generateTrainingPlanGemini(
     systemInstruction: buildSystemPrompt(playerProfile),
     generationConfig: { responseMimeType: 'application/json' },
   });
-  // Prepend context as a chat exchange then generate the plan
-  const chat = model.startChat({
-    history: contextMessages.map((m) => ({
-      role: m.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: m.content }],
-    })),
+  const result = await model.generateContent({
+    contents: [
+      ...contextMessages.map((m) => ({
+        role: m.role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: m.content }],
+      })),
+      { role: 'user', parts: [{ text: TRAINING_PLAN_PROMPT }] },
+    ],
   });
-  const result = await chat.sendMessage(TRAINING_PLAN_PROMPT);
   const plan = validateTrainingPlan(JSON.parse(result.response.text()));
   return { ...plan, generatedAt: new Date() };
 }
