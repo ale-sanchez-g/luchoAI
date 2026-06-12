@@ -5,6 +5,7 @@ import { HfInference } from '@huggingface/inference';
 import { jsonrepair } from 'jsonrepair';
 import type { Message, PlayerProfile, TrainingPlan, AIProviderConfig } from '@/types';
 import { buildSystemPrompt } from './prompts';
+import type { ContextMessage } from './context';
 
 const MAX_CONTEXT_MESSAGES = 20;
 
@@ -58,6 +59,7 @@ async function sendMessageAnthropic(
   history: Message[],
   newUserMessage: string,
   playerProfile: PlayerProfile | null,
+  contextMessages: ContextMessage[] = [],
 ): Promise<string> {
   const client = new Anthropic({ apiKey: config.apiKey, dangerouslyAllowBrowser: true });
   const context = history.slice(-MAX_CONTEXT_MESSAGES);
@@ -66,6 +68,7 @@ async function sendMessageAnthropic(
     max_tokens: 1024,
     system: buildSystemPrompt(playerProfile),
     messages: [
+      ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       ...context.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       { role: 'user' as const, content: newUserMessage },
     ],
@@ -78,6 +81,7 @@ async function sendMessageAnthropic(
 async function generateTrainingPlanAnthropic(
   config: AIProviderConfig,
   playerProfile: PlayerProfile,
+  contextMessages: ContextMessage[] = [],
 ): Promise<TrainingPlan> {
   const client = new Anthropic({ apiKey: config.apiKey, dangerouslyAllowBrowser: true });
   // Prefill the assistant turn with '{' so the model is forced to continue the JSON object
@@ -86,6 +90,7 @@ async function generateTrainingPlanAnthropic(
     max_tokens: 2048,
     system: buildSystemPrompt(playerProfile),
     messages: [
+      ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       { role: 'user', content: TRAINING_PLAN_PROMPT },
       { role: 'assistant', content: '{' },
     ],
@@ -104,6 +109,7 @@ async function sendMessageOpenAI(
   history: Message[],
   newUserMessage: string,
   playerProfile: PlayerProfile | null,
+  contextMessages: ContextMessage[] = [],
 ): Promise<string> {
   const client = new OpenAI({ apiKey: config.apiKey, dangerouslyAllowBrowser: true });
   const context = history.slice(-MAX_CONTEXT_MESSAGES);
@@ -112,6 +118,7 @@ async function sendMessageOpenAI(
     max_tokens: 1024,
     messages: [
       { role: 'system', content: buildSystemPrompt(playerProfile) },
+      ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       ...context.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       { role: 'user', content: newUserMessage },
     ],
@@ -124,6 +131,7 @@ async function sendMessageOpenAI(
 async function generateTrainingPlanOpenAI(
   config: AIProviderConfig,
   playerProfile: PlayerProfile,
+  contextMessages: ContextMessage[] = [],
 ): Promise<TrainingPlan> {
   const client = new OpenAI({ apiKey: config.apiKey, dangerouslyAllowBrowser: true });
   const response = await client.chat.completions.create({
@@ -132,6 +140,7 @@ async function generateTrainingPlanOpenAI(
     response_format: { type: 'json_object' },
     messages: [
       { role: 'system', content: buildSystemPrompt(playerProfile) },
+      ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       { role: 'user', content: TRAINING_PLAN_PROMPT },
     ],
   });
@@ -148,6 +157,7 @@ async function sendMessageGemini(
   history: Message[],
   newUserMessage: string,
   playerProfile: PlayerProfile | null,
+  contextMessages: ContextMessage[] = [],
 ): Promise<string> {
   const genAI = new GoogleGenerativeAI(config.apiKey);
   const model = genAI.getGenerativeModel({
@@ -156,10 +166,16 @@ async function sendMessageGemini(
   });
   const context = history.slice(-MAX_CONTEXT_MESSAGES);
   const chat = model.startChat({
-    history: context.map((m) => ({
-      role: m.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: m.content }],
-    })),
+    history: [
+      ...contextMessages.map((m) => ({
+        role: m.role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: m.content }],
+      })),
+      ...context.map((m) => ({
+        role: m.role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: m.content }],
+      })),
+    ],
   });
   const result = await chat.sendMessage(newUserMessage);
   return result.response.text();
@@ -168,6 +184,7 @@ async function sendMessageGemini(
 async function generateTrainingPlanGemini(
   config: AIProviderConfig,
   playerProfile: PlayerProfile,
+  contextMessages: ContextMessage[] = [],
 ): Promise<TrainingPlan> {
   const genAI = new GoogleGenerativeAI(config.apiKey);
   const model = genAI.getGenerativeModel({
@@ -175,7 +192,14 @@ async function generateTrainingPlanGemini(
     systemInstruction: buildSystemPrompt(playerProfile),
     generationConfig: { responseMimeType: 'application/json' },
   });
-  const result = await model.generateContent(TRAINING_PLAN_PROMPT);
+  // Prepend context as a chat exchange then generate the plan
+  const chat = model.startChat({
+    history: contextMessages.map((m) => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }],
+    })),
+  });
+  const result = await chat.sendMessage(TRAINING_PLAN_PROMPT);
   const plan = validateTrainingPlan(JSON.parse(result.response.text()));
   return { ...plan, generatedAt: new Date() };
 }
@@ -187,6 +211,7 @@ async function sendMessageHuggingFace(
   history: Message[],
   newUserMessage: string,
   playerProfile: PlayerProfile | null,
+  contextMessages: ContextMessage[] = [],
 ): Promise<string> {
   const hf = new HfInference(config.apiKey);
   const context = history.slice(-MAX_CONTEXT_MESSAGES);
@@ -195,6 +220,7 @@ async function sendMessageHuggingFace(
     max_tokens: 1024,
     messages: [
       { role: 'system', content: buildSystemPrompt(playerProfile) },
+      ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       ...context.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       { role: 'user', content: newUserMessage },
     ],
@@ -207,6 +233,7 @@ async function sendMessageHuggingFace(
 async function generateTrainingPlanHuggingFace(
   config: AIProviderConfig,
   playerProfile: PlayerProfile,
+  contextMessages: ContextMessage[] = [],
 ): Promise<TrainingPlan> {
   const hf = new HfInference(config.apiKey);
   const response = await hf.chatCompletion({
@@ -214,6 +241,7 @@ async function generateTrainingPlanHuggingFace(
     max_tokens: 2048,
     messages: [
       { role: 'system', content: buildSystemPrompt(playerProfile) },
+      ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       { role: 'user', content: TRAINING_PLAN_PROMPT },
     ],
   });
@@ -232,31 +260,33 @@ export async function sendMessage(
   history: Message[],
   newUserMessage: string,
   playerProfile: PlayerProfile | null,
+  contextMessages: ContextMessage[] = [],
 ): Promise<string> {
   switch (providerConfig.provider) {
     case 'anthropic':
-      return sendMessageAnthropic(providerConfig, history, newUserMessage, playerProfile);
+      return sendMessageAnthropic(providerConfig, history, newUserMessage, playerProfile, contextMessages);
     case 'openai':
-      return sendMessageOpenAI(providerConfig, history, newUserMessage, playerProfile);
+      return sendMessageOpenAI(providerConfig, history, newUserMessage, playerProfile, contextMessages);
     case 'gemini':
-      return sendMessageGemini(providerConfig, history, newUserMessage, playerProfile);
+      return sendMessageGemini(providerConfig, history, newUserMessage, playerProfile, contextMessages);
     case 'huggingface':
-      return sendMessageHuggingFace(providerConfig, history, newUserMessage, playerProfile);
+      return sendMessageHuggingFace(providerConfig, history, newUserMessage, playerProfile, contextMessages);
   }
 }
 
 export async function generateTrainingPlan(
   providerConfig: AIProviderConfig,
   playerProfile: PlayerProfile,
+  contextMessages: ContextMessage[] = [],
 ): Promise<TrainingPlan> {
   switch (providerConfig.provider) {
     case 'anthropic':
-      return generateTrainingPlanAnthropic(providerConfig, playerProfile);
+      return generateTrainingPlanAnthropic(providerConfig, playerProfile, contextMessages);
     case 'openai':
-      return generateTrainingPlanOpenAI(providerConfig, playerProfile);
+      return generateTrainingPlanOpenAI(providerConfig, playerProfile, contextMessages);
     case 'gemini':
-      return generateTrainingPlanGemini(providerConfig, playerProfile);
+      return generateTrainingPlanGemini(providerConfig, playerProfile, contextMessages);
     case 'huggingface':
-      return generateTrainingPlanHuggingFace(providerConfig, playerProfile);
+      return generateTrainingPlanHuggingFace(providerConfig, playerProfile, contextMessages);
   }
 }
