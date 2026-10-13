@@ -14,6 +14,18 @@ const FEATURES = [
       'Generate weekly training sessions tailored to your position, age, and skill level.',
   },
   {
+    icon: '🧠',
+    title: 'Game IQ',
+    description:
+      'Decision games on moving into space, first touch, and when to press or hold your position.',
+  },
+  {
+    icon: '💚',
+    title: 'Wellbeing',
+    description:
+      'Daily check-ins, calm breathing, and reset tools to keep your mind and life in balance.',
+  },
+  {
     icon: '⚽',
     title: 'Skill Development',
     description: 'From basic dribbling to advanced tactics — grow every aspect of your game.',
@@ -50,6 +62,21 @@ export default function HomePage() {
               Get Training Plan
             </Link>
           </div>
+          <div className="mt-6 flex gap-3 justify-center flex-wrap">
+            <Link
+              href="/games"
+              className="border-2 border-white/60 text-white font-semibold px-5 py-2 rounded-full hover:bg-white/10 transition-colors"
+            >
+              🧠 Play Game IQ
+            </Link>
+            <Link
+              href="/wellbeing"
+              className="border-2 border-white/60 text-white font-semibold px-5 py-2 rounded-full hover:bg-white/10 transition-colors"
+            >
+              💚 Wellbeing Check-in
+            </Link>
+          </div>
+          <p className="mt-2 text-sm text-green-100">No API key needed for these two.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -22,6 +22,8 @@ src/
     globals.css         # Tailwind base styles
     coach/page.tsx      # AI coaching chat
     training/page.tsx   # Training plan generator
+    games/page.tsx      # Game IQ decision games (no AI, no API key needed)
+    wellbeing/page.tsx  # Wellbeing check-in, reset tools, helplines (no AI, no API key needed)
     profile/page.tsx    # Player profile setup
   components/
     Header.tsx          # Navigation bar
@@ -30,10 +32,16 @@ src/
     TrainingPlan.tsx    # Training plan display + generator
     PlayerProfile.tsx   # Player profile form
     ApiKeySetup.tsx     # First-run Anthropic API key entry
+    DecisionGame.tsx    # Game IQ: theme picker, scenarios, round summary
+    PitchDiagram.tsx    # SVG pitch used by decision scenarios + legend
+    WellbeingCheckIn.tsx  # Daily mood + life-balance check-in and history
+    BreathingExercise.tsx # Guided breathe-in-4 / breathe-out-6 pacer
   lib/
     claude.ts           # Anthropic SDK client (sendMessage, generateTrainingPlan)
     prompts.ts          # System prompts and player profile injection
-    storage.ts          # localStorage helpers (apiKey, playerProfile)
+    storage.ts          # localStorage helpers (apiKey, playerProfile, check-ins, game scores)
+    decision-games.ts   # Game IQ scenarios + on-pitch games (static content)
+    wellbeing.ts        # Wellbeing content, helplines, check-in validation, support nudge
   types/
     index.ts            # PlayerProfile, Message, TrainingPlan, Drill interfaces
   __tests__/
@@ -106,4 +114,6 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 - Prefer editing existing components over creating new ones
 - All AI calls must have error handling with user-friendly messages shown in the UI
 - `next/image` requires `unoptimized: true` in `next.config.ts` for static export — do not remove that config
+- Wellbeing check-ins are sensitive data about children: keep them in `localStorage` only and never include them in AI prompts or send them anywhere
+- Helpline numbers in `src/lib/wellbeing.ts` were verified on 2026-10-13 — re-verify against the official sites before changing them
 - The `basePath` in `next.config.ts` is controlled by `NEXT_PUBLIC_BASE_PATH` env var — empty locally, `/luchoAI` in CI
