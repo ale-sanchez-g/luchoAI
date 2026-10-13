@@ -676,6 +676,750 @@ export const DECISION_THEMES: DecisionTheme[] = [
       },
     ],
   },
+  {
+    id: 'defend-together',
+    emoji: '🧱',
+    title: 'Defend Together',
+    description: 'Ambush, lock in, cover and slide: win the ball back as a team.',
+    scenarios: [
+      {
+        id: 'defend-ambush',
+        title: 'Ambush!',
+        situation:
+          "An opponent has the ball facing their own goal, so they can't see you. Your " +
+          "teammate is pressing them, and the player you're marking is too far away for a pass.",
+        question: 'What should you do?',
+        scene: {
+          goal: 'bottom',
+          you: { x: 66, y: 44 },
+          ball: { x: 47.5, y: 30.2 },
+          teammates: [
+            { x: 46, y: 44 },
+            { x: 22, y: 52 },
+            { x: 42, y: 62 },
+          ],
+          opponents: [
+            { x: 46, y: 36 },
+            { x: 38, y: 12 },
+            { x: 90, y: 20 },
+            { x: 18, y: 36 },
+          ],
+          arrows: [{ from: { x: 39, y: 16 }, to: { x: 46.3, y: 27.2 }, kind: 'pass' }],
+        },
+        options: [
+          {
+            id: 'A',
+            label: "Stay with the player you're marking",
+            correct: false,
+            feedback:
+              "They're too far away to get a pass right now. Staying with them leaves your " +
+              'teammate to win the ball on their own.',
+          },
+          {
+            id: 'B',
+            label: 'Ambush! Sprint in from their blind side to make it 2 v 1',
+            correct: true,
+            feedback:
+              "They can't see you coming, so you and your teammate trap them 2 v 1 and win " +
+              'the ball. Then look to counter!',
+            marker: { x: 55.5, y: 36 },
+          },
+          {
+            id: 'C',
+            label: 'Drop back towards your own goal',
+            correct: false,
+            feedback:
+              "There's no danger behind you right now. This is the moment to win the ball, " +
+              'not to back off.',
+            marker: { x: 68, y: 62 },
+          },
+        ],
+        cue:
+          'Opponent facing their own goal or head down? That is your trigger: ambush and make ' +
+          'it 2 v 1.',
+      },
+      {
+        id: 'defend-lock-in',
+        title: 'The press is on: lock in',
+        situation:
+          'Your teammate has started pressing the player on the ball. They have their head up ' +
+          'looking for a pass, and the closest player they could pass to is next to you.',
+        question: 'What is your job?',
+        scene: {
+          goal: 'bottom',
+          you: { x: 60, y: 48 },
+          ball: { x: 31, y: 35 },
+          teammates: [
+            { x: 40, y: 48 },
+            { x: 18, y: 56 },
+            { x: 82, y: 54 },
+          ],
+          opponents: [
+            { x: 30, y: 30 },
+            { x: 54, y: 38 },
+            { x: 46, y: 14 },
+            { x: 78, y: 24 },
+          ],
+          arrows: [{ from: { x: 38.5, y: 44.5 }, to: { x: 34, y: 38.5 }, kind: 'run' }],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Run to the ball and press it too',
+            correct: false,
+            feedback:
+              "Two of you on the ball leaves their teammate free. With their head up, they'll " +
+              'just pass to them.',
+          },
+          {
+            id: 'B',
+            label: 'Drop back to the edge of your box',
+            correct: false,
+            feedback: 'Too far away. That gives them an easy pass and time to turn.',
+            marker: { x: 70, y: 60 },
+          },
+          {
+            id: 'C',
+            label: 'Lock in: get tight to the player they want to pass to',
+            correct: true,
+            feedback:
+              "Now there's no easy pass. The player on the ball is trapped, and if they force " +
+              'it, you can intercept.',
+            marker: { x: 50, y: 45.5 },
+          },
+        ],
+        cue:
+          'When the press starts, lock in on the closest players they could pass to. No easy ' +
+          'passes!',
+      },
+      {
+        id: 'defend-cover',
+        title: 'Cover your teammate',
+        situation:
+          'An attacker is dribbling towards your goal, and your teammate has gone to press ' +
+          'them. You are the closest player to help.',
+        question: 'Where should you be?',
+        scene: {
+          goal: 'bottom',
+          you: { x: 74, y: 42 },
+          ball: { x: 48, y: 35 },
+          teammates: [
+            { x: 48, y: 42 },
+            { x: 24, y: 50 },
+            { x: 40, y: 64 },
+          ],
+          opponents: [
+            { x: 48, y: 30 },
+            { x: 84, y: 24 },
+            { x: 22, y: 28 },
+          ],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Right next to your teammate',
+            correct: false,
+            feedback: 'Side by side, one dribble or one pass gets past you both at the same time.',
+            marker: { x: 57, y: 42 },
+          },
+          {
+            id: 'B',
+            label: 'A few steps behind your teammate, at an angle',
+            correct: true,
+            feedback:
+              "Perfect cover. If the attacker beats your teammate, you're ready to step in, " +
+              'and you can still see their winger.',
+            marker: { x: 58, y: 53 },
+          },
+          {
+            id: 'C',
+            label: 'Out wide, right next to their winger',
+            correct: false,
+            feedback:
+              'The ball is the biggest danger. If your teammate gets beaten, nobody is between ' +
+              'the attacker and your goal.',
+            marker: { x: 84, y: 32 },
+          },
+        ],
+        cue:
+          'Cover the teammate who is pressing: a few steps behind them, at an angle, close ' +
+          'enough to help.',
+      },
+      {
+        id: 'defend-slide',
+        title: 'Ball on the far side',
+        situation:
+          "The other team has the ball on the far wing. You're a defender on the other side, " +
+          "and the winger you're marking is out by the sideline.",
+        question: 'Where should you be?',
+        scene: {
+          goal: 'bottom',
+          you: { x: 88, y: 54 },
+          ball: { x: 14, y: 39 },
+          teammates: [
+            { x: 20, y: 47 },
+            { x: 36, y: 56 },
+            { x: 52, y: 58 },
+          ],
+          opponents: [
+            { x: 12, y: 34 },
+            { x: 92, y: 42 },
+            { x: 66, y: 44 },
+            { x: 32, y: 24 },
+          ],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Slide in towards the middle, close to your teammates',
+            correct: true,
+            feedback:
+              'Now your defence is compact and connected. The winger is far from the ball, so ' +
+              'you still have time to get to them if the ball is switched.',
+            marker: { x: 68, y: 57 },
+          },
+          {
+            id: 'B',
+            label: 'Stay tight to your winger by the sideline',
+            correct: false,
+            feedback:
+              'That leaves a huge gap between you and your teammates. One pass through it and ' +
+              'their striker is in on goal.',
+          },
+          {
+            id: 'C',
+            label: 'Sprint across the pitch to press the ball',
+            correct: false,
+            feedback:
+              'Your teammates are much closer to the ball. Running across leaves your whole ' +
+              'side of the pitch empty.',
+          },
+        ],
+        cue:
+          'Ball on the far side? Slide in and stay connected. The further the ball is from your ' +
+          'player, the further you can be from them.',
+      },
+    ],
+    pitchGames: [
+      {
+        name: 'Rondo Hunters',
+        players: '8 or 9 players (6 or 7 v 2)',
+        setup:
+          'Mark a square about 10 big steps wide. Six or seven players stand around it, with ' +
+          'two defenders inside. Each defender holds a bib in their hand, so swapping is quick.',
+        howToPlay:
+          'The outside players keep the ball away from the defenders. If the ball leaves the ' +
+          'square off an attacker, or the defenders win it and pass it to each other, the ' +
+          'attacker who lost it swaps with the defender who has been in the middle longest. A ' +
+          'coach rolls in a new ball straight away.',
+        focus: 'Hunt as a pair: one defender presses, the other ambushes or blocks the next pass.',
+        harder: 'Make the square bigger, so the two defenders have more space to cover together.',
+      },
+      {
+        name: 'Defend the Half',
+        players: '10+ players (two teams)',
+        setup:
+          'Use half a pitch with a big goal and a goalkeeper. Mark a small square in each ' +
+          'corner by the halfway line.',
+        howToPlay:
+          'One team attacks the big goal. The other team defends as a block in its own half. ' +
+          'When the defenders win the ball, they score by passing to a teammate who runs into ' +
+          'one of the corner squares. Swap roles halfway through.',
+        focus:
+          'Compact, connected, communicate: slide together, lock in when the press starts and ' +
+          'ambush when you can.',
+        harder: 'Give the attacking team an extra player, so the block has to talk and slide more.',
+      },
+    ],
+  },
+  {
+    id: 'counter',
+    emoji: '⚡',
+    title: 'Quick Counter',
+    description: 'Won the ball back? Attack fast with forward passes and forward runs.',
+    scenarios: [
+      {
+        id: 'counter-play-forward',
+        title: 'Win it, play forward',
+        situation:
+          "You've just intercepted a pass in midfield. Your striker is free up front, and " +
+          'most of their team is still out of position.',
+        question: 'What should you do with the ball?',
+        scene: {
+          goal: 'top',
+          you: { x: 50, y: 50 },
+          ball: { x: 55.5, y: 47.5 },
+          teammates: [
+            { x: 42, y: 22 },
+            { x: 82, y: 38 },
+            { x: 20, y: 62 },
+          ],
+          opponents: [
+            { x: 36, y: 46 },
+            { x: 30, y: 62 },
+            { x: 68, y: 58 },
+            { x: 60, y: 16 },
+          ],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Play a quick forward pass to your striker',
+            correct: true,
+            feedback:
+              'One quick forward pass and your striker is through before their defenders can ' +
+              'get back.',
+          },
+          {
+            id: 'B',
+            label: 'Take a few touches and wait for your teammates to catch up',
+            correct: false,
+            feedback:
+              'Every extra touch gives their players time to get back. The chance disappears.',
+          },
+          {
+            id: 'C',
+            label: 'Pass back to your goalkeeper to keep it safe',
+            correct: false,
+            feedback:
+              'Safe, but the counter-attack is over before it starts. Their whole team gets ' +
+              'back into shape.',
+          },
+        ],
+        cue:
+          'Know where your striker is BEFORE you win the ball. Win it, then play forward in ' +
+          'one or two touches.',
+      },
+      {
+        id: 'counter-find-forward',
+        title: "Can't go forward? Find who can",
+        situation:
+          'You win the ball, but you are facing your own goal with an opponent right behind ' +
+          'you. A teammate next to you is facing forward with space.',
+        question: 'What is your best pass?',
+        scene: {
+          goal: 'top',
+          you: { x: 44, y: 46 },
+          ball: { x: 38, y: 49 },
+          teammates: [
+            { x: 61, y: 50 },
+            { x: 50, y: 18 },
+            { x: 84, y: 30 },
+          ],
+          opponents: [
+            { x: 44, y: 38.5 },
+            { x: 26, y: 34 },
+            { x: 70, y: 38 },
+            { x: 56, y: 11 },
+          ],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Turn and try to beat the player behind you',
+            correct: false,
+            feedback:
+              "They're right on your back. Turning here is the quickest way to lose the ball " +
+              'again.',
+          },
+          {
+            id: 'B',
+            label: 'Kick it forward over your shoulder without looking',
+            correct: false,
+            feedback: 'A blind kick usually goes straight back to the other team.',
+          },
+          {
+            id: 'C',
+            label: 'Pass to your teammate who is facing forward',
+            correct: true,
+            feedback:
+              "They can see the whole pitch and play the forward pass you couldn't. Quick and " +
+              'simple keeps the counter-attack alive.',
+          },
+        ],
+        cue: "Can't play forward yourself? Pass to the teammate who can.",
+      },
+      {
+        id: 'counter-give-and-go',
+        title: 'Pass and support',
+        situation:
+          'You won the ball and passed it forward to your striker. They have their back to ' +
+          'goal, with a defender close behind them.',
+        question: 'What should you do now?',
+        scene: {
+          goal: 'top',
+          you: { x: 40, y: 58 },
+          ball: { x: 50, y: 33.5 },
+          teammates: [
+            { x: 50, y: 28 },
+            { x: 82, y: 26 },
+          ],
+          opponents: [
+            { x: 50, y: 20.5 },
+            { x: 28, y: 36 },
+            { x: 70, y: 40 },
+            { x: 64, y: 12 },
+          ],
+          arrows: [{ from: { x: 43.5, y: 56 }, to: { x: 48.8, y: 37 }, kind: 'pass' }],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Stay where you are and watch',
+            correct: false,
+            feedback:
+              "Your striker is under pressure with nobody close to pass to. Don't leave them " +
+              'on their own!',
+          },
+          {
+            id: 'B',
+            label: 'Sprint up to support just behind them, at an angle',
+            correct: true,
+            feedback:
+              "Give and go! Your striker lays it back to you first time, and you're facing " +
+              'forward for the next pass.',
+            marker: { x: 40, y: 40 },
+          },
+          {
+            id: 'C',
+            label: 'Run back to your defending position',
+            correct: false,
+            feedback:
+              'The counter-attack needs support right now. Without you, your striker will ' +
+              'probably lose the ball.',
+            marker: { x: 40, y: 70 },
+          },
+        ],
+        cue:
+          'Played it forward? Follow your pass and support just behind the ball for the give ' +
+          'and go.',
+      },
+      {
+        id: 'counter-run-past',
+        title: 'Support is there: run past!',
+        situation:
+          'Your team is counter-attacking. Your striker has the ball, and a teammate is ' +
+          'already supporting just behind them.',
+        question: 'What should you do?',
+        scene: {
+          goal: 'top',
+          you: { x: 66, y: 56 },
+          ball: { x: 48, y: 36.5 },
+          teammates: [
+            { x: 44, y: 32 },
+            { x: 34, y: 44 },
+          ],
+          opponents: [
+            { x: 44, y: 24.5 },
+            { x: 24, y: 22 },
+            { x: 60, y: 42 },
+            { x: 50, y: 6 },
+          ],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Make a forward run past the ball, into the space',
+            correct: true,
+            feedback:
+              'Now your striker has a forward pass to play. Quick forward runs make a ' +
+              'counter-attack really dangerous.',
+            marker: { x: 72, y: 18 },
+          },
+          {
+            id: 'B',
+            label: 'Go and support behind the ball too',
+            correct: false,
+            feedback:
+              'A teammate is already there. Two players behind the ball and nobody ahead ' +
+              'means no forward pass.',
+            marker: { x: 50, y: 48 },
+          },
+          {
+            id: 'C',
+            label: 'Ask for the ball to your feet where you are',
+            correct: false,
+            feedback:
+              'A pass back to you slows everything down and gives their defenders time to get ' +
+              'back.',
+          },
+        ],
+        cue:
+          'Teammate already supporting behind the ball? Then run past it. Quick forward passes ' +
+          'and quick forward runs win counter-attacks.',
+      },
+    ],
+    pitchGames: [
+      {
+        name: '6-Second Counter',
+        players: '10+ players (two teams)',
+        setup:
+          'Use half a pitch with a big goal and a goalkeeper. The defending team puts a ' +
+          'target player out wide on the halfway line, one on each side of the pitch.',
+        howToPlay:
+          'One team attacks the big goal. When the defending team wins the ball, they count ' +
+          'down from 6 out loud. Pass to one of your wide targets before you reach zero to ' +
+          'score a point.',
+        focus:
+          'Know where your targets are before you win the ball. Then play forward in one or ' +
+          'two touches.',
+        harder: 'Count down from 4 instead, or only count passes made with one or two touches.',
+      },
+      {
+        name: 'Support or Run Past?',
+        players: '5 players (3 v 2)',
+        setup:
+          'A channel about 30 big steps long and 20 wide, with a small goal at one end. One ' +
+          'defender guards the goal. A chasing defender starts at the other end, next to ' +
+          'three attackers.',
+        howToPlay:
+          'The first attacker passes forward to the striker, and the chaser starts running. ' +
+          'The passer and the third attacker decide fast: one supports just behind the ball, ' +
+          'the other runs past it. Score before the chaser catches up!',
+        focus:
+          'Teammate already behind the ball? Run past it. Nobody there? Get behind it and ' +
+          'support.',
+        harder: 'The goal only counts if you score within 8 seconds of the first pass.',
+      },
+    ],
+  },
+  {
+    id: 'shoot',
+    emoji: '🎯',
+    title: 'Shoot or Pass?',
+    description: 'Near goal, make the call: shoot, pass to someone who can score, or get closer.',
+    scenarios: [
+      {
+        id: 'shoot-clear-sight',
+        title: 'Can you score? Shoot!',
+        situation:
+          'You have the ball on the edge of the box with a clear sight of goal. A defender is ' +
+          'running across to block you.',
+        question: 'What should you do?',
+        scene: {
+          goal: 'top',
+          you: { x: 46, y: 22 },
+          ball: { x: 51, y: 19 },
+          teammates: [{ x: 82, y: 10 }],
+          opponents: [
+            { x: 50, y: 5 },
+            { x: 64, y: 30 },
+            { x: 74, y: 12 },
+            { x: 28, y: 14 },
+          ],
+          arrows: [{ from: { x: 61, y: 28.5 }, to: { x: 55.5, y: 25 }, kind: 'run' }],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Pass across to your teammate on the right',
+            correct: false,
+            feedback:
+              'They are at a tighter angle with a defender close by. You had the better chance.',
+          },
+          {
+            id: 'B',
+            label: 'Take one more touch to get even closer',
+            correct: false,
+            feedback:
+              "The defender gets there and blocks it. With a clear sight of goal, don't wait.",
+          },
+          {
+            id: 'C',
+            label: 'Shoot now',
+            correct: true,
+            feedback:
+              'If you think you can score, take the shot! Hit the target and make the keeper ' +
+              'work.',
+          },
+        ],
+        cue: 'Clear sight of goal and close enough to score? Take the shot!',
+      },
+      {
+        id: 'shoot-square',
+        title: 'Pass to someone who can score',
+        situation:
+          "You've dribbled into the box from the side. A defender and the goalkeeper are " +
+          'blocking your shot, and a teammate is free in the middle.',
+        question: 'What is the best choice?',
+        scene: {
+          goal: 'top',
+          you: { x: 27, y: 15 },
+          ball: { x: 32, y: 12.5 },
+          teammates: [{ x: 56, y: 15 }],
+          opponents: [
+            { x: 46, y: 4.5 },
+            { x: 39, y: 9 },
+            { x: 72, y: 13 },
+          ],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Pass it across to your free teammate',
+            correct: true,
+            feedback:
+              "They have a big gap to aim at. If you can't score, pass to someone who can!",
+          },
+          {
+            id: 'B',
+            label: 'Shoot anyway, past the defender and the keeper',
+            correct: false,
+            feedback:
+              'The defender and the keeper are covering the angle, so your shot will probably ' +
+              'be blocked.',
+          },
+          {
+            id: 'C',
+            label: 'Try to dribble around both of them',
+            correct: false,
+            feedback:
+              'Two players to beat in a tiny space, while your teammate waits with a better ' +
+              'chance.',
+          },
+        ],
+        cue: "Can't score from where you are? Pass to a teammate who can.",
+      },
+      {
+        id: 'shoot-get-closer',
+        title: 'Too far to score',
+        situation:
+          'You have the ball in the middle of the pitch, a long way from goal. There is lots ' +
+          'of open space in front of you.',
+        question: 'What should you do?',
+        scene: {
+          goal: 'top',
+          you: { x: 50, y: 58 },
+          ball: { x: 55.5, y: 56 },
+          teammates: [
+            { x: 72, y: 30 },
+            { x: 38, y: 70 },
+          ],
+          opponents: [
+            { x: 50, y: 6 },
+            { x: 30, y: 20 },
+            { x: 46, y: 18 },
+            { x: 62, y: 19 },
+            { x: 78, y: 22 },
+            { x: 16, y: 46 },
+          ],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Shoot from here',
+            correct: false,
+            feedback:
+              "It's too far to score. The keeper catches it easily, and your team loses the " +
+              'ball.',
+          },
+          {
+            id: 'B',
+            label: 'Pass back to your defender',
+            correct: false,
+            feedback:
+              'Safe, but you had open space to attack. Now your team is even further from ' +
+              'scoring.',
+          },
+          {
+            id: 'C',
+            label: 'Run with the ball into the space, towards goal',
+            correct: true,
+            feedback:
+              'Too far to score? Get closer! Push the ball ahead of you and run, then shoot or ' +
+              'pass when you get near.',
+            marker: { x: 52, y: 36 },
+          },
+        ],
+        cue:
+          'Too far to score? Get the ball closer to goal, then shoot or pass to someone who ' +
+          'can.',
+      },
+      {
+        id: 'shoot-over-through-around',
+        title: 'Over, through or around?',
+        situation:
+          'Their defence is in your way. Two of their defenders have left a gap between them, ' +
+          'and your teammate is about to run through it.',
+        question: 'How do you get past their defence?',
+        scene: {
+          goal: 'top',
+          you: { x: 46, y: 56 },
+          ball: { x: 51.5, y: 54 },
+          teammates: [
+            { x: 54, y: 34 },
+            { x: 90, y: 36 },
+          ],
+          opponents: [
+            { x: 50, y: 6 },
+            { x: 18, y: 27 },
+            { x: 38, y: 26 },
+            { x: 64, y: 26 },
+            { x: 84, y: 27 },
+            { x: 82, y: 42 },
+            { x: 30, y: 42 },
+          ],
+          arrows: [{ from: { x: 53.5, y: 30.4 }, to: { x: 52, y: 21 }, kind: 'run' }],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Over: kick it long and high over everybody',
+            correct: false,
+            feedback:
+              'A long, high ball is hard to control, and their keeper can come out and collect ' +
+              'it.',
+          },
+          {
+            id: 'B',
+            label: 'Through: pass into the gap for your runner',
+            correct: true,
+            feedback:
+              'The gap is open and your teammate is already running. One pass through it gets ' +
+              'past their whole defence!',
+            marker: { x: 51.5, y: 15.5 },
+          },
+          {
+            id: 'C',
+            label: 'Around: pass out wide to your winger',
+            correct: false,
+            feedback:
+              'Two defenders are waiting there. Going around works when the wing is free, but ' +
+              'not this time.',
+          },
+        ],
+        cue:
+          "Can't shoot yet? Get past them by playing over, through or around. Pick the way " +
+          "that's open.",
+      },
+    ],
+    pitchGames: [
+      {
+        name: 'Three Choices',
+        players: '4 players (2 v 1 + keeper)',
+        setup:
+          'A goal with a goalkeeper. Put cones about 20 big steps out to mark a shooting zone. ' +
+          'Two attackers start about 35 big steps from goal, and a defender waits in the zone.',
+        howToPlay:
+          'The attackers go 2 v 1 at goal. Shots only count from inside the shooting zone, so ' +
+          "if you're too far away, carry it closer first. No clear shot? Pass to your " +
+          'teammate. Swap the defender every 3 goes.',
+        focus: "Can I score? Shoot. Can't? Pass to someone who can. Too far? Get closer.",
+        harder: 'Add a second defender, or give the attackers only 6 seconds to score.',
+      },
+      {
+        name: 'Over, Through or Around',
+        players: '8 players (4 v 4)',
+        setup: 'A pitch about 40 by 30 big steps, with an end zone 5 steps deep at each end.',
+        howToPlay:
+          'Score by passing to a teammate who runs into the end zone you attack. Nobody can ' +
+          'wait in the end zone, so time your runs. A pass through a gap between two defenders ' +
+          'scores double.',
+        focus: 'Before you pass, look up: is the way over, through or around them open?',
+        harder: 'Allow only two touches each, so you have to see the pass before the ball arrives.',
+      },
+    ],
+  },
 ];
 
 export function getTheme(id: DecisionThemeId): DecisionTheme {

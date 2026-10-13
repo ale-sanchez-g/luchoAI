@@ -17,8 +17,15 @@ function scenePoints(scenario: DecisionScenario): PitchPoint[] {
 }
 
 describe('decision games content', () => {
-  it('covers moving into space, first touch, and press vs hold', () => {
-    expect(DECISION_THEMES.map((t) => t.id)).toEqual(['space', 'first-touch', 'press']);
+  it('covers attacking, defending and counter-attacking decisions', () => {
+    expect(DECISION_THEMES.map((t) => t.id)).toEqual([
+      'space',
+      'first-touch',
+      'press',
+      'defend-together',
+      'counter',
+      'shoot',
+    ]);
   });
 
   it('uses unique scenario ids across every theme', () => {
@@ -51,11 +58,15 @@ describe('decision games content', () => {
   });
 
   it('spreads correct answers across A, B and C so guessing one letter does not work', () => {
+    const correctId = (s: DecisionScenario): string => s.options.find((o) => o.correct)!.id;
     const counts = { A: 0, B: 0, C: 0 } as Record<string, number>;
     ALL_SCENARIOS.forEach((s) => {
-      counts[s.options.find((o) => o.correct)!.id] += 1;
+      counts[correctId(s)] += 1;
     });
     expect(Math.min(...Object.values(counts))).toBeGreaterThanOrEqual(2);
+    DECISION_THEMES.forEach((theme) => {
+      expect(new Set(theme.scenarios.map(correctId)).size).toBeGreaterThan(1);
+    });
   });
 
   it('gives every theme at least one fully described pitch game', () => {

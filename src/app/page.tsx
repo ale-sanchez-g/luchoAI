@@ -17,7 +17,8 @@ const FEATURES = [
     icon: '🧠',
     title: 'Game IQ',
     description:
-      'Decision games on moving into space, first touch, and when to press or hold your position.',
+      'Decision games on finding space, first touch, pressing, defending together, quick ' +
+      'counters and when to shoot or pass.',
   },
   {
     icon: '💚',
