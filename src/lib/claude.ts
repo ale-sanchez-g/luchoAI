@@ -5,6 +5,7 @@ import { HfInference } from '@huggingface/inference';
 import { jsonrepair } from 'jsonrepair';
 import type { Message, PlayerProfile, TrainingPlan, AIProviderConfig } from '@/types';
 import { buildSystemPrompt } from './prompts';
+import { withSupportedModel } from './providers';
 import type { ContextMessage } from './context';
 
 const MAX_CONTEXT_MESSAGES = 20;
@@ -257,12 +258,13 @@ async function generateTrainingPlanHuggingFace(
 // ─── Unified Public API ───────────────────────────────────────────────────────
 
 export async function sendMessage(
-  providerConfig: AIProviderConfig,
+  savedConfig: AIProviderConfig,
   history: Message[],
   newUserMessage: string,
   playerProfile: PlayerProfile | null,
   contextMessages: ContextMessage[] = [],
 ): Promise<string> {
+  const providerConfig = withSupportedModel(savedConfig);
   switch (providerConfig.provider) {
     case 'anthropic':
       return sendMessageAnthropic(providerConfig, history, newUserMessage, playerProfile, contextMessages);
@@ -276,10 +278,11 @@ export async function sendMessage(
 }
 
 export async function generateTrainingPlan(
-  providerConfig: AIProviderConfig,
+  savedConfig: AIProviderConfig,
   playerProfile: PlayerProfile,
   contextMessages: ContextMessage[] = [],
 ): Promise<TrainingPlan> {
+  const providerConfig = withSupportedModel(savedConfig);
   switch (providerConfig.provider) {
     case 'anthropic':
       return generateTrainingPlanAnthropic(providerConfig, playerProfile, contextMessages);

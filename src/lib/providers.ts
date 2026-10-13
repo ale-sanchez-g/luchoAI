@@ -1,4 +1,4 @@
-import type { AIProvider } from '@/types';
+import type { AIProvider, AIProviderConfig } from '@/types';
 
 export interface AIModel {
   id: string;
@@ -68,28 +68,31 @@ export const PROVIDERS: ProviderDefinition[] = [
     id: 'huggingface',
     name: 'Hugging Face',
     logo: '🤗',
-    description: 'Open-source models via Hugging Face Inference API',
+    description: 'Open models via Hugging Face Inference Providers',
     keyPlaceholder: 'hf_...',
     keyValidation: (k) => k.startsWith('hf_'),
     keyHint: 'Get your token at huggingface.co/settings/tokens',
+    // Requests go to whichever Inference Provider currently serves the model, so only list
+    // models that several providers host. Checked 2026-10-13: Mistral 7B and Zephyr 7B had
+    // no provider left. Llama is gated, so each account must accept Meta's licence first.
     models: [
       {
-        id: 'mistralai/Mistral-7B-Instruct-v0.3',
-        name: 'Mistral 7B Instruct',
-        description: 'Fast open-source',
+        id: 'openai/gpt-oss-120b',
+        name: 'gpt-oss 120B',
+        description: 'Most capable',
       },
       {
-        id: 'HuggingFaceH4/zephyr-7b-beta',
-        name: 'Zephyr 7B Beta',
-        description: 'HF fine-tuned',
+        id: 'openai/gpt-oss-20b',
+        name: 'gpt-oss 20B',
+        description: 'Fast & affordable',
       },
       {
         id: 'meta-llama/Llama-3.1-8B-Instruct',
-        name: 'Llama 3.1 8B Instruct',
-        description: "Meta's Llama",
+        name: 'Llama 3.1 8B',
+        description: 'Needs Meta licence',
       },
     ],
-    defaultModel: 'mistralai/Mistral-7B-Instruct-v0.3',
+    defaultModel: 'openai/gpt-oss-120b',
   },
 ];
 
@@ -97,4 +100,15 @@ export function getProvider(id: AIProvider): ProviderDefinition {
   const p = PROVIDERS.find((x) => x.id === id);
   if (!p) throw new Error(`Unknown provider: ${id}`);
   return p;
+}
+
+/**
+ * Swaps a model that is no longer offered for the provider's default, so a setup saved
+ * before a model was retired keeps working instead of failing on every request.
+ */
+export function withSupportedModel(config: AIProviderConfig): AIProviderConfig {
+  const provider = getProvider(config.provider);
+  return provider.models.some((m) => m.id === config.model)
+    ? config
+    : { ...config, model: provider.defaultModel };
 }
