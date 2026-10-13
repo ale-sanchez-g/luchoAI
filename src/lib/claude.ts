@@ -26,6 +26,19 @@ function validateTrainingPlan(parsed: unknown): Omit<TrainingPlan, 'generatedAt'
   return p as Omit<TrainingPlan, 'generatedAt'>;
 }
 
+// Even when told to reply with JSON only, models sometimes wrap it in a ```json fence or add a
+// sentence around it, so parse the outermost {...} span and repair near-valid JSON.
+function parsePlanJson(text: string): unknown {
+  const start = text.indexOf('{');
+  const end = text.lastIndexOf('}');
+  const json = start !== -1 && end > start ? text.slice(start, end + 1) : text;
+  try {
+    return JSON.parse(json);
+  } catch {
+    return JSON.parse(jsonrepair(json));
+  }
+}
+
 const TRAINING_PLAN_PROMPT = `Create a personalised 1-week football training plan with exactly 4 sessions.
 
 Output ONLY a single raw JSON object — no markdown, no code fences, no text before or after the JSON.
@@ -85,7 +98,8 @@ async function generateTrainingPlanAnthropic(
   contextMessages: ContextMessage[] = [],
 ): Promise<TrainingPlan> {
   const client = new Anthropic({ apiKey: config.apiKey, dangerouslyAllowBrowser: true });
-  // Prefill the assistant turn with '{' so the model is forced to continue the JSON object
+  // No assistant prefill: Claude Opus 4.6+ and Sonnet 4.6 reject a request that ends on an
+  // assistant turn, so the JSON-only instruction in TRAINING_PLAN_PROMPT does that job instead.
   const response = await client.messages.create({
     model: config.model,
     max_tokens: 2048,
@@ -93,13 +107,11 @@ async function generateTrainingPlanAnthropic(
     messages: [
       ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
       { role: 'user', content: TRAINING_PLAN_PROMPT },
-      { role: 'assistant', content: '{' },
     ],
   });
-  const block = response.content[0];
-  if (block.type !== 'text') throw new Error('Unexpected response type');
-  // The model continues from the prefill '{', so we prepend it back
-  const plan = validateTrainingPlan(JSON.parse('{' + block.text));
+  const block = response.content.find((b) => b.type === 'text');
+  if (!block || block.type !== 'text') throw new Error('Unexpected response type');
+  const plan = validateTrainingPlan(parsePlanJson(block.text));
   return { ...plan, generatedAt: new Date() };
 }
 
