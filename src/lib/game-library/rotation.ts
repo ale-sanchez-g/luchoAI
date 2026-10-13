@@ -133,7 +133,7 @@ function playersFor(game: LibraryGame, slot: PlaySlot): number {
 /** Whether a twist makes sense for a game when this many players are on the pitch. */
 export function twistFits(game: LibraryGame, twist: GameTwist, players: number): boolean {
   if (twist.skills !== 'all' && !twist.skills.includes(game.skill)) return false;
-  if (twist.except?.includes(game.id)) return false;
+  if (twist.except?.includes(game.id) || game.noTwists?.includes(twist.kind)) return false;
   return players >= twist.minPlayers;
 }
 

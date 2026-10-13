@@ -30,6 +30,7 @@ export const VISION_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['talk', 'handicap'],
     setup:
       'Make four gates of different colours (use bibs, cones or tape) around a space about ' +
       '15 big steps wide. Each player has a ball. One person is the caller, or you call ' +
@@ -51,6 +52,7 @@ export const VISION_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['talk'],
     setup:
       'The receiver stands in the middle. The two passers stand about 8 big steps away on ' +
       'either side, one with a ball. Both can hold up fingers.',
@@ -72,6 +74,7 @@ export const VISION_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['talk', 'handicap'],
     setup:
       'Mark a square about 10 big steps wide. Players on the outside each have a number. One ' +
       'or two defenders are in the middle. One ball.',
@@ -133,6 +136,7 @@ export const VISION_GAMES: LibraryGame[] = [
     ages: [11, 18],
     level: 'intermediate',
     minutes: 12,
+    noTwists: ['talk'],
     setup:
       'Mark a 15 big step square. Play 4 v 2 inside it, with players in different coloured ' +
       'bibs. One ball.',
@@ -153,6 +157,7 @@ export const VISION_GAMES: LibraryGame[] = [
     ages: [13, 18],
     level: 'advanced',
     minutes: 12,
+    noTwists: ['talk', 'handicap'],
     setup:
       'Mark a square 12 big steps wide. Players pass around the outside with two balls. ' +
       'One or two defenders are in the middle.',

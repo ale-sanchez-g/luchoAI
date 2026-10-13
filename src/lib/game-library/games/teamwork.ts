@@ -10,6 +10,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['talk'],
     setup: 'Players stand in a circle about 10 big steps wide, with one ball.',
     howToPlay:
       'Before you pass, call out the name of the player you are passing to. The receiver ' +
@@ -28,6 +29,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['talk'],
     setup:
       'Set up four or five cones in a zigzag, 3 big steps apart. One player dribbles at the ' +
       'start. Their partner stands at the end of the course.',
@@ -48,6 +50,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['talk', 'roles'],
     setup: 'Stand 4 big steps from a wall. Pick a short reset routine to use after any mistake.',
     howToPlay:
       'Your routine could be: breathe out slowly, drop your shoulders, say “next ball” and ' +
@@ -86,6 +89,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [11, 18],
     level: 'intermediate',
     minutes: 12,
+    noTwists: ['talk', 'handicap'],
     setup:
       'Play a small game, 4 v 4 or similar, in a pitch about 25 big steps long. Pick a ' +
       'captain for each team to start with.',
@@ -106,6 +110,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['talk', 'roles'],
     setup:
       'Set up a simple shooting or passing game your group already knows. Add a score ' +
       'sheet or someone to count.',
@@ -126,6 +131,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['talk', 'handicap'],
     setup:
       'Play a keep-ball game in a square about 15 big steps wide, with the group split ' +
       'into two teams. One team has a ball.',
@@ -146,6 +152,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['roles'],
     setup:
       'Make a circle of players about 5 big steps across, on soft grass. You need one ball ' +
       'that is easy to control.',
@@ -166,6 +173,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 12,
+    noTwists: ['talk', 'handicap'],
     setup:
       'Make a pitch 25 big steps long with a small goal at each end. Play 3 v 3 or 4 v 4. ' +
       'Each player is given a role for 3 minutes: attacker, defender, or playmaker.',
@@ -186,6 +194,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['talk', 'handicap'],
     setup: 'Pairs stand 8 big steps apart with a ball. A third player is the friendly distractor.',
     howToPlay:
       'Pass the ball back and forth and keep count. The distractor tries to throw you off ' +

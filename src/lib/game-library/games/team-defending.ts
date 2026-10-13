@@ -135,6 +135,7 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
     ages: [12, 18],
     level: 'advanced',
     minutes: 15,
+    noTwists: ['talk'],
     setup:
       'Use half a pitch with a goal and a goalkeeper. Defenders (6 or 7) form a block near ' +
       'their goal. Attackers (6 or 7) start with the ball.',

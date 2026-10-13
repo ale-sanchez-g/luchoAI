@@ -9,6 +9,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['target'],
     setup:
       'Use a goal or two cones as a goal. Mark a target zone in each lower corner with a ' +
       'shoe or a bottle. Place the ball 8 big steps away.',
@@ -28,6 +29,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['target', 'roles'],
     setup:
       'Stand 5 plastic bottles or cones in a row along a wall or fence. Place the ball 8 ' +
       'big steps from them. Check that nothing breakable is behind the targets.',
@@ -48,6 +50,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['target'],
     setup:
       'Face a solid wall with a target marked on it (a chalk square or a taped line). Stand ' +
       '10 big steps back. Nothing breakable should be nearby.',
@@ -127,6 +130,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['target', 'roles'],
     setup:
       'Make teams of 3 or 4. Each team has a line, a ball and a goal or a gate of cones to ' +
       'aim at. Mark a shooting spot about 8 big steps from each goal.',
@@ -147,6 +151,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['target', 'roles'],
     setup:
       'Use a goal. Put cones at five spots in a curve about 8 big steps from the goal: far ' +
       'left, left, middle, right and far right.',
@@ -167,6 +172,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['target'],
     setup:
       'Use a real goal or two tall cones. Mark three spots at 8, 12 and 16 big steps from ' +
       'the goal. Check nobody is behind the goal.',
@@ -187,6 +193,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [12, 18],
     level: 'advanced',
     minutes: 10,
+    noTwists: ['target', 'handicap', 'roles'],
     setup:
       'Face a wall with a target square marked on it. Stand 8 big steps back and keep clear ' +
       'of anything breakable.',
@@ -206,6 +213,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [12, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['target', 'handicap'],
     setup:
       'Use a goal. Set three spots about 10 big steps from it: left, middle and right. Check ' +
       'nothing breakable is behind the goal.',
@@ -227,6 +235,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [8, 14],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['target'],
     setup:
       'Lay a towel flat on the ground as your “green”, about 12 big steps from your start ' +
       'spot. Check nothing breakable is nearby.',

@@ -30,6 +30,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['handicap'],
     setup:
       'Place a cone as a defender 3 big steps in front of you. A friend or a wall is 8 big ' +
       'steps in front of the cone with the ball.',
@@ -70,6 +71,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['handicap'],
     setup:
       'One player has the ball. The other two stand about 6 big steps away, one at each side ' +
       'and a little behind, to make a triangle.',
@@ -130,6 +132,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     ages: [12, 18],
     level: 'intermediate',
     minutes: 12,
+    noTwists: ['handicap'],
     setup:
       'Mark a line of cones 20 big steps from a small goal. The passer stands near the ' +
       'halfway line; the runner stands beside the cone line; a finisher waits at the goal.',
@@ -150,6 +153,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['handicap', 'roles'],
     setup:
       'Make a square about 12 big steps wide with a cone on each corner. Split the group into ' +
       'four teams, one at each corner. Each team has a line, and one team has the ball.',
@@ -170,6 +174,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     ages: [13, 18],
     level: 'advanced',
     minutes: 12,
+    noTwists: ['talk'],
     setup:
       'Use half of a pitch with a small goal. One attacker dribbles up the wing, a ' +
       'teammate starts behind them, and a defender stands in front.',
@@ -190,6 +195,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['talk', 'handicap'],
     setup:
       'Mark a square 15 big steps wide. Put 2 defenders inside (cones if you have too few ' +
       'players) and give the rest a ball to share. Everyone else is a passer.',
@@ -251,6 +257,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     ages: [9, 14],
     level: 'beginner',
     minutes: 15,
+    noTwists: ['roles'],
     setup:
       'Make a pitch 25 big steps long and 20 wide. Put two small goals (two cones each) on ' +
       'each end line, 6 big steps apart. Play 3 v 3 or 4 v 4.',

@@ -104,6 +104,7 @@ export const FIRST_TOUCH_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['handicap'],
     setup:
       'Stand about 4 big steps from a partner on soft grass. Use a ball that is a little ' +
       'soft, so it is easy to control.',

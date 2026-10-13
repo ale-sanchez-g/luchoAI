@@ -1,3 +1,4 @@
+import { GENTLE_PRACTICE } from '@/lib/game-library/no-twists';
 import type { LibraryGame } from '@/types';
 
 export const ATHLETICISM_GAMES: LibraryGame[] = [
@@ -9,6 +10,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: GENTLE_PRACTICE,
     setup:
       'Find a flat, clear space about 15 big steps long. Wear your normal football shoes ' +
       'and have a drink nearby. A ball is optional.',
@@ -30,6 +32,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['streak', 'space', 'touches', 'call', 'target', 'roles'],
     setup:
       'Draw a ladder on the ground with chalk, or lay out two ropes with eight “rungs” ' +
       'about a big step apart. Use flat grass or a mat.',
@@ -50,6 +53,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['pace', 'space', 'handicap', 'roles'],
     setup: 'Stand 3 big steps from a wall with space around you, on a flat, dry surface.',
     howToPlay:
       'Stand on one leg and pass the ball to the wall with the other foot. Control the ' +
@@ -67,6 +71,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['streak', 'touches', 'call', 'target'],
     setup:
       'Put four cones in a line, 5 big steps apart. Start at the first cone. Have some ' +
       'water close by and plenty of space around you.',
@@ -86,6 +91,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 8,
+    noTwists: GENTLE_PRACTICE,
     setup:
       'Lay out five very low obstacles (rolled-up towels or flat markers, no taller than a ' +
       'hand) in a row, about 2 big steps apart, on soft grass.',
@@ -107,6 +113,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['streak', 'call', 'target', 'handicap'],
     setup:
       'Mark a square about 10 big steps wide on soft grass. Each of you has a bib tucked ' +
       'loosely into your waistband, like a tail.',
@@ -127,6 +134,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     ages: [8, 12],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['pace', 'streak', 'talk', 'target'],
     setup:
       'Mark a space about 15 big steps wide. Everyone has a ball. One person is the leader ' +
       'and stands at one edge.',
@@ -148,6 +156,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['streak', 'target', 'handicap'],
     setup:
       'Mark a space about 15 big steps wide. Everyone has a ball. Pick two or three ' +
       'taggers, who wear bibs.',
@@ -167,6 +176,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: GENTLE_PRACTICE,
     setup:
       'Mark a line on flat, soft grass. Put a cone or a marker 2 big steps in front of ' +
       'the line to jump towards.',
@@ -186,6 +196,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     ages: [11, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['streak', 'space', 'touches', 'call', 'target'],
     setup:
       'Mark five lines 5, 10, 15, 20 and 25 big steps from a start line, on flat, dry grass. ' +
       'Bring water and wear shoes with good grip.',
@@ -206,6 +217,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     ages: [8, 14],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['handicap', 'roles'],
     setup:
       'Mark a line on the ground, or tie a rope no higher than your knee between two ' +
       'chairs, across a space about 8 big steps long.',

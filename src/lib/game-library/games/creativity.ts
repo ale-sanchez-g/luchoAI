@@ -50,6 +50,7 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['roles'],
     setup:
       'Pairs stand 8 big steps apart. Both players stand with their feet about a big step ' +
       'apart, to make a “gate” with their legs.',
@@ -70,6 +71,7 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
     ages: [11, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['roles'],
     setup:
       'Mark a start line and a cone 8 big steps away. You will practise on soft ground. ' +
       'A friend can stand by the cone, or you can use a wall.',
@@ -130,6 +132,7 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['handicap', 'roles'],
     setup:
       'Use a goal or a wall target. Mark a shooting spot 8 big steps away and check there ' +
       'is nothing breakable nearby.',
@@ -150,6 +153,7 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
     ages: [8, 10],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['pace', 'streak', 'handicap'],
     setup: 'Everyone has a ball inside a marked space about 12 big steps wide.',
     howToPlay:
       'One player tells a short story, and everyone acts it out with their ball: “We sneak ' +
@@ -209,6 +213,7 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 15,
+    noTwists: ['roles'],
     setup: 'Gather a ball, a few cones and three or more friends. You have 5 minutes to plan.',
     howToPlay:
       'Together, design a new game with three rules: how you score, one rule about feet or ' +

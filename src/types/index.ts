@@ -154,6 +154,7 @@ export interface LibraryGame {
   ages: [number, number];
   level: SkillLevel;
   minutes: number;
+  noTwists?: TwistKind[];
   setup: string;
   howToPlay: string;
   focus: string;
@@ -161,9 +162,27 @@ export interface LibraryGame {
   harder: string;
 }
 
+export type TwistKind =
+  | 'pace'
+  | 'streak'
+  | 'space'
+  | 'foot'
+  | 'touches'
+  | 'attention'
+  | 'call'
+  | 'talk'
+  | 'players'
+  | 'target'
+  | 'scoring'
+  | 'handicap'
+  | 'roles'
+  | 'rules'
+  | 'mindset';
+
 export interface GameTwist {
   id: string;
   name: string;
+  kind: TwistKind;
   rule: string;
   skills: SkillArea[] | 'all';
   minPlayers: number;

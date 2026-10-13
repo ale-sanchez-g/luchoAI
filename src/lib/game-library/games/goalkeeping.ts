@@ -1,3 +1,4 @@
+import { GENTLE_PRACTICE } from '@/lib/game-library/no-twists';
 import type { LibraryGame } from '@/types';
 
 export const GOALKEEPING_GAMES: LibraryGame[] = [
@@ -9,6 +10,7 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['call', 'target'],
     setup: 'Stand about 4 big steps from a solid wall with nothing breakable nearby.',
     howToPlay:
       'Throw the ball at the wall and catch the rebound with two hands. Count how many ' +
@@ -27,6 +29,7 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['pace', 'call', 'target', 'roles'],
     setup:
       'Place three cones in a line, 3 big steps apart, as if they were the posts and middle ' +
       'of a goal. Stand in the middle, in a ready position.',
@@ -46,6 +49,7 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['call', 'target', 'handicap'],
     setup:
       'You need a tennis ball (or another soft ball). The keeper stands 4 big steps from a ' +
       'partner or from a wall, with space around them.',
@@ -65,6 +69,7 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['call', 'target', 'handicap'],
     setup:
       'Mark a goal with two cones about 6 big steps apart. The thrower stands 6 big steps ' +
       'in front, with a ball. The keeper starts in the middle of the goal.',
@@ -85,6 +90,7 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: GENTLE_PRACTICE,
     setup:
       'Use soft, flat grass or a gym mat with nothing hard around it. A friend can roll a ' +
       'ball to you, or you can hold the ball yourself.',
@@ -105,6 +111,7 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['target', 'roles'],
     setup:
       'Put three targets (cones or bottles) at 8, 12 and 16 big steps away. Stand behind a ' +
       'line with the ball in your hand.',
@@ -125,6 +132,7 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['target', 'roles'],
     setup:
       'Mark three zones, each about 5 big steps wide, at 15, 25 and 35 big steps from you. ' +
       'Stand behind a line with a ball on the ground.',
@@ -185,6 +193,7 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     ages: [11, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['target'],
     setup:
       'Use a goal with a keeper. Put two target gates (cones 2 big steps apart) 15 big ' +
       'steps out on each side. A thrower stands in front of the goal with a few balls.',
@@ -205,6 +214,7 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     ages: [8, 14],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['space', 'call', 'target', 'handicap'],
     setup:
       'Stand 3 big steps from a partner on soft grass. One of you holds a tennis ball at ' +
       'shoulder height, and the other has their hands ready by their sides.',

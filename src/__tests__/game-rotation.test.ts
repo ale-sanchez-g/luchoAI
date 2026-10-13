@@ -71,11 +71,28 @@ const GAMES: LibraryGame[] = [
 ];
 
 const TWISTS: GameTwist[] = [
-  { id: 'any', name: 'Any', rule: 'Anything.', skills: 'all', minPlayers: 1, level: 'beginner' },
-  { id: 'pair', name: 'Pair', rule: 'Two.', skills: 'all', minPlayers: 2, level: 'beginner' },
+  {
+    id: 'any',
+    name: 'Any',
+    kind: 'mindset',
+    rule: 'Anything.',
+    skills: 'all',
+    minPlayers: 1,
+    level: 'beginner',
+  },
+  {
+    id: 'pair',
+    name: 'Pair',
+    kind: 'scoring',
+    rule: 'Two.',
+    skills: 'all',
+    minPlayers: 2,
+    level: 'beginner',
+  },
   {
     id: 'hard',
     name: 'Hard',
+    kind: 'touches',
     rule: 'Hard.',
     skills: ['first-touch'],
     minPlayers: 1,
@@ -216,6 +233,13 @@ describe('game filters', () => {
     expect(twistFits(touch, pair, 2)).toBe(true);
     expect(twistFits(makeGame('p', 'passing'), hard, 1)).toBe(false);
     expect(twistFits(touch, { ...any, except: ['t'] }, 1)).toBe(false);
+  });
+
+  it('lets a game opt out of a whole kind of twist', () => {
+    const [any, pair] = TWISTS;
+    const gentle = makeGame('g', 'first-touch', { players: [1, 4], noTwists: ['mindset'] });
+    expect(twistFits(gentle, any, 1)).toBe(false);
+    expect(twistFits(gentle, pair, 2)).toBe(true);
   });
 
   it('counts each game once as written plus once per fitting twist', () => {

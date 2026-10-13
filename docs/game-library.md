@@ -4,7 +4,7 @@ A library of practice games that players rotate through week by week, matched to
 age and level, plus "match missions" to try in their own games. It all runs in the browser:
 no AI call, no API key, nothing sent anywhere.
 
-Status on 2026-10-13: **159 games, 32 twists, 53 match missions**, about 2,900 ways to play.
+Status on 2026-10-13: **159 games, 32 twists, 53 match missions**, about 2,700 ways to play.
 
 ## How a week is chosen
 
@@ -48,8 +48,12 @@ interface LibraryGame {
 }
 ```
 
-A **twist** (`GameTwist`) is a rule change that fits many games: it names the skills it suits and
-the number of players it needs. A **match mission** (`MatchMission`) is one small thing to try in
+A **twist** (`GameTwist`) is a rule change that fits many games: it names the skills it suits, the
+number of players it needs and its `kind` (pace, streak, space, foot, touches, attention, call,
+talk, players, target, scoring, handicap, roles, rules or mindset). A game can opt out of whole
+kinds with `noTwists`: a calling game opts out of `talk` (so it is never told to "play in
+silence"), a game with no roles opts out of `roles`, and games about landing, hopping or
+warming up opt out of everything that rushes, scores or toughens them (`GENTLE_PRACTICE`). A **match mission** (`MatchMission`) is one small thing to try in
 a real game, with a "why it helps" line and an after-the-match question.
 
 ## Skill areas
@@ -95,21 +99,25 @@ few games), and never one above their chosen level.
 
 Rules for new content. The ones marked ✔ are enforced by `src/__tests__/game-library.test.ts`.
 
-1. ✔ **Original wording.** Ideas are free to reuse; other people's text, diagrams and branded
-   names are not. Rewrite, rename, and don't paste.
+1. **Original wording.** Ideas are free to reuse; other people's text, diagrams and branded
+   names are not. Rewrite, rename, and don't paste. (Tests can't check this, so reviewers must.)
 2. ✔ **No heading, anywhere.** Not in games, twists or missions.
 3. ✔ **No elimination, no sitting out, no exercise as a penalty, no shaming.** Use points,
    rounds, or swapping roles, and keep everyone playing.
 4. ✔ **No roads, streets, driveways or car parks.** Nothing near traffic.
 5. ✔ **Missions are process goals** the player fully controls. Never goals, wins or stats.
-6. ✔ **Australian/British English**, distances in "big steps".
+6. ✔ **Australian/British English** (the tests catch common US spellings), distances in
+   "big steps".
 7. ✔ **Every game has easier and harder versions**, and fits the length limits in the test.
 8. ✔ **Coverage.** Every skill needs enough games at every age, for playing alone, with a friend
    and in a group, and every game needs enough twists.
-9. **One problem per game**, and scoring should reward the behaviour being practised.
-10. **Avoid queues.** If players must wait, give them something to do with their own ball.
-11. **Both feet, flexible roles**, and never rank players by size or maturity.
-12. **Get it reviewed.** Coach or safeguarding review before a batch ships. The tests catch
+9. ✔ **Twists must make sense.** Set `noTwists` when a twist would contradict or endanger the
+   game. The tests check that no calling game gets the "quiet game" twist and no landing or
+   jumping game gets a time limit or a streak.
+10. **One problem per game**, and scoring should reward the behaviour being practised.
+11. **Avoid queues.** If players must wait, give them something to do with their own ball.
+12. **Both feet, flexible roles**, and never rank players by size or maturity.
+13. **Get it reviewed.** Coach or safeguarding review before a batch ships. The tests catch
     wording, not whether a drill is sensible for a 9-year-old.
 
 ### Adding a game
@@ -172,7 +180,7 @@ named moves (a move named after a person).
 
 - **Games**: distinct practices (159).
 - **Ways to play**: each game once as written, plus once for every twist that fits it
-  (about 2,900). A twist changes the rules enough to feel like a new game, but it is the same
+  (about 2,700). A twist changes the rules enough to feel like a new game, but it is the same
   game underneath, so quote both numbers.
 - **How long before a repeat?** At four games a week, a beginner aged 8 has about 93 eligible
   games (about 23 weeks), a 16-year-old beginner about 94 (about 23 weeks) and an intermediate

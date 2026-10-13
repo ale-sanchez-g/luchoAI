@@ -9,6 +9,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['target', 'roles'],
     setup: 'Put a cone or bottle down as a target. Stand 5 big steps away, then 8, then 12.',
     howToPlay:
       'Pass the ball along the ground and try to hit the target. Take 5 tries from each ' +
@@ -44,6 +45,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['roles'],
     setup:
       'Stand about 10 big steps from your partner. Put two cones 2 big steps apart halfway ' +
       'between you, as a gate.',
@@ -81,6 +83,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [11, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['target', 'roles'],
     setup:
       'Stand about 25 big steps from your partner. Mark a target zone, 4 big steps wide, ' +
       'around each of you with four cones.',
@@ -101,6 +104,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['handicap'],
     setup:
       'Mark a square about 10 big steps wide. Put a player on each corner, and the rest of ' +
       'the group waiting behind the corners.',
@@ -120,6 +124,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['roles'],
     setup:
       'Make two teams, each in a line. The lines face each other about 8 big steps apart, ' +
       'with one ball for each team.',
@@ -160,6 +165,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [12, 18],
     level: 'intermediate',
     minutes: 12,
+    noTwists: ['talk', 'handicap'],
     setup:
       'Make a row of three gates about 5 big steps apart, each 2 big steps wide. The passer ' +
       'stands 8 big steps back with the ball, and a runner starts beside the first gate.',
@@ -180,6 +186,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['roles'],
     setup:
       'Make a square about 8 big steps wide. Put one player in the middle and the rest around ' +
       'the outside, with one ball.',

@@ -154,7 +154,28 @@ describe('game twists', () => {
     });
     GAME_LIBRARY.forEach((g) => {
       const fits = GAME_TWISTS.filter((t) => twistFits(g, t, g.players[1])).length;
-      expect({ game: g.id, enough: fits >= 6 }).toEqual({ game: g.id, enough: true });
+      expect({ game: g.id, enough: fits >= 4 }).toEqual({ game: g.id, enough: true });
+    });
+  });
+
+  it('never tells players to stay quiet in a game that is played by calling out', () => {
+    const quiet = GAME_TWISTS.find((t) => t.id === 'quiet-game')!;
+    const calling = /\b(call|calls|called|calling|shout|shouts|say|says|speak|voice|talk|talks)\b/;
+    GAME_LIBRARY.filter((g) => twistFits(g, quiet, g.players[1])).forEach((g) => {
+      expect({ id: g.id, calls: calling.test(gameText(g).toLowerCase()) }).toEqual({
+        id: g.id,
+        calls: false,
+      });
+    });
+  });
+
+  it('never rushes or scores a game about landing, hopping, jumping or falling', () => {
+    // "fall to your feet" is the ball, so only the player falling or landing counts.
+    const risky = /\b(landing(?! zone)|land softly|hop|hops|hopping|jump|jumps|jumping|falling)\b/;
+    GAME_LIBRARY.filter((g) => risky.test(gameText(g).toLowerCase())).forEach((g) => {
+      const pace = GAME_TWISTS.filter((t) => ['pace', 'streak'].includes(t.kind));
+      const fits = pace.filter((t) => twistFits(g, t, g.players[1])).map((t) => t.id);
+      expect({ id: g.id, fits }).toEqual({ id: g.id, fits: [] });
     });
   });
 

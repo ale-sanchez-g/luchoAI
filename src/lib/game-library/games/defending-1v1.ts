@@ -10,6 +10,7 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['handicap'],
     setup:
       'Mark two lines about 5 big steps apart. You and your partner stand facing each other, ' +
       'one on each line, on soft grass. No ball is needed.',
@@ -172,6 +173,7 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['handicap'],
     setup:
       'Mark a line 20 big steps long. Attackers with balls wait at one end 10 big steps back. ' +
       'Defenders stand along the line.',
@@ -235,6 +237,7 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 8,
+    noTwists: ['streak', 'space', 'touches', 'call', 'target'],
     setup:
       'Mark two cones 10 big steps apart. Stand at one cone, side-on, as if you were facing ' +
       'an attacker. Wear shoes with good grip on flat ground.',

@@ -10,6 +10,7 @@ export const TRANSITIONS_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['talk'],
     setup: 'Mark two lines about 15 big steps apart. Stand on one line with the ball.',
     howToPlay:
       'Dribble towards the far line. When you call “switch!” (or a friend claps), stop the ' +
@@ -109,6 +110,7 @@ export const TRANSITIONS_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['talk', 'roles'],
     setup:
       'Mark a pitch 25 big steps long and 15 wide. Make two teams, with a small goal at ' +
       'each end. Every player wears a bib or is easy to see.',
@@ -190,6 +192,7 @@ export const TRANSITIONS_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['roles'],
     setup:
       'Mark a pitch 15 big steps wide with a gate at each end. Put spare balls in a pile ' +
       'near the touchline. One player acts as the “thrower”.',

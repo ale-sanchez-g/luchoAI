@@ -62,6 +62,7 @@ export const DRIBBLING_GAMES: LibraryGame[] = [
     ages: [8, 12],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['talk', 'handicap'],
     setup:
       'Mark a big square, about 15 big steps wide. Everyone has a ball inside it. One person ' +
       'is the “traffic light” and calls out the colours.',
@@ -101,6 +102,7 @@ export const DRIBBLING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['handicap'],
     setup: 'Everyone has a ball. One player is the leader and the rest follow in a line.',
     howToPlay:
       'The leader dribbles around the space doing different moves, such as zigzags, turns and ' +
@@ -118,6 +120,7 @@ export const DRIBBLING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['roles'],
     setup: 'Mark a start line and a finish line about 10 big steps apart.',
     howToPlay:
       'Dribble to the finish line as slowly as you can, but the ball must keep moving and ' +
@@ -136,6 +139,7 @@ export const DRIBBLING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['roles'],
     setup:
       'Scatter 8 or more small gates (pairs of cones, about 2 big steps wide) around a space ' +
       '15 big steps across.',

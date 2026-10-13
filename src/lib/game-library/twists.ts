@@ -6,6 +6,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'weaker-foot',
     name: 'Weaker foot only',
+    kind: 'foot',
     rule: 'Use only your weaker foot. Every clean touch with it earns a bonus point.',
     skills: ['first-touch', 'passing', 'dribbling', 'taking-on', 'finishing', 'creativity'],
     minPlayers: 1,
@@ -14,6 +15,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'both-feet',
     name: 'Left, right, left',
+    kind: 'foot',
     rule: 'Swap feet on every touch or pass. Count how long you can keep the pattern going.',
     skills: ['first-touch', 'passing', 'dribbling', 'finishing'],
     minPlayers: 1,
@@ -22,6 +24,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'inside-foot',
     name: 'Inside of the foot',
+    kind: 'foot',
     rule: 'Control and pass using only the inside of your foot. Aim for a smooth, quiet touch.',
     skills: ['first-touch', 'passing'],
     minPlayers: 1,
@@ -30,6 +33,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'outside-foot',
     name: 'Outside of the foot',
+    kind: 'foot',
     rule: 'Use only the outside of your foot to move or pass the ball. Slow and neat beats messy.',
     skills: ['dribbling', 'taking-on', 'creativity', 'passing'],
     minPlayers: 1,
@@ -38,6 +42,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'two-touch',
     name: 'Two touches',
+    kind: 'touches',
     rule: 'Two touches at most: one to control and one to pass or shoot. Keep the ball moving.',
     skills: ['passing', 'first-touch', 'vision', 'movement', 'transitions', 'finishing'],
     minPlayers: 2,
@@ -46,6 +51,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'one-touch-bonus',
     name: 'One-touch bonus',
+    kind: 'touches',
     rule: 'A first-time pass or shot (one touch) scores double. Be ready before the ball arrives.',
     skills: ['passing', 'movement', 'vision', 'transitions', 'finishing'],
     minPlayers: 2,
@@ -55,6 +61,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'eyes-up-calls',
     name: 'Eyes-up calls',
+    kind: 'attention',
     rule:
       'Before every touch, look up and call out one thing you can see, like a colour or a ' +
       'shirt number.',
@@ -65,6 +72,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'fingers-up',
     name: 'Fingers up',
+    kind: 'attention',
     rule: 'A partner holds up some fingers just before each touch. Call the number, then play.',
     skills: ['first-touch', 'passing', 'dribbling', 'vision'],
     minPlayers: 2,
@@ -73,6 +81,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'scan-twice',
     name: 'Scan twice',
+    kind: 'attention',
     rule:
       'Look over your shoulder twice before the ball reaches you, so you know what is around ' +
       'you before you receive.',
@@ -83,6 +92,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'call-the-name',
     name: 'Call the name',
+    kind: 'talk',
     rule: "Every pass starts with a loud call of the receiver's name. No call, no pass.",
     skills: ['passing', 'movement', 'teamwork', 'team-defending', 'transitions', 'vision'],
     minPlayers: 3,
@@ -91,14 +101,16 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'quiet-game',
     name: 'Quiet game',
+    kind: 'talk',
     rule: 'Play with no talking. Use points, nods and eye contact to show where you want the ball.',
-    skills: ['movement', 'vision', 'teamwork', 'passing', 'transitions'],
+    skills: ['movement', 'vision', 'passing', 'transitions'],
     minPlayers: 3,
     level: 'intermediate',
   },
   {
     id: 'beat-the-clock',
     name: 'Beat the clock',
+    kind: 'pace',
     rule: 'Set a 60 second timer and count your score. Then try to beat it in the next round.',
     skills: 'all',
     minPlayers: 1,
@@ -107,6 +119,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'five-seconds',
     name: 'Five-second rule',
+    kind: 'pace',
     rule: 'Finish every attempt within five seconds, so you decide early and move quickly.',
     skills: [
       'finishing',
@@ -122,6 +135,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'build-a-streak',
     name: 'Build a streak',
+    kind: 'streak',
     rule:
       'Count your successes in a row. A miss just starts the count again, so it is a fresh ' +
       'chance to beat your record.',
@@ -144,6 +158,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'squeeze-the-space',
     name: 'Squeeze the space',
+    kind: 'space',
     rule:
       'Make the area about a third smaller. Less space means quicker thinking and tighter ' +
       'touches.',
@@ -164,14 +179,16 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'stretch-the-space',
     name: 'Stretch the space',
+    kind: 'space',
     rule: 'Make the area bigger. Now long passes and quick runs matter more.',
-    skills: ['passing', 'movement', 'transitions', 'team-defending', 'athleticism', 'vision'],
+    skills: ['passing', 'movement', 'transitions', 'team-defending', 'vision'],
     minPlayers: 2,
     level: 'beginner',
   },
   {
     id: 'add-a-defender',
     name: 'Add a defender',
+    kind: 'players',
     rule: 'Add one more player as a defender. Make a plan before the ball arrives.',
     skills: [
       'first-touch',
@@ -189,6 +206,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'extra-attacker',
     name: 'Extra attacker',
+    kind: 'players',
     rule: 'Give the attackers one more player than the defenders. Use the extra player well.',
     skills: ['movement', 'passing', 'vision', 'team-defending', 'transitions'],
     minPlayers: 4,
@@ -197,6 +215,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'hit-the-target',
     name: 'Hit the target',
+    kind: 'target',
     rule:
       'Add a small target, like a cone or a bucket. Aim every pass or shot at it for a bonus ' +
       'point.',
@@ -207,6 +226,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'add-a-keeper',
     name: 'Add a goalkeeper',
+    kind: 'players',
     rule: 'Add a goalkeeper. Now you have to pick your corner as well as hit the target.',
     skills: ['finishing'],
     minPlayers: 2,
@@ -215,6 +235,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'team-challenge',
     name: 'Team challenge',
+    kind: 'scoring',
     rule: "Add everyone's scores together and try to beat your team record, not each other.",
     skills: 'all',
     minPlayers: 2,
@@ -223,6 +244,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'style-points',
     name: 'Style points',
+    kind: 'scoring',
     rule:
       'Earn a bonus point for a move the group has not seen yet, like a new turn, flick or ' +
       'feint.',
@@ -233,6 +255,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'call-it',
     name: 'Call it',
+    kind: 'call',
     rule: 'Say where you will pass or shoot before you do it. Get it right to earn a bonus point.',
     skills: ['finishing', 'passing', 'vision', 'first-touch', 'goalkeeping'],
     minPlayers: 1,
@@ -241,6 +264,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'fair-start',
     name: 'Fair start',
+    kind: 'handicap',
     rule:
       'If one player is racing ahead, they start two big steps back. Close games are the best ' +
       'games.',
@@ -251,6 +275,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'swap-roles',
     name: 'Swap roles',
+    kind: 'roles',
     rule: 'Swap jobs every two minutes so everybody gets to try every role.',
     skills: 'all',
     minPlayers: 2,
@@ -259,6 +284,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'bounce-back',
     name: 'Bounce back',
+    kind: 'mindset',
     rule:
       'After any mistake, take one breath, say "next ball" and carry on. Score how quickly you ' +
       'reset, not how many mistakes you make.',
@@ -269,6 +295,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'start-moving',
     name: 'Start on the move',
+    kind: 'pace',
     rule: 'Begin every attempt on the move, never standing still, just like in a real game.',
     skills: [
       'first-touch',
@@ -287,6 +314,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'count-aloud',
     name: 'Count out loud',
+    kind: 'attention',
     rule:
       'Count your touches, passes or successes out loud. It keeps your head busy, like a real ' +
       'game.',
@@ -310,6 +338,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'walk-it-through',
     name: 'Walk it through',
+    kind: 'mindset',
     rule: 'Do your first go slowly with perfect shape, then build up to full speed.',
     skills: 'all',
     minPlayers: 1,
@@ -318,6 +347,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'personal-best',
     name: 'Beat your best',
+    kind: 'scoring',
     rule: 'Write down your best score before you start, then try to beat it by just one.',
     skills: 'all',
     minPlayers: 1,
@@ -326,6 +356,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'switch-it-up',
     name: 'Switch it up',
+    kind: 'rules',
     rule: 'Change one rule every two minutes: a different foot, a new target or a bigger space.',
     skills: 'all',
     minPlayers: 1,
@@ -334,6 +365,7 @@ export const GAME_TWISTS: GameTwist[] = [
   {
     id: 'coach-yourself',
     name: 'Coach yourself',
+    kind: 'mindset',
     rule: 'After each round, say one thing you did well and one thing to try next. Then try it.',
     skills: 'all',
     minPlayers: 1,
