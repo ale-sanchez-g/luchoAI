@@ -50,7 +50,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
-    noTwists: ['talk', 'roles'],
+    noTwists: ['pace', 'talk', 'roles'],
     setup: 'Stand 4 big steps from a wall. Pick a short reset routine to use after any mistake.',
     howToPlay:
       'Your routine could be: breathe out slowly, drop your shoulders, say “next ball” and ' +
@@ -69,6 +69,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['pace'],
     setup:
       'Use a goal or a target on a wall. Mark a spot 8 big steps away. Everyone has a ' +
       'turn at the spot.',
@@ -89,7 +90,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [11, 18],
     level: 'intermediate',
     minutes: 12,
-    noTwists: ['talk', 'handicap'],
+    noTwists: ['talk', 'players', 'handicap'],
     setup:
       'Play a small game, 4 v 4 or similar, in a pitch about 25 big steps long. Pick a ' +
       'captain for each team to start with.',
@@ -131,7 +132,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
-    noTwists: ['talk', 'handicap'],
+    noTwists: ['talk', 'players', 'handicap'],
     setup:
       'Play a keep-ball game in a square about 15 big steps wide, with the group split ' +
       'into two teams. One team has a ball.',
@@ -173,7 +174,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 12,
-    noTwists: ['talk', 'handicap'],
+    noTwists: ['talk', 'players', 'handicap'],
     setup:
       'Make a pitch 25 big steps long with a small goal at each end. Play 3 v 3 or 4 v 4. ' +
       'Each player is given a role for 3 minutes: attacker, defender, or playmaker.',
@@ -213,6 +214,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['pace'],
     setup:
       'You need a piece of paper and a pen. Do this on a quiet day, well before your next ' +
       'match, with a ball nearby for the warm-up part.',

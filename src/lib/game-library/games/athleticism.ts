@@ -102,7 +102,7 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     focus:
       'Land softly, like a cat. Bend your knees and keep them pointing the same way as your toes.',
     easier: 'Step over the obstacles instead of hopping.',
-    harder: 'Hop on one leg, or add a ball dribble at the end of the row.',
+    harder: 'Once you land quietly every time, hop on one leg or dribble at the end of the row.',
   },
   {
     id: 'athleticism-shadow-chase',
@@ -158,15 +158,16 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
     minutes: 10,
     noTwists: ['streak', 'target', 'handicap'],
     setup:
-      'Mark a space about 15 big steps wide. Everyone has a ball. Pick two or three ' +
-      'taggers, who wear bibs.',
+      'Mark a space about 20 big steps wide (bigger if there are more than 8 players). ' +
+      'Everyone has a ball. Pick two or three taggers, who wear bibs.',
     howToPlay:
-      'Taggers dribble and try to touch other players on the arm with two fingers, gently. ' +
-      'If you are tagged, do 5 toe taps on your ball and rejoin the game. Swap taggers every ' +
-      'minute. Always look up and never run into anyone.',
+      'Everyone dribbles at a jog. Taggers try to touch another player’s arm with two ' +
+      'fingers, gently, and never push or grab. If you are tagged, do 5 toe taps on your ball ' +
+      'and rejoin the game. Swap taggers every minute. Always look up and never run into ' +
+      'anyone: stop the game if players are bumping.',
     focus: 'Keep your head up. Use the space and watch where everyone is going.',
-    easier: 'Walk fast instead of running.',
-    harder: 'Taggers must tag with their weaker foot touching the ball first.',
+    easier: 'Walk fast instead of jogging.',
+    harder: 'Taggers must have their weaker foot touch the ball just before each tag.',
   },
   {
     id: 'athleticism-stick-the-landing',
@@ -182,11 +183,11 @@ export const ATHLETICISM_GAMES: LibraryGame[] = [
       'the line to jump towards.',
     howToPlay:
       'Jump forward off two feet and land softly on two feet with your knees bent, hips ' +
-      'back and chest up. Hold the landing for two seconds like a statue. Do 8 jumps, ' +
-      'then try 8 more landing on one foot. Rest between sets.',
+      'back and chest up. Hold the landing for two seconds like a statue. Do 8 jumps. Once ' +
+      'your landings are steady, try 8 more landing on one foot. Rest between sets.',
     focus: 'Land quietly, with your knees over your toes. A silent landing is a good one.',
     easier: 'Jump a shorter distance.',
-    harder: 'Jump and turn a quarter turn in the air before you land.',
+    harder: 'Jump a little further, or hold each landing for four seconds.',
   },
   {
     id: 'athleticism-sprint-pyramid',

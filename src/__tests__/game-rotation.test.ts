@@ -296,6 +296,25 @@ describe('buildWeeklyPlan', () => {
     expect(fitsSlot(picks[2].game, 'team')).toBe(true);
   });
 
+  it('always labels the wildcard as something new, even if it touches a goal skill', () => {
+    const touchy = [
+      makeGame('first-touch-solo-x', 'first-touch'),
+      makeGame('first-touch-friend-x', 'first-touch', { players: [2, 3] }),
+      makeGame('first-touch-group-x', 'first-touch', { players: [6, 12] }),
+      makeGame('creativity-also-goal', 'creativity', { also: ['first-touch'] }),
+    ];
+    const result = buildWeeklyPlan({
+      date: new Date(2026, 9, 12),
+      profile: { ...PROFILE, goals: ['First touch'] },
+      games: touchy,
+      twists: TWISTS,
+      missions: MISSIONS,
+      themeIds: THEMES,
+    });
+    const wildcard = result.picks.find((p) => p.slot === 'wildcard');
+    expect(wildcard?.reason).toBe('new');
+  });
+
   it('rotates the weekly focus through the player goals', () => {
     const focuses = [0, 1, 2, 3].map((w) => plan(w).focus);
     expect(focuses[0]).not.toBe(focuses[1]);

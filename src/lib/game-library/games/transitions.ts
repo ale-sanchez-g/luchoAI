@@ -49,6 +49,7 @@ export const TRANSITIONS_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['players'],
     setup:
       'Make a pitch 25 big steps long and 15 wide with a small goal at each end. Make two ' +
       'teams with equal numbers.',
@@ -110,7 +111,7 @@ export const TRANSITIONS_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
-    noTwists: ['talk', 'roles'],
+    noTwists: ['talk', 'players', 'roles'],
     setup:
       'Mark a pitch 25 big steps long and 15 wide. Make two teams, with a small goal at ' +
       'each end. Every player wears a bib or is easy to see.',
@@ -172,6 +173,7 @@ export const TRANSITIONS_GAMES: LibraryGame[] = [
     ages: [11, 18],
     level: 'intermediate',
     minutes: 15,
+    noTwists: ['players'],
     setup:
       'Make a pitch 35 big steps long and 20 wide with a small goal at each end. Play 4 v 4. ' +
       'Put a halfway line down the middle.',

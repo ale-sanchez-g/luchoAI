@@ -198,6 +198,7 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['players'],
     setup:
       'Mark a pitch 25 big steps long with a goal line at each end. Make two teams, with a ' +
       'mini goal at each end.',

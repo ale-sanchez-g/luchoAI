@@ -331,7 +331,9 @@ export function buildWeeklyPlan(input: RotationInput): WeeklyPlan {
     choose(
       'wildcard',
       takeNext(outsideFocus, always, state, thisWeek) ??
-        takeNext(wildcardOrder, always, state, thisWeek),
+        takeNext(wildcardOrder, always, state, thisWeek) ??
+        wildcardOrder.find((g) => !thisWeek.has(g.id)) ??
+        null,
     );
 
     state.lastWeek = thisWeek;
@@ -343,7 +345,7 @@ export function buildWeeklyPlan(input: RotationInput): WeeklyPlan {
     slot,
     game,
     twist: pickTwist(game, slot, twists, (state.timesPicked.get(game.id) ?? 1) - 1, age, level),
-    reason: reasonFor(game, plan),
+    reason: slot === 'wildcard' ? 'new' : reasonFor(game, plan),
   }));
 
   return {

@@ -44,6 +44,7 @@ interface LibraryGame {
   ages: [number, number];     // inclusive, 8 to 18
   level: 'beginner' | 'intermediate' | 'advanced';  // the lowest level it suits
   minutes: number;
+  noTwists?: TwistKind[];    // kinds of twist this game can't take (see below)
   setup: string; howToPlay: string; focus: string; easier: string; harder: string;
 }
 ```
@@ -53,8 +54,10 @@ number of players it needs and its `kind` (pace, streak, space, foot, touches, a
 talk, players, target, scoring, handicap, roles, rules or mindset). A game can opt out of whole
 kinds with `noTwists`: a calling game opts out of `talk` (so it is never told to "play in
 silence"), a game with no roles opts out of `roles`, and games about landing, hopping or
-warming up opt out of everything that rushes, scores or toughens them (`GENTLE_PRACTICE`). A **match mission** (`MatchMission`) is one small thing to try in
-a real game, with a "why it helps" line and an after-the-match question.
+warming up opt out of everything that rushes, scores or toughens them (`GENTLE_PRACTICE`).
+
+A **match mission** (`MatchMission`) is one small thing to try in a real game, with a "why it
+helps" line and an after-the-match question.
 
 ## Skill areas
 

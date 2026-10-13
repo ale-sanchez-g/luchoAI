@@ -100,7 +100,7 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
       'then from standing. Do 5 goes on each side, and stop if anything feels sore.',
     focus: 'Land on the side of your body, not on your elbows or knees, and keep the ball tight.',
     easier: 'Stay on your knees and just roll sideways.',
-    harder: 'Have a friend roll the ball a metre to the side so you reach for it.',
+    harder: 'Have a friend roll the ball a couple of big steps to the side so you reach for it.',
   },
   {
     id: 'goalkeeping-throw-accuracy',
