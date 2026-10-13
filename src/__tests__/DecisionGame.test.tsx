@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import DecisionGame from '@/components/DecisionGame';
-import { getTheme } from '@/lib/decision-games';
+import { DECISION_THEMES, getTheme } from '@/lib/decision-games';
 import type { DecisionOption } from '@/types';
 
 const SPACE = getTheme('space');
@@ -29,11 +29,11 @@ describe('DecisionGame', () => {
     localStorage.clear();
   });
 
-  it('offers the three decision themes', () => {
+  it('offers every decision theme', () => {
     render(<DecisionGame />);
     expect(screen.getByRole('heading', { name: 'Game IQ' })).toBeInTheDocument();
-    ['Move into Space', 'First Touch', 'Press or Hold?'].forEach((title) => {
-      expect(screen.getByText(title)).toBeInTheDocument();
+    DECISION_THEMES.forEach((theme) => {
+      expect(screen.getByText(theme.title)).toBeInTheDocument();
     });
   });
 

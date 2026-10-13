@@ -57,7 +57,13 @@ export interface WellbeingCheckIn {
   proudOf: string;
 }
 
-export type DecisionThemeId = 'space' | 'first-touch' | 'press';
+export type DecisionThemeId =
+  | 'space'
+  | 'first-touch'
+  | 'press'
+  | 'defend-together'
+  | 'counter'
+  | 'shoot';
 
 export type BestScores = Partial<Record<DecisionThemeId, number>>;
 

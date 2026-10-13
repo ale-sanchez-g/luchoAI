@@ -9,7 +9,7 @@ An AI-augmented coaching platform for young football (soccer) players aged 8–1
 - **AI Coach Chat** — Ask your personal AI coach anything about football, technique, and tactics
 - **Training Plan Generator** — Generate a personalized weekly training plan based on your position and skill level
 - **Player Profile** — Set up your profile so coaching is tailored to your age, position, and goals
-- **Game IQ** — Decision games on moving into space, first touch, and when to press or hold, plus on-pitch games to practise each one
+- **Game IQ** — Decision games on moving into space, first touch, pressing, defending together, quick counter-attacks, and when to shoot or pass, plus on-pitch games to practise each one
 - **Wellbeing** — Daily mood and life-balance check-in, calm breathing, a mistake reset routine, and free helplines for young people (check-ins never leave the device)
 - **Multi-provider AI** — Choose from Anthropic Claude, OpenAI GPT, Google Gemini, or Hugging Face models
 
