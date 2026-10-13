@@ -122,3 +122,85 @@ export interface DecisionTheme {
   scenarios: DecisionScenario[];
   pitchGames: PitchGame[];
 }
+
+export type PlayerPosition = PlayerProfile['position'];
+
+export type SkillLevel = PlayerProfile['skillLevel'];
+
+export type SkillArea =
+  | 'first-touch'
+  | 'passing'
+  | 'dribbling'
+  | 'taking-on'
+  | 'defending-1v1'
+  | 'finishing'
+  | 'goalkeeping'
+  | 'movement'
+  | 'team-defending'
+  | 'transitions'
+  | 'vision'
+  | 'creativity'
+  | 'athleticism'
+  | 'teamwork';
+
+// players and ages are inclusive [min, max] pairs. A game with players [1, 4] works alone
+// and with up to three friends.
+export interface LibraryGame {
+  id: string;
+  name: string;
+  skill: SkillArea;
+  also?: SkillArea[];
+  players: [number, number];
+  ages: [number, number];
+  level: SkillLevel;
+  minutes: number;
+  setup: string;
+  howToPlay: string;
+  focus: string;
+  easier: string;
+  harder: string;
+}
+
+export interface GameTwist {
+  id: string;
+  name: string;
+  rule: string;
+  skills: SkillArea[] | 'all';
+  minPlayers: number;
+  level: SkillLevel;
+  minAge?: number;
+  except?: string[];
+}
+
+export interface MatchMission {
+  id: string;
+  title: string;
+  mission: string;
+  why: string;
+  afterMatch: string;
+  skill: SkillArea;
+  ages: [number, number];
+}
+
+export type PlaySlot = 'solo' | 'friend' | 'team' | 'wildcard';
+
+export type PickReason = 'goal' | 'position' | 'new';
+
+export type FocusSource = 'goals' | 'position' | 'rotation';
+
+export interface WeeklyPick {
+  slot: PlaySlot;
+  game: LibraryGame;
+  twist: GameTwist | null;
+  reason: PickReason;
+}
+
+export interface WeeklyPlan {
+  week: number;
+  startsOn: Date;
+  focus: SkillArea;
+  focusSource: FocusSource;
+  picks: WeeklyPick[];
+  mission: MatchMission | null;
+  quizTheme: DecisionThemeId;
+}

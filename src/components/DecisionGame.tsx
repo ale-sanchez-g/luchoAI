@@ -319,9 +319,13 @@ function RoundSummary({ theme, score, newBest, onReplay, onMenu }: RoundSummaryP
   );
 }
 
-export default function DecisionGame() {
+interface DecisionGameProps {
+  initialThemeId?: DecisionThemeId | null;
+}
+
+export default function DecisionGame({ initialThemeId = null }: DecisionGameProps) {
   const [bestScores, setBestScores] = useState<BestScores>({});
-  const [themeId, setThemeId] = useState<DecisionThemeId | null>(null);
+  const [themeId, setThemeId] = useState<DecisionThemeId | null>(initialThemeId);
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [score, setScore] = useState(0);
