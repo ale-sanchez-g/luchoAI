@@ -9,10 +9,10 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
-    noTwists: ['target'],
+    noTwists: ['target', 'roles'],
     setup:
-      'Use a goal or two cones as a goal. Mark a target zone in each lower corner with a ' +
-      'shoe or a bottle. Place the ball 8 big steps away.',
+      'Use a goal or two cones as a goal. Mark a target zone in each lower corner with a shoe or ' +
+      'a plastic bottle. Place the ball 8 big steps away.',
     howToPlay:
       'Take a shot at one corner and try to hit the zone. A hit in a corner zone is 2 points, ' +
       'and a shot on target anywhere else is 1 point. Take 10 shots, then try to beat your ' +
@@ -29,7 +29,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
-    noTwists: ['target', 'roles'],
+    noTwists: ['target', 'roles', 'players'],
     setup:
       'Stand 5 plastic bottles or cones in a row along a wall or fence. Place the ball 8 ' +
       'big steps from them. Check that nothing breakable is behind the targets.',
@@ -37,7 +37,8 @@ export const FINISHING_GAMES: LibraryGame[] = [
       'Shoot to knock the bottles down. Each bottle is a point. Reset them and have another ' +
       'go. Take 5 shots each and add up the pair or group total. Try to beat your best score ' +
       'every time you play.',
-    focus: 'Keep your eyes on the target and hit through the centre of the ball.',
+    focus:
+      'Glance at the target first, then keep your eyes on the ball and hit through the centre.',
     easier: 'Move closer, or use bigger targets.',
     harder: 'Stand further back, or call which bottle you will hit.',
   },
@@ -71,13 +72,15 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['players', 'roles'],
     setup:
-      'Use a goal and a spot 8 big steps from it (or cones). One player shoots and one plays ' +
-      'in goal. The rest wait in a line.',
+      'Use a goal and a spot 8 big steps from it (or cones). One player shoots and one plays in ' +
+      'goal. The others fetch balls and take the next turn.',
     howToPlay:
       'Shooters take 3 penalties each. A goal is 1 point. Each save is a point for the ' +
       'goalkeeper. Everyone plays in goal and everyone shoots. Everyone keeps their own score ' +
-      'and nobody is ever out, so you can try new tricks and corners.',
+      'and nobody is ever out, so you can try new tricks and corners. Keep every shot on the ' +
+      'ground and no harder than a firm pass. The keeper can say “softer” at any time.',
     focus: 'Pick your spot and commit. A calm run-up beats a rushed one.',
     easier: 'Move the spot closer to the goal.',
     harder: 'Shoot from a moving ball, or add a short run-up with a turn.',
@@ -107,13 +110,14 @@ export const FINISHING_GAMES: LibraryGame[] = [
     name: 'Cut-Back Finish',
     skill: 'finishing',
     also: ['passing', 'movement'],
-    players: [3, 6],
+    players: [3, 5],
     ages: [12, 18],
     level: 'intermediate',
     minutes: 12,
     setup:
-      'Use a goal. Put a cone near the goal line, on each side, 6 big steps from the goal. ' +
-      'A winger starts with the ball wide; the finisher starts at the edge of the area.',
+      'Use a goal. Put a cone near the goal line, on each side, 6 big steps from the goal. A ' +
+      'winger starts with the ball wide; the finisher starts 8 big steps out. Extra players are ' +
+      'the goalkeeper and ball collectors.',
     howToPlay:
       'The winger dribbles to the cone and pulls the ball back along the ground for the ' +
       'finisher, who times their run and shoots with their feet. Take 6 turns, then swap ' +
@@ -130,7 +134,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
-    noTwists: ['target', 'roles'],
+    noTwists: ['target', 'roles', 'players'],
     setup:
       'Make teams of 3 or 4. Each team has a line, a ball and a goal or a gate of cones to ' +
       'aim at. Mark a shooting spot about 8 big steps from each goal.',
@@ -162,7 +166,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     focus:
       'From wide angles, aim for the far post and hit it firmly. In the middle, pick a corner.',
     easier: 'Start from the middle spots only.',
-    harder: 'Move the curve back, or add a bottle as a “goalkeeper”.',
+    harder: 'Move the curve back, or add a plastic bottle as a “goalkeeper”.',
   },
   {
     id: 'finishing-post-challenge',
@@ -172,7 +176,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'beginner',
     minutes: 10,
-    noTwists: ['target'],
+    noTwists: ['target', 'players', 'roles'],
     setup:
       'Use a real goal or two tall cones. Mark three spots at 8, 12 and 16 big steps from ' +
       'the goal. Check nobody is behind the goal.',
@@ -180,7 +184,8 @@ export const FINISHING_GAMES: LibraryGame[] = [
       'Try to hit a post or the crossbar with a low or driven shot, from each spot. Hitting ' +
       'the woodwork is 3 points, and a goal is 1 point. Take 3 shots from each spot and keep ' +
       'a running total. Players take turns and fetch the ball together.',
-    focus: 'Aim a little bit higher than where you want the ball to land, and follow through.',
+    focus:
+      'Pick your spot, plant your standing foot and hit it firm and low, not as hard as you can.',
     easier: 'Start at the closest spot only.',
     harder: 'Only count shots hit with your weaker foot.',
   },
@@ -193,10 +198,10 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [12, 18],
     level: 'advanced',
     minutes: 10,
-    noTwists: ['target', 'handicap', 'roles'],
+    noTwists: ['target', 'handicap', 'roles', 'players'],
     setup:
-      'Face a wall with a target square marked on it. Stand 8 big steps back and keep clear ' +
-      'of anything breakable.',
+      'Face a wall with a target square marked low on it, below your waist. Stand 8 big steps ' +
+      'back and keep clear of anything breakable.',
     howToPlay:
       'Drop the ball from your hands and strike it just after it bounces, aiming at the ' +
       'target on the wall. Take 10 shots. Count how many hit the target and then try with the ' +
@@ -211,9 +216,9 @@ export const FINISHING_GAMES: LibraryGame[] = [
     skill: 'finishing',
     players: [1, 3],
     ages: [12, 18],
-    level: 'beginner',
+    level: 'intermediate',
     minutes: 12,
-    noTwists: ['target', 'handicap'],
+    noTwists: ['target', 'handicap', 'roles'],
     setup:
       'Use a goal. Set three spots about 10 big steps from it: left, middle and right. Check ' +
       'nothing breakable is behind the goal.',
@@ -224,7 +229,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
       'Rest between stations.',
     focus: 'Each shot has its own technique. Choose the one that suits the angle.',
     easier: 'Move closer and use a bigger target.',
-    harder: 'Shoot from a moving ball, or add a keeper (a friend or a bottle).',
+    harder: 'Shoot from a moving ball, or add a keeper (a friend or a plastic bottle).',
   },
   {
     id: 'finishing-towel-golf',
@@ -235,7 +240,7 @@ export const FINISHING_GAMES: LibraryGame[] = [
     ages: [8, 14],
     level: 'beginner',
     minutes: 10,
-    noTwists: ['target'],
+    noTwists: ['target', 'roles', 'players', 'pace'],
     setup:
       'Lay a towel flat on the ground as your “green”, about 12 big steps from your start ' +
       'spot. Check nothing breakable is nearby.',

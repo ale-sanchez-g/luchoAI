@@ -9,8 +9,9 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
-    noTwists: ['target', 'roles'],
-    setup: 'Put a cone or bottle down as a target. Stand 5 big steps away, then 8, then 12.',
+    noTwists: ['target', 'roles', 'touches'],
+    setup:
+      'Put a cone or a plastic bottle down as a target. Stand 5 big steps away, then 8, then 12.',
     howToPlay:
       'Pass the ball along the ground and try to hit the target. Take 5 tries from each ' +
       'distance. A hit from 5 steps is 1 point, from 8 steps is 2 and from 12 steps is 3. Add ' +
@@ -28,6 +29,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['call'],
     setup: 'Stand about 4 big steps from a wall with nothing breakable nearby.',
     howToPlay:
       'Pass to the wall with the inside of your right foot, control the rebound, then pass ' +
@@ -45,7 +47,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
-    noTwists: ['roles'],
+    noTwists: ['roles', 'call'],
     setup:
       'Stand about 10 big steps from your partner. Put two cones 2 big steps apart halfway ' +
       'between you, as a gate.',
@@ -53,7 +55,8 @@ export const PASSING_GAMES: LibraryGame[] = [
       'Pass through the gate to each other along the ground. Every pass that goes through ' +
       'scores a point. After 10 passes, make the gate a bit narrower. Play 3 rounds and add ' +
       'up your pair score.',
-    focus: 'Look at where you want the ball to go, not at the ball, and pass firmly.',
+    focus:
+      'Glance up at the gate first, then keep your eyes on the ball as you strike it. Pass firmly.',
     easier: 'Make the gate wider, or stand closer together.',
     harder: 'Make the gate narrower, or pass first time.',
   },
@@ -66,6 +69,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['roles', 'target', 'call'],
     setup: 'Three players stand in a triangle about 8 big steps apart, with one ball.',
     howToPlay:
       'Pass to the player on your right, then follow your pass and take their place. They ' +
@@ -76,22 +80,23 @@ export const PASSING_GAMES: LibraryGame[] = [
     harder: 'Play first time, or add a second ball.',
   },
   {
-    id: 'passing-long-ball-lottery',
-    name: 'Long Ball Lottery',
+    id: 'passing-long-pass-zones',
+    name: 'Long Pass Zones',
     skill: 'passing',
     players: [2, 2],
     ages: [11, 18],
     level: 'intermediate',
     minutes: 10,
-    noTwists: ['target', 'roles'],
+    noTwists: ['target', 'roles', 'space', 'foot', 'call'],
     setup:
-      'Stand about 25 big steps from your partner. Mark a target zone, 4 big steps wide, ' +
-      'around each of you with four cones.',
+      'Stand about 25 big steps from your partner. Mark a target zone, 4 big steps wide, in ' +
+      'front of each of you with four cones. Your partner waits beside their zone.',
     howToPlay:
-      'Hit a long pass so it lands in your partner’s zone. A pass that lands in the zone is ' +
-      '1 point, and 2 points if they also control it in the zone with one touch. Take 10 ' +
-      'passes each, then add your scores together as a pair.',
-    focus: 'Lean back slightly and strike through the bottom of the ball, following through.',
+      'Hit a firm, low pass so it arrives in your partner’s zone, and keep it below head height ' +
+      'the whole way. A pass that ends in the zone is 1 point. Your partner then steps in and ' +
+      'controls it with one touch for 2 points. Take 10 passes each, then add your scores ' +
+      'together as a pair.',
+    focus: 'Lock your ankle, strike the middle of the ball with your laces and follow through low.',
     easier: 'Stand closer together, or make the zone bigger.',
     harder: 'Make the zone smaller, or pass with your weaker foot.',
   },
@@ -104,14 +109,14 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
-    noTwists: ['handicap'],
+    noTwists: ['handicap', 'players', 'target'],
     setup:
-      'Mark a square about 10 big steps wide. Put a player on each corner, and the rest of ' +
-      'the group waiting behind the corners.',
+      'Mark a square about 10 big steps wide. Put one player on each corner, with one ball. If ' +
+      'you have more than four players, make a second square so nobody waits.',
     howToPlay:
-      'Pass along a side or across the square. After you pass, run to the corner you passed ' +
-      'to and take that spot, while the receiver passes on. How many passes can your group ' +
-      'make in 3 minutes?',
+      'Pass along a side or across the square. After you pass, run round the outside of the ' +
+      'square to the corner you passed to and take that spot, while the receiver passes on. How ' +
+      'many passes can your group make in 3 minutes?',
     focus: 'Pass, then move. Make sure everyone knows where the ball is going next.',
     easier: 'Only pass along the sides, not across.',
     harder: 'Play with two touches or fewer, or add a second ball.',
@@ -120,18 +125,18 @@ export const PASSING_GAMES: LibraryGame[] = [
     id: 'passing-relay-race',
     name: 'Passing Relay',
     skill: 'passing',
-    players: [6, 16],
+    players: [8, 16],
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
-    noTwists: ['roles'],
+    noTwists: ['roles', 'players', 'target', 'call'],
     setup:
-      'Make two teams, each in a line. The lines face each other about 8 big steps apart, ' +
-      'with one ball for each team.',
+      'Make teams of 4. Each team makes two lines of two, facing each other about 8 big steps ' +
+      'apart, with one ball.',
     howToPlay:
-      'The first player in each line passes to the first player in the other line, then runs ' +
-      'to the back of their own line. Keep going. A team has finished when every player has ' +
-      'passed 3 times. Both teams play to the end and try to beat their own best time.',
+      'The first player in one line passes to the first player in the other line, then runs to ' +
+      'the back of their own line. Keep going. A team has finished when every player has passed ' +
+      '3 times. Each team tries to beat its own best time.',
     focus: 'Make every pass accurate. A slow, neat pass beats a fast, wild one.',
     easier: 'Pass once each, then run to the back of the line.',
     harder: 'Pass first time, or use the weaker foot.',
@@ -145,6 +150,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [12, 18],
     level: 'intermediate',
     minutes: 12,
+    noTwists: ['target'],
     setup:
       'Make a pitch about 30 big steps wide and 15 deep, with a target gate at each side ' +
       '(two cones, 3 big steps apart). Put a player at each gate and the others in the middle.',
@@ -161,18 +167,19 @@ export const PASSING_GAMES: LibraryGame[] = [
     name: 'Through the Gates',
     skill: 'passing',
     also: ['movement', 'vision'],
-    players: [3, 4],
+    players: [2, 3],
     ages: [12, 18],
     level: 'intermediate',
     minutes: 12,
-    noTwists: ['talk', 'handicap'],
+    noTwists: ['talk', 'handicap', 'target'],
     setup:
       'Make a row of three gates about 5 big steps apart, each 2 big steps wide. The passer ' +
       'stands 8 big steps back with the ball, and a runner starts beside the first gate.',
     howToPlay:
-      'The runner takes off just as the passer looks up. The passer slides the ball through ' +
-      'the gate for the runner to run on to, then they do it again at the next gate. Swap ' +
-      'jobs after one trip down the row.',
+      'The runner takes off just as the passer looks up. The passer slides the ball through the ' +
+      'gate for the runner to run on to, then they do it again at the next gate. At the end of ' +
+      'the row the runner dribbles the ball back to the passer. Swap jobs after one trip down ' +
+      'the row.',
     focus: 'Pass to where the runner is going to be, not where they are now.',
     easier: 'The runner jogs and the passer picks the gate.',
     harder: 'Add a shadow defender, or have the runner call the gate just before the pass.',
@@ -186,7 +193,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
-    noTwists: ['roles'],
+    noTwists: ['roles', 'target'],
     setup:
       'Make a square about 8 big steps wide. Put one player in the middle and the rest around ' +
       'the outside, with one ball.',
@@ -195,7 +202,9 @@ export const PASSING_GAMES: LibraryGame[] = [
       'to touch it. Whoever made the pass that was touched swaps into the middle. Count how ' +
       'many passes your group makes in a row.',
     focus: 'Show for the ball, then pass quickly. Use your first touch to open up the next pass.',
-    easier: 'Make the square smaller so the passes are shorter, or add a second player outside.',
+    easier:
+      'Make the square a bit bigger so you have more time and space, or add a second player ' +
+      'outside.',
     harder: 'Allow two touches only, or put two players in the middle.',
   },
   {
@@ -207,6 +216,7 @@ export const PASSING_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['pace', 'call'],
     setup:
       'Stand 3 big steps from a solid wall with nothing breakable nearby. You will build a ' +
       'pyramid of passes.',
@@ -224,13 +234,15 @@ export const PASSING_GAMES: LibraryGame[] = [
     name: 'Give and Go',
     skill: 'passing',
     also: ['movement'],
-    players: [3, 3],
+    players: [2, 3],
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['target', 'call'],
     setup:
-      'Three players: a passer, a wall player and a cone “defender”. Put the cone 4 big ' +
-      'steps in front of the passer, and the wall player 3 big steps beyond it, to one side.',
+      'A passer, a wall player and a cone “defender”. Put the cone 4 big steps in front of the ' +
+      'passer, and the wall player 3 big steps beyond it, to one side. A third player, if you ' +
+      'have one, collects loose balls and takes the next turn.',
     howToPlay:
       'The passer plays to the wall player, then sprints round the far side of the cone. The ' +
       'wall player lays the ball first time into the passer’s path, and the passer collects ' +

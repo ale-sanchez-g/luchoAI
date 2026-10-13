@@ -1,3 +1,4 @@
+import { NO_DRILL } from '@/lib/game-library/no-twists';
 import type { LibraryGame } from '@/types';
 
 export const VISION_GAMES: LibraryGame[] = [
@@ -10,6 +11,7 @@ export const VISION_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['call'],
     setup:
       'Stand 4 big steps from a wall. Place three different coloured items (cones, bibs or ' +
       'shoes) in a row on the ground behind you, about 4 big steps back.',
@@ -30,7 +32,7 @@ export const VISION_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
-    noTwists: ['talk', 'handicap'],
+    noTwists: ['talk', 'handicap', 'touches', 'players', 'call'],
     setup:
       'Make four gates of different colours (use bibs, cones or tape) around a space about ' +
       '15 big steps wide. Each player has a ball. One person is the caller, or you call ' +
@@ -52,7 +54,7 @@ export const VISION_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
-    noTwists: ['talk'],
+    noTwists: ['talk', 'call'],
     setup:
       'The receiver stands in the middle. The two passers stand about 8 big steps away on ' +
       'either side, one with a ball. Both can hold up fingers.',
@@ -74,7 +76,7 @@ export const VISION_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
-    noTwists: ['talk', 'handicap'],
+    noTwists: ['talk', 'handicap', 'call'],
     setup:
       'Mark a square about 10 big steps wide. Players on the outside each have a number. One ' +
       'or two defenders are in the middle. One ball.',
@@ -97,8 +99,9 @@ export const VISION_GAMES: LibraryGame[] = [
     level: 'intermediate',
     minutes: 12,
     setup:
-      'Make a square 12 big steps wide. Two attackers and one defender inside, one extra ' +
-      'attacker waiting outside on a target gate at the far side.',
+      'Make a square 12 big steps wide. Two attackers and one defender play inside it. On the ' +
+      'far side, outside the square, put a target gate (two cones). With four players, the ' +
+      'fourth waits at the gate.',
     howToPlay:
       'The attackers pass between themselves until they spot a gap in the defender’s cover, ' +
       'then play a pass to the target gate outside the square. Score a point for a clean ' +
@@ -116,13 +119,14 @@ export const VISION_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['touches', 'players', 'pace'],
     setup:
       'Mark a square 15 big steps wide. Everyone has a ball inside it. A leader stands on ' +
       'the edge holding up coloured bibs (green, yellow, red).',
     howToPlay:
-      'Green: dribble as fast as you can. Yellow: slow down and look for a teammate to ' +
-      'pass to. Red: stop the ball and turn to face the other way. Swap the leader every ' +
-      'minute. Everyone stays involved the whole time.',
+      'Green: dribble as fast as you can. Yellow: slow down and look up for an empty space. Red: ' +
+      'stop the ball and turn to face the other way. Swap the leader every minute. Everyone ' +
+      'stays involved the whole time.',
     focus: 'The leader is hard to see if your eyes are on the ball. Look up often.',
     easier: 'Hold up one colour at a time and wait.',
     harder: 'Hold up two colours at once, with a rule for each combination.',
@@ -132,11 +136,11 @@ export const VISION_GAMES: LibraryGame[] = [
     name: 'Find the Free Player',
     skill: 'vision',
     also: ['passing'],
-    players: [4, 10],
+    players: [6, 10],
     ages: [11, 18],
     level: 'intermediate',
     minutes: 12,
-    noTwists: ['talk'],
+    noTwists: ['talk', 'call'],
     setup:
       'Mark a 15 big step square. Play 4 v 2 inside it, with players in different coloured ' +
       'bibs. One ball.',
@@ -197,6 +201,7 @@ export const VISION_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: NO_DRILL,
     setup:
       'You do not need a ball. Watch a football game, live from the sideline with a ' +
       'grown-up or on a screen, for a few minutes. Have a notepad if you like.',

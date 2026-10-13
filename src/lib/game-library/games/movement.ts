@@ -32,12 +32,13 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     minutes: 10,
     noTwists: ['handicap'],
     setup:
-      'Place a cone as a defender 3 big steps in front of you. A friend or a wall is 8 big ' +
-      'steps in front of the cone with the ball.',
+      'Put a cone down as a pretend defender. A friend stands 8 big steps from the cone with a ' +
+      'ball. On your own, stand 8 big steps from a wall with a ball at your feet instead.',
     howToPlay:
-      'Start next to the cone. Take two steps away from the ball, then check back sharply ' +
-      'and call for the pass. Your friend passes, or you pass to the wall and receive the ' +
-      'rebound. Control it facing forward. Do 8 runs, then rest and swap.',
+      'Start beside the cone. Take two steps away from the ball, then check back sharply and ' +
+      'call for it. Your friend passes to you. On your own, pass at the wall first, then take ' +
+      'your two steps away and check back to meet the rebound. Control it facing forward. Do 8 ' +
+      'runs, then rest and swap.',
     focus: 'Fake one way, go the other. The sharper the change of direction, the more space.',
     easier: 'Take a bigger step away and a slower check back.',
     harder: 'Have the friend pass the ball on your first step back.',
@@ -71,7 +72,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
-    noTwists: ['handicap'],
+    noTwists: ['handicap', 'roles'],
     setup:
       'One player has the ball. The other two stand about 6 big steps away, one at each side ' +
       'and a little behind, to make a triangle.',
@@ -108,7 +109,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     name: 'Moving Rondo',
     skill: 'movement',
     also: ['passing', 'vision'],
-    players: [5, 10],
+    players: [6, 10],
     ages: [11, 18],
     level: 'intermediate',
     minutes: 12,
@@ -128,14 +129,15 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     name: 'Timing the Run',
     skill: 'movement',
     also: ['passing', 'finishing'],
-    players: [4, 8],
+    players: [3, 4],
     ages: [12, 18],
     level: 'intermediate',
     minutes: 12,
     noTwists: ['handicap'],
     setup:
-      'Mark a line of cones 20 big steps from a small goal. The passer stands near the ' +
-      'halfway line; the runner stands beside the cone line; a finisher waits at the goal.',
+      'Mark a line of cones 20 big steps from a small goal. The passer stands near the halfway ' +
+      'line and the runner stands beside the cone line. A third player is the goalkeeper, or use ' +
+      'a cone.',
     howToPlay:
       'The passer waits until they look up, then the runner starts. The passer plays a ball ' +
       'along the ground into the space ahead of the runner. The runner takes it on and ' +
@@ -149,11 +151,11 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     name: 'Corner Swap',
     skill: 'movement',
     also: ['passing'],
-    players: [6, 16],
+    players: [6, 12],
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
-    noTwists: ['handicap', 'roles'],
+    noTwists: ['handicap', 'roles', 'players'],
     setup:
       'Make a square about 12 big steps wide with a cone on each corner. Split the group into ' +
       'four teams, one at each corner. Each team has a line, and one team has the ball.',

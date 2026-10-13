@@ -30,6 +30,7 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['roles', 'streak'],
     setup:
       'Write six ideas on bits of paper: “sole”, “outside foot”, “thigh”, “turn”, “stop” ' +
       'and “spin”. Fold them up and put them in a pile.',
@@ -88,20 +89,21 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
     name: 'Look Away, Pass There',
     skill: 'creativity',
     also: ['passing', 'vision'],
-    players: [2, 2],
+    players: [2, 3],
     ages: [12, 18],
     level: 'intermediate',
     minutes: 10,
     setup:
-      'Stand 6 big steps from your partner with a ball. Place two small gates, one on each ' +
-      'side of your partner, as passing options.',
+      'Put two small gates (two cones each) side by side, 8 big steps from you and 6 big steps ' +
+      'apart. Your partner stands halfway between you and the gates as the “guesser”.',
     howToPlay:
-      'Look at one gate, then pass to the other one. Your partner has to guess which way ' +
-      'you will go. They control the ball and do the same. A pass through the gate you did ' +
-      'not look at is 2 points; the gate you looked at is 1 point.',
+      'Look at one gate, then pass along the ground through the other one. The guesser watches ' +
+      'your eyes and body and steps towards the gate they think you will use, but may not block ' +
+      'with their hands. A pass through the gate you did not look at is 2 points, and through ' +
+      'the gate you looked at is 1 point. Swap after 8 passes.',
     focus: 'Use your eyes and body to fool a defender, and keep the pass accurate.',
     easier: 'Make the gates wide.',
-    harder: 'Play first time, with no stopping the ball.',
+    harder: 'Make the gates smaller, or let the guesser move before you pass.',
   },
   {
     id: 'creativity-trick-relay',
@@ -112,9 +114,11 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['roles'],
     setup:
       'Make teams of 3 or 4. Each team has a line, a ball, and a cone 8 big steps away to ' +
-      'dribble round. Each player picks a trick to do at the cone.',
+      'dribble round. Each player picks a trick to do at the cone. While you wait, practise your ' +
+      'trick on the spot.',
     howToPlay:
       'Dribble to the cone, do your trick (a turn, a spin, or a pull-back), dribble back ' +
       'and hand over to the next player. When the whole team has gone, everyone does the ' +
@@ -137,9 +141,10 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
       'Use a goal or a wall target. Mark a shooting spot 8 big steps away and check there ' +
       'is nothing breakable nearby.',
     howToPlay:
-      'Take shots using different parts of your foot: instep, laces, inside, or outside. ' +
-      'Try different run-ups and body shapes. Keep a note of which styles hit the target ' +
-      'most. After 12 shots, choose your two favourites and use them for 8 more.',
+      'Take shots using different parts of your foot: laces, the inside of your foot, the ' +
+      'outside of your foot, or a low curl. Try different run-ups and body shapes. Keep a note ' +
+      'of which styles hit the target most. After 12 shots, choose your two favourites and use ' +
+      'them for 8 more.',
     focus: 'Experiment and notice what works. Be curious, not perfect.',
     easier: 'Stand closer and aim at a big target.',
     harder: 'Keep the same style but start from a moving ball.',
@@ -153,7 +158,7 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
     ages: [8, 10],
     level: 'beginner',
     minutes: 10,
-    noTwists: ['pace', 'streak', 'handicap'],
+    noTwists: ['pace', 'streak', 'handicap', 'roles'],
     setup: 'Everyone has a ball inside a marked space about 12 big steps wide.',
     howToPlay:
       'One player tells a short story, and everyone acts it out with their ball: “We sneak ' +
@@ -193,6 +198,7 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['pace', 'streak', 'scoring', 'handicap'],
     setup:
       'The group stands in a circle with a ball each, or shares a few balls. There is no ' +
       'winner and no score.',
@@ -213,13 +219,14 @@ export const CREATIVITY_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 15,
-    noTwists: ['roles'],
+    noTwists: ['roles', 'foot'],
     setup: 'Gather a ball, a few cones and three or more friends. You have 5 minutes to plan.',
     howToPlay:
       'Together, design a new game with three rules: how you score, one rule about feet or ' +
       'touches, and one rule that keeps everyone involved. Play it for 3 minutes. Then change ' +
       'one rule and play again. Everyone gets a say and nobody is ever out. Give your game a ' +
-      'name and teach it to someone else.',
+      'name and teach it to someone else. Keep it safe: every ball stays on the ground and there ' +
+      'is no tackling or pushing.',
     focus: 'Listen to every idea. The best rules are fair, fun and give everyone lots of touches.',
     easier: 'Start from a game you know and change just one rule.',
     harder: 'Design a game that practises one skill, like scanning or your first touch.',

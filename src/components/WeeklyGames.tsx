@@ -12,7 +12,7 @@ import type {
 } from '@/types';
 import { getTheme } from '@/lib/decision-games';
 import { getLibraryStats, getWeeklyPlan } from '@/lib/game-library';
-import { profileMentionsHeading } from '@/lib/game-library/safety';
+import { profileMentionsHeading, safetyNotes } from '@/lib/game-library/safety';
 import { getSkillArea } from '@/lib/game-library/skills';
 import { getPlayerProfile } from '@/lib/storage';
 
@@ -56,6 +56,7 @@ function DetailRow({ term, text }: { term: string; text: string }) {
 function GameCard({ pick, defaultOpen }: { pick: WeeklyPick; defaultOpen: boolean }) {
   const { game, twist } = pick;
   const skill = getSkillArea(game.skill);
+  const notes = safetyNotes(game);
   return (
     <details open={defaultOpen} className={`${CARD} group`}>
       <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden">
@@ -88,12 +89,23 @@ function GameCard({ pick, defaultOpen }: { pick: WeeklyPick; defaultOpen: boolea
         <DetailRow term="Focus" text={game.focus} />
         {twist && (
           <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
-            <dt className="font-semibold text-amber-900">Twist of the week: {twist.name}</dt>
+            <dt className="font-semibold text-amber-900">Optional twist: {twist.name}</dt>
             <dd className="text-amber-900">{twist.rule}</dd>
+            <dd className="mt-1 text-xs text-amber-800">
+              Skip it if it does not suit the way you are playing.
+            </dd>
           </div>
         )}
         <DetailRow term="Make it easier" text={game.easier} />
         <DetailRow term="Make it harder" text={game.harder} />
+        {notes.length > 0 && (
+          <div className="rounded-xl bg-blue-50 p-3 text-blue-900">
+            <dt className="font-semibold">Stay safe</dt>
+            {notes.map((note) => (
+              <dd key={note}>{note}</dd>
+            ))}
+          </div>
+        )}
       </dl>
     </details>
   );
@@ -170,8 +182,11 @@ export default function WeeklyGames({ onPlayRound }: WeeklyGamesProps) {
           role="note"
           className="rounded-xl border border-blue-200 bg-blue-50 p-3 text-sm text-blue-900"
         >
-          Heading is best practised at training with your coach, who can keep it safe for your
-          age. These games build the touch and timing you will need for it.
+          {(profile?.age ?? 18) < 12
+            ? 'Heading is a skill for later, when you are older and learning with a coach. ' +
+              'These games build the footwork and timing you will need.'
+            : 'Heading is best learned at training with your coach, who can keep it safe for ' +
+              'your age. These games build the touch and timing you will need for it.'}
         </p>
       )}
 
@@ -182,12 +197,26 @@ export default function WeeklyGames({ onPlayRound }: WeeklyGamesProps) {
         {plan.picks.map((pick, i) => (
           <GameCard key={pick.game.id} pick={pick} defaultOpen={i === 0} />
         ))}
-        <p className="text-sm text-gray-600">
-          Play where it is safe: away from roads, driveways, car parks and windows. Tell a
-          grown-up where you are (if you are under 10, keep one in sight) and bring water. Stop
-          if anything hurts. If you bang your head or feel dizzy, sick or confused, stop and tell
-          a grown-up straight away. Rest days help you grow, so take one or two off each week.
-        </p>
+        <div
+          aria-label="Play it safe"
+          className="rounded-xl border border-blue-200 bg-blue-50 p-3 text-sm text-blue-900"
+          role="group"
+        >
+          <p className="font-semibold">Play it safe</p>
+          <ul className="mt-1 list-disc space-y-1 pl-5">
+            <li>
+              Play away from roads, driveways, car parks, windows and water (pools and creeks).
+            </li>
+            <li>Ask a grown-up first, and play where one can see you. Under 10? Always.</li>
+            <li>Bring water, and stay in the shade on hot days.</li>
+            <li>Stop if anything hurts.</li>
+            <li>
+              If you bang your head, or feel dizzy, sick or confused, stop and tell a grown-up
+              straight away. Do not play again until a doctor says it is okay.
+            </li>
+            <li>Rest days help your body recover, so take one or two off each week.</li>
+          </ul>
+        </div>
       </section>
 
       {plan.mission && (
@@ -228,8 +257,8 @@ export default function WeeklyGames({ onPlayRound }: WeeklyGamesProps) {
       </section>
 
       <p className="text-xs text-gray-500">
-        {stats.games} games and {stats.waysToPlay.toLocaleString()} ways to play so far, with more
-        on the way.
+        {stats.games} games so far, and each one comes back with a different twist. More are on
+        the way.
       </p>
     </div>
   );

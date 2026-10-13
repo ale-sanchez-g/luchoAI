@@ -58,14 +58,15 @@ export const DRIBBLING_GAMES: LibraryGame[] = [
     id: 'dribbling-traffic-lights',
     name: 'Traffic Lights',
     skill: 'dribbling',
-    players: [3, 16],
+    players: [3, 12],
     ages: [8, 12],
     level: 'beginner',
     minutes: 10,
     noTwists: ['talk', 'handicap'],
     setup:
-      'Mark a big square, about 15 big steps wide. Everyone has a ball inside it. One person ' +
-      'is the “traffic light” and calls out the colours.',
+      'Mark a big square, about 15 big steps wide, or 20 if there are more than 8 of you. ' +
+      'Everyone has a ball inside it. One person is the “traffic light” and calls out the ' +
+      'colours.',
     howToPlay:
       'Green means dribble fast. Yellow means slow, small touches. Red means stop the ball ' +
       'dead with the sole of your foot. Swap the traffic light every minute so everyone has a ' +
@@ -82,13 +83,14 @@ export const DRIBBLING_GAMES: LibraryGame[] = [
     ages: [8, 12],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['roles'],
     setup:
-      'Mark a square about 15 big steps wide. Put lots of cones or bibs in the middle as ' +
+      'Mark a square about 15 big steps wide. Scatter lots of cones or bibs across it as ' +
       '“treasure”. Each player has a ball and a home corner.',
     howToPlay:
-      'Dribble to the middle, pick up one piece of treasure with your hand and dribble home. ' +
-      'Count how much treasure you bring home in 2 minutes. Then add up the whole group and ' +
-      'try to beat your total in the next round.',
+      'Dribble out to a piece of treasure, pick it up with your hand and dribble home. Count how ' +
+      'much treasure you bring home in 2 minutes. Then add up the whole group and try to beat ' +
+      'your total in the next round.',
     focus: 'Keep the ball close while you look up to find the treasure and avoid others.',
     easier: 'Spread out and make the square bigger.',
     harder: 'Make the square smaller, or carry the treasure only after a turn.',
@@ -103,7 +105,9 @@ export const DRIBBLING_GAMES: LibraryGame[] = [
     level: 'beginner',
     minutes: 10,
     noTwists: ['handicap'],
-    setup: 'Everyone has a ball. One player is the leader and the rest follow in a line.',
+    setup:
+      'Everyone has a ball. One player is the leader and the rest follow in a line, about 2 big ' +
+      'steps behind.',
     howToPlay:
       'The leader dribbles around the space doing different moves, such as zigzags, turns and ' +
       'slow-downs. The followers copy every move. After 1 minute, the leader goes to the back ' +
@@ -160,6 +164,7 @@ export const DRIBBLING_GAMES: LibraryGame[] = [
     ages: [11, 18],
     level: 'intermediate',
     minutes: 10,
+    noTwists: ['roles'],
     setup:
       'Mark a long lane, 20 big steps long. Put cones at the start, the 8 step mark, the 12 ' +
       'step mark and the end.',

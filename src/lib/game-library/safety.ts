@@ -1,4 +1,4 @@
-import type { PlayerProfile } from '@/types';
+import type { LibraryGame, PlayerProfile } from '@/types';
 
 // Rules every game, twist and match mission must follow. The content tests enforce them, so a
 // new batch of games cannot slip in something unsafe or unkind.
@@ -13,6 +13,8 @@ export const HEADING_TEXT = new RegExp(
     '\\bheaders?\\b',
     '\\bheads? (it|the ball)\\b',
     '\\bhead the ball\\b',
+    '\\bheaded (it|the ball)\\b',
+    '\\bhead balls?\\b',
     '\\baerial\\b',
   ].join('|'),
   'i',
@@ -34,17 +36,32 @@ export interface BannedPhrase {
 export const BANNED_PHRASES: BannedPhrase[] = [
   { pattern: /\beliminat/i, reason: 'elimination leaves children sitting out' },
   {
-    pattern: /\bknocked out\b|\byou'?re out\b/i,
+    pattern: /\bknocked out\b|\byou(['’]re| are) out\b/i,
     reason: 'elimination leaves children sitting out',
   },
-  { pattern: /\blast (one|player|person) standing\b/i, reason: 'elimination games' },
-  { pattern: /\bsit(s|ting)? out\b/i, reason: 'everyone should stay involved' },
+  { pattern: /\blast (one|player|person|team) standing\b/i, reason: 'elimination games' },
+  { pattern: /\bsit(s|ting)? (it )?out\b/i, reason: 'everyone should stay involved' },
   { pattern: /\bout of the game\b/i, reason: 'everyone should stay involved' },
-  { pattern: /\blose a life\b|\bgame over\b/i, reason: 'elimination language' },
+  {
+    pattern: /\blose a life\b|\bgame over\b|\b(two|three|four|five|\d+) lives\b/i,
+    reason: 'elimination language',
+  },
   { pattern: /\bpunish/i, reason: 'no punishments' },
   { pattern: /\bforfeit/i, reason: 'no punishments' },
   {
-    pattern: /\bpress-?ups?\b|\bpush-?ups?\b|\bburpees?\b|\bsit-?ups?\b|\blaps?\b/i,
+    pattern: new RegExp(
+      [
+        '\\bpress-?ups?\\b',
+        '\\bpush-?ups?\\b',
+        '\\bburpees?\\b',
+        '\\bsit-?ups?\\b',
+        '\\blaps?\\b',
+        '\\bsquats?\\b',
+        '\\bstar jumps?\\b',
+        '\\bplanks?\\b',
+      ].join('|'),
+      'i',
+    ),
     reason: 'exercise must never be a penalty',
   },
   {
@@ -57,7 +74,17 @@ export const BANNED_PHRASES: BannedPhrase[] = [
   },
   { pattern: /\bhumiliat|\bembarrass/i, reason: 'unkind language' },
   {
-    pattern: /\bman up\b|\btoughen up\b|\bno pain\b|\bplay through\b|\bno excuses\b/i,
+    pattern: new RegExp(
+      [
+        '\\bman up\\b',
+        '\\btoughen up\\b',
+        '\\bno pain\\b',
+        '\\bplay(ing)? through (the )?(pain|hurt|injur\\w*)\\b',
+        '\\bshake it off\\b',
+        '\\bno excuses\\b',
+      ].join('|'),
+      'i',
+    ),
     reason: 'never push children to play through pain or upset',
   },
   {
@@ -69,12 +96,18 @@ export const BANNED_PHRASES: BannedPhrase[] = [
     reason: 'never send children near traffic',
   },
   { pattern: /\bslid(e|es|ing) tackle/i, reason: 'no sliding tackles for children' },
+  {
+    pattern: /\bclose your eyes\b|\beyes (closed|shut)\b|\bblindfold/i,
+    reason: 'never practise with eyes closed or covered',
+  },
 ];
 
 // Match missions are about what a player controls, not the result of the match.
 export const OUTCOME_PHRASES: BannedPhrase[] = [
   { pattern: /\bwin the (game|match)\b/i, reason: "results are not in a player's control" },
-  { pattern: /\bscore (a |two |three |\d+ )?goals?\b/i, reason: 'goals are an outcome' },
+  { pattern: /\bscor(e|es|ing) (a |two |three |\d+ )?goals?\b/i, reason: 'goals are an outcome' },
+  { pattern: /\bmake (a |two |three |\d+ )?saves?\b/i, reason: 'saves are an outcome' },
+  { pattern: /\brate yourself\b/i, reason: 'no self-scores' },
   {
     pattern: /\bclean sheet\b|\bman of the match\b|\btackles won\b/i,
     reason: 'a stat, not a habit',
@@ -85,3 +118,27 @@ export const OUTCOME_PHRASES: BannedPhrase[] = [
 // The project writes Australian/British English.
 export const US_SPELLINGS =
   /\bcolor|\bcenter\b|\bmeters?\b|\bfavorite|\bdefense\b|\borganiz|\brecogniz|\bpracticing\b/i;
+
+const CONTACT_CUES =
+  /\b(defend\w*|tackl\w*|press\w*|chas\w*|intercept\w*|shadow\w*|block\w*|tag(s|ged)?|opponent)/i;
+const SHOOTING_CUES = /\b(shoot\w*|shots?|penalty|penalties|keepers?|goalkeepers?|saves?)\b/i;
+
+export const CONTACT_NOTE =
+  'Play the ball, not the player: stay on your feet, with no pushing, holding or sliding. If ' +
+  'anyone is under 10, defenders only block.';
+
+export const SHOOTING_NOTE =
+  'Before you shoot, check that nothing breakable and nobody is behind the goal or target. ' +
+  'Never hang on a goal.';
+
+/**
+ * Reminders shown on a game card when the game has opponents or shooting in it. They are worked
+ * out from the game's own wording, so a new game gets the right ones without being listed.
+ */
+export function safetyNotes(game: LibraryGame): string[] {
+  const text = [game.setup, game.howToPlay, game.easier, game.harder].join(' ');
+  const notes: string[] = [];
+  if (game.players[1] > 1 && CONTACT_CUES.test(text)) notes.push(CONTACT_NOTE);
+  if (SHOOTING_CUES.test(text)) notes.push(SHOOTING_NOTE);
+  return notes;
+}

@@ -96,11 +96,14 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
       'ball to you, or you can hold the ball yourself.',
     howToPlay:
       'Start on your knees. Reach out to a ball placed beside you, and fall gently onto your ' +
-      'side, hugging the ball to your chest. Once that feels easy, try it from a crouch, ' +
-      'then from standing. Do 5 goes on each side, and stop if anything feels sore.',
-    focus: 'Land on the side of your body, not on your elbows or knees, and keep the ball tight.',
+      'side, hugging the ball to your chest. Once that feels easy, try it from a crouch. Do 5 ' +
+      'goes on each side, and stop if anything feels sore. Do not practise falls from standing, ' +
+      'and ask a grown-up to watch your first few goes.',
+    focus:
+      'Land on the side of your body, not on your elbows or knees, and keep the ball tight. Keep ' +
+      'your head up.',
     easier: 'Stay on your knees and just roll sideways.',
-    harder: 'Have a friend roll the ball a couple of big steps to the side so you reach for it.',
+    harder: 'Reach for a ball a friend rolls gently to your side, from your knees.',
   },
   {
     id: 'goalkeeping-throw-accuracy',
@@ -113,8 +116,8 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     minutes: 8,
     noTwists: ['target', 'roles'],
     setup:
-      'Put three targets (cones or bottles) at 8, 12 and 16 big steps away. Stand behind a ' +
-      'line with the ball in your hand.',
+      'Put three targets (cones or plastic bottles) at 8, 12 and 16 big steps away. Stand behind ' +
+      'a line with the ball in your hand.',
     howToPlay:
       'Throw the ball (rolling, underarm or overarm) to try to land it near each target. ' +
       'Land it within a big step of the target for 1 point. Take 5 throws at each target and ' +
@@ -134,13 +137,15 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     minutes: 10,
     noTwists: ['target', 'roles'],
     setup:
-      'Mark three zones, each about 5 big steps wide, at 15, 25 and 35 big steps from you. ' +
-      'Stand behind a line with a ball on the ground.',
+      'Mark three zones, each about 5 big steps wide, at 12, 20 and 28 big steps from you. Stand ' +
+      'behind a line with a ball on the ground.',
     howToPlay:
       'Kick the ball from the ground, aiming to land it inside each zone: 1 point for the ' +
       'closest, 2 for the middle, 3 for the furthest. Take 5 kicks at each zone, and then add ' +
       'up your points. Try both feet.',
-    focus: 'Lean slightly over the ball, point your toe down and follow through to the target.',
+    focus:
+      'Strike the bottom half of the ball with your laces, lock your ankle and follow through ' +
+      'towards the zone.',
     easier: 'Make the zones bigger, or kick from closer.',
     harder: 'Make the zones smaller, or kick from a rolling ball.',
   },
@@ -153,13 +158,15 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 12,
+    noTwists: ['call'],
     setup:
       'Use a goal with a goalkeeper. Mark a shooting line 10 big steps away. Shooters wait ' +
       'in a line next to it with a ball each, and keep their own balls busy while they wait.',
     howToPlay:
-      'Shooters take turns shooting low, firm shots at the goal. The goalkeeper saves what ' +
-      'they can. After 5 shots, the next player takes over in goal, and the keeper joins the ' +
-      'shooters. Everyone keeps their own save count and tries to beat it.',
+      'Shooters take turns shooting low, firm shots at the goal. The goalkeeper saves what they ' +
+      'can. After 5 shots, the next player takes over in goal, and the keeper joins the ' +
+      'shooters. Everyone keeps their own save count and tries to beat it. Keep every shot on ' +
+      'the ground and no harder than a firm pass. The keeper can say “softer” at any time.',
     focus: 'Set your feet before each shot, and move your whole body behind the ball.',
     easier: 'Shoot from further back and aim for the middle.',
     harder: 'Shoot to the corners, or make the shot come from a short pass.',
@@ -174,29 +181,30 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     level: 'beginner',
     minutes: 12,
     setup:
-      'Make two small goals about 20 big steps apart. Put a goalkeeper in each goal. Split ' +
-      'the others into two teams of shooters, and give each team a ball.',
+      'Make two small goals about 20 big steps apart, with a goalkeeper in each. The others make ' +
+      'two teams of shooters, with a ball each, standing beside their own goal.',
     howToPlay:
-      'Teams take turns shooting at the goal at the other end. Keepers save what they can ' +
-      'and roll the ball back to the other team. A goal is 1 point, a save is 1 point for ' +
-      'the keeper’s team. Swap keepers every 3 minutes so everyone gets a turn.',
+      'Teams take turns shooting at the goal at the other end. Keepers save what they can and ' +
+      'roll the ball back to the other team. A goal is 1 point, a save is 1 point for the ' +
+      'keeper’s team. Swap keepers every 3 minutes so everyone gets a turn. Keep shots on the ' +
+      'ground and no harder than a firm pass, and keepers can say “softer” any time.',
     focus: 'Keepers: stay on your toes and watch every shot, even the far ones.',
     easier: 'Make the goals wider.',
-    harder: 'Make the goals smaller, or the shots must be on the ground.',
+    harder: 'Make the goals smaller, or add a short pass before every shot.',
   },
   {
     id: 'goalkeeping-start-the-attack',
     name: 'Start the Attack',
     skill: 'goalkeeping',
     also: ['transitions', 'passing'],
-    players: [2, 6],
+    players: [2, 4],
     ages: [11, 18],
     level: 'intermediate',
     minutes: 10,
     noTwists: ['target'],
     setup:
-      'Use a goal with a keeper. Put two target gates (cones 2 big steps apart) 15 big ' +
-      'steps out on each side. A thrower stands in front of the goal with a few balls.',
+      'Use a goal with a keeper. Put two target gates (cones 2 big steps apart) 15 big steps out ' +
+      'on each side. A thrower stands 8 big steps in front of the goal with a few balls.',
     howToPlay:
       'The thrower rolls or throws a shot for the keeper to save. As soon as the keeper has ' +
       'the ball, they count to three in their head and then throw or roll it to one of the ' +
@@ -216,12 +224,12 @@ export const GOALKEEPING_GAMES: LibraryGame[] = [
     minutes: 8,
     noTwists: ['space', 'call', 'target', 'handicap'],
     setup:
-      'Stand 3 big steps from a partner on soft grass. One of you holds a tennis ball at ' +
-      'shoulder height, and the other has their hands ready by their sides.',
+      'Stand 3 big steps from a partner on soft grass. The holder stands still and holds a ' +
+      'tennis ball out to one side at shoulder height. The catcher has their hands ready.',
     howToPlay:
-      'The holder drops the ball without warning. The catcher darts forward and catches it ' +
-      'before it bounces twice. Do 10 drops, then swap. Take one step further back after every ' +
-      '5 catches.',
+      'The holder drops the ball without warning. The catcher moves in and catches it before it ' +
+      'bounces twice, keeping clear of the holder’s feet. Do 10 drops, then swap. Take one step ' +
+      'further back after every 5 catches.',
     focus: 'Be on your toes with soft hands, and watch the ball, not your partner.',
     easier: 'Stand closer, or catch it after three bounces.',
     harder: 'Start further back, or use a smaller ball.',

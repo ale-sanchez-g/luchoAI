@@ -10,6 +10,7 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['pace'],
     setup:
       'Put a cone 10 big steps in front of you (the “ball carrier”) and another 10 big steps ' +
       'behind you (your “goal”). Rest between runs.',
@@ -32,8 +33,8 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
     level: 'beginner',
     minutes: 10,
     setup:
-      'On a flat patch of grass, put four cones in a line as a back four, 3 big steps apart. ' +
-      'Use a bottle or a ball as “the ball”. You are the coach.',
+      'On a flat patch of grass, put four cones in a line as a back four, 3 big steps apart. Use ' +
+      'a plastic bottle or a ball as “the ball”. You are the coach.',
     howToPlay:
       'Move the “ball” to a new spot, then move your four cones so that your defence is ' +
       'compact: close together, with a defender near the ball and the rest covering. Each ' +
@@ -44,8 +45,8 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
     harder: 'Add a second line of three cones in front as a midfield.',
   },
   {
-    id: 'team-defending-ambush-pair',
-    name: 'Ambush!',
+    id: 'team-defending-pair-press',
+    name: 'Pair Press',
     skill: 'team-defending',
     also: ['defending-1v1', 'vision'],
     players: [3, 3],
@@ -53,24 +54,25 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
     level: 'intermediate',
     minutes: 12,
     setup:
-      'Mark a square 10 big steps wide. One attacker with a ball stands in the middle with ' +
-      'their back to the two defenders, who stand at opposite sides.',
+      'Mark a square 10 big steps wide. The attacker has a ball in the middle, facing the first ' +
+      'defender. The second defender waits at the side, where the attacker can see them.',
     howToPlay:
-      'The attacker turns and tries to dribble out of the square. The first defender presses ' +
-      'from the front. The second defender waits until the attacker looks down or cannot ' +
-      'face forward, then closes in at an angle to trap them (2 v 1). No hard contact. Win ' +
-      'the ball or stop the escape for a point. Swap after 4 goes.',
+      'The attacker tries to dribble out of the square. The first defender presses from the ' +
+      'front. When the attacker slows down or looks down at the ball, the second defender joins ' +
+      'from the side, where the attacker can see them, and slows to a walk a big step away. ' +
+      'Never bump or grab: play the ball, not the player. Win the ball or stop the escape for a ' +
+      'point. Swap after 4 goes.',
     focus:
-      'The ambush works when the attacker cannot see you. Time your run, then stay on your feet.',
+      'Work as a pair: one defender delays, the other joins. Stay on your feet and play the ball.',
     easier: 'Defenders start closer to the attacker.',
-    harder: 'Shrink the square, or only allow 5 seconds per go.',
+    harder: 'Make the square bigger, or give the defenders only 5 seconds.',
   },
   {
     id: 'team-defending-lock-in',
     name: 'Lock In',
     skill: 'team-defending',
     also: ['vision'],
-    players: [4, 8],
+    players: [5, 8],
     ages: [11, 18],
     level: 'intermediate',
     minutes: 12,
@@ -91,7 +93,7 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
     name: 'Stay Compact',
     skill: 'team-defending',
     also: ['movement'],
-    players: [5, 10],
+    players: [6, 10],
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
@@ -137,8 +139,8 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
     minutes: 15,
     noTwists: ['talk'],
     setup:
-      'Use half a pitch with a goal and a goalkeeper. Defenders (6 or 7) form a block near ' +
-      'their goal. Attackers (6 or 7) start with the ball.',
+      'Use half a pitch with a goal and a goalkeeper. Defenders form a block near their goal. ' +
+      'The attackers, with the same number of players, start with the ball.',
     howToPlay:
       'The attackers try to score. The defenders stay compact and connected, press when the ' +
       'ball is played wide, and talk to each other. If they win the ball, a pass to a ' +
@@ -158,8 +160,8 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
     level: 'intermediate',
     minutes: 12,
     setup:
-      'Mark a pitch 25 big steps wide and 30 long. Play 4 v 4 (or similar) with a ' +
-      'neutral player who joins whichever team has the ball.',
+      'Mark a pitch 25 big steps wide and 30 long. Play 3 v 3 or 4 v 4. A spare player, if you ' +
+      'have one, is neutral and joins whichever team has the ball.',
     howToPlay:
       'The defending team may only press the ball when they spot a trigger: a heavy touch, ' +
       'a pass back or sideways, or a player with their back to goal. The rest of the time they ' +
@@ -186,8 +188,8 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
       'options. Win the ball, or stop the attackers reaching the end line, for a point. ' +
       'Swap after 6 goes.',
     focus: 'Show them wide, then trap them: press from the inside with your teammates close.',
-    easier: 'Play 3 v 2, with more attackers.',
-    harder: 'Narrow the channel, or the attackers have only 15 seconds.',
+    easier: 'Play 2 attackers against 3 defenders.',
+    harder: 'Make the channel wider, or give the defenders only 15 seconds to win it.',
   },
   {
     id: 'team-defending-get-behind-the-ball',
@@ -212,8 +214,8 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
     harder: 'Two seconds, or add a bonus for winning the ball back.',
   },
   {
-    id: 'team-defending-see-ball-see-man',
-    name: 'See Ball, See Man',
+    id: 'team-defending-see-ball-see-player',
+    name: 'See Ball, See Player',
     skill: 'team-defending',
     also: ['vision', 'defending-1v1'],
     players: [1, 2],

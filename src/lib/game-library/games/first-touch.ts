@@ -9,6 +9,7 @@ export const FIRST_TOUCH_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['roles'],
     setup:
       'Find a solid wall with nothing breakable nearby. Mark a box about 3 big steps wide, ' +
       '5 big steps back from the wall.',
@@ -28,6 +29,7 @@ export const FIRST_TOUCH_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['foot'],
     setup:
       'Use a flat patch of grass. Set two cones or shoes about 3 big steps apart as a gate, ' +
       '5 big steps in front of you.',
@@ -104,14 +106,15 @@ export const FIRST_TOUCH_GAMES: LibraryGame[] = [
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
-    noTwists: ['handicap'],
+    noTwists: ['handicap', 'foot', 'players'],
     setup:
       'Stand about 4 big steps from a partner on soft grass. Use a ball that is a little ' +
       'soft, so it is easy to control.',
     howToPlay:
-      'Your partner gently throws the ball underarm so it drops towards you. Call out chest, ' +
-      'thigh or foot before it lands, then control it with that part and let it fall to your ' +
-      'feet. Do 8 throws, then swap. In a group, rotate after every go.',
+      'Your partner gently throws the ball underarm, no higher than your chest, so it drops ' +
+      'towards you. Call out chest, thigh or foot before it lands, then control it with that ' +
+      'part and let it fall to your feet. Do 8 throws, then swap. In a group, rotate after every ' +
+      'go.',
     focus: 'Be a cushion: relax the part of your body that touches the ball and let it drop.',
     easier: 'Let the ball bounce once first, or only use your foot and thigh.',
     harder: 'Your partner calls the body part just as the ball leaves their hands.',
@@ -159,17 +162,19 @@ export const FIRST_TOUCH_GAMES: LibraryGame[] = [
     name: 'Receive on the Run',
     skill: 'first-touch',
     also: ['movement'],
-    players: [4, 10],
+    players: [4, 8],
     ages: [11, 18],
     level: 'intermediate',
     minutes: 12,
     setup:
-      'Make two lines facing each other about 12 big steps apart, offset a little so passes ' +
-      'go diagonally. Put a cone 4 big steps in front of each line.',
+      'Make two lines facing each other about 12 big steps apart, offset a little so passes go ' +
+      'diagonally. Put a cone 4 big steps in front of each line. Players waiting keep their feet ' +
+      'moving.',
     howToPlay:
-      'The first player in a line passes diagonally across and runs after the pass. The ' +
-      'receiver moves towards the ball and takes a first touch forward past the cone. Then ' +
-      'dribble across, pass to the other line and join the back of it.',
+      'The first player in a line passes diagonally across and runs after the pass. The receiver ' +
+      'moves towards the ball and takes a first touch forward past the cone. Then dribble ' +
+      'across, pass to the other line and join the back of it. Look before you run, and wait ' +
+      'until the pass has been played before you cross.',
     focus: 'Receive with your far foot so your body opens up and you can move forward.',
     easier: 'Pass slowly, or skip the cone and just control and pass.',
     harder: 'Pass harder, or make the receiver check away before coming to the ball.',
@@ -191,7 +196,7 @@ export const FIRST_TOUCH_GAMES: LibraryGame[] = [
       'Try 10 turns, 5 each way.',
     focus: 'Turn your hips as the ball arrives, so the touch and the turn happen together.',
     easier: 'Stop the ball first, then turn. Build up to doing both in one touch.',
-    harder: 'Sprint to the cone after every turn.',
+    harder: 'Sprint to the cone after every turn, then walk back and rest.',
   },
   {
     id: 'first-touch-across-the-body',
@@ -200,7 +205,7 @@ export const FIRST_TOUCH_GAMES: LibraryGame[] = [
     also: ['vision'],
     players: [2, 2],
     ages: [13, 18],
-    level: 'beginner',
+    level: 'intermediate',
     minutes: 10,
     setup:
       'Stand about 8 big steps from your partner. Put a gate (two cones, 2 big steps apart) ' +

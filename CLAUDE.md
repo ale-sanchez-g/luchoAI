@@ -47,8 +47,9 @@ src/
       index.ts          #   GAME_LIBRARY, getWeeklyPlan, getLibraryStats
       rotation.ts       #   Deterministic weekly plan (focus, slots, twists, mission)
       skills.ts         #   14 skill areas + matching a player's own goal wording
-      safety.ts         #   Banned phrases and the no-heading rule, enforced by tests
+      safety.ts         #   Banned phrases, the no-heading rule and the derived "stay safe" notes
       twists.ts         #   Rule changes that make each game feel new
+      no-twists.ts      #   Named sets of twist kinds a game can opt out of
       missions.ts       #   Match missions (process goals for a real game)
       games/*.ts        #   One file of games per skill area
     wellbeing.ts        # Wellbeing content, helplines, check-in validation, support nudge
@@ -128,6 +129,6 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 - `next/image` requires `unoptimized: true` in `next.config.ts` for static export — do not remove that config
 - Wellbeing check-ins are sensitive data about children: keep them in `localStorage` only and never include them in AI prompts or send them anywhere
 - Helpline numbers in `src/lib/wellbeing.ts` were verified on 2026-10-13 — re-verify against the official sites before changing them
-- Game library content (`src/lib/game-library`) is for children playing without a coach: follow `docs/game-library.md`. There are deliberately no heading games, no elimination, no exercise as a penalty and no outcome-based match missions; `game-library.test.ts` enforces these, so don't loosen the rules to make a game pass
+- Game library content (`src/lib/game-library`) is for children playing without a coach: follow `docs/game-library.md`. There are deliberately no heading games, no elimination, no exercise as a penalty and no outcome-based match missions; `game-library.test.ts` enforces these, so don't loosen the rules to make a game pass. A new game also needs `noTwists` for any kind of twist that would contradict it (a game with no roles opts out of `roles`, a game with no score of `scoring`)
 - Write game text in your own words. Game ideas are free to reuse, but federation and coaching-site wording, diagrams and branded names (see docs/game-library.md) are not
 - The `basePath` in `next.config.ts` is controlled by `NEXT_PUBLIC_BASE_PATH` env var — empty locally, `/luchoAI` in CI

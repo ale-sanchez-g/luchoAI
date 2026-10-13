@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import WeeklyGames from '@/components/WeeklyGames';
 import { getTheme } from '@/lib/decision-games';
 import { getWeeklyPlan } from '@/lib/game-library';
+import { safetyNotes } from '@/lib/game-library/safety';
 import { getSkillArea } from '@/lib/game-library/skills';
 import type { PlayerProfile } from '@/types';
 
@@ -59,7 +60,7 @@ describe('WeeklyGames', () => {
     expect(cards.map((c) => c.open)).toEqual([true, false, false, false]);
   });
 
-  it('spells out how to play, how to make it easier and harder, and this week twist', () => {
+  it('spells out how to play, how to make it easier and harder, and an optional twist', () => {
     saveProfile(PROFILE);
     const { container } = render(<WeeklyGames onPlayRound={jest.fn()} />);
     const plan = getWeeklyPlan(NOW, PROFILE);
@@ -71,9 +72,23 @@ describe('WeeklyGames', () => {
     expect(card).toHaveTextContent(first.game.easier);
     expect(card).toHaveTextContent(first.game.harder);
     if (first.twist) {
-      expect(card).toHaveTextContent(`Twist of the week: ${first.twist.name}`);
+      expect(card).toHaveTextContent(`Optional twist: ${first.twist.name}`);
       expect(card).toHaveTextContent(first.twist.rule);
+      expect(card).toHaveTextContent('Skip it if it does not suit the way you are playing.');
     }
+  });
+
+  it('adds stay-safe reminders to the games that need them', () => {
+    saveProfile(PROFILE);
+    const { container } = render(<WeeklyGames onPlayRound={jest.fn()} />);
+    const plan = getWeeklyPlan(NOW, PROFILE);
+    const cards = Array.from(container.querySelectorAll('details'));
+
+    plan.picks.forEach((pick, i) => {
+      const notes = safetyNotes(pick.game);
+      notes.forEach((note) => expect(cards[i]).toHaveTextContent(note));
+      if (notes.length === 0) expect(cards[i]).not.toHaveTextContent('Stay safe');
+    });
   });
 
   it('gives a match mission to try in a real game', () => {
@@ -120,11 +135,20 @@ describe('WeeklyGames', () => {
     });
   });
 
-  it('points a player who wants to work on heading towards their coach', () => {
+  it('points an older player who wants to work on heading towards their coach', () => {
     saveProfile({ ...PROFILE, age: 16, goals: ['Better heading'] });
     render(<WeeklyGames onPlayRound={jest.fn()} />);
 
-    expect(screen.getByRole('note')).toHaveTextContent('practised at training with your coach');
+    expect(screen.getByRole('note')).toHaveTextContent('best learned at training with your coach');
+  });
+
+  it('tells a younger player heading is a skill for later', () => {
+    saveProfile({ ...PROFILE, age: 9, goals: ['Better heading'] });
+    render(<WeeklyGames onPlayRound={jest.fn()} />);
+
+    const note = screen.getByRole('note');
+    expect(note).toHaveTextContent('a skill for later');
+    expect(note).not.toHaveTextContent('at training with your coach');
   });
 
   it('shows no heading note to players who did not ask for it', () => {
@@ -138,8 +162,11 @@ describe('WeeklyGames', () => {
     saveProfile(PROFILE);
     render(<WeeklyGames onPlayRound={jest.fn()} />);
 
-    expect(screen.getByText(/away from roads, driveways, car parks and windows/)).toBeVisible();
-    expect(screen.getByText(/bang your head or feel dizzy, sick or confused/)).toBeVisible();
+    const safety = screen.getByRole('group', { name: 'Play it safe' });
+    expect(safety).toHaveTextContent('away from roads, driveways, car parks, windows and water');
+    expect(safety).toHaveTextContent('bang your head, or feel dizzy, sick or confused');
+    expect(safety).toHaveTextContent('Do not play again until a doctor says it is okay');
+    expect(safety).toHaveTextContent('Ask a grown-up first');
   });
 
   it('copes with a damaged saved profile', () => {

@@ -17,3 +17,10 @@ export const GENTLE_PRACTICE: TwistKind[] = [
   'roles',
   'rules',
 ];
+
+// Calm routines, like breathing before a shot, also skip the attention tricks that would
+// crowd the player's head.
+export const CALM_PRACTICE: TwistKind[] = [...GENTLE_PRACTICE, 'attention'];
+
+// Planning a routine or watching a match has no drill to adjust, so it takes no twist at all.
+export const NO_DRILL: TwistKind[] = [...CALM_PRACTICE, 'mindset'];

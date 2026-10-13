@@ -14,9 +14,9 @@ export const TAKING_ON_GAMES: LibraryGame[] = [
       'Set up a row of 4 cones about 4 big steps apart. Each cone is a defender. Mark a ' +
       'finish line 4 big steps after the last cone.',
     howToPlay:
-      'Dribble up to a cone, fake one way (drop your shoulder or step over the ball), then ' +
-      'push the ball the other way and sprint past it. Do this at every cone and finish with ' +
-      'a burst to the line. Do 6 runs, mixing up your fakes.',
+      'Dribble up to a cone, fake one way (drop your shoulder or step over the ball), then push ' +
+      'the ball the other way and sprint past it. Do this at every cone and finish with a burst ' +
+      'to the line. Do 6 runs, mixing up your fakes, and walk back to rest between runs.',
     focus: 'Sell the fake with your body, then explode away in the first two steps.',
     easier: 'Walk the first run, then build up speed.',
     harder: 'Use a different fake at each cone, or finish with a shot at a target.',
@@ -74,9 +74,10 @@ export const TAKING_ON_GAMES: LibraryGame[] = [
       'Make three gates (two cones, 2 big steps apart) in a line across a pitch about 12 big ' +
       'steps wide. The attacker starts 8 big steps back, the defender stands in the middle.',
     howToPlay:
-      'The attacker tries to dribble through any gate. The defender tries to block the way ' +
-      'and stay on their feet. Under 10s: defenders only block and do not tackle. Each gate ' +
-      'you get through is a point for the attacker. Swap after 6 goes and add up your scores.',
+      'The attacker tries to dribble through any gate. The defender tries to block the way and ' +
+      'stay on their feet. If anyone is under 10, defenders only block and do not tackle. Each ' +
+      'gate you get through is a point for the attacker. Swap after 6 goes and add up your ' +
+      'scores.',
     focus: 'Attacker: read the defender’s feet and go where they are not. Defender: stay patient.',
     easier: 'Make the gates wider, or the defender walks.',
     harder: 'Make the gates narrower, or give the attacker only 5 seconds.',
@@ -105,7 +106,7 @@ export const TAKING_ON_GAMES: LibraryGame[] = [
     id: 'taking-on-corner-pocket',
     name: 'Corner Pocket 1v1',
     skill: 'taking-on',
-    players: [2, 6],
+    players: [2, 2],
     ages: [9, 18],
     level: 'intermediate',
     minutes: 12,
@@ -113,26 +114,25 @@ export const TAKING_ON_GAMES: LibraryGame[] = [
       'Make a channel 8 big steps wide and 15 long with a small goal at one end. The ' +
       'attacker starts at the far end with the ball, the defender at the goal.',
     howToPlay:
-      'The attacker dribbles at the defender and tries to score in the small goal. The ' +
-      'defender tries to win the ball fairly and stay on their feet. After each go, swap ' +
-      'jobs. In a group, rotate: the defender becomes the attacker and the attacker joins the ' +
-      'back of the line.',
+      'The attacker dribbles at the defender and tries to score in the small goal. The defender ' +
+      'tries to win the ball fairly and stay on their feet. After each go, swap jobs.',
     focus: 'Attack at pace, and decide early: inside, outside or shoot.',
-    easier: 'Start the attacker closer to the goal.',
-    harder: 'Add a second attacker who can receive a pass.',
+    easier:
+      'Start the attacker closer to the goal, or add a second attacker who can receive a pass.',
+    harder: 'Make the channel narrower, or give the attacker only 6 seconds.',
   },
   {
     id: 'taking-on-rotation-1v1',
     name: '1v1 Rotation',
     skill: 'taking-on',
     also: ['defending-1v1'],
-    players: [6, 16],
+    players: [8, 16],
     ages: [8, 18],
     level: 'beginner',
     minutes: 15,
     setup:
-      'Make 3 or 4 small lanes (6 big steps wide, 12 long) with a small goal at one end of ' +
-      'each. Groups of 4 at each lane: one attacker, one defender, two waiting.',
+      'Make a small lane for every four players (6 big steps wide, 12 long), with a small goal ' +
+      'at one end of each. In each lane: one attacker, one defender and two waiting.',
     howToPlay:
       'Play 1v1 in each lane. After every go, the attacker moves to the back, the defender ' +
       'becomes the attacker and the next player defends. Everyone keeps a personal score of ' +
@@ -146,13 +146,14 @@ export const TAKING_ON_GAMES: LibraryGame[] = [
     name: 'Wing Wars',
     skill: 'taking-on',
     also: ['passing', 'movement'],
-    players: [4, 8],
+    players: [3, 5],
     ages: [12, 18],
     level: 'intermediate',
     minutes: 12,
     setup:
-      'Mark a wide lane about 8 big steps wide and 25 long, with a small goal at the end and ' +
-      'a finisher waiting near it. A winger and a full-back start at the halfway line.',
+      'Mark a wide lane about 8 big steps wide and 25 long, with a small goal at the end. A ' +
+      'winger and a full-back start at the halfway line, and a finisher waits near the goal. ' +
+      'Extra players are the goalkeeper and ball collectors.',
     howToPlay:
       'The winger runs at the full-back to beat them and then passes low along the ground to ' +
       'the finisher, who shoots with their feet. Then swap jobs. Count how many times the ' +
@@ -171,12 +172,13 @@ export const TAKING_ON_GAMES: LibraryGame[] = [
     level: 'advanced',
     minutes: 10,
     setup:
-      'Mark a lane 5 big steps wide and 15 long. The attacker starts with the ball at one ' +
-      'end, the defender one step off them, facing them.',
+      'Mark a lane 6 big steps wide and 15 long. The attacker starts with the ball at one end, ' +
+      'and the defender stands 2 big steps away, off to one side.',
     howToPlay:
       'On “go”, the attacker pushes the ball past the defender’s side and sprints to win the ' +
-      'race to a cone 10 big steps away. The defender chases but cannot tackle. A point for ' +
-      'each time the attacker gets there first. Swap after 5 goes, rest between goes.',
+      'race to a cone 10 big steps away. The defender chases but cannot tackle, and never ' +
+      'touches, pulls or pushes. A point for each time the attacker gets there first. Swap after ' +
+      '5 goes, and rest between goes.',
     focus: 'A sharp first touch and the first two steps are what win the race.',
     easier: 'Start the defender two steps off, or only walking.',
     harder: 'Let the defender challenge fairly for the ball after the first touch.',
@@ -186,13 +188,14 @@ export const TAKING_ON_GAMES: LibraryGame[] = [
     name: 'The Gauntlet',
     skill: 'taking-on',
     also: ['dribbling'],
-    players: [4, 12],
+    players: [4, 8],
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
     setup:
-      'Make a lane 6 big steps wide and 15 long. Three “gatekeepers” stand in it holding ' +
-      'cones, 4 big steps apart. Dribblers wait in a line at the start, each with a ball.',
+      'Make a lane 6 big steps wide and 15 long. Three “gatekeepers” stand in it holding cones, ' +
+      '4 big steps apart. Dribblers wait at the start, each with a ball, keeping it moving with ' +
+      'small touches.',
     howToPlay:
       'Gatekeepers shuffle side to side with the cones, but do not move forward or tackle. ' +
       'Each dribbler runs the gauntlet and tries to get past all three. A point for each ' +

@@ -30,6 +30,7 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['pace'],
     setup:
       'Mark a lane 5 big steps wide and 15 long, with a finish line at the end. The attacker ' +
       'has the ball at one end, the defender stands in front of them.',
@@ -50,6 +51,7 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 10,
+    noTwists: ['pace'],
     setup:
       'Mark a square 8 big steps wide. The attacker has the ball in the middle and the ' +
       'defender stands 2 big steps away.',
@@ -60,28 +62,7 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
       'attacker for every 30 seconds kept. Swap after 4 goes.',
     focus: 'Patience wins the ball. Wait, stay balanced and pick your moment.',
     easier: 'Make the wait only two seconds.',
-    harder: 'Make the square smaller, or ask the defender to guide the attacker to one side.',
-  },
-  {
-    id: 'defending-1v1-gate-guard',
-    name: 'Gate Guard',
-    skill: 'defending-1v1',
-    also: ['taking-on'],
-    players: [2, 2],
-    ages: [8, 18],
-    level: 'beginner',
-    minutes: 10,
-    setup:
-      'Set up three small gates (2 big steps wide) in a row, 4 big steps apart. The ' +
-      'attacker starts at one end with the ball and the defender stands in the middle.',
-    howToPlay:
-      'The attacker tries to dribble through any gate. The defender moves in front of the ' +
-      'gate the ball is heading for, staying on their feet. A gate scores a point for the ' +
-      'attacker. If the attacker is stopped or loses control, the defender scores. Swap after ' +
-      '5 goes.',
-    focus: 'Move your feet quickly to stay between the ball and the gate.',
-    easier: 'Make the gates wider.',
-    harder: 'Add a fourth gate, or limit the attacker to 6 seconds.',
+    harder: 'Make the square bigger, or ask the defender to guide the attacker to one side.',
   },
   {
     id: 'defending-1v1-recovery-run',
@@ -101,8 +82,8 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
       'time and stops the attacker reaching the line, they score a point. Rest between goes ' +
       'and swap after 4.',
     focus: 'Sprint to get goal-side first. Then slow down, stay on your feet and stay patient.',
-    easier: 'Give the defender a smaller head start gap.',
-    harder: 'Make the gap bigger, or use a longer lane.',
+    easier: 'Make the gap smaller, or use a longer lane so the defender has more time.',
+    harder: 'Make the gap bigger, or use a shorter lane.',
   },
   {
     id: 'defending-1v1-show-them-wide',
@@ -123,7 +104,7 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
       'defender to help.',
     focus: 'Approach at an angle and show one way, so the attacker has less choice.',
     easier: 'The attacker starts walking.',
-    harder: 'Move the sideline closer to the middle, or add a second attacker.',
+    harder: 'Add a second attacker, or make the lane wider.',
   },
   {
     id: 'defending-1v1-footwork-ladder',
@@ -148,7 +129,7 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
     name: 'Lane Cutter',
     skill: 'defending-1v1',
     also: ['team-defending', 'vision'],
-    players: [3, 3],
+    players: [3, 4],
     ages: [10, 18],
     level: 'intermediate',
     minutes: 10,
@@ -196,16 +177,17 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
     level: 'intermediate',
     minutes: 10,
     setup:
-      'Mark a lane 6 big steps wide and 15 long. The attacker has the ball at one end with a ' +
-      'cone gate to dribble through at the other. The defender starts behind the attacker.',
+      'Mark a lane 6 big steps wide and 15 long. The attacker has the ball at one end, with a ' +
+      'gate (two cones) to dribble through at the other. The defender starts 3 big steps behind ' +
+      'them.',
     howToPlay:
-      'The attacker sprints with the ball at a controlled pace. The defender chases from ' +
-      'behind and tries to get alongside and then in front to block the way, without pulling ' +
-      'or pushing. The defender scores for getting level before the gate. The attacker ' +
-      'scores for reaching the gate first.',
+      'The attacker dribbles briskly, not flat out. The defender chases and tries to get level, ' +
+      'an arm’s length to the side, with no touching, pulling or pushing. If the defender gets ' +
+      'level before the gate, the defender scores. If not, the attacker scores. Walk back and ' +
+      'rest between goes. Swap after 4 goes.',
     focus: 'Chase at an angle to get goal-side, with hands down and body in control.',
-    easier: 'Give the defender a smaller head start gap.',
-    harder: 'Make the lane longer and add a second gate.',
+    easier: 'Start the defender 2 big steps behind.',
+    harder: 'Start the defender 4 big steps behind, or shorten the lane.',
   },
   {
     id: 'defending-1v1-close-down-control',
@@ -216,17 +198,18 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 8,
+    noTwists: ['pace'],
     setup:
-      'Mark a start line on a flat, clear lane. You will need a ball and about 12 big steps ' +
-      'of space in front of you.',
+      'Mark a start line on flat, clear ground and put a ball 12 big steps in front of it. The ' +
+      'ball is your “attacker”.',
     howToPlay:
-      'Give the ball a gentle push forward, as if an attacker has just touched it too far. ' +
-      'Sprint after it, then slow right down for the last two steps. Stop a big step away, ' +
-      'low and side-on, then stop the ball with the sole of your foot. Do 8 goes. A smooth ' +
-      'stop a step away scores a point.',
+      'Sprint towards the ball, then slow right down for the last two steps. Stop one big step ' +
+      'away, low and side-on, with your weight on your toes, as if you were facing an attacker. ' +
+      'Hold the stop for a second, then walk back. Do 8 goes. A balanced stop one step away ' +
+      'scores a point.',
     focus: 'Sprint to close the gap, then slow down and get low. Never charge in.',
     easier: 'Walk to the ball first, then build up speed.',
-    harder: 'Roll the ball at an angle, so you have to curve your run.',
+    harder: 'Start at an angle to the ball, so you have to curve your run.',
   },
   {
     id: 'defending-1v1-drop-step-sprints',
@@ -258,6 +241,7 @@ export const DEFENDING_1V1_GAMES: LibraryGame[] = [
     ages: [8, 18],
     level: 'beginner',
     minutes: 12,
+    noTwists: ['roles'],
     setup:
       'Make teams of 3 or 4. For each team, mark a lane 8 big steps long with a cone at the ' +
       'far end. Each team lines up at the start.',

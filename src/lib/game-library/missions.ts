@@ -20,7 +20,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
       'In the three seconds before the ball reaches you, try to look around twice. Then use ' +
       'your first touch to move away from the nearest opponent.',
     why: 'Knowing what is around you makes your first touch quicker and safer.',
-    afterMatch: 'How many times did you manage the two looks? Which look came easiest?',
+    afterMatch: 'Which look came easiest? What did you notice when you looked?',
     skill: 'first-touch',
     ages: [11, 13],
   },
@@ -40,7 +40,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
     title: 'Three passes, weaker foot',
     mission: 'Try to make three passes with your weaker foot during the match, when it is safe.',
     why: 'Each time you use your weaker foot, it gets a little stronger.',
-    afterMatch: 'How many did you try? How did the last one feel compared with the first?',
+    afterMatch: 'How did your last weaker-foot pass feel compared with the first?',
     skill: 'passing',
     ages: [8, 10],
   },
@@ -135,7 +135,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
       'When you defend, try to stand between the attacker and the goal, wait, and not lunge ' +
       'in.',
     why: 'Patient defenders stay on their feet, so one slip does not leave a gap behind them.',
-    afterMatch: 'How many times did you wait? What happened when you were patient?',
+    afterMatch: 'What happened when you were patient?',
     skill: 'defending-1v1',
     ages: [8, 10],
   },
@@ -182,9 +182,11 @@ export const MATCH_MISSIONS: MatchMission[] = [
   {
     id: 'finishing-follow-your-shot',
     title: 'Follow your shot',
-    mission: 'After every shot, try to run towards the goal in case the ball comes back out.',
+    mission:
+      'After every shot, try to run towards the goal in case the ball comes back out, and keep ' +
+      'clear of the goalkeeper.',
     why: 'Rebounds happen a lot, and the player who is already there gets the next chance.',
-    afterMatch: 'How many times did you follow up? Did a rebound come to you?',
+    afterMatch: 'Did a rebound come to you? What did you notice as you ran in?',
     skill: 'finishing',
     ages: [14, 18],
   },
@@ -206,7 +208,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
       'When the ball comes near your box, try to get into your ready position: feet apart, ' +
       'knees bent, hands up.',
     why: 'A good ready position lets you move quickly in any direction.',
-    afterMatch: 'How often were you ready in time? What helped you remember?',
+    afterMatch: 'What helped you get ready in time?',
     skill: 'goalkeeping',
     ages: [11, 13],
   },
@@ -214,8 +216,8 @@ export const MATCH_MISSIONS: MatchMission[] = [
     id: 'goalkeeping-start-the-attack-quickly',
     title: 'Start the attack quickly',
     mission:
-      'After you win the ball, try to look up and give it to a teammate in space within ' +
-      'three seconds.',
+      'After you win the ball, try to look up and choose a teammate in space before you throw or ' +
+      'pass.',
     why: 'A quick, accurate throw or pass can turn defending into attacking.',
     afterMatch: 'Which distribution worked best? What did you see just before you released it?',
     skill: 'goalkeeping',
@@ -254,7 +256,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
     mission:
       'When your team loses the ball, try to run back to stand between the ball and your goal.',
     why: 'Getting goal-side quickly helps your whole team defend.',
-    afterMatch: 'How quickly did you get back? What helped you do it?',
+    afterMatch: 'What helped you get back? What slowed you down?',
     skill: 'team-defending',
     ages: [8, 10],
   },
@@ -267,7 +269,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
     why:
       'When one player presses and others close the passing lanes, the ball carrier has fewer ' +
       'options.',
-    afterMatch: 'How many times did you help a teammate press? What happened next?',
+    afterMatch: 'When you helped a teammate press, what happened next?',
     skill: 'team-defending',
     ages: [11, 13],
   },
@@ -288,7 +290,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
     mission:
       'When your team wins the ball, try to look for a forward pass first, before anything else.',
     why: 'The other team is out of shape for a few seconds, and a forward pass uses them.',
-    afterMatch: 'How often did you look forward first? What did you see?',
+    afterMatch: 'What did you see when you looked forward first?',
     skill: 'transitions',
     ages: [8, 10],
   },
@@ -303,11 +305,11 @@ export const MATCH_MISSIONS: MatchMission[] = [
   },
   {
     id: 'transitions-recover-in-five',
-    title: 'Recover in five',
+    title: 'Start your run back',
     mission:
-      'After your team loses the ball, try to get back behind the ball within five seconds.',
+      'After your team loses the ball, try to start your run back behind the ball straight away.',
     why: 'A fast recovery run helps the whole team, even if you do not win the ball.',
-    afterMatch: 'How often did you manage it? What helped, and what slowed you down?',
+    afterMatch: 'What helped you start the run back, and what slowed you down?',
     skill: 'transitions',
     ages: [14, 18],
   },
@@ -316,7 +318,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
     title: 'Glance over your shoulder',
     mission: 'Try to glance over your shoulder twice before each pass arrives.',
     why: 'Knowing what is around you helps you choose your first touch.',
-    afterMatch: 'How many times did you look? What did you see when you did?',
+    afterMatch: 'What did you see when you looked?',
     skill: 'vision',
     ages: [8, 10],
   },
@@ -380,8 +382,10 @@ export const MATCH_MISSIONS: MatchMission[] = [
   {
     id: 'athleticism-warm-up-properly',
     title: 'Warm up properly',
-    mission: 'Arrive on time and finish your whole warm-up before kick-off.',
-    why: 'A good warm-up helps your body feel ready and helps you avoid injuries.',
+    mission:
+      'Do a full warm-up before kick-off: join your team’s, or jog, stretch and touch the ball ' +
+      'for ten minutes.',
+    why: 'A good warm-up can lower the chance of getting hurt and helps your body feel ready.',
     afterMatch: 'How did your body feel in the first ten minutes? Would you change your warm-up?',
     skill: 'athleticism',
     ages: [8, 18],
@@ -391,7 +395,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
     title: 'Drink at every break',
     mission: 'Take a drink of water at every break in the game.',
     why: 'Small, regular drinks help you keep your energy and your focus.',
-    afterMatch: 'Did you feel different when you drank? How many breaks did you remember?',
+    afterMatch: 'Did you feel different when you drank? What helped you remember?',
     skill: 'athleticism',
     ages: [8, 18],
   },
@@ -418,7 +422,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
   {
     id: 'teamwork-warn-the-player-on-the-ball',
     title: 'Warn them early',
-    mission: 'Try to warn the player on the ball early, with calls like “man on” or “turn”.',
+    mission: 'Try to warn the player on the ball early, with calls like “player on” or “turn”.',
     why: 'Players with the ball cannot see behind them, so your voice is their eyes.',
     afterMatch: 'When did a call help a teammate? What would you say next time?',
     skill: 'teamwork',
@@ -475,8 +479,8 @@ export const MATCH_MISSIONS: MatchMission[] = [
     id: 'teamwork-fair-play',
     title: 'Play fair and say thanks',
     mission:
-      'Thank the referee once, and help an opponent up if they fall. Do both without making a ' +
-      'big deal of it.',
+      'Thank the referee once. If an opponent falls, ask if they are okay, and if they look ' +
+      'hurt, call the referee or a grown-up instead of moving them.',
     why: 'Fair play is part of being a good teammate and a good competitor.',
     afterMatch: 'How did it feel? How did the other player or the referee react?',
     skill: 'teamwork',
