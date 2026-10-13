@@ -24,7 +24,9 @@ LuchoAI supports four AI providers. You choose your provider and model on first 
 | Anthropic (Claude) | Claude Opus 4.8, Sonnet 4.6, Haiku 4.5 | [console.anthropic.com](https://console.anthropic.com) |
 | OpenAI (GPT) | GPT-4o, GPT-4o mini, GPT-4 Turbo | [platform.openai.com](https://platform.openai.com) |
 | Google Gemini | Gemini 2.0 Flash, 1.5 Pro, 1.5 Flash | [aistudio.google.com](https://aistudio.google.com) |
-| Hugging Face | Mistral 7B, Zephyr 7B, Llama 3.1 8B | [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) |
+| Hugging Face | gpt-oss 120B, gpt-oss 20B, Llama 3.1 8B | [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) |
+
+Hugging Face requests run on [Inference Providers](https://huggingface.co/docs/inference-providers), which bill against your account's monthly credits (free accounts get a small allowance). Llama 3.1 8B is gated: accept Meta's licence on its model page before using it.
 
 ## Quick Start
 

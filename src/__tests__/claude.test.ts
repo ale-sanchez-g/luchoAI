@@ -57,9 +57,12 @@ const GEMINI_CONFIG: AIProviderConfig = {
 
 const HF_CONFIG: AIProviderConfig = {
   provider: 'huggingface',
-  model: 'mistralai/Mistral-7B-Instruct-v0.3',
+  model: 'openai/gpt-oss-120b',
   apiKey: 'hf_test-key',
 };
+
+// A model that used to be in the dropdown but no longer has an Inference Provider.
+const RETIRED_HF_MODEL = 'mistralai/Mistral-7B-Instruct-v0.3';
 
 const SAMPLE_PROFILE: PlayerProfile = {
   name: 'Lucho',
@@ -160,6 +163,17 @@ describe('sendMessage', () => {
 
       const result = await sendMessage(HF_CONFIG, [], 'hello', null);
       expect(result).toBe('HF response');
+    });
+
+    it('uses the default model when the saved one has been retired', async () => {
+      mockHfChatCompletion.mockResolvedValueOnce({
+        choices: [{ message: { content: 'HF response' } }],
+      });
+
+      await sendMessage({ ...HF_CONFIG, model: RETIRED_HF_MODEL }, [], 'hello', null);
+      expect(mockHfChatCompletion.mock.calls[0][0]).toMatchObject({
+        model: 'openai/gpt-oss-120b',
+      });
     });
   });
 });
@@ -289,6 +303,17 @@ describe('generateTrainingPlan', () => {
 
       const plan = await generateTrainingPlan(HF_CONFIG, SAMPLE_PROFILE);
       expect(plan.weeklyGoal).toBe('Improve dribbling');
+    });
+
+    it('uses the default model for plans when the saved one has been retired', async () => {
+      mockHfChatCompletion.mockResolvedValueOnce({
+        choices: [{ message: { content: JSON.stringify(VALID_PLAN) } }],
+      });
+
+      await generateTrainingPlan({ ...HF_CONFIG, model: RETIRED_HF_MODEL }, SAMPLE_PROFILE);
+      expect(mockHfChatCompletion.mock.calls[0][0]).toMatchObject({
+        model: 'openai/gpt-oss-120b',
+      });
     });
 
     it('repairs malformed JSON via jsonrepair before parsing', async () => {
