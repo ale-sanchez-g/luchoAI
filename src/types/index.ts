@@ -43,3 +43,76 @@ export interface TrainingPlan {
   sessions: TrainingSession[];
   generatedAt: Date;
 }
+
+export type MoodLevel = 1 | 2 | 3 | 4 | 5;
+
+export type BalanceArea = 'sleep' | 'football' | 'school' | 'people' | 'fun';
+
+export type BalanceLevel = 1 | 2 | 3;
+
+export interface WellbeingCheckIn {
+  date: string;
+  mood: MoodLevel;
+  balance: Record<BalanceArea, BalanceLevel>;
+  proudOf: string;
+}
+
+export type DecisionThemeId = 'space' | 'first-touch' | 'press';
+
+export type BestScores = Partial<Record<DecisionThemeId, number>>;
+
+export interface PitchPoint {
+  x: number;
+  y: number;
+}
+
+export interface PitchArrow {
+  from: PitchPoint;
+  to: PitchPoint;
+  kind: 'pass' | 'run';
+}
+
+export interface PitchScene {
+  goal?: 'top' | 'bottom';
+  you: PitchPoint;
+  ball: PitchPoint;
+  teammates: PitchPoint[];
+  opponents: PitchPoint[];
+  arrows?: PitchArrow[];
+}
+
+export interface DecisionOption {
+  id: string;
+  label: string;
+  correct: boolean;
+  feedback: string;
+  marker?: PitchPoint;
+}
+
+export interface DecisionScenario {
+  id: string;
+  title: string;
+  situation: string;
+  question: string;
+  scene: PitchScene;
+  options: DecisionOption[];
+  cue: string;
+}
+
+export interface PitchGame {
+  name: string;
+  players: string;
+  setup: string;
+  howToPlay: string;
+  focus: string;
+  harder: string;
+}
+
+export interface DecisionTheme {
+  id: DecisionThemeId;
+  emoji: string;
+  title: string;
+  description: string;
+  scenarios: DecisionScenario[];
+  pitchGames: PitchGame[];
+}

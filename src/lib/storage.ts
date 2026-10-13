@@ -1,10 +1,48 @@
-import type { PlayerProfile, AIProviderConfig } from '@/types';
+import type {
+  PlayerProfile,
+  AIProviderConfig,
+  WellbeingCheckIn,
+  BalanceArea,
+  BestScores,
+  DecisionThemeId,
+} from '@/types';
 
 const KEYS = {
   API_KEY: 'luchoai_api_key',
   PLAYER_PROFILE: 'luchoai_player_profile',
   PROVIDER_CONFIG: 'luchoai_provider_config',
+  WELLBEING_CHECKINS: 'luchoai_wellbeing_checkins',
+  GAME_SCORES: 'luchoai_game_scores',
 } as const;
+
+const MAX_CHECKINS = 30;
+const MAX_MOOD_LEVEL = 5;
+const MAX_BALANCE_LEVEL = 3;
+
+// Check-in validation lives here rather than in lib/wellbeing.ts so that every page using
+// storage doesn't also bundle the wellbeing copy. The Record type makes the compiler flag
+// this list whenever a BalanceArea is added.
+const BALANCE_AREA_KEYS: Record<BalanceArea, true> = {
+  sleep: true,
+  football: true,
+  school: true,
+  people: true,
+  fun: true,
+};
+
+function isLevel(value: unknown, max: number): boolean {
+  return typeof value === 'number' && Number.isInteger(value) && value >= 1 && value <= max;
+}
+
+function isCheckIn(value: unknown): value is WellbeingCheckIn {
+  if (typeof value !== 'object' || value === null) return false;
+  const c = value as Record<string, unknown>;
+  if (typeof c.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(c.date)) return false;
+  if (!isLevel(c.mood, MAX_MOOD_LEVEL) || typeof c.proudOf !== 'string') return false;
+  if (typeof c.balance !== 'object' || c.balance === null) return false;
+  const balance = c.balance as Record<string, unknown>;
+  return Object.keys(BALANCE_AREA_KEYS).every((area) => isLevel(balance[area], MAX_BALANCE_LEVEL));
+}
 
 export function getApiKey(): string | null {
   if (typeof window === 'undefined') return null;
@@ -62,4 +100,56 @@ export function getPlayerProfile(): PlayerProfile | null {
 
 export function setPlayerProfile(profile: PlayerProfile): void {
   localStorage.setItem(KEYS.PLAYER_PROFILE, JSON.stringify(profile));
+}
+
+export function getCheckIns(): WellbeingCheckIn[] {
+  if (typeof window === 'undefined') return [];
+  const raw = localStorage.getItem(KEYS.WELLBEING_CHECKINS);
+  if (!raw) return [];
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter(isCheckIn) : [];
+  } catch {
+    return [];
+  }
+}
+
+/** Saves a check-in, replacing any from the same day. Returns history oldest → newest. */
+export function saveCheckIn(checkIn: WellbeingCheckIn): WellbeingCheckIn[] {
+  const updated = [...getCheckIns().filter((c) => c.date !== checkIn.date), checkIn]
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .slice(-MAX_CHECKINS);
+  localStorage.setItem(KEYS.WELLBEING_CHECKINS, JSON.stringify(updated));
+  return updated;
+}
+
+export function clearCheckIns(): void {
+  localStorage.removeItem(KEYS.WELLBEING_CHECKINS);
+}
+
+export function getBestScores(): BestScores {
+  if (typeof window === 'undefined') return {};
+  const raw = localStorage.getItem(KEYS.GAME_SCORES);
+  if (!raw) return {};
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) return {};
+    const scores: BestScores = {};
+    for (const [themeId, score] of Object.entries(parsed)) {
+      if (typeof score === 'number') scores[themeId as DecisionThemeId] = score;
+    }
+    return scores;
+  } catch {
+    return {};
+  }
+}
+
+/** Records a round score only if it beats the stored best. Returns the up-to-date best scores. */
+export function saveBestScore(themeId: DecisionThemeId, score: number): BestScores {
+  const scores = getBestScores();
+  const previous = scores[themeId];
+  if (previous !== undefined && previous >= score) return scores;
+  const updated = { ...scores, [themeId]: score };
+  localStorage.setItem(KEYS.GAME_SCORES, JSON.stringify(updated));
+  return updated;
 }
