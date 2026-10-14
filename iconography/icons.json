@@ -1,0 +1,242 @@
+{
+  "icons": {
+    "⚽": {
+      "icon": "ball",
+      "file": "leaf/ball.svg",
+      "use": "Football, logo, football goals"
+    },
+    "🧠": {
+      "icon": "brain",
+      "file": "leaf/brain.svg",
+      "use": "Game IQ, mindset"
+    },
+    "🤖": {
+      "icon": "robot",
+      "file": "leaf/robot.svg",
+      "use": "AI coach"
+    },
+    "💪": {
+      "icon": "dumbbell",
+      "file": "leaf/dumbbell.svg",
+      "use": "Strength, effort"
+    },
+    "💚": {
+      "icon": "heart",
+      "file": "leaf/heart.svg",
+      "use": "Wellbeing"
+    },
+    "🏆": {
+      "icon": "trophy",
+      "file": "leaf/trophy.svg",
+      "use": "Trophy, result"
+    },
+    "🏅": {
+      "icon": "medal",
+      "file": "leaf/medal.svg",
+      "use": "Check-in streak, reward"
+    },
+    "🌟": {
+      "icon": "star",
+      "file": "leaf/star.svg",
+      "use": "Perfect score"
+    },
+    "🌱": {
+      "icon": "sprout",
+      "file": "leaf/sprout.svg",
+      "use": "Growing, keep going"
+    },
+    "✅": {
+      "icon": "check-circle",
+      "file": "leaf/check-circle.svg",
+      "use": "Correct answer"
+    },
+    "🤔": {
+      "icon": "thinking",
+      "file": "leaf/thinking.svg",
+      "use": "Think it through"
+    },
+    "🎯": {
+      "icon": "target",
+      "file": "leaf/target.svg",
+      "use": "Aim, accuracy"
+    },
+    "✨": {
+      "icon": "sparkles",
+      "file": "leaf/sparkles.svg",
+      "use": "Creativity, flair"
+    },
+    "⚡": {
+      "icon": "bolt",
+      "file": "leaf/bolt.svg",
+      "use": "Speed, quick play"
+    },
+    "🔥": {
+      "icon": "flame",
+      "file": "leaf/flame.svg",
+      "use": "Finishing, intensity"
+    },
+    "🏃": {
+      "icon": "runner",
+      "file": "leaf/runner.svg",
+      "use": "Running, movement"
+    },
+    "👟": {
+      "icon": "sneaker",
+      "file": "leaf/sneaker.svg",
+      "use": "First touch, dribbling"
+    },
+    "🤸": {
+      "icon": "gymnast",
+      "file": "leaf/gymnast.svg",
+      "use": "Agility, flexibility"
+    },
+    "🛡️": {
+      "icon": "shield",
+      "file": "leaf/shield.svg",
+      "use": "Defending"
+    },
+    "🧱": {
+      "icon": "wall",
+      "file": "leaf/wall.svg",
+      "use": "Defensive wall"
+    },
+    "🥅": {
+      "icon": "goal",
+      "file": "leaf/goal.svg",
+      "use": "Shooting, goals"
+    },
+    "🧤": {
+      "icon": "glove",
+      "file": "leaf/glove.svg",
+      "use": "Goalkeeping"
+    },
+    "👀": {
+      "icon": "eyes",
+      "file": "leaf/eyes.svg",
+      "use": "Scanning, awareness"
+    },
+    "🗣️": {
+      "icon": "speaking",
+      "file": "leaf/speaking.svg",
+      "use": "Communication"
+    },
+    "🔀": {
+      "icon": "shuffle",
+      "file": "leaf/shuffle.svg",
+      "use": "Passing, switching"
+    },
+    "🌀": {
+      "icon": "whirl",
+      "file": "leaf/whirl.svg",
+      "use": "Turning, spinning"
+    },
+    "🏟️": {
+      "icon": "stadium",
+      "file": "leaf/stadium.svg",
+      "use": "Match day"
+    },
+    "🏀": {
+      "icon": "basketball",
+      "file": "leaf/basketball.svg",
+      "use": "Other sports"
+    },
+    "📋": {
+      "icon": "clipboard",
+      "file": "leaf/clipboard.svg",
+      "use": "Training plan"
+    },
+    "🔄": {
+      "icon": "refresh",
+      "file": "leaf/refresh.svg",
+      "use": "Repeat, reset"
+    },
+    "🌬️": {
+      "icon": "wind",
+      "file": "leaf/wind.svg",
+      "use": "Breathing"
+    },
+    "⏱️": {
+      "icon": "stopwatch",
+      "file": "leaf/stopwatch.svg",
+      "use": "Time, rest"
+    },
+    "🛌": {
+      "icon": "bed",
+      "file": "leaf/bed.svg",
+      "use": "Sleep and rest"
+    },
+    "📚": {
+      "icon": "books",
+      "file": "leaf/books.svg",
+      "use": "School"
+    },
+    "🤝": {
+      "icon": "people",
+      "file": "leaf/people.svg",
+      "use": "Friends and family"
+    },
+    "🎨": {
+      "icon": "palette",
+      "file": "leaf/palette.svg",
+      "use": "Fun outside football"
+    },
+    "🦋": {
+      "icon": "butterfly",
+      "file": "leaf/butterfly.svg",
+      "use": "Nerves, butterflies"
+    },
+    "💬": {
+      "icon": "chat",
+      "file": "leaf/chat.svg",
+      "use": "Talk, messages"
+    },
+    "😄": {
+      "icon": "grin",
+      "file": "leaf/grin.svg",
+      "use": "Mood: Great"
+    },
+    "🙂": {
+      "icon": "smile-soft",
+      "file": "leaf/smile-soft.svg",
+      "use": "Mood: Good"
+    },
+    "😐": {
+      "icon": "neutral",
+      "file": "leaf/neutral.svg",
+      "use": "Mood: Okay, Sort of"
+    },
+    "😕": {
+      "icon": "confused",
+      "file": "leaf/confused.svg",
+      "use": "Mood: Not great"
+    },
+    "😢": {
+      "icon": "sad",
+      "file": "leaf/sad.svg",
+      "use": "Mood: Really low"
+    },
+    "😊": {
+      "icon": "smile",
+      "file": "leaf/smile.svg",
+      "use": "Answer: Yes"
+    },
+    "😟": {
+      "icon": "worried",
+      "file": "leaf/worried.svg",
+      "use": "Answer: Not really"
+    },
+    "😴": {
+      "icon": "sleepy",
+      "file": "leaf/sleepy.svg",
+      "use": "Sleep area"
+    },
+    "🤗": {
+      "icon": "hug",
+      "file": "leaf/hug.svg",
+      "use": "Encouragement"
+    }
+  },
+  "spare": [
+    "smile-happy"
+  ]
+}
