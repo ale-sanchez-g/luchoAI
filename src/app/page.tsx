@@ -15,10 +15,10 @@ const FEATURES = [
   },
   {
     icon: '🧠',
-    title: 'Game IQ',
+    title: 'Weekly Games & Game IQ',
     description:
-      'Decision games on finding space, first touch, pressing, defending together, quick ' +
-      'counters and when to shoot or pass.',
+      'New games every Monday, picked for your goals, plus decision games on space, first ' +
+      'touch, pressing, counters and when to shoot or pass.',
   },
   {
     icon: '💚',
@@ -68,7 +68,7 @@ export default function HomePage() {
               href="/games"
               className="border-2 border-white/60 text-white font-semibold px-5 py-2 rounded-full hover:bg-white/10 transition-colors"
             >
-              🧠 Play Game IQ
+              🧠 This week’s games
             </Link>
             <Link
               href="/wellbeing"
