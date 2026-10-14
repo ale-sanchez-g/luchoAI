@@ -1,5 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 import type { Message } from '@/types';
+import Icon from './Icon';
 
 interface MessageBubbleProps {
   message: Message;
@@ -11,9 +12,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
       {!isUser && (
-        <div className="w-8 h-8 rounded-full bg-pitch-green flex items-center justify-center text-sm mr-2 flex-shrink-0 mt-1">
-          ⚽
-        </div>
+        <Icon name="ball" size={32} className="mr-2 mt-1" />
       )}
       <div
         className={`max-w-[75%] rounded-2xl px-4 py-3 ${

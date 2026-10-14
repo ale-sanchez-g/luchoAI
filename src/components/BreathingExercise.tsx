@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Icon from './Icon';
 
 const BREATHE_IN_SECONDS = 4;
 const BREATHE_OUT_SECONDS = 6;
@@ -59,7 +60,7 @@ export default function BreathingExercise() {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5">
       <h3 className="font-bold text-gray-800">
-        <span aria-hidden="true">🌬️</span> Calm breathing
+        <Icon name="wind" className="mr-1 -my-1" /> Calm breathing
       </h3>
       <p className="text-sm text-gray-600 mt-1">
         Breathing out slowly tells your body it&apos;s safe to calm down. Breathe in through your

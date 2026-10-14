@@ -3,6 +3,8 @@ import Header from '@/components/Header';
 import WellbeingCheckIn from '@/components/WellbeingCheckIn';
 import BreathingExercise from '@/components/BreathingExercise';
 import { HELPLINES, HELPLINE_DIRECTORY_URL } from '@/lib/wellbeing';
+import Icon from '@/components/Icon';
+import type { IconName } from '@/lib/icons';
 
 export const metadata: Metadata = {
   title: 'Wellbeing — LuchoAI',
@@ -38,30 +40,30 @@ const NERVES_TIPS = [
   'Do a minute of calm breathing before your warm-up.',
 ];
 
-const BALANCE_FACTS = [
+const BALANCE_FACTS: { icon: IconName; title: string; text: string }[] = [
   {
-    emoji: '🛌',
+    icon: 'bed',
     title: 'Rest makes you better',
     text:
       'Take at least 1–2 days off organised sport every week. Your body gets stronger while ' +
       'it rests.',
   },
   {
-    emoji: '⏱️',
+    icon: 'stopwatch',
     title: 'Keep it balanced',
     text:
       "A good rule: the hours of organised sport you do each week shouldn't be more than " +
       'your age. 12 years old = 12 hours max.',
   },
   {
-    emoji: '🏀',
+    icon: 'basketball',
     title: 'Try other sports',
     text:
       'Playing different sports builds all-round skills and helps you avoid injuries from ' +
       'doing too much of one thing.',
   },
   {
-    emoji: '🧠',
+    icon: 'brain',
     title: 'You are more than a footballer',
     text:
       'Football is part of who you are, not all of who you are. Friends, family, school and ' +
@@ -94,7 +96,7 @@ export default function WellbeingPage() {
 
           <div className={CARD}>
             <h3 className="font-bold text-gray-800">
-              <span aria-hidden="true">🔄</span> After a mistake: flush it
+              <Icon name="refresh" className="mr-1 -my-1" /> After a mistake: flush it
             </h3>
             <ol className="mt-3 space-y-3">
               {MISTAKE_RESET.map((item, i) => (
@@ -113,7 +115,7 @@ export default function WellbeingPage() {
 
           <div className={CARD}>
             <h3 className="font-bold text-gray-800">
-              <span aria-hidden="true">🦋</span> Big-game nerves
+              <Icon name="butterfly" className="mr-1 -my-1" /> Big-game nerves
             </h3>
             <ul className="mt-3 space-y-2">
               {NERVES_TIPS.map((tip) => (
@@ -136,7 +138,7 @@ export default function WellbeingPage() {
             {BALANCE_FACTS.map((fact) => (
               <div key={fact.title} className={CARD}>
                 <p className="font-semibold text-gray-800 text-sm">
-                  <span aria-hidden="true">{fact.emoji}</span> {fact.title}
+                  <Icon name={fact.icon} className="mr-1 -my-1" /> {fact.title}
                 </p>
                 <p className="text-sm text-gray-600 mt-1">{fact.text}</p>
               </div>
@@ -150,7 +152,7 @@ export default function WellbeingPage() {
           className="bg-pitch-dark text-white rounded-2xl p-5 space-y-4"
         >
           <h2 id="talk-heading" className="text-lg font-bold">
-            <span aria-hidden="true">💬</span> Talk to someone
+            <Icon name="chat" className="mr-1 -my-1" /> Talk to someone
           </h2>
           <p className="text-sm text-green-100">
             You never have to deal with things on your own. If you feel sad, worried, stressed or

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PROVIDERS } from '@/lib/providers';
+import Icon from './Icon';
 import { setProviderConfig } from '@/lib/storage';
 import type { AIProvider, AIProviderConfig } from '@/types';
 
@@ -44,7 +45,9 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
     <div className="min-h-screen bg-gradient-to-br from-pitch-dark to-pitch-green flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-full">
         <div className="text-center mb-6">
-          <div className="text-6xl mb-3">⚽</div>
+          <div className="mb-3">
+            <Icon name="ball" size={80} />
+          </div>
           <h1 className="text-2xl font-bold text-gray-800">Welcome to LuchoAI</h1>
           <p className="text-gray-500 mt-2 text-sm">Choose your AI provider to get started</p>
         </div>
@@ -65,7 +68,7 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
                       : 'border-gray-200 hover:border-gray-300 text-gray-600'
                   }`}
                 >
-                  <span className="text-xl">{p.logo}</span>
+                  <Icon name={p.logo} />
                   <span>{p.name}</span>
                 </button>
               ))}

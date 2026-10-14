@@ -1,3 +1,5 @@
+import type { IconName } from '@/lib/icons';
+
 export type AIProvider = 'anthropic' | 'openai' | 'gemini' | 'huggingface';
 
 export interface AIProviderConfig {
@@ -116,7 +118,7 @@ export interface PitchGame {
 
 export interface DecisionTheme {
   id: DecisionThemeId;
-  emoji: string;
+  icon: IconName;
   title: string;
   description: string;
   scenarios: DecisionScenario[];

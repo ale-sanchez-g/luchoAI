@@ -1,38 +1,40 @@
 import Link from 'next/link';
+import Icon from '@/components/Icon';
+import type { IconName } from '@/lib/icons';
 
-const FEATURES = [
+const FEATURES: { icon: IconName; title: string; description: string }[] = [
   {
-    icon: '🤖',
+    icon: 'robot',
     title: 'AI Football Coach',
     description:
       'Chat with your personal AI coach any time. Get advice on technique, tactics, and mindset.',
   },
   {
-    icon: '📋',
+    icon: 'clipboard',
     title: 'Personalised Training Plans',
     description:
       'Generate weekly training sessions tailored to your position, age, and skill level.',
   },
   {
-    icon: '🧠',
+    icon: 'brain',
     title: 'Weekly Games & Game IQ',
     description:
       'New games every Monday, picked for your goals, plus decision games on space, first ' +
       'touch, pressing, counters and when to shoot or pass.',
   },
   {
-    icon: '💚',
+    icon: 'heart',
     title: 'Wellbeing',
     description:
       'Daily check-ins, calm breathing, and reset tools to keep your mind and life in balance.',
   },
   {
-    icon: '⚽',
+    icon: 'ball',
     title: 'Skill Development',
     description: 'From basic dribbling to advanced tactics — grow every aspect of your game.',
   },
   {
-    icon: '💪',
+    icon: 'dumbbell',
     title: 'Built for Young Players',
     description: 'Encouraging, age-appropriate coaching designed for players aged 8–18.',
   },
@@ -43,7 +45,9 @@ export default function HomePage() {
     <div className="min-h-screen bg-gradient-to-br from-pitch-dark via-pitch-green to-green-400">
       <div className="max-w-4xl mx-auto px-4 py-16">
         <div className="text-center mb-16">
-          <div className="text-7xl mb-4">⚽</div>
+          <div className="mb-4">
+            <Icon name="ball" size={96} />
+          </div>
           <h1 className="text-5xl font-black text-white mb-4">LuchoAI</h1>
           <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
             Your AI-powered football coach. Get personalised training, expert advice, and the tools
@@ -68,13 +72,13 @@ export default function HomePage() {
               href="/games"
               className="border-2 border-white/60 text-white font-semibold px-5 py-2 rounded-full hover:bg-white/10 transition-colors"
             >
-              🧠 This week’s games
+              <Icon name="brain" size={28} className="mr-1" /> This week’s games
             </Link>
             <Link
               href="/wellbeing"
               className="border-2 border-white/60 text-white font-semibold px-5 py-2 rounded-full hover:bg-white/10 transition-colors"
             >
-              💚 Wellbeing Check-in
+              <Icon name="heart" size={28} className="mr-1" /> Wellbeing Check-in
             </Link>
           </div>
           <p className="mt-2 text-sm text-green-100">No API key needed for these two.</p>
@@ -83,7 +87,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {FEATURES.map((f) => (
             <div key={f.title} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-white">
-              <div className="text-3xl mb-3">{f.icon}</div>
+              <Icon name={f.icon} size={48} className="mb-3" />
               <h3 className="font-bold text-lg mb-2">{f.title}</h3>
               <p className="text-green-100 text-sm">{f.description}</p>
             </div>

@@ -15,6 +15,7 @@ import { getLibraryStats, getWeeklyPlan } from '@/lib/game-library';
 import { profileMentionsHeading, safetyNotes } from '@/lib/game-library/safety';
 import { getSkillArea } from '@/lib/game-library/skills';
 import { getPlayerProfile } from '@/lib/storage';
+import Icon from './Icon';
 
 const CARD = 'rounded-2xl border border-gray-200 bg-white p-5 shadow-sm';
 const CHIP = 'rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-700';
@@ -74,7 +75,7 @@ function GameCard({ pick, defaultOpen }: { pick: WeeklyPick; defaultOpen: boolea
         </span>
         <span className="mt-2 flex flex-wrap gap-1.5">
           <span className={CHIP}>
-            <span aria-hidden="true">{skill.emoji}</span> {skill.label}
+            <Icon name={skill.icon} className="mr-1 -my-1" /> {skill.label}
           </span>
           <span className={CHIP}>{formatPlayers(game.players)}</span>
           <span className={CHIP}>{game.minutes} min</span>
@@ -163,7 +164,7 @@ export default function WeeklyGames({ onPlayRound }: WeeklyGamesProps) {
           This week&apos;s focus
         </p>
         <p className="mt-1 text-xl font-bold">
-          <span aria-hidden="true">{focus.emoji}</span> {focus.label}
+          <Icon name={focus.icon} className="mr-1 -my-1" /> {focus.label}
         </p>
         <p className="mt-1 text-sm text-green-100">{focusNote(plan, profile)}</p>
         {plan.focusSource !== 'goals' && (
@@ -192,7 +193,7 @@ export default function WeeklyGames({ onPlayRound }: WeeklyGamesProps) {
 
       <section aria-labelledby="week-games-heading" className="space-y-3">
         <h2 id="week-games-heading" className="font-bold text-gray-800">
-          <span aria-hidden="true">⚽</span> Play these this week
+          <Icon name="ball" className="mr-1 -my-1" /> Play these this week
         </h2>
         {plan.picks.map((pick, i) => (
           <GameCard key={pick.game.id} pick={pick} defaultOpen={i === 0} />
@@ -222,7 +223,7 @@ export default function WeeklyGames({ onPlayRound }: WeeklyGamesProps) {
       {plan.mission && (
         <section aria-labelledby="mission-heading" className={`${CARD} border-pitch-green`}>
           <h2 id="mission-heading" className="font-bold text-gray-800">
-            <span aria-hidden="true">🏟️</span> Take it to your next match
+            <Icon name="stadium" className="mr-1 -my-1" /> Take it to your next match
           </h2>
           <p className="mt-1 text-sm text-gray-600">
             One small thing to try in a real game. You are in control of it, win or lose.
@@ -241,10 +242,10 @@ export default function WeeklyGames({ onPlayRound }: WeeklyGamesProps) {
 
       <section aria-labelledby="week-iq-heading" className={CARD}>
         <h2 id="week-iq-heading" className="font-bold text-gray-800">
-          <span aria-hidden="true">🧠</span> Game IQ round of the week
+          <Icon name="brain" className="mr-1 -my-1" /> Game IQ round of the week
         </h2>
         <p className="mt-1 text-sm text-gray-700">
-          <span aria-hidden="true">{theme.emoji}</span> <strong>{theme.title}</strong>:{' '}
+          <Icon name={theme.icon} className="mr-1 -my-1" /> <strong>{theme.title}</strong>:{' '}
           {theme.description}
         </p>
         <button

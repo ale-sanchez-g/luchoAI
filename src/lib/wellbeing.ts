@@ -1,21 +1,22 @@
 import type { BalanceArea, BalanceLevel, MoodLevel, WellbeingCheckIn } from '@/types';
+import type { IconName } from '@/lib/icons';
 
 export interface MoodOption {
   level: MoodLevel;
-  emoji: string;
+  icon: IconName;
   label: string;
   message: string;
 }
 
 export interface BalanceLevelOption {
   level: BalanceLevel;
-  emoji: string;
+  icon: IconName;
   label: string;
 }
 
 export interface BalanceAreaInfo {
   id: BalanceArea;
-  emoji: string;
+  icon: IconName;
   label: string;
   question: string;
   tip: string;
@@ -32,46 +33,46 @@ export interface Helpline {
 export const MOODS: MoodOption[] = [
   {
     level: 5,
-    emoji: '😄',
+    icon: 'grin',
     label: 'Great',
     message: "Love that energy! Keep doing what's working for you.",
   },
   {
     level: 4,
-    emoji: '🙂',
+    icon: 'smile-soft',
     label: 'Good',
     message: 'Nice one. Good days are worth noticing.',
   },
   {
     level: 3,
-    emoji: '😐',
+    icon: 'neutral',
     label: 'Okay',
     message: 'Thanks for checking in. Okay days are completely normal.',
   },
   {
     level: 2,
-    emoji: '😕',
+    icon: 'confused',
     label: 'Not great',
     message: 'Tough days happen to every player, and they pass. Be kind to yourself today.',
   },
   {
     level: 1,
-    emoji: '😢',
+    icon: 'sad',
     label: 'Really low',
     message: "Thanks for being honest about how you feel. You don't have to handle this alone.",
   },
 ];
 
 export const BALANCE_LEVELS: BalanceLevelOption[] = [
-  { level: 3, emoji: '😊', label: 'Yes' },
-  { level: 2, emoji: '😐', label: 'Sort of' },
-  { level: 1, emoji: '😟', label: 'Not really' },
+  { level: 3, icon: 'smile', label: 'Yes' },
+  { level: 2, icon: 'neutral', label: 'Sort of' },
+  { level: 1, icon: 'worried', label: 'Not really' },
 ];
 
 export const BALANCE_AREAS: BalanceAreaInfo[] = [
   {
     id: 'sleep',
-    emoji: '😴',
+    icon: 'sleepy',
     label: 'Sleep',
     question: 'Am I getting enough sleep?',
     tip:
@@ -81,7 +82,7 @@ export const BALANCE_AREAS: BalanceAreaInfo[] = [
   },
   {
     id: 'football',
-    emoji: '⚽',
+    icon: 'ball',
     label: 'Football',
     question: 'Am I enjoying football?',
     tip:
@@ -91,7 +92,7 @@ export const BALANCE_AREAS: BalanceAreaInfo[] = [
   },
   {
     id: 'school',
-    emoji: '📚',
+    icon: 'books',
     label: 'School',
     question: 'Is school feeling OK?',
     tip:
@@ -100,7 +101,7 @@ export const BALANCE_AREAS: BalanceAreaInfo[] = [
   },
   {
     id: 'people',
-    emoji: '🤝',
+    icon: 'people',
     label: 'Friends & family',
     question: 'Am I spending time with people I like?',
     tip:
@@ -109,7 +110,7 @@ export const BALANCE_AREAS: BalanceAreaInfo[] = [
   },
   {
     id: 'fun',
-    emoji: '🎨',
+    icon: 'palette',
     label: 'Fun outside football',
     question: 'Do I have time for fun outside football?',
     tip:

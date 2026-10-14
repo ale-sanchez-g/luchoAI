@@ -14,6 +14,7 @@ import {
   toDateKey,
 } from '@/lib/wellbeing';
 import { clearCheckIns, getCheckIns, saveCheckIn } from '@/lib/storage';
+import Icon from './Icon';
 
 type BalanceDraft = Partial<Record<BalanceArea, BalanceLevel>>;
 
@@ -36,10 +37,8 @@ function CheckInResult({ checkIn, supportNeeded, onEdit }: CheckInResultProps) {
 
   return (
     <div className="space-y-4">
-      <p role="status" className="text-gray-800">
-        <span className="text-2xl mr-2" aria-hidden="true">
-          {mood.emoji}
-        </span>
+      <p role="status" className="flex items-center gap-3 text-gray-800">
+        <Icon name={mood.icon} size={40} />
         {mood.message}
       </p>
 
@@ -62,7 +61,7 @@ function CheckInResult({ checkIn, supportNeeded, onEdit }: CheckInResultProps) {
           {tips.map((area) => (
             <div key={area.id} className="rounded-xl bg-gray-50 p-3">
               <p className="text-sm font-medium text-gray-800">
-                <span aria-hidden="true">{area.emoji}</span> {area.label}
+                <Icon name={area.icon} className="mr-1 -my-1" /> {area.label}
               </p>
               <p className="text-sm text-gray-600 mt-1">{area.tip}</p>
             </div>
@@ -76,7 +75,7 @@ function CheckInResult({ checkIn, supportNeeded, onEdit }: CheckInResultProps) {
 
       {checkIn.proudOf && (
         <p className="text-sm text-gray-700">
-          <span aria-hidden="true">🏅</span> Proud of: &ldquo;{checkIn.proudOf}&rdquo;
+          <Icon name="medal" className="mr-1 -my-1" /> Proud of: &ldquo;{checkIn.proudOf}&rdquo;
         </p>
       )}
 
@@ -186,9 +185,7 @@ export default function WellbeingCheckIn() {
                     className="peer sr-only"
                   />
                   <span className="flex h-full flex-col items-center gap-1 rounded-xl border-2 border-gray-200 px-1 py-2 text-center transition-colors hover:border-gray-300 peer-checked:border-pitch-green peer-checked:bg-pitch-green/10 peer-focus-visible:ring-2 peer-focus-visible:ring-pitch-green">
-                    <span className="text-2xl sm:text-3xl" aria-hidden="true">
-                      {m.emoji}
-                    </span>
+                    <Icon name={m.icon} size={40} />
                     <span className="text-xs font-medium text-gray-700">{m.label}</span>
                   </span>
                 </label>
@@ -200,7 +197,17 @@ export default function WellbeingCheckIn() {
             <legend className="font-semibold text-gray-800">How&apos;s your balance?</legend>
             <p className="text-sm text-gray-600 mb-3">
               Great players have a life outside football too.{' '}
-              <span className="whitespace-nowrap">😊 Yes · 😐 Sort of · 😟 Not really</span>
+              <span className="whitespace-nowrap">
+                <Icon name="smile" className="-my-1" /> Yes
+              </span>{' '}
+              &middot;{' '}
+              <span className="whitespace-nowrap">
+                <Icon name="neutral" className="-my-1" /> Sort of
+              </span>{' '}
+              &middot;{' '}
+              <span className="whitespace-nowrap">
+                <Icon name="worried" className="-my-1" /> Not really
+              </span>
             </p>
             <div className="space-y-2">
               {BALANCE_AREAS.map((area) => (
@@ -210,8 +217,9 @@ export default function WellbeingCheckIn() {
                   aria-labelledby={`balance-${area.id}`}
                   className="flex items-center justify-between gap-3 rounded-xl bg-gray-50 px-3 py-2"
                 >
-                  <span id={`balance-${area.id}`} className="text-sm text-gray-800">
-                    <span aria-hidden="true">{area.emoji}</span> {area.question}
+                  <span id={`balance-${area.id}`} className="flex items-center gap-2 text-sm text-gray-800">
+                    <Icon name={area.icon} />
+                    {area.question}
                   </span>
                   <div className="flex flex-shrink-0 gap-1">
                     {BALANCE_LEVELS.map((lvl) => (
@@ -229,9 +237,9 @@ export default function WellbeingCheckIn() {
                         />
                         <span
                           aria-hidden="true"
-                          className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-200 bg-white text-xl transition-colors hover:border-gray-300 peer-checked:border-pitch-green peer-checked:bg-pitch-green/10 peer-focus-visible:ring-2 peer-focus-visible:ring-pitch-green"
+                          className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-200 bg-white transition-colors hover:border-gray-300 peer-checked:border-pitch-green peer-checked:bg-pitch-green/10 peer-focus-visible:ring-2 peer-focus-visible:ring-pitch-green"
                         >
-                          {lvl.emoji}
+                          <Icon name={lvl.icon} size={32} />
                         </span>
                       </label>
                     ))}
@@ -315,9 +323,7 @@ export default function WellbeingCheckIn() {
                   key={c.date}
                   className="flex min-w-[3.5rem] flex-col items-center rounded-xl bg-gray-50 px-2 py-1"
                 >
-                  <span className="text-2xl" aria-hidden="true">
-                    {m.emoji}
-                  </span>
+                  <Icon name={m.icon} size={32} />
                   <span className="text-xs text-gray-600" aria-hidden="true">
                     {date.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric' })}
                   </span>

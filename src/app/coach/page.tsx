@@ -6,6 +6,7 @@ import type { PlayerProfile, AIProviderConfig } from '@/types';
 import CoachChat from '@/components/CoachChat';
 import ApiKeySetup from '@/components/ApiKeySetup';
 import Header from '@/components/Header';
+import Icon from '@/components/Icon';
 import { getProvider } from '@/lib/providers';
 
 export default function CoachPage() {
@@ -36,7 +37,9 @@ export default function CoachPage() {
       >
         <div className="border-b px-4 py-3 bg-pitch-dark text-white flex-shrink-0 flex items-center justify-between">
           <div>
-            <h1 className="font-bold text-sm">🤖 Coach LuchoAI</h1>
+            <h1 className="font-bold text-sm">
+              <Icon name="robot" className="mr-1 -my-1" /> Coach LuchoAI
+            </h1>
             {playerProfile && (
               <p className="text-green-300 text-xs">
                 {playerProfile.name} · {playerProfile.position} · {playerProfile.skillLevel}
@@ -44,8 +47,9 @@ export default function CoachPage() {
             )}
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-green-300">
-              {providerDef.logo} {providerDef.name}
+            <span className="flex items-center gap-1 text-xs text-green-300">
+              <Icon name={providerDef.logo} />
+              {providerDef.name}
             </span>
             <button
               onClick={() => { clearProviderConfig(); setProviderConfig(null); }}

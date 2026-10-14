@@ -16,7 +16,7 @@ const WELCOME: Message = {
   id: 'welcome',
   role: 'assistant',
   content:
-    "Hola! \u{1F44B} I'm LuchoAI, your personal football coach. Set up your player profile to get personalised advice, or just ask me anything about football!",
+    "Hola! I'm LuchoAI, your personal football coach. Set up your player profile to get personalised advice, or just ask me anything about football!",
   timestamp: new Date(),
 };
 
@@ -24,7 +24,7 @@ function buildWelcome(profile: PlayerProfile | null): Message {
   if (!profile) return WELCOME;
   return {
     ...WELCOME,
-    content: `Hola ${profile.name}! \u{1F44B} I'm LuchoAI, your personal football coach. Ready to take your game to the next level? What would you like to work on today?`,
+    content: `Hola ${profile.name}! I'm LuchoAI, your personal football coach. Ready to take your game to the next level? What would you like to work on today?`,
   };
 }
 

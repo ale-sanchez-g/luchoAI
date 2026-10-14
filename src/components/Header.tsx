@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Icon from './Icon';
 
 // The logo already links home, so "Home" gives up its space on small screens.
 const NAV = [
@@ -25,7 +26,7 @@ export default function Header() {
           aria-label="LuchoAI home"
           className="flex flex-shrink-0 items-center gap-2 font-bold text-lg"
         >
-          <span aria-hidden="true">⚽</span>
+          <Icon name="ball" size={32} />
           <span className="hidden sm:inline">LuchoAI</span>
         </Link>
         <nav className="flex min-w-0 gap-3 overflow-x-auto [scrollbar-width:none] sm:gap-4 [&::-webkit-scrollbar]:hidden">
