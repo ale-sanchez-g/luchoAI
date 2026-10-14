@@ -37,6 +37,8 @@ const QUIZ_THEME_FOR_SKILL: Partial<Record<SkillArea, DecisionThemeId>> = {
   'team-defending': 'defend-together',
   transitions: 'counter',
   finishing: 'shoot',
+  passing: 'combine',
+  vision: 'combine',
 };
 
 export interface RotationInput {

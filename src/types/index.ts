@@ -67,7 +67,9 @@ export type DecisionThemeId =
   | 'press'
   | 'defend-together'
   | 'counter'
-  | 'shoot';
+  | 'shoot'
+  | 'combine'
+  | 'react-fast';
 
 export type BestScores = Partial<Record<DecisionThemeId, number>>;
 

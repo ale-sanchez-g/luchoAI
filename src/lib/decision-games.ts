@@ -1420,6 +1420,392 @@ export const DECISION_THEMES: DecisionTheme[] = [
       },
     ],
   },
+  {
+    id: 'combine',
+    icon: 'shuffle',
+    title: 'Play Together',
+    description: 'Spot the free player, find the third man and switch to the open side.',
+    scenarios: [
+      {
+        id: 'combine-spare-player',
+        title: 'Find the spare player',
+        situation:
+          'You have the ball and one defender in front of you. Your teammate is running ' +
+          'alongside, with nobody near them.',
+        question: 'What is the smart play?',
+        scene: {
+          goal: 'top',
+          you: { x: 46, y: 50 },
+          ball: { x: 51.5, y: 48 },
+          teammates: [{ x: 78, y: 38 }],
+          opponents: [
+            { x: 56, y: 32 },
+            { x: 50, y: 6 },
+          ],
+          arrows: [{ from: { x: 74, y: 44 }, to: { x: 77, y: 41 }, kind: 'run' }],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Dribble straight at the defender and try to beat them',
+            correct: false,
+            feedback:
+              'You are choosing the hard way. If you lose it, your free teammate never touches ' +
+              'the ball.',
+          },
+          {
+            id: 'B',
+            label: 'Run at the defender to pull them in, then pass to your free teammate',
+            correct: true,
+            feedback:
+              'Two attackers against one defender means someone is free. Make the defender ' +
+              'come to you, then give the ball to the player they cannot reach.',
+            marker: { x: 52, y: 41 },
+          },
+          {
+            id: 'C',
+            label: 'Stop and wait for more teammates to catch up',
+            correct: false,
+            feedback:
+              'Waiting gives their defenders time to run back, and then the extra player ' +
+              'disappears.',
+          },
+        ],
+        cue: 'More of us than them? Draw the defender, then pass to the free player.',
+      },
+      {
+        id: 'combine-switch',
+        title: 'Switch the play',
+        situation:
+          'Your team has crowded the left side, and so has the other team. Your winger on the ' +
+          'right has loads of room, with only one defender nearby.',
+        question: 'Where is the space, and how do you get the ball there?',
+        scene: {
+          goal: 'top',
+          you: { x: 24, y: 48 },
+          ball: { x: 29.5, y: 46 },
+          teammates: [
+            { x: 12, y: 38 },
+            { x: 28, y: 32 },
+            { x: 40, y: 56 },
+            { x: 90, y: 34 },
+          ],
+          opponents: [
+            { x: 14, y: 30 },
+            { x: 30, y: 38 },
+            { x: 22, y: 40 },
+            { x: 44, y: 34 },
+            { x: 78, y: 22 },
+            { x: 50, y: 6 },
+          ],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Keep passing in the crowd on the left',
+            correct: false,
+            feedback:
+              'There are lots of defenders in that corner. Short passes get squeezed and you ' +
+              'might lose the ball.',
+          },
+          {
+            id: 'B',
+            label: 'Dribble into the middle of the crowd',
+            correct: false,
+            feedback:
+              'Defenders are waiting there. You would be going where the space is not.',
+          },
+          {
+            id: 'C',
+            label: 'Switch it across to your winger on the right',
+            correct: true,
+            feedback:
+              'They all moved over to stop you, which left the far side empty. One good pass ' +
+              'across and your winger is up against just one defender.',
+            marker: { x: 86, y: 42 },
+          },
+        ],
+        cue: 'Lots of players on one side? Look across: the space is usually on the other.',
+      },
+      {
+        id: 'combine-third-man',
+        title: 'The third man',
+        situation:
+          'Your striker is marked, and a defender stands in the passing lane between you and ' +
+          'them. Your teammate in the middle is free, and another teammate is starting a run ' +
+          'down the right.',
+        question: 'How do you get the ball to the runner?',
+        scene: {
+          goal: 'top',
+          you: { x: 42, y: 62 },
+          ball: { x: 47.5, y: 60 },
+          teammates: [
+            { x: 46, y: 22 },
+            { x: 56, y: 46 },
+            { x: 70, y: 52 },
+          ],
+          opponents: [
+            { x: 47, y: 42 },
+            { x: 46, y: 28 },
+            { x: 66, y: 40 },
+            { x: 24, y: 34 },
+            { x: 50, y: 6 },
+          ],
+          arrows: [{ from: { x: 70, y: 48.5 }, to: { x: 72, y: 34 }, kind: 'run' }],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Pass to your free teammate, who sets it back for the runner',
+            correct: true,
+            feedback:
+              'Pass, lay-off, through ball. The defender watches the ball and loses sight of ' +
+              'the runner, who gets the ball in space.',
+          },
+          {
+            id: 'B',
+            label: 'Hit the pass to your striker through the gap',
+            correct: false,
+            feedback: 'The defender in the lane steps across and wins it. The lane is closed.',
+          },
+          {
+            id: 'C',
+            label: 'Dribble at the defender in the lane',
+            correct: false,
+            feedback:
+              'You would be running into the exact player you could not pass through. You ' +
+              'have teammates who are free.',
+          },
+        ],
+        cue: "Can't pass straight to them? Use a teammate as a stepping stone, and send a runner.",
+      },
+    ],
+    pitchGames: [
+      {
+        name: 'Spare Player',
+        players: '3 players (2 v 1)',
+        setup:
+          'Mark a pitch about 20 steps long and 12 steps wide, with a small goal made of two ' +
+          'cones at one end. Two attackers start at the other end, and one defender waits in ' +
+          'the middle.',
+        howToPlay:
+          'The attackers try to get the ball to the goal. Attackers cannot dribble past the ' +
+          'defender, so they have to pass to get by. After 5 tries swap who defends.',
+        focus: 'Who is free right now? Pull the defender in, then give it to them.',
+        harder: 'Make the pitch narrower, or give the attackers only 5 seconds.',
+      },
+      {
+        name: 'Switch to Score',
+        players: '8 players (4 v 4)',
+        setup:
+          'A pitch about 40 steps long and 30 steps wide, with a goal at each end. Mark a ' +
+          'line down the middle of the pitch, lengthways.',
+        howToPlay:
+          'A goal only counts if, earlier in the same attack, the ball was passed from one ' +
+          'side of the line to the other. Draw the defenders to one side, then switch the ball ' +
+          'across to the empty side.',
+        focus: 'Where did they all move to? Where did that leave the space?',
+        harder: 'Allow only three touches each before you must pass.',
+      },
+    ],
+  },
+  {
+    id: 'react-fast',
+    icon: 'bolt',
+    title: 'React Fast',
+    description: 'Lost it, left behind or loose ball: know your job in the next few seconds.',
+    scenarios: [
+      {
+        id: 'react-win-it-back',
+        title: 'Win it back, fast',
+        situation:
+          'You just lost the ball high up the pitch. The player who took it is only a few ' +
+          'steps away, and two of your teammates are close by.',
+        question: 'What do you do straight away?',
+        scene: {
+          goal: 'top',
+          you: { x: 50, y: 33 },
+          ball: { x: 51, y: 17 },
+          teammates: [
+            { x: 30, y: 30 },
+            { x: 70, y: 30 },
+            { x: 24, y: 56 },
+          ],
+          opponents: [
+            { x: 50, y: 22 },
+            { x: 22, y: 18 },
+            { x: 80, y: 20 },
+            { x: 42, y: 10 },
+            { x: 60, y: 10 },
+          ],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Pounce on the ball right now, and your teammates close in too',
+            correct: true,
+            feedback:
+              'They have just won it and are not settled. Win it back in these first few ' +
+              'seconds and you are close to goal. If it takes longer, drop back into shape.',
+          },
+          {
+            id: 'B',
+            label: 'Stand still and wait to see what happens',
+            correct: false,
+            feedback:
+              'The first seconds after you lose it are the best time to win it back. Waiting ' +
+              'hands them time to look up.',
+          },
+          {
+            id: 'C',
+            label: 'Jog back to your normal position',
+            correct: false,
+            feedback:
+              'Drop back if the first few seconds do not work, but not before you have tried. ' +
+              'Right now they are easy to catch.',
+            marker: { x: 50, y: 56 },
+          },
+        ],
+        cue:
+          'Lost it? Pounce right away. Not won back after about five seconds? Drop back into ' +
+          'your shape.',
+      },
+      {
+        id: 'react-rest-defence',
+        title: 'Stay ready behind the ball',
+        situation:
+          'Your team is attacking down the right wing. You are not involved in the play. ' +
+          'Their striker is waiting near halfway, hoping to break away if you lose the ball.',
+        question: 'Where is the best place for you to be?',
+        scene: {
+          goal: 'top',
+          you: { x: 46, y: 58 },
+          ball: { x: 76, y: 23 },
+          teammates: [
+            { x: 74, y: 26 },
+            { x: 88, y: 16 },
+            { x: 64, y: 18 },
+          ],
+          opponents: [
+            { x: 38, y: 44 },
+            { x: 72, y: 14 },
+            { x: 84, y: 20 },
+            { x: 56, y: 22 },
+            { x: 50, y: 6 },
+          ],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Join the attack and run into their box',
+            correct: false,
+            feedback:
+              'There are already enough of you up there. If you lose it, their striker has ' +
+              'nobody to stop them.',
+            marker: { x: 38, y: 14 },
+          },
+          {
+            id: 'B',
+            label: 'Hold your place behind the ball, near their striker',
+            correct: true,
+            feedback:
+              "You are your team's insurance. If you lose the ball, you are already there to " +
+              'stop the counter-attack. If you never need it, you lost nothing.',
+            marker: { x: 33, y: 51 },
+          },
+          {
+            id: 'C',
+            label: 'Move over to stand near the player with the ball',
+            correct: false,
+            feedback:
+              'Now you are in the crowd, and nobody is left to mark their striker.',
+            marker: { x: 62, y: 34 },
+          },
+        ],
+        cue: 'Not in the attack? If we lose it now, who is yours? Stay close enough to stop them.',
+      },
+      {
+        id: 'react-second-ball',
+        title: 'Beat them to the second ball',
+        situation:
+          'Their goalkeeper kicks the ball long. It is about to bounce in the middle, where ' +
+          'their striker and your defender will both challenge for it. You are a few steps ' +
+          'back, in midfield.',
+        question: 'What do you do while the ball is in the air?',
+        scene: {
+          goal: 'top',
+          you: { x: 36, y: 48 },
+          ball: { x: 50, y: 40 },
+          teammates: [
+            { x: 52, y: 44 },
+            { x: 74, y: 52 },
+            { x: 20, y: 66 },
+          ],
+          opponents: [
+            { x: 50, y: 6 },
+            { x: 54, y: 36 },
+            { x: 64, y: 28 },
+            { x: 26, y: 30 },
+          ],
+          arrows: [{ from: { x: 50, y: 14 }, to: { x: 50, y: 37 }, kind: 'pass' }],
+        },
+        options: [
+          {
+            id: 'A',
+            label: 'Stay where you are and see who wins it',
+            correct: false,
+            feedback:
+              'Whoever gets there first picks up the loose ball. If you wait, that will be ' +
+              'someone who is already moving.',
+          },
+          {
+            id: 'B',
+            label: 'Run back towards your own goal',
+            correct: false,
+            feedback:
+              'Now nobody is near the ball. You gave away the middle of the pitch.',
+            marker: { x: 38, y: 66 },
+          },
+          {
+            id: 'C',
+            label: 'Move to where the ball is likely to drop and be first to it',
+            correct: true,
+            feedback:
+              'The second ball is up for grabs. Read where it will fall and get there before ' +
+              'the others.',
+            marker: { x: 45, y: 52 },
+          },
+        ],
+        cue: 'Ball in the air? Watch where it will land, and move there before it does.',
+      },
+    ],
+    pitchGames: [
+      {
+        name: 'Five-Second Win-Back',
+        players: '6 players (3 v 3)',
+        setup: 'A pitch about 25 steps long and 20 steps wide, with a small goal at each end.',
+        howToPlay:
+          'Play a normal game. When a team loses the ball, they have five seconds to win it ' +
+          'back. If they do, their next goal is worth double. If they do not, they must ' +
+          'drop back to their half.',
+        focus: 'Lost it? React in the first second. Not won after five? Get into shape.',
+        harder: 'Cut the time to four seconds.',
+      },
+      {
+        name: 'Stay Behind the Ball',
+        players: '8 players (4 v 4)',
+        setup:
+          'A pitch about 40 steps long and 30 steps wide, with a goal at each end. Mark a line ' +
+          'across the middle.',
+        howToPlay:
+          'When your team has the ball, one player must stay behind the ball, in your own ' +
+          'half. The other three can go forward. If your team loses it, the player who stayed ' +
+          'back marks the nearest attacker. Swap who stays back after every goal.',
+        focus: 'If we lose it now, who is mine?',
+        harder: 'Make two players stay behind.',
+      },
+    ],
+  },
 ];
 
 export function getTheme(id: DecisionThemeId): DecisionTheme {

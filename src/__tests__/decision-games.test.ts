@@ -25,6 +25,8 @@ describe('decision games content', () => {
       'defend-together',
       'counter',
       'shoot',
+      'combine',
+      'react-fast',
     ]);
   });
 
