@@ -6,6 +6,8 @@ export interface AIProviderConfig {
   provider: AIProvider;
   model: string;
   apiKey: string;
+  /** Uses the site's shared key for a few free questions; apiKey is empty. */
+  free?: boolean;
 }
 
 export interface PlayerProfile {

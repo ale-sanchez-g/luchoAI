@@ -7,8 +7,28 @@ import type { Message, PlayerProfile, TrainingPlan, AIProviderConfig } from '@/t
 import { buildSystemPrompt } from './prompts';
 import { withSupportedModel } from './providers';
 import type { ContextMessage } from './context';
+import { getFreeKey } from './free-key';
+import { getFreeQuestionsLeft, spendFreeQuestion } from './storage';
 
 const MAX_CONTEXT_MESSAGES = 20;
+
+export const FREE_LIMIT_MESSAGE =
+  'You have used your free questions. Add your own API key to keep going.';
+
+// Free questions run on Gemini with the key baked in at build time; the count is checked before
+// the call and only spent once it succeeds.
+async function withFreeQuestions<T>(
+  config: AIProviderConfig,
+  run: (resolved: AIProviderConfig) => Promise<T>,
+): Promise<T> {
+  if (!config.free) return run(config);
+  const key = getFreeKey();
+  if (!key) throw new Error('Free questions are not available right now.');
+  if (getFreeQuestionsLeft() <= 0) throw new Error(FREE_LIMIT_MESSAGE);
+  const result = await run({ ...config, provider: 'gemini', apiKey: key });
+  spendFreeQuestion();
+  return result;
+}
 
 // ─── Validation ───────────────────────────────────────────────────────────────
 
@@ -276,7 +296,18 @@ export async function sendMessage(
   playerProfile: PlayerProfile | null,
   contextMessages: ContextMessage[] = [],
 ): Promise<string> {
-  const providerConfig = withSupportedModel(savedConfig);
+  return withFreeQuestions(savedConfig, (resolved) =>
+    dispatchSendMessage(withSupportedModel(resolved), history, newUserMessage, playerProfile, contextMessages),
+  );
+}
+
+function dispatchSendMessage(
+  providerConfig: AIProviderConfig,
+  history: Message[],
+  newUserMessage: string,
+  playerProfile: PlayerProfile | null,
+  contextMessages: ContextMessage[],
+): Promise<string> {
   switch (providerConfig.provider) {
     case 'anthropic':
       return sendMessageAnthropic(providerConfig, history, newUserMessage, playerProfile, contextMessages);
@@ -294,7 +325,16 @@ export async function generateTrainingPlan(
   playerProfile: PlayerProfile,
   contextMessages: ContextMessage[] = [],
 ): Promise<TrainingPlan> {
-  const providerConfig = withSupportedModel(savedConfig);
+  return withFreeQuestions(savedConfig, (resolved) =>
+    dispatchTrainingPlan(withSupportedModel(resolved), playerProfile, contextMessages),
+  );
+}
+
+function dispatchTrainingPlan(
+  providerConfig: AIProviderConfig,
+  playerProfile: PlayerProfile,
+  contextMessages: ContextMessage[],
+): Promise<TrainingPlan> {
   switch (providerConfig.provider) {
     case 'anthropic':
       return generateTrainingPlanAnthropic(providerConfig, playerProfile, contextMessages);

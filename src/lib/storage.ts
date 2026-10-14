@@ -1,3 +1,4 @@
+import { FREE_QUESTION_LIMIT } from './free-key';
 import type {
   PlayerProfile,
   AIProviderConfig,
@@ -13,6 +14,7 @@ const KEYS = {
   PROVIDER_CONFIG: 'luchoai_provider_config',
   WELLBEING_CHECKINS: 'luchoai_wellbeing_checkins',
   GAME_SCORES: 'luchoai_game_scores',
+  FREE_QUESTIONS_USED: 'luchoai_free_questions_used',
 } as const;
 
 const MAX_CHECKINS = 30;
@@ -152,4 +154,16 @@ export function saveBestScore(themeId: DecisionThemeId, score: number): BestScor
   const updated = { ...scores, [themeId]: score };
   localStorage.setItem(KEYS.GAME_SCORES, JSON.stringify(updated));
   return updated;
+}
+
+/** Counted in the browser only, so it limits honest use rather than stopping a determined one. */
+export function getFreeQuestionsLeft(): number {
+  if (typeof window === 'undefined') return 0;
+  const used = Number(localStorage.getItem(KEYS.FREE_QUESTIONS_USED));
+  return Math.max(0, FREE_QUESTION_LIMIT - (Number.isFinite(used) ? used : 0));
+}
+
+export function spendFreeQuestion(): void {
+  const used = FREE_QUESTION_LIMIT - getFreeQuestionsLeft();
+  localStorage.setItem(KEYS.FREE_QUESTIONS_USED, String(used + 1));
 }
