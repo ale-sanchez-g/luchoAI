@@ -15,15 +15,24 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
         <Icon name="ball" size={32} className="mr-2 mt-1" />
       )}
       <div
-        className={`max-w-[75%] rounded-2xl px-4 py-3 ${
+        className={`min-w-0 max-w-[85%] rounded-2xl px-4 py-3 sm:max-w-[75%] ${
           isUser
             ? 'bg-pitch-green text-white rounded-br-sm'
             : 'bg-gray-100 text-gray-800 rounded-bl-sm'
         }`}
       >
-        <div className={`text-sm prose prose-sm max-w-none ${isUser ? 'prose-invert' : ''}`}>
+        <div
+          className={`text-sm prose prose-sm max-w-none [overflow-wrap:anywhere] ${
+            isUser ? 'prose-invert' : ''
+          }`}
+        >
           <ReactMarkdown
             components={{
+              pre: ({ children }) => (
+                <pre className="mb-2 max-w-full overflow-x-auto rounded-lg bg-gray-800 p-2 text-xs text-gray-100">
+                  {children}
+                </pre>
+              ),
               p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
               ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
               ol: ({ children }) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,

@@ -19,8 +19,8 @@ export default function Header() {
   const pathname = usePathname().replace(/\/+$/, '') || '/';
 
   return (
-    <header className="bg-pitch-dark text-white shadow-lg">
-      <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-40 flex-shrink-0 bg-pitch-dark text-white shadow-lg">
+      <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-3 py-1.5 sm:gap-4 sm:px-4 sm:py-3">
         <Link
           href="/"
           aria-label="LuchoAI home"
@@ -29,12 +29,12 @@ export default function Header() {
           <Icon name="ball" size={32} />
           <span className="hidden sm:inline">LuchoAI</span>
         </Link>
-        <nav className="flex min-w-0 gap-3 overflow-x-auto [scrollbar-width:none] sm:gap-4 [&::-webkit-scrollbar]:hidden">
+        <nav className="flex min-w-0 gap-3 max-[359px]:gap-2 overflow-x-auto [scrollbar-width:none] sm:gap-4 [&::-webkit-scrollbar]:hidden">
           {NAV.map(({ href, label, hideOnMobile }) => (
             <Link
               key={href}
               href={href}
-              className={`whitespace-nowrap text-sm font-medium transition-colors ${
+              className={`whitespace-nowrap py-2 text-sm font-medium transition-colors max-[359px]:text-xs sm:py-0 ${
                 hideOnMobile ? 'hidden sm:inline' : ''
               } ${pathname === href ? 'text-gold' : 'text-green-200 hover:text-white'}`}
             >

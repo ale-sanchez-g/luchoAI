@@ -34,15 +34,36 @@ export default function CoachChat({ providerConfig, playerProfile }: CoachChatPr
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [contextMessages, setContextMessages] = useState<ContextMessage[]>([]);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     loadContextBatches(playerProfile).then(setContextMessages);
   }, [playerProfile]);
 
+  // Scroll the list itself: scrollIntoView would also scroll the page and carry the header away.
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    const list = scrollerRef.current;
+    if (list) list.scrollTop = list.scrollHeight;
+  }, [messages, loading, error]);
+
+  // The keyboard shrinks the list: keep the newest message in view unless the player scrolled up.
+  useEffect(() => {
+    const list = scrollerRef.current;
+    if (!list) return;
+    let pinned = true;
+    const onScroll = (): void => {
+      pinned = list.scrollHeight - list.scrollTop - list.clientHeight < 80;
+    };
+    const observer = new ResizeObserver(() => {
+      if (pinned) list.scrollTop = list.scrollHeight;
+    });
+    list.addEventListener('scroll', onScroll, { passive: true });
+    observer.observe(list);
+    return () => {
+      list.removeEventListener('scroll', onScroll);
+      observer.disconnect();
+    };
+  }, []);
 
   async function handleSend(e: React.FormEvent): Promise<void> {
     e.preventDefault();
@@ -79,8 +100,11 @@ export default function CoachChat({ providerConfig, playerProfile }: CoachChatPr
   }
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto p-4">
+    <div className="flex min-h-0 flex-1 flex-col">
+      <div
+        ref={scrollerRef}
+        className="min-h-0 flex-1 overflow-y-auto overscroll-contain scroll-smooth p-3 motion-reduce:scroll-auto sm:p-4"
+      >
         {messages.map((m) => (
           <MessageBubble key={m.id} message={m} />
         ))}
@@ -96,22 +120,23 @@ export default function CoachChat({ providerConfig, playerProfile }: CoachChatPr
           </div>
         )}
         {error && <p className="text-center text-red-500 text-sm mb-4">{error}</p>}
-        <div ref={bottomRef} />
       </div>
 
-      <form onSubmit={handleSend} className="border-t p-4 flex gap-2 bg-white">
+      <form onSubmit={handleSend} className="flex flex-shrink-0 gap-2 border-t bg-white p-2 sm:p-4">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask your coach anything..."
-          className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-sm"
+          aria-label="Message to your coach"
+          enterKeyHint="send"
+          className="min-w-0 flex-1 rounded-full border border-gray-300 px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-pitch-green sm:text-sm"
           disabled={loading}
         />
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="bg-pitch-green text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-pitch-dark transition-colors disabled:opacity-50 text-lg"
+          className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-pitch-green text-white transition-colors hover:bg-pitch-dark disabled:opacity-50 text-lg"
           aria-label="Send message"
         >
           &uarr;
