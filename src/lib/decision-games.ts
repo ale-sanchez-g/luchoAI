@@ -1629,7 +1629,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
           teammates: [
             { x: 30, y: 30 },
             { x: 70, y: 30 },
-            { x: 44, y: 58 },
+            { x: 24, y: 56 },
           ],
           opponents: [
             { x: 50, y: 22 },
@@ -1711,7 +1711,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               "You are your team's insurance. If you lose the ball, you are already there to " +
               'stop the counter-attack. If you never need it, you lost nothing.',
-            marker: { x: 42, y: 50 },
+            marker: { x: 33, y: 51 },
           },
           {
             id: 'C',
@@ -1739,7 +1739,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
           teammates: [
             { x: 52, y: 44 },
             { x: 74, y: 52 },
-            { x: 30, y: 66 },
+            { x: 20, y: 66 },
           ],
           opponents: [
             { x: 50, y: 6 },
@@ -1764,7 +1764,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: false,
             feedback:
               'Now nobody is near the ball. You gave away the middle of the pitch.',
-            marker: { x: 36, y: 66 },
+            marker: { x: 38, y: 66 },
           },
           {
             id: 'C',
@@ -1773,7 +1773,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'The second ball is up for grabs. Read where it will fall and get there before ' +
               'the others.',
-            marker: { x: 46, y: 44 },
+            marker: { x: 45, y: 52 },
           },
         ],
         cue: 'Ball in the air? Watch where it will land, and move there before it does.',
