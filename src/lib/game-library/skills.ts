@@ -1,8 +1,9 @@
 import type { PlayerPosition, SkillArea } from '@/types';
+import type { IconName } from '@/lib/icons';
 
 export interface SkillAreaInfo {
   id: SkillArea;
-  emoji: string;
+  icon: IconName;
   label: string;
   patterns: RegExp[];
 }
@@ -12,13 +13,13 @@ export interface SkillAreaInfo {
 export const SKILL_AREAS: SkillAreaInfo[] = [
   {
     id: 'first-touch',
-    emoji: '👟',
+    icon: 'sneaker',
     label: 'First touch',
     patterns: [/\btouch\b/, /\bcontrol(ling)?\b/, /\breceiv(e|ing)\b/, /\btrap(ping)?\b/],
   },
   {
     id: 'passing',
-    emoji: '🔀',
+    icon: 'shuffle',
     label: 'Passing',
     patterns: [
       /\bpass(es|ing|er|ers)?\b/,
@@ -30,7 +31,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'dribbling',
-    emoji: '🌀',
+    icon: 'whirl',
     label: 'Dribbling',
     patterns: [
       /\bdribbl(e|es|er|ers|ing)\b/,
@@ -43,7 +44,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'taking-on',
-    emoji: '🔥',
+    icon: 'flame',
     label: 'Beating defenders',
     patterns: [
       /\btak(e|ing) (players |defenders )?on\b/,
@@ -54,7 +55,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'defending-1v1',
-    emoji: '🛡️',
+    icon: 'shield',
     label: '1v1 defending',
     patterns: [
       /\bdefend(er|ers|ing)?\b/,
@@ -67,7 +68,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'finishing',
-    emoji: '🥅',
+    icon: 'goal',
     label: 'Shooting and finishing',
     patterns: [
       /\bshoot(ing|er|ers)?\b/,
@@ -80,7 +81,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'goalkeeping',
-    emoji: '🧤',
+    icon: 'glove',
     label: 'Goalkeeping',
     patterns: [
       /\bgoal ?keep(er|ers|ing)\b/,
@@ -92,7 +93,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'movement',
-    emoji: '🏃',
+    icon: 'runner',
     label: 'Movement and space',
     patterns: [
       /\bmovement\b/,
@@ -106,7 +107,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'team-defending',
-    emoji: '🧱',
+    icon: 'wall',
     label: 'Defending together',
     patterns: [
       /\bpress(ing)?\b/,
@@ -118,7 +119,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'transitions',
-    emoji: '⚡',
+    icon: 'bolt',
     label: 'Quick counters',
     patterns: [
       /\bcounter(-| )?attack(s|ing)?\b/,
@@ -129,7 +130,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'vision',
-    emoji: '👀',
+    icon: 'eyes',
     label: 'Vision and decisions',
     patterns: [
       /\bvision\b/,
@@ -144,7 +145,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'creativity',
-    emoji: '✨',
+    icon: 'sparkles',
     label: 'Creativity and flair',
     patterns: [
       /\bcreativ(e|ity)\b/,
@@ -159,7 +160,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'athleticism',
-    emoji: '🤸',
+    icon: 'gymnast',
     label: 'Speed, agility and balance',
     patterns: [
       /\bfast(er)?\b/,
@@ -179,7 +180,7 @@ export const SKILL_AREAS: SkillAreaInfo[] = [
   },
   {
     id: 'teamwork',
-    emoji: '🗣️',
+    icon: 'speaking',
     label: 'Teamwork and composure',
     patterns: [
       /\bcommunicat(e|ion|ing)\b/,

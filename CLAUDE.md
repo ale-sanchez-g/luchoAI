@@ -27,6 +27,7 @@ src/
     profile/page.tsx    # Player profile setup
   components/
     Header.tsx          # Navigation bar
+    Icon.tsx            # Leaf icon (<img> from public/icons) used instead of emojis
     CoachChat.tsx       # Main AI chat interface
     MessageBubble.tsx   # Individual chat message bubble
     TrainingPlan.tsx    # Training plan display + generator
@@ -41,6 +42,8 @@ src/
   lib/
     claude.ts           # Anthropic SDK client (sendMessage, generateTrainingPlan)
     prompts.ts          # System prompts and player profile injection
+    icons.ts            # ICON_NAMES / IconName for the files in public/icons
+    use-visual-viewport-height.ts  # Sets --app-height to the visible screen (iPhone keyboard)
     storage.ts          # localStorage helpers (apiKey, playerProfile, check-ins, game scores)
     decision-games.ts   # Game IQ scenarios + on-pitch games (static content)
     game-library/       # Weekly game library (see docs/game-library.md)
@@ -127,6 +130,8 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 - Prefer editing existing components over creating new ones
 - All AI calls must have error handling with user-friendly messages shown in the UI
 - `next/image` requires `unoptimized: true` in `next.config.ts` for static export — do not remove that config
+- No emojis in the UI or data: use `<Icon name="…" />` (source art in `iconography/leaf`, served copy in `public/icons`, kept identical by `Icon.test.tsx`). Data fields hold an `IconName`, not an emoji. Use icons at 28px or larger
+- Coach chat layout: the page is one fixed-height column (`h-[var(--app-height,100dvh)]`, `min-h-0` on the panels) so only the message list scrolls and the header and message box stay on screen. Never use `scrollIntoView` or `100vh` there, keep the message box at 16px (`text-base`) or iPhones zoom in, and test at 375×667 and 320×568 (`CoachChat.test.tsx` guards the causes)
 - Wellbeing check-ins are sensitive data about children: keep them in `localStorage` only and never include them in AI prompts or send them anywhere
 - Helpline numbers in `src/lib/wellbeing.ts` were verified on 2026-10-13 — re-verify against the official sites before changing them
 - Game library content (`src/lib/game-library`) is for children playing without a coach: follow `docs/game-library.md`. There are deliberately no heading games, no elimination, no exercise as a penalty and no outcome-based match missions; `game-library.test.ts` enforces these, so don't loosen the rules to make a game pass. A new game also needs `noTwists` for any kind of twist that would contradict it (a game with no roles opts out of `roles`, a game with no score of `scoring`)

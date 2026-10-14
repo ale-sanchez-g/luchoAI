@@ -6,7 +6,7 @@ import type { DecisionTheme, DecisionThemeId } from '@/types';
 export const DECISION_THEMES: DecisionTheme[] = [
   {
     id: 'space',
-    emoji: '🏃',
+    icon: 'runner',
     title: 'Move into Space',
     description: 'Get free from defenders so your teammates can pass to you.',
     scenarios: [
@@ -232,7 +232,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
   },
   {
     id: 'first-touch',
-    emoji: '👟',
+    icon: 'sneaker',
     title: 'First Touch',
     description: 'Decide where your first touch goes before the ball arrives.',
     scenarios: [
@@ -452,7 +452,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
   },
   {
     id: 'press',
-    emoji: '🛡️',
+    icon: 'shield',
     title: 'Press or Hold?',
     description:
       'Know when to go and win the ball, and when to hold your position and protect your goal.',
@@ -678,7 +678,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
   },
   {
     id: 'defend-together',
-    emoji: '🧱',
+    icon: 'wall',
     title: 'Defend Together',
     description: 'Ambush, lock in, cover and slide: win the ball back as a team.',
     scenarios: [
@@ -934,7 +934,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
   },
   {
     id: 'counter',
-    emoji: '⚡',
+    icon: 'bolt',
     title: 'Quick Counter',
     description: 'Won the ball back? Attack fast with forward passes and forward runs.',
     scenarios: [
@@ -1185,7 +1185,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
   },
   {
     id: 'shoot',
-    emoji: '🎯',
+    icon: 'target',
     title: 'Shoot or Pass?',
     description: 'Near goal, make the call: shoot, pass to someone who can score, or get closer.',
     scenarios: [

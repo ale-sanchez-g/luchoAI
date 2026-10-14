@@ -1,4 +1,5 @@
 import type { AIProvider, AIProviderConfig } from '@/types';
+import type { IconName } from '@/lib/icons';
 
 export interface AIModel {
   id: string;
@@ -9,7 +10,7 @@ export interface AIModel {
 export interface ProviderDefinition {
   id: AIProvider;
   name: string;
-  logo: string;
+  logo: IconName;
   description: string;
   keyPlaceholder: string;
   keyValidation: (key: string) => boolean;
@@ -22,7 +23,7 @@ export const PROVIDERS: ProviderDefinition[] = [
   {
     id: 'anthropic',
     name: 'Anthropic (Claude)',
-    logo: '🧠',
+    logo: 'brain',
     description: "Anthropic's Claude — best for nuanced coaching advice",
     keyPlaceholder: 'sk-ant-...',
     keyValidation: (k) => k.startsWith('sk-ant-'),
@@ -37,7 +38,7 @@ export const PROVIDERS: ProviderDefinition[] = [
   {
     id: 'openai',
     name: 'OpenAI (GPT)',
-    logo: '🤖',
+    logo: 'robot',
     description: "OpenAI's GPT models — industry-leading performance",
     keyPlaceholder: 'sk-...',
     keyValidation: (k) => k.startsWith('sk-') && !k.startsWith('sk-ant-'),
@@ -52,7 +53,7 @@ export const PROVIDERS: ProviderDefinition[] = [
   {
     id: 'gemini',
     name: 'Google Gemini',
-    logo: '✨',
+    logo: 'sparkles',
     description: "Google's Gemini — multimodal and highly capable",
     keyPlaceholder: 'AIza...',
     keyValidation: (k) => k.length > 20,
@@ -67,7 +68,7 @@ export const PROVIDERS: ProviderDefinition[] = [
   {
     id: 'huggingface',
     name: 'Hugging Face',
-    logo: '🤗',
+    logo: 'hug',
     description: 'Open models via Hugging Face Inference Providers',
     keyPlaceholder: 'hf_...',
     keyValidation: (k) => k.startsWith('hf_'),

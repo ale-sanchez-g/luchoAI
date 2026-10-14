@@ -5,16 +5,18 @@ import type { BestScores, DecisionOption, DecisionTheme, DecisionThemeId } from 
 import { DECISION_THEMES, getTheme } from '@/lib/decision-games';
 import { getBestScores, saveBestScore } from '@/lib/storage';
 import PitchDiagram, { PitchLegend } from './PitchDiagram';
+import Icon from './Icon';
+import type { IconName } from '@/lib/icons';
 
 const CARD = 'rounded-2xl border border-gray-200 bg-white p-5 shadow-sm';
 
-function resultMessage(score: number, total: number): { emoji: string; text: string } {
-  if (score === total) return { emoji: '🌟', text: 'Perfect! You read the game like a pro.' };
+function resultMessage(score: number, total: number): { icon: IconName; text: string } {
+  if (score === total) return { icon: 'star', text: 'Perfect! You read the game like a pro.' };
   if (score * 2 >= total) {
-    return { emoji: '💪', text: 'Great thinking! Check the cues below to get even sharper.' };
+    return { icon: 'dumbbell', text: 'Great thinking! Check the cues below to get even sharper.' };
   }
   return {
-    emoji: '🌱',
+    icon: 'sprout',
     text: 'Every great player learns by trying. Read the cues and have another go!',
   };
 }
@@ -56,9 +58,7 @@ function ThemePicker({ bestScores, onPick }: ThemePickerProps) {
               onClick={() => onPick(theme.id)}
               className="flex flex-col rounded-2xl border-2 border-gray-200 bg-white p-4 text-left shadow-sm transition-colors hover:border-pitch-green"
             >
-              <span className="text-3xl" aria-hidden="true">
-                {theme.emoji}
-              </span>
+              <Icon name={theme.icon} size={56} />
               <span className="mt-2 font-bold text-gray-800">{theme.title}</span>
               <span className="mt-1 text-xs text-gray-600">{theme.description}</span>
               <span className="mt-auto pt-3 text-xs font-semibold text-pitch-green">
@@ -123,7 +123,7 @@ function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: Scen
           tabIndex={-1}
           className="text-sm font-medium text-gray-600 focus:outline-none"
         >
-          <span aria-hidden="true">{theme.emoji}</span> {theme.title} · {index + 1} of {total}
+          <Icon name={theme.icon} className="mr-1 -my-1" /> {theme.title} · {index + 1} of {total}
         </h1>
       </div>
       <ol className="flex gap-1" aria-hidden="true">
@@ -178,7 +178,16 @@ function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: Scen
                 }`}
               >
                 <p className="font-semibold text-gray-800">
-                  {chosen.correct ? '✅ Great decision!' : "🤔 Good try, but there's a better option"}
+                  {chosen.correct ? (
+                    <>
+                      <Icon name="check-circle" className="mr-1 -my-1" /> Great decision!
+                    </>
+                  ) : (
+                    <>
+                      <Icon name="thinking" className="mr-1 -my-1" /> Good try, but there&apos;s a
+                      better option
+                    </>
+                  )}
                 </p>
                 <p className="mt-1 text-gray-700">{chosen.feedback}</p>
                 {!chosen.correct && (
@@ -229,8 +238,8 @@ function RoundSummary({ theme, score, newBest, onReplay, onMenu }: RoundSummaryP
   return (
     <div className="space-y-6">
       <div className="rounded-2xl bg-pitch-dark p-6 text-center text-white">
-        <div className="text-5xl" aria-hidden="true">
-          {result.emoji}
+        <div>
+          <Icon name={result.icon} size={72} />
         </div>
         <h1
           ref={headingRef}
@@ -243,7 +252,11 @@ function RoundSummary({ theme, score, newBest, onReplay, onMenu }: RoundSummaryP
           {score} / {total}
         </p>
         <p className="mt-1 text-green-100">{result.text}</p>
-        {newBest && <p className="mt-2 font-semibold text-yellow-300">New personal best! 🏆</p>}
+        {newBest && (
+          <p className="mt-2 font-semibold text-yellow-300">
+            New personal best! <Icon name="trophy" className="ml-1 -my-1" />
+          </p>
+        )}
       </div>
 
       <section aria-labelledby="cues-heading" className={CARD}>
@@ -265,7 +278,7 @@ function RoundSummary({ theme, score, newBest, onReplay, onMenu }: RoundSummaryP
       <section aria-labelledby="pitch-games-heading" className="space-y-3">
         <div>
           <h2 id="pitch-games-heading" className="font-bold text-gray-800">
-            <span aria-hidden="true">⚽</span> Take it to the pitch
+            <Icon name="ball" className="mr-1 -my-1" /> Take it to the pitch
           </h2>
           <p className="text-sm text-gray-600">
             Decisions get sharper with real practice. Try these games with friends or your team.
