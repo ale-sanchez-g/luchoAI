@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import type { Message, PlayerProfile, AIProviderConfig } from '@/types';
-import { sendMessage } from '@/lib/claude';
+import { sendMessage, FREE_LIMIT_MESSAGE } from '@/lib/claude';
 import { loadContextBatches } from '@/lib/context';
 import type { ContextMessage } from '@/lib/context';
 import ErrorMessage from './ErrorMessage';
@@ -93,8 +93,12 @@ export default function CoachChat({ providerConfig, playerProfile }: CoachChatPr
           timestamp: new Date(),
         },
       ]);
-    } catch {
-      setError('Could not reach your coach. Check your API key and try again.');
+    } catch (err) {
+      setError(
+        err instanceof Error && err.message === FREE_LIMIT_MESSAGE
+          ? FREE_LIMIT_MESSAGE
+          : 'Could not reach your coach. Check your API key and try again.',
+      );
     } finally {
       setLoading(false);
     }

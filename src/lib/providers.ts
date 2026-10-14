@@ -59,11 +59,11 @@ export const PROVIDERS: ProviderDefinition[] = [
     keyValidation: (k) => k.length > 20,
     keyHint: 'Get your key at aistudio.google.com',
     models: [
-      { id: 'gemini-2.0-flash', name: 'Gemini 2.0 Flash', description: 'Latest, fastest' },
-      { id: 'gemini-1.5-pro', name: 'Gemini 1.5 Pro', description: 'Most capable' },
-      { id: 'gemini-1.5-flash', name: 'Gemini 1.5 Flash', description: 'Fast & efficient' },
+      { id: 'gemini-3.6-flash', name: 'Gemini 3.6 Flash', description: 'Latest, fast & capable' },
+      { id: 'gemini-3.5-flash', name: 'Gemini 3.5 Flash', description: 'Fast & capable' },
+      { id: 'gemini-3.5-flash-lite', name: 'Gemini 3.5 Flash-Lite', description: 'Fastest & lightest' },
     ],
-    defaultModel: 'gemini-2.0-flash',
+    defaultModel: 'gemini-3.6-flash',
   },
   {
     id: 'huggingface',

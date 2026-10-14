@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { PROVIDERS } from '@/lib/providers';
 import ErrorMessage from './ErrorMessage';
 import Icon from './Icon';
-import { setProviderConfig } from '@/lib/storage';
+import { getFreeKey } from '@/lib/free-key';
+import { getFreeQuestionsLeft, setProviderConfig } from '@/lib/storage';
 import type { AIProvider, AIProviderConfig } from '@/types';
 
 interface ApiKeySetupProps {
@@ -39,6 +40,16 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
       apiKey: apiKey.trim(),
     };
     setProviderConfig(config);
+    onKeySet();
+  }
+
+  function startFree(): void {
+    setProviderConfig({
+      provider: 'gemini',
+      model: PROVIDERS.find((p) => p.id === 'gemini')!.defaultModel,
+      apiKey: '',
+      free: true,
+    });
     onKeySet();
   }
 
@@ -131,6 +142,19 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
             Start Training
           </button>
         </form>
+
+        {getFreeKey() && getFreeQuestionsLeft() > 0 && (
+          <div className="mt-4 border-t pt-4 text-center">
+            <button
+              type="button"
+              onClick={startFree}
+              className="w-full rounded-lg border-2 border-pitch-green py-2 px-4 font-semibold text-pitch-dark hover:bg-pitch-green/5"
+            >
+              Try {getFreeQuestionsLeft()} free questions
+            </button>
+            <p className="mt-1 text-xs text-gray-500">No key needed. Uses Google Gemini.</p>
+          </div>
+        )}
 
         <p className="text-xs text-gray-400 mt-4 text-center">
           Your key is stored only in your browser and never shared.

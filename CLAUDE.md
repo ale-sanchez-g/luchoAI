@@ -113,6 +113,7 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 - `src/lib/claude.ts` — wraps `@anthropic-ai/sdk` for browser use (`dangerouslyAllowBrowser: true`)
 - `src/lib/prompts.ts` — defines the LuchoAI coaching persona and injects the player profile into the system prompt
 - Model: `claude-opus-4-8` — edit in `claude.ts` to adjust cost vs quality
+- Free questions: the deploy workflow passes the `GEMINI_FREE_API_KEY` repo secret to the build; `next.config.ts` bakes it in lightly obfuscated (`src/lib/free-key.ts`), and `ApiKeySetup.tsx` shows a "Try 5 free questions" button only when a key was baked in. This is NOT secure storage: anyone can read the key in their browser, and the 5-question count lives in `localStorage`. Restrict the key to the site's HTTP referrer and set a low quota in Google AI Studio
 - The API key is entered by the user via `ApiKeySetup.tsx` and stored in `localStorage` — it is only ever sent to Anthropic, never anywhere else
 
 ## Coding Conventions
