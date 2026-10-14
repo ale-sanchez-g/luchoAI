@@ -5,6 +5,7 @@ import type { Message, PlayerProfile, AIProviderConfig } from '@/types';
 import { sendMessage } from '@/lib/claude';
 import { loadContextBatches } from '@/lib/context';
 import type { ContextMessage } from '@/lib/context';
+import ErrorMessage from './ErrorMessage';
 import MessageBubble from './MessageBubble';
 
 interface CoachChatProps {
@@ -119,7 +120,7 @@ export default function CoachChat({ providerConfig, playerProfile }: CoachChatPr
             </div>
           </div>
         )}
-        {error && <p className="text-center text-red-500 text-sm mb-4">{error}</p>}
+        {error && <ErrorMessage className="mb-4">{error}</ErrorMessage>}
       </div>
 
       <form onSubmit={handleSend} className="flex flex-shrink-0 gap-2 border-t bg-white p-2 sm:p-4">

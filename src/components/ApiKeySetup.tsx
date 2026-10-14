@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PROVIDERS } from '@/lib/providers';
+import ErrorMessage from './ErrorMessage';
 import Icon from './Icon';
 import { setProviderConfig } from '@/lib/storage';
 import type { AIProvider, AIProviderConfig } from '@/types';
@@ -42,8 +43,8 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pitch-dark to-pitch-green flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-lg w-full">
+    <div className="flex min-h-[100dvh] items-start justify-center bg-gradient-to-br from-pitch-dark to-pitch-green p-3 sm:items-center sm:p-4">
+      <div className="w-full max-w-lg rounded-2xl bg-white p-5 shadow-2xl sm:p-8">
         <div className="text-center mb-6">
           <div className="mb-3">
             <Icon name="ball" size={80} />
@@ -108,14 +109,20 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
                 setApiKeyValue(e.target.value);
                 setError('');
               }}
+              onFocus={(e) => {
+                // Wait for the on-screen keyboard to open, then bring the field above it.
+                const field = e.currentTarget;
+                setTimeout(() => field.scrollIntoView({ block: 'center', behavior: 'smooth' }), 300);
+              }}
               placeholder={provider.keyPlaceholder}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-sm"
+              autoComplete="off"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base sm:text-sm"
               required
             />
             <p className="text-xs text-gray-400 mt-1">{provider.keyHint}</p>
           </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && <ErrorMessage>{error}</ErrorMessage>}
 
           <button
             type="submit"

@@ -5,6 +5,7 @@ import type { TrainingPlan, PlayerProfile, AIProviderConfig } from '@/types';
 import { generateTrainingPlan } from '@/lib/claude';
 import { loadContextBatches } from '@/lib/context';
 import type { ContextMessage } from '@/lib/context';
+import ErrorMessage from './ErrorMessage';
 
 interface TrainingPlanViewProps {
   providerConfig: AIProviderConfig;
@@ -48,7 +49,7 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
         <div>
           <h2 className="text-xl font-bold text-gray-800">Weekly Training Plan</h2>
           {plan && (
@@ -60,13 +61,13 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
         <button
           onClick={handleGenerate}
           disabled={loading}
-          className="bg-pitch-green text-white px-4 py-2 rounded-lg font-semibold hover:bg-pitch-dark transition-colors disabled:opacity-50 text-sm"
+          className="w-full sm:w-auto bg-pitch-green text-white px-4 py-3 sm:py-2 rounded-lg font-semibold hover:bg-pitch-dark transition-colors disabled:opacity-50 text-sm"
         >
           {loading ? 'Generating...' : plan ? 'Regenerate' : 'Generate Plan'}
         </button>
       </div>
 
-      {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+      {error && <ErrorMessage className="mb-4">{error}</ErrorMessage>}
 
       {plan && (
         <div className="space-y-4">
@@ -77,25 +78,25 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
 
           {plan.sessions.map((session, i) => (
             <div key={session.id || i} className="border border-gray-200 rounded-xl overflow-hidden">
-              <div className="bg-pitch-dark text-white px-4 py-3 flex items-center justify-between">
-                <div>
+              <div className="bg-pitch-dark text-white px-4 py-3 flex items-start justify-between gap-3">
+                <div className="min-w-0">
                   <h3 className="font-semibold text-sm">{session.title}</h3>
                   <p className="text-green-300 text-xs">{session.focus}</p>
                 </div>
-                <span className="text-green-300 text-xs">{session.duration} min</span>
+                <span className="flex-shrink-0 whitespace-nowrap text-green-300 text-xs">{session.duration} min</span>
               </div>
-              <div className="p-4 space-y-3">
+              <div className="p-3 sm:p-4 space-y-3">
                 {session.drills.map((drill, j) => (
                   <div key={j} className="bg-gray-50 rounded-lg p-3">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-medium text-sm text-gray-800">{drill.name}</span>
-                      <span className="text-xs text-gray-500">{drill.duration} min</span>
+                    <div className="flex items-start justify-between gap-3 mb-1">
+                      <span className="min-w-0 break-words font-medium text-sm text-gray-800">{drill.name}</span>
+                      <span className="flex-shrink-0 whitespace-nowrap text-xs text-gray-500">{drill.duration} min</span>
                     </div>
-                    <p className="text-xs text-gray-600 mb-2">{drill.description}</p>
+                    <p className="text-xs text-gray-600 mb-2 break-words">{drill.description}</p>
                     <ul className="space-y-1">
                       {drill.coachingPoints.map((point, k) => (
-                        <li key={k} className="text-xs text-pitch-dark flex items-start gap-1">
-                          <span className="text-pitch-green mt-0.5">&bull;</span>
+                        <li key={k} className="text-xs text-pitch-dark flex items-start gap-1 break-words">
+                          <span className="text-pitch-green mt-0.5 flex-shrink-0">&bull;</span>
                           {point}
                         </li>
                       ))}
