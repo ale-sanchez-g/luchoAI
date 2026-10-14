@@ -34,25 +34,20 @@ export default function CoachPage() {
     <div className="flex h-[var(--app-height,100dvh)] flex-col overflow-hidden bg-gray-50">
       <Header />
       <div className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col bg-white shadow-sm">
-        <div className="flex flex-shrink-0 items-center justify-between gap-2 border-b bg-pitch-dark px-4 py-1.5 text-white sm:py-3">
-          <div className="min-w-0">
-            <h1 className="truncate text-sm font-bold">
-              <Icon name="robot" className="mr-1 -my-1" /> Coach LuchoAI
-            </h1>
-            {playerProfile && (
-              <p className="truncate text-xs text-green-300">
-                {playerProfile.name} · {playerProfile.position} · {playerProfile.skillLevel}
-              </p>
-            )}
-          </div>
+        <div className="flex flex-shrink-0 items-center justify-between gap-2 border-b bg-pitch-green/10 px-4 py-1.5">
+          <p className="min-w-0 truncate text-xs font-medium text-pitch-dark">
+            {playerProfile
+              ? `${playerProfile.name} · ${playerProfile.position} · ${playerProfile.skillLevel}`
+              : 'Chatting with Coach LuchoAI'}
+          </p>
           <div className="flex flex-shrink-0 items-center gap-2">
-            <span className="flex items-center gap-1 text-xs text-green-300">
+            <span className="flex items-center gap-1 text-xs text-pitch-dark">
               <Icon name={providerDef.logo} />
               <span className="sr-only sm:not-sr-only">{providerDef.name}</span>
             </span>
             <button
               onClick={() => { clearProviderConfig(); setProviderConfig(null); }}
-              className="px-1 py-2 text-xs text-green-300 hover:text-white underline"
+              className="px-1 py-2 text-xs text-pitch-green hover:text-pitch-dark underline"
             >
               Switch
             </button>
