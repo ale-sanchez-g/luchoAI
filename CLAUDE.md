@@ -41,7 +41,8 @@ src/
     BreathingExercise.tsx # Guided breathe-in-4 / breathe-out-6 pacer
   lib/
     claude.ts           # Anthropic SDK client (sendMessage, generateTrainingPlan)
-    prompts.ts          # System prompts and player profile injection
+    prompts.ts          # System prompts (incl. chat scope rules) and player profile injection
+    guardrails.ts       # Chat screens: off-topic/override requests in, code out
     icons.ts            # ICON_NAMES / IconName for the files in public/icons
     use-visual-viewport-height.ts  # Sets --app-height to the visible screen (iPhone keyboard)
     storage.ts          # localStorage helpers (apiKey, playerProfile, check-ins, game scores)
@@ -116,6 +117,7 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 - Free questions: the deploy workflow passes the `GEMINI_FREE_API_KEY` repo secret to the build; `next.config.ts` bakes it in lightly obfuscated (`src/lib/free-key.ts`), and `ApiKeySetup.tsx` shows a "Try 5 free questions" button only when a key was baked in. This is NOT secure storage: anyone can read the key in their browser, and the 5-question count lives in `localStorage`. Restrict the key to the site's HTTP referrer and set a low quota in Google AI Studio
 - Free training plans: 2 per browser, counted apart from the 5 questions (`FREE_PLAN_LIMIT`). They use the same baked-in Gemini key but always run on the cheapest model, `FREE_PLAN_MODEL` in `providers.ts` (`gemini-3.5-flash-lite`)
 - The API key is entered by the user via `ApiKeySetup.tsx` and stored in `localStorage` — it is only ever sent to Anthropic, never anywhere else
+- Chat guardrails: the coach only talks football. The main layer is the "Staying on topic" rules in `BASE_SYSTEM_PROMPT` (no code, creative writing, homework or other subjects; never reveal its instructions; wellbeing rules come first). `src/lib/guardrails.ts` adds checks inside `sendMessage`: clear-cut off-topic or "ignore your instructions" messages get a canned redirect without calling the provider (no free question spent), and a reply containing code is swapped for the redirect. Profile fields are flattened and length-capped before they enter the system prompt. Anyone can reword past a pattern, so keep patterns tight: a false positive tells a child their football question is off-topic. `guardrails.test.ts` runs every pattern over the app's own football text
 
 ## Coding Conventions
 

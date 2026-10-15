@@ -8,6 +8,7 @@ import { buildSystemPrompt } from './prompts';
 import { FREE_PLAN_MODEL, withSupportedModel } from './providers';
 import type { ContextMessage } from './context';
 import { getFreeKey } from './free-key';
+import { screenCoachReply, screenPlayerMessage } from './guardrails';
 import {
   getFreePlansLeft,
   getFreeQuestionsLeft,
@@ -310,9 +311,12 @@ export async function sendMessage(
   playerProfile: PlayerProfile | null,
   contextMessages: ContextMessage[] = [],
 ): Promise<string> {
-  return withFreeAllowance(savedConfig, 'question', (resolved) =>
+  const blockedReply = screenPlayerMessage(newUserMessage);
+  if (blockedReply) return blockedReply;
+  const reply = await withFreeAllowance(savedConfig, 'question', (resolved) =>
     dispatchSendMessage(withSupportedModel(resolved), history, newUserMessage, playerProfile, contextMessages),
   );
+  return screenCoachReply(reply);
 }
 
 function dispatchSendMessage(
