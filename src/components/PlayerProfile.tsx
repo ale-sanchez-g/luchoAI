@@ -10,7 +10,8 @@ interface PlayerProfileFormProps {
 }
 
 const POSITIONS: PlayerProfile['position'][] = ['goalkeeper', 'defender', 'midfielder', 'forward'];
-const LEVELS: PlayerProfile['skillLevel'][] = ['beginner', 'intermediate', 'advanced'];
+const AGES: number[] = Array.from({ length: 11 }, (_, i) => 8 + i);
+const LEVELS:PlayerProfile['skillLevel'][] = ['beginner', 'intermediate', 'advanced'];
 
 export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProfileFormProps) {
   const [profile, setProfile] = useState<PlayerProfile>(
@@ -62,15 +63,18 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
-          <input
-            type="number"
-            min={8}
-            max={18}
+          <select
             value={profile.age}
             onChange={(e) => setProfile((p) => ({ ...p, age: Number(e.target.value) }))}
             className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-sm"
             required
-          />
+          >
+            {AGES.map((age) => (
+              <option key={age} value={age}>
+                {age}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
