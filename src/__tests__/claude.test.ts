@@ -1,8 +1,17 @@
-import { sendMessage, generateTrainingPlan } from '@/lib/claude';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import { sendMessage, generateTrainingPlan, FREE_PLAN_LIMIT_MESSAGE } from '@/lib/claude';
+import { FREE_PLAN_LIMIT } from '@/lib/free-key';
+import { FREE_PLAN_MODEL } from '@/lib/providers';
+import { getFreePlansLeft, getFreeQuestionsLeft } from '@/lib/storage';
 import type { Message, PlayerProfile, AIProviderConfig } from '@/types';
 
 jest.mock('jsonrepair', () => ({
   jsonrepair: jest.fn((s: string) => s),
+}));
+
+jest.mock('@/lib/free-key', () => ({
+  ...jest.requireActual('@/lib/free-key'),
+  getFreeKey: () => 'AIza-free-key',
 }));
 
 const mockCreate = jest.fn();
@@ -350,6 +359,51 @@ describe('generateTrainingPlan', () => {
       const plan = await generateTrainingPlan(HF_CONFIG, SAMPLE_PROFILE);
       expect(mockRepair).toHaveBeenCalledWith(brokenJson);
       expect(plan.weeklyGoal).toBe('Improve dribbling');
+    });
+  });
+
+  describe('free plans', () => {
+    const FREE_CONFIG: AIProviderConfig = {
+      provider: 'gemini',
+      model: 'gemini-3.6-flash',
+      apiKey: '',
+      free: true,
+    };
+
+    beforeEach(() => {
+      localStorage.clear();
+      mockGeminiGenerateContent.mockResolvedValue({
+        response: { text: () => JSON.stringify(VALID_PLAN) },
+      });
+      (GoogleGenerativeAI as unknown as jest.Mock).mockClear();
+    });
+
+    it('uses the shared key and the cheapest model, and spends a plan not a question', async () => {
+      const plan = await generateTrainingPlan(FREE_CONFIG, SAMPLE_PROFILE);
+
+      expect(plan.weeklyGoal).toBe('Improve dribbling');
+      expect(GoogleGenerativeAI).toHaveBeenCalledWith('AIza-free-key');
+      const modelCall = (GoogleGenerativeAI as unknown as jest.Mock).mock.results[0].value
+        .getGenerativeModel.mock.calls[0][0];
+      expect(modelCall.model).toBe(FREE_PLAN_MODEL);
+      expect(getFreePlansLeft()).toBe(FREE_PLAN_LIMIT - 1);
+      expect(getFreeQuestionsLeft()).toBe(5);
+    });
+
+    it('stops once the free plans are used up', async () => {
+      for (let i = 0; i < FREE_PLAN_LIMIT; i++) {
+        await generateTrainingPlan(FREE_CONFIG, SAMPLE_PROFILE);
+      }
+      await expect(generateTrainingPlan(FREE_CONFIG, SAMPLE_PROFILE)).rejects.toThrow(
+        FREE_PLAN_LIMIT_MESSAGE,
+      );
+      expect(mockGeminiGenerateContent).toHaveBeenCalledTimes(FREE_PLAN_LIMIT);
+    });
+
+    it('does not spend a plan when the request fails', async () => {
+      mockGeminiGenerateContent.mockRejectedValueOnce(new Error('boom'));
+      await expect(generateTrainingPlan(FREE_CONFIG, SAMPLE_PROFILE)).rejects.toThrow('boom');
+      expect(getFreePlansLeft()).toBe(FREE_PLAN_LIMIT);
     });
   });
 });

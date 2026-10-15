@@ -97,6 +97,9 @@ export const PROVIDERS: ProviderDefinition[] = [
   },
 ];
 
+// The cheapest Gemini model: free training plans run on it so the shared key lasts longer.
+export const FREE_PLAN_MODEL = 'gemini-3.5-flash-lite';
+
 export function getProvider(id: AIProvider): ProviderDefinition {
   const p = PROVIDERS.find((x) => x.id === id);
   if (!p) throw new Error(`Unknown provider: ${id}`);

@@ -1,4 +1,4 @@
-import { FREE_QUESTION_LIMIT } from './free-key';
+import { FREE_PLAN_LIMIT, FREE_QUESTION_LIMIT } from './free-key';
 import type {
   PlayerProfile,
   AIProviderConfig,
@@ -15,6 +15,7 @@ const KEYS = {
   WELLBEING_CHECKINS: 'luchoai_wellbeing_checkins',
   GAME_SCORES: 'luchoai_game_scores',
   FREE_QUESTIONS_USED: 'luchoai_free_questions_used',
+  FREE_PLANS_USED: 'luchoai_free_plans_used',
 } as const;
 
 const MAX_CHECKINS = 30;
@@ -166,4 +167,15 @@ export function getFreeQuestionsLeft(): number {
 export function spendFreeQuestion(): void {
   const used = FREE_QUESTION_LIMIT - getFreeQuestionsLeft();
   localStorage.setItem(KEYS.FREE_QUESTIONS_USED, String(used + 1));
+}
+
+export function getFreePlansLeft(): number {
+  if (typeof window === 'undefined') return 0;
+  const used = Number(localStorage.getItem(KEYS.FREE_PLANS_USED));
+  return Math.max(0, FREE_PLAN_LIMIT - (Number.isFinite(used) ? used : 0));
+}
+
+export function spendFreePlan(): void {
+  const used = FREE_PLAN_LIMIT - getFreePlansLeft();
+  localStorage.setItem(KEYS.FREE_PLANS_USED, String(used + 1));
 }

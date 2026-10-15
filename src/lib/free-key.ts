@@ -1,4 +1,6 @@
 export const FREE_QUESTION_LIMIT = 5;
+// Plans are counted apart from questions so a child who chats can still get a plan.
+export const FREE_PLAN_LIMIT = 2;
 
 // Not a secret: it only keeps the key out of plain-text scans of the published bundle. Anyone
 // can still read the key in their browser, so restrict it in Google AI Studio (see docs).

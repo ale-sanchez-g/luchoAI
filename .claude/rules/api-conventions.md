@@ -27,6 +27,8 @@ All persistence is via `localStorage` through `src/lib/storage.ts`:
 | `luchoai_api_key` | `string` | User's Anthropic API key |
 | `luchoai_player_profile` | `JSON` | Serialised `PlayerProfile` object |
 | `luchoai_wellbeing_checkins` | `JSON` | `WellbeingCheckIn[]`, last 30 days. Sensitive: never send to an AI provider |
+| `luchoai_free_questions_used` | `number` | Free Gemini questions spent (limit 5) |
+| `luchoai_free_plans_used` | `number` | Free training plans spent (limit 2) |
 | `luchoai_game_scores` | `JSON` | Best Game IQ score per decision theme |
 
 ## Error Handling

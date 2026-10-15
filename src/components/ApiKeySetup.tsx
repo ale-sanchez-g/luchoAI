@@ -5,7 +5,7 @@ import { PROVIDERS } from '@/lib/providers';
 import ErrorMessage from './ErrorMessage';
 import Icon from './Icon';
 import { getFreeKey } from '@/lib/free-key';
-import { getFreeQuestionsLeft, setProviderConfig } from '@/lib/storage';
+import { getFreePlansLeft, getFreeQuestionsLeft, setProviderConfig } from '@/lib/storage';
 import type { AIProvider, AIProviderConfig } from '@/types';
 
 interface ApiKeySetupProps {
@@ -143,16 +143,17 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
           </button>
         </form>
 
-        {getFreeKey() && getFreeQuestionsLeft() > 0 && (
+        {getFreeKey() && (getFreeQuestionsLeft() > 0 || getFreePlansLeft() > 0) && (
           <div className="mt-4 border-t pt-4 text-center">
             <button
               type="button"
               onClick={startFree}
               className="w-full rounded-lg border-2 border-pitch-green py-2 px-4 font-semibold text-pitch-dark hover:bg-pitch-green/5"
             >
-              Try {getFreeQuestionsLeft()} free questions
+              Try it free
             </button>
-            <p className="mt-1 text-xs text-gray-500">No key needed. Uses Google Gemini.</p>
+            <p className="mt-1 text-xs text-gray-500">No key needed. {getFreeQuestionsLeft()} questions and {getFreePlansLeft()} training plans,
+              powered by Google Gemini.</p>
           </div>
         )}
 
