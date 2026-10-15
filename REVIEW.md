@@ -104,10 +104,10 @@ Work through sections in order: Critical → Major → Minor.
 **Fix:** Before interpolating any profile field, strip newlines, carriage returns, and other control characters. Cap field lengths (e.g., name ≤ 50 chars, each goal/weakness ≤ 200 chars). Apply the sanitisation inside `buildSystemPrompt`.
 
 **Tests to add** (`src/__tests__/prompts.test.ts`):
-- [ ] A name containing `\n` has newlines stripped in the returned prompt
-- [ ] A goal containing `\r\n` + override text is sanitised
-- [ ] Fields exceeding the max length are truncated
-- [ ] A null or undefined profile returns the base prompt unchanged
+- [x] A name containing `\n` has newlines stripped in the returned prompt
+- [x] A goal containing `\r\n` + override text is sanitised
+- [x] Fields exceeding the max length are truncated (goal/weakness lists also capped at 5 entries)
+- [x] A null profile returns the base prompt unchanged
 
 ---
 
@@ -335,7 +335,7 @@ Files where test coverage should be added or expanded:
 | C1 | Critical | `[x]` | |
 | C2 | Critical | `[x]` | |
 | C3 | Critical | `[x]` | |
-| M1 | Major | `[ ]` | |
+| M1 | Major | `[x]` | |
 | M2 | Major | `[ ]` | |
 | M3 | Major | `[ ]` | |
 | M4 | Major | `[ ]` | |

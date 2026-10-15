@@ -15,8 +15,12 @@ LuchoAI is a fully static site (Next.js static export for GitHub Pages). There a
 ## Data Flow
 
 ```
-User input → Component state → lib/claude.ts → Anthropic API → Component state → UI
+User input → Component state → lib/claude.ts → guardrails screen → AI provider
+           → guardrails screen → Component state → UI
 ```
+
+A message the guardrails screen blocks never reaches the provider: `sendMessage` returns the
+coach's redirect instead (see `src/lib/guardrails.ts`).
 
 ## localStorage Schema
 
