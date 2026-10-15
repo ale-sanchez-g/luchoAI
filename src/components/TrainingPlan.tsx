@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import type { TrainingPlan, PlayerProfile, AIProviderConfig } from '@/types';
 import { generateTrainingPlan } from '@/lib/claude';
+import { getFreePlansLeft } from '@/lib/storage';
 import { loadContextBatches } from '@/lib/context';
 import type { ContextMessage } from '@/lib/context';
 import ErrorMessage from './ErrorMessage';
@@ -39,6 +40,9 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
     }
   }
 
+  const freePlansLeft = providerConfig.free ? getFreePlansLeft() : null;
+  const outOfFreePlans = freePlansLeft === 0;
+
   if (!playerProfile) {
     return (
       <div className="text-center py-12">
@@ -57,10 +61,17 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
               Generated {new Date(plan.generatedAt).toLocaleDateString()}
             </p>
           )}
+          {freePlansLeft !== null && (
+            <p className="text-xs text-gray-500">
+              {outOfFreePlans
+                ? 'No free plans left. Add your own API key to make more.'
+                : `${freePlansLeft} free ${freePlansLeft === 1 ? 'plan' : 'plans'} left`}
+            </p>
+          )}
         </div>
         <button
           onClick={handleGenerate}
-          disabled={loading}
+          disabled={loading || outOfFreePlans}
           className="w-full sm:w-auto bg-pitch-green text-white px-4 py-3 sm:py-2 rounded-lg font-semibold hover:bg-pitch-dark transition-colors disabled:opacity-50 text-sm"
         >
           {loading ? 'Generating...' : plan ? 'Regenerate' : 'Generate Plan'}

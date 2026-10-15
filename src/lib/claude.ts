@@ -5,28 +5,42 @@ import { HfInference } from '@huggingface/inference';
 import { jsonrepair } from 'jsonrepair';
 import type { Message, PlayerProfile, TrainingPlan, AIProviderConfig } from '@/types';
 import { buildSystemPrompt } from './prompts';
-import { withSupportedModel } from './providers';
+import { FREE_PLAN_MODEL, withSupportedModel } from './providers';
 import type { ContextMessage } from './context';
 import { getFreeKey } from './free-key';
-import { getFreeQuestionsLeft, spendFreeQuestion } from './storage';
+import {
+  getFreePlansLeft,
+  getFreeQuestionsLeft,
+  spendFreePlan,
+  spendFreeQuestion,
+} from './storage';
 
 const MAX_CONTEXT_MESSAGES = 20;
 
 export const FREE_LIMIT_MESSAGE =
   'You have used your free questions. Add your own API key to keep going.';
 
-// Free questions run on Gemini with the key baked in at build time; the count is checked before
-// the call and only spent once it succeeds.
-async function withFreeQuestions<T>(
+export const FREE_PLAN_LIMIT_MESSAGE =
+  'You have used your free training plans. Add your own API key to make more.';
+
+// Free questions and plans run on Gemini with the key baked in at build time; the count is
+// checked before the call and only spent once it succeeds. Plans use the cheapest model.
+async function withFreeAllowance<T>(
   config: AIProviderConfig,
+  kind: 'question' | 'plan',
   run: (resolved: AIProviderConfig) => Promise<T>,
 ): Promise<T> {
   if (!config.free) return run(config);
   const key = getFreeKey();
   if (!key) throw new Error('Free questions are not available right now.');
-  if (getFreeQuestionsLeft() <= 0) throw new Error(FREE_LIMIT_MESSAGE);
-  const result = await run({ ...config, provider: 'gemini', apiKey: key });
-  spendFreeQuestion();
+  const isPlan = kind === 'plan';
+  if ((isPlan ? getFreePlansLeft() : getFreeQuestionsLeft()) <= 0) {
+    throw new Error(isPlan ? FREE_PLAN_LIMIT_MESSAGE : FREE_LIMIT_MESSAGE);
+  }
+  const model = isPlan ? FREE_PLAN_MODEL : config.model;
+  const result = await run({ ...config, provider: 'gemini', apiKey: key, model });
+  if (isPlan) spendFreePlan();
+  else spendFreeQuestion();
   return result;
 }
 
@@ -296,7 +310,7 @@ export async function sendMessage(
   playerProfile: PlayerProfile | null,
   contextMessages: ContextMessage[] = [],
 ): Promise<string> {
-  return withFreeQuestions(savedConfig, (resolved) =>
+  return withFreeAllowance(savedConfig, 'question', (resolved) =>
     dispatchSendMessage(withSupportedModel(resolved), history, newUserMessage, playerProfile, contextMessages),
   );
 }
@@ -325,7 +339,7 @@ export async function generateTrainingPlan(
   playerProfile: PlayerProfile,
   contextMessages: ContextMessage[] = [],
 ): Promise<TrainingPlan> {
-  return withFreeQuestions(savedConfig, (resolved) =>
+  return withFreeAllowance(savedConfig, 'plan', (resolved) =>
     dispatchTrainingPlan(withSupportedModel(resolved), playerProfile, contextMessages),
   );
 }
