@@ -1,0 +1,36 @@
+import { render, screen, fireEvent } from '@testing-library/react';
+import PlayerProfileForm from '@/components/PlayerProfile';
+import type { PlayerProfile } from '@/types';
+
+const PROFILE: PlayerProfile = {
+  name: 'Sam',
+  age: 12,
+  position: 'forward',
+  skillLevel: 'intermediate',
+  goals: ['Score more goals', 'More individual play'],
+  weaknesses: ['Short distance speed'],
+};
+
+describe('PlayerProfileForm', () => {
+  it('removes a goal', () => {
+    render(<PlayerProfileForm initialProfile={PROFILE} onSave={jest.fn()} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Remove goal 1' }));
+    expect(screen.queryByDisplayValue('Score more goals')).toBeNull();
+    expect(screen.getByDisplayValue('More individual play')).toBeTruthy();
+  });
+
+  it('keeps one empty field when the last item is removed', () => {
+    render(<PlayerProfileForm initialProfile={PROFILE} onSave={jest.fn()} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Remove area 1' }));
+    expect(screen.getByPlaceholderText('Area 1')).toHaveProperty('value', '');
+  });
+
+  it('uses 16px text on inputs so iPhones do not zoom in', () => {
+    render(<PlayerProfileForm initialProfile={PROFILE} onSave={jest.fn()} />);
+    const fields = [...screen.getAllByRole('textbox'), ...screen.getAllByRole('combobox')];
+    for (const field of fields) {
+      expect(field.className).toContain('text-base');
+      expect(field.className).not.toContain('text-sm');
+    }
+  });
+});
