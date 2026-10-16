@@ -8,6 +8,7 @@ import {
   PROFILE_MAX_NAME_LENGTH,
   setPlayerProfile,
 } from '@/lib/storage';
+import { SKILL_LEVEL_LABELS, SKILL_LEVELS } from '@/lib/skill-levels';
 
 interface PlayerProfileFormProps {
   initialProfile: PlayerProfile | null;
@@ -16,7 +17,6 @@ interface PlayerProfileFormProps {
 
 const POSITIONS: PlayerProfile['position'][] = ['goalkeeper', 'defender', 'midfielder', 'forward'];
 const AGES: number[] = Array.from({ length: 11 }, (_, i) => 8 + i);
-const LEVELS:PlayerProfile['skillLevel'][] = ['beginner', 'intermediate', 'advanced'];
 
 interface ListEntryProps {
   value: string;
@@ -188,9 +188,9 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
             }
             className="w-full min-w-0 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base"
           >
-            {LEVELS.map((lvl) => (
+            {SKILL_LEVELS.map((lvl) => (
               <option key={lvl} value={lvl}>
-                {lvl.charAt(0).toUpperCase() + lvl.slice(1)}
+                {SKILL_LEVEL_LABELS[lvl]}
               </option>
             ))}
           </select>

@@ -1,3 +1,4 @@
+import { SKILL_LEVELS } from './skill-levels';
 import { FREE_PLAN_LIMIT, FREE_QUESTION_LIMIT } from './free-key';
 import type {
   PlayerProfile,
@@ -97,7 +98,6 @@ export const PROFILE_MAX_ENTRY_LENGTH = 500;
 export const PROFILE_MAX_ENTRIES = 5;
 
 const POSITIONS: PlayerProfile['position'][] = ['goalkeeper', 'defender', 'midfielder', 'forward'];
-const SKILL_LEVELS: PlayerProfile['skillLevel'][] = ['beginner', 'intermediate', 'advanced'];
 
 function cleanEntries(value: unknown): string[] {
   if (!Array.isArray(value)) return [];

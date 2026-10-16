@@ -54,4 +54,15 @@ describe('PlayerProfileForm', () => {
     fireEvent.change(goal, { target: { value: 'one\n\ntwo' } });
     expect(goal).toHaveProperty('value', 'one two');
   });
+
+  it('shows short, friendly skill level names and saves the stored value', () => {
+    const onSave = jest.fn();
+    render(<PlayerProfileForm initialProfile={PROFILE} onSave={onSave} />);
+    const labels = screen.getAllByRole('option').map((o) => o.textContent ?? '');
+    expect(labels).toEqual(expect.arrayContaining(['Rookie', 'Rising', 'Ace']));
+    expect(labels).not.toContain('Intermediate');
+    fireEvent.change(screen.getByDisplayValue('Rising'), { target: { value: 'advanced' } });
+    fireEvent.click(screen.getByText('Save Profile'));
+    expect(onSave).toHaveBeenCalledWith(expect.objectContaining({ skillLevel: 'advanced' }));
+  });
 });
