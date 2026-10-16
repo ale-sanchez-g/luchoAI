@@ -4,7 +4,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { HfInference } from '@huggingface/inference';
 import { jsonrepair } from 'jsonrepair';
 import type { Message, PlayerProfile, TrainingPlan, AIProviderConfig } from '@/types';
-import { buildSystemPrompt } from './prompts';
+import { buildSystemPrompt, buildTrainingPlanPrompt } from './prompts';
 import { FREE_PLAN_MODEL, withSupportedModel } from './providers';
 import type { ContextMessage } from './context';
 import { getFreeKey } from './free-key';
@@ -74,33 +74,6 @@ function parsePlanJson(text: string): unknown {
   }
 }
 
-const TRAINING_PLAN_PROMPT = `Create a personalised 1-week football training plan with exactly 4 sessions.
-
-Output ONLY a single raw JSON object — no markdown, no code fences, no text before or after the JSON.
-Your entire response must start with { and end with }.
-
-Required JSON schema (all fields are required):
-{
-  "weeklyGoal": "One sentence describing the week's main focus",
-  "sessions": [
-    {
-      "id": "session-1",
-      "title": "Session name",
-      "duration": 60,
-      "focus": "Main technical focus",
-      "drills": [
-        {
-          "name": "Drill name",
-          "duration": 10,
-          "description": "What to do",
-          "coachingPoints": ["Coaching tip 1", "Coaching tip 2"]
-        }
-      ],
-      "notes": "Overall session tip"
-    }
-  ]
-}`;
-
 // ─── Anthropic ────────────────────────────────────────────────────────────────
 
 async function sendMessageAnthropic(
@@ -134,14 +107,14 @@ async function generateTrainingPlanAnthropic(
 ): Promise<TrainingPlan> {
   const client = new Anthropic({ apiKey: config.apiKey, dangerouslyAllowBrowser: true });
   // No assistant prefill: Claude Opus 4.6+ and Sonnet 4.6 reject a request that ends on an
-  // assistant turn, so the JSON-only instruction in TRAINING_PLAN_PROMPT does that job instead.
+  // assistant turn, so the JSON-only instruction in the plan prompt does that job instead.
   const response = await client.messages.create({
     model: config.model,
     max_tokens: 2048,
     system: buildSystemPrompt(playerProfile),
     messages: [
       ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
-      { role: 'user', content: TRAINING_PLAN_PROMPT },
+      { role: 'user', content: buildTrainingPlanPrompt(playerProfile) },
     ],
   });
   const block = response.content.find((b) => b.type === 'text');
@@ -189,7 +162,7 @@ async function generateTrainingPlanOpenAI(
     messages: [
       { role: 'system', content: buildSystemPrompt(playerProfile) },
       ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
-      { role: 'user', content: TRAINING_PLAN_PROMPT },
+      { role: 'user', content: buildTrainingPlanPrompt(playerProfile) },
     ],
   });
   const content = response.choices[0]?.message?.content;
@@ -246,7 +219,7 @@ async function generateTrainingPlanGemini(
         role: m.role === 'assistant' ? 'model' : 'user',
         parts: [{ text: m.content }],
       })),
-      { role: 'user', parts: [{ text: TRAINING_PLAN_PROMPT }] },
+      { role: 'user', parts: [{ text: buildTrainingPlanPrompt(playerProfile) }] },
     ],
   });
   const plan = validateTrainingPlan(JSON.parse(result.response.text()));
@@ -291,7 +264,7 @@ async function generateTrainingPlanHuggingFace(
     messages: [
       { role: 'system', content: buildSystemPrompt(playerProfile) },
       ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
-      { role: 'user', content: TRAINING_PLAN_PROMPT },
+      { role: 'user', content: buildTrainingPlanPrompt(playerProfile) },
     ],
   });
   const content = response.choices[0]?.message?.content;
