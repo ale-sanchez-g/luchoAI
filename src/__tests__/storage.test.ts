@@ -12,9 +12,19 @@ import {
   clearCheckIns,
   getBestScores,
   saveBestScore,
+  getSavedPlans,
+  savePlan,
+  removeSavedPlan,
+  MAX_SAVED_PLANS,
 } from '@/lib/storage';
 import { BALANCE_AREAS } from '@/lib/wellbeing';
-import type { PlayerProfile, AIProviderConfig, WellbeingCheckIn, MoodLevel } from '@/types';
+import type {
+  PlayerProfile,
+  AIProviderConfig,
+  WellbeingCheckIn,
+  MoodLevel,
+  TrainingPlan,
+} from '@/types';
 
 const SAMPLE_PROFILE: PlayerProfile = {
   name: 'Lucho',
@@ -251,6 +261,85 @@ describe('storage', () => {
       expect(getBestScores()).toEqual({});
       localStorage.setItem('luchoai_game_scores', JSON.stringify({ space: 'lots', press: 3 }));
       expect(getBestScores()).toEqual({ press: 3 });
+    });
+  });
+
+  describe('saved training plans', () => {
+    function plan(goal = 'Better first touch'): TrainingPlan {
+      return {
+        weeklyGoal: goal,
+        generatedAt: new Date('2026-10-13T10:00:00Z'),
+        sessions: [
+          {
+            id: 's1',
+            title: 'Session 1',
+            duration: 30,
+            focus: 'Touch',
+            notes: '',
+            drills: [
+              { name: 'Wall passes', duration: 10, description: 'Pass', coachingPoints: ['Head up'] },
+            ],
+          },
+        ],
+      };
+    }
+
+    it('returns an empty list when nothing is stored', () => {
+      expect(getSavedPlans()).toEqual([]);
+    });
+
+    it('saves a plan and brings the date back as a Date', () => {
+      const result = savePlan(plan());
+      expect(result.ok).toBe(true);
+      const [stored] = getSavedPlans();
+      expect(stored.plan).toEqual(plan());
+      expect(stored.plan.generatedAt).toBeInstanceOf(Date);
+    });
+
+    it('lists the newest plan first', () => {
+      savePlan(plan('first'));
+      savePlan(plan('second'));
+      expect(getSavedPlans().map((s) => s.plan.weeklyGoal)).toEqual(['second', 'first']);
+    });
+
+    it('refuses a sixth plan and keeps the five already saved', () => {
+      for (let i = 0; i < MAX_SAVED_PLANS; i += 1) savePlan(plan(`plan ${i}`));
+      const result = savePlan(plan('one too many'));
+      expect(result.ok).toBe(false);
+      expect(result.ok === false && result.reason).toBe('full');
+      expect(getSavedPlans()).toHaveLength(MAX_SAVED_PLANS);
+      expect(getSavedPlans().some((s) => s.plan.weeklyGoal === 'one too many')).toBe(false);
+    });
+
+    it('removes one plan and then has room for another', () => {
+      for (let i = 0; i < MAX_SAVED_PLANS; i += 1) savePlan(plan(`plan ${i}`));
+      const [first] = getSavedPlans();
+      const remaining = removeSavedPlan(first.id);
+      expect(remaining).toHaveLength(MAX_SAVED_PLANS - 1);
+      expect(remaining.some((s) => s.id === first.id)).toBe(false);
+      expect(savePlan(plan('fits now')).ok).toBe(true);
+    });
+
+    it('reports a storage failure instead of throwing', () => {
+      const spy = jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+        throw new Error('quota');
+      });
+      const result = savePlan(plan());
+      spy.mockRestore();
+      expect(result.ok).toBe(false);
+      expect(result.ok === false && result.reason).toBe('storage');
+    });
+
+    it('ignores invalid JSON and malformed entries', () => {
+      localStorage.setItem('luchoai_saved_plans', 'not-json');
+      expect(getSavedPlans()).toEqual([]);
+      savePlan(plan());
+      const good = JSON.parse(localStorage.getItem('luchoai_saved_plans') as string);
+      localStorage.setItem(
+        'luchoai_saved_plans',
+        JSON.stringify([null, { id: 'x' }, { ...good[0], plan: { weeklyGoal: 1 } }, good[0]]),
+      );
+      expect(getSavedPlans()).toHaveLength(1);
     });
   });
 });

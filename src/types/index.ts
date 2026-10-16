@@ -48,6 +48,12 @@ export interface TrainingPlan {
   generatedAt: Date;
 }
 
+export interface SavedPlan {
+  id: string;
+  savedAt: string;
+  plan: TrainingPlan;
+}
+
 export type MoodLevel = 1 | 2 | 3 | 4 | 5;
 
 export type BalanceArea = 'sleep' | 'football' | 'school' | 'people' | 'fun';
