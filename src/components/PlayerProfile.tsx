@@ -48,6 +48,42 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
     setProfile((prev) => ({ ...prev, [field]: [...prev[field], ''] }));
   }
 
+  function removeFromList(field: 'goals' | 'weaknesses', index: number): void {
+    setProfile((prev) => {
+      const remaining = prev[field].filter((_, i) => i !== index);
+      return { ...prev, [field]: remaining.length > 0 ? remaining : [''] };
+    });
+  }
+
+  function renderList(field: 'goals' | 'weaknesses', placeholder: string, noun: string) {
+    return profile[field].map((value, i) => (
+      <div key={i} className="flex items-center gap-2 mb-2">
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => updateList(field, i, e.target.value)}
+          placeholder={`${placeholder} ${i + 1}`}
+          className="flex-1 min-w-0 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base"
+        />
+        <button
+          type="button"
+          onClick={() => removeFromList(field, i)}
+          aria-label={`Remove ${noun} ${i + 1}`}
+          className="shrink-0 w-11 h-11 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 hover:text-red-600"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path
+              d="M5 5l10 10M15 5L5 15"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+    ));
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
       <div className="grid grid-cols-2 gap-4">
@@ -57,7 +93,7 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
             type="text"
             value={profile.name}
             onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-sm"
+            className="w-full min-w-0 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base"
             required
           />
         </div>
@@ -66,7 +102,7 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
           <select
             value={profile.age}
             onChange={(e) => setProfile((p) => ({ ...p, age: Number(e.target.value) }))}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-sm"
+            className="w-full min-w-0 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base"
             required
           >
             {AGES.map((age) => (
@@ -86,7 +122,7 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
             onChange={(e) =>
               setProfile((p) => ({ ...p, position: e.target.value as PlayerProfile['position'] }))
             }
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-sm"
+            className="w-full min-w-0 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base"
           >
             {POSITIONS.map((pos) => (
               <option key={pos} value={pos}>
@@ -105,7 +141,7 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
                 skillLevel: e.target.value as PlayerProfile['skillLevel'],
               }))
             }
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-sm"
+            className="w-full min-w-0 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base"
           >
             {LEVELS.map((lvl) => (
               <option key={lvl} value={lvl}>
@@ -118,20 +154,11 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Goals</label>
-        {profile.goals.map((g, i) => (
-          <input
-            key={i}
-            type="text"
-            value={g}
-            onChange={(e) => updateList('goals', i, e.target.value)}
-            placeholder={`Goal ${i + 1}`}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-sm"
-          />
-        ))}
+        {renderList('goals', 'Goal', 'goal')}
         <button
           type="button"
           onClick={() => addToList('goals')}
-          className="text-sm text-pitch-green hover:underline"
+          className="text-base text-pitch-green hover:underline"
         >
           + Add goal
         </button>
@@ -139,20 +166,11 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Areas to improve</label>
-        {profile.weaknesses.map((w, i) => (
-          <input
-            key={i}
-            type="text"
-            value={w}
-            onChange={(e) => updateList('weaknesses', i, e.target.value)}
-            placeholder={`Area ${i + 1}`}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-sm"
-          />
-        ))}
+        {renderList('weaknesses', 'Area', 'area')}
         <button
           type="button"
           onClick={() => addToList('weaknesses')}
-          className="text-sm text-pitch-green hover:underline"
+          className="text-base text-pitch-green hover:underline"
         >
           + Add area
         </button>
