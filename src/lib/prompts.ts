@@ -137,8 +137,9 @@ Skill level: ${cleanField(profile.skillLevel, MAX_FIELD_LENGTH)}. Match drill di
 Their goals and areas to improve are in the player profile: spread them across the 4 sessions.
 Session length: about ${band.minutes}, with drill durations adding up to the session duration.
 Language and style: ${band.language}
-Safety: include a warm-up and a cool-down, allow rest between hard sessions, and use drills that ${young ? 'involve no heading and ' : ''}can be done safely without a coach.
-Write the title, description and coaching points to the player in their own words, in this style.
+Who they train with: assume one helper at most, such as a friend, brother, sister or parent. Every drill must work with one helper, and where a drill needs more people, also give a way to do it alone or with one helper. Describe each drill in clear steps that a reader can follow without guessing.
+Safety: include a warm-up and a cool-down, use drills that ${young ? 'involve no heading and ' : ''}can be done safely without a coach, and keep the week balanced. Never plan two hard sessions on back-to-back days: say in each session's notes how many rest days to take before the next one, and make the last session lighter.
+Speak directly to the player ("you") in the title, description, coaching points and notes, in this style.
 
 Output ONLY a single raw JSON object — no markdown, no code fences, no text before or after the JSON.
 Your entire response must start with { and end with }.

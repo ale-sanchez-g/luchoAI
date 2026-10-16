@@ -121,6 +121,23 @@ describe('prompts', () => {
       expect(buildTrainingPlanPrompt(stored)).toMatch(/pre-teen/);
     });
 
+    it('plans for one helper at most and asks for a solo version of bigger drills', () => {
+      const prompt = buildTrainingPlanPrompt(SAMPLE_PROFILE);
+      expect(prompt).toMatch(/one helper at most/);
+      expect(prompt).toMatch(/alone or with one helper/);
+    });
+
+    it('asks for rest days and a lighter last session', () => {
+      const prompt = buildTrainingPlanPrompt(SAMPLE_PROFILE);
+      expect(prompt).toMatch(/Never plan two hard sessions on back-to-back days/);
+      expect(prompt).toMatch(/rest days/);
+      expect(prompt).toMatch(/last session lighter/);
+    });
+
+    it('talks to the player directly', () => {
+      expect(buildTrainingPlanPrompt(SAMPLE_PROFILE)).toMatch(/Speak directly to the player/);
+    });
+
     it('still asks for raw JSON only', () => {
       expect(buildTrainingPlanPrompt(SAMPLE_PROFILE)).toMatch(/Output ONLY a single raw JSON/);
     });
