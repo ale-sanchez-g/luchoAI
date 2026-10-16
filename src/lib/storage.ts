@@ -7,6 +7,8 @@ import type {
   BalanceArea,
   BestScores,
   DecisionThemeId,
+  SavedPlan,
+  TrainingPlan,
 } from '@/types';
 
 const KEYS = {
@@ -15,6 +17,7 @@ const KEYS = {
   PROVIDER_CONFIG: 'luchoai_provider_config',
   WELLBEING_CHECKINS: 'luchoai_wellbeing_checkins',
   GAME_SCORES: 'luchoai_game_scores',
+  SAVED_PLANS: 'luchoai_saved_plans',
   FREE_QUESTIONS_USED: 'luchoai_free_questions_used',
   FREE_PLANS_USED: 'luchoai_free_plans_used',
 } as const;
@@ -188,6 +191,99 @@ export function saveBestScore(themeId: DecisionThemeId, score: number): BestScor
   if (previous !== undefined && previous >= score) return scores;
   const updated = { ...scores, [themeId]: score };
   localStorage.setItem(KEYS.GAME_SCORES, JSON.stringify(updated));
+  return updated;
+}
+
+export const MAX_SAVED_PLANS = 5;
+
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every((item) => typeof item === 'string');
+}
+
+function isDrill(value: unknown): boolean {
+  if (typeof value !== 'object' || value === null) return false;
+  const d = value as Record<string, unknown>;
+  return (
+    typeof d.name === 'string' &&
+    typeof d.duration === 'number' &&
+    typeof d.description === 'string' &&
+    isStringArray(d.coachingPoints)
+  );
+}
+
+function isSession(value: unknown): boolean {
+  if (typeof value !== 'object' || value === null) return false;
+  const s = value as Record<string, unknown>;
+  return (
+    typeof s.title === 'string' &&
+    typeof s.duration === 'number' &&
+    typeof s.focus === 'string' &&
+    typeof s.notes === 'string' &&
+    Array.isArray(s.drills) &&
+    s.drills.every(isDrill)
+  );
+}
+
+// Plans round-trip through JSON, so generatedAt comes back as a string and is revived here.
+function reviveSavedPlan(value: unknown): SavedPlan | null {
+  if (typeof value !== 'object' || value === null) return null;
+  const v = value as Record<string, unknown>;
+  if (typeof v.id !== 'string' || typeof v.savedAt !== 'string') return null;
+  if (typeof v.plan !== 'object' || v.plan === null) return null;
+  const p = v.plan as Record<string, unknown>;
+  if (typeof p.weeklyGoal !== 'string' || !Array.isArray(p.sessions)) return null;
+  if (!p.sessions.every(isSession)) return null;
+  const generatedAt = new Date(p.generatedAt as string);
+  if (Number.isNaN(generatedAt.getTime())) return null;
+  return {
+    id: v.id,
+    savedAt: v.savedAt,
+    plan: { ...(p as unknown as TrainingPlan), generatedAt },
+  };
+}
+
+/** Saved plans, newest first. */
+export function getSavedPlans(): SavedPlan[] {
+  if (typeof window === 'undefined') return [];
+  const raw = localStorage.getItem(KEYS.SAVED_PLANS);
+  if (!raw) return [];
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .map(reviveSavedPlan)
+      .filter((saved): saved is SavedPlan => saved !== null)
+      .slice(0, MAX_SAVED_PLANS);
+  } catch {
+    return [];
+  }
+}
+
+export type SavePlanResult =
+  | { ok: true; saved: SavedPlan; plans: SavedPlan[] }
+  | { ok: false; reason: 'full' | 'storage'; plans: SavedPlan[] };
+
+/** Never replaces a saved plan: at the limit the player has to remove one first. */
+export function savePlan(plan: TrainingPlan): SavePlanResult {
+  const plans = getSavedPlans();
+  if (plans.length >= MAX_SAVED_PLANS) return { ok: false, reason: 'full', plans };
+  const saved: SavedPlan = {
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    savedAt: new Date().toISOString(),
+    plan,
+  };
+  const updated = [saved, ...plans];
+  try {
+    localStorage.setItem(KEYS.SAVED_PLANS, JSON.stringify(updated));
+  } catch {
+    return { ok: false, reason: 'storage', plans };
+  }
+  return { ok: true, saved, plans: updated };
+}
+
+export function removeSavedPlan(id: string): SavedPlan[] {
+  const updated = getSavedPlans().filter((saved) => saved.id !== id);
+  localStorage.setItem(KEYS.SAVED_PLANS, JSON.stringify(updated));
   return updated;
 }
 

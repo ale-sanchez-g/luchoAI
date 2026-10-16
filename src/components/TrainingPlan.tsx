@@ -1,9 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { TrainingPlan, PlayerProfile, AIProviderConfig } from '@/types';
+import type { TrainingPlan, PlayerProfile, AIProviderConfig, SavedPlan } from '@/types';
 import { generateTrainingPlan } from '@/lib/claude';
-import { getFreePlansLeft } from '@/lib/storage';
+import {
+  getFreePlansLeft,
+  getSavedPlans,
+  savePlan,
+  removeSavedPlan,
+  MAX_SAVED_PLANS,
+} from '@/lib/storage';
 import { loadContextBatches } from '@/lib/context';
 import type { ContextMessage } from '@/lib/context';
 import ErrorMessage from './ErrorMessage';
@@ -18,6 +24,13 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [contextMessages, setContextMessages] = useState<ContextMessage[]>([]);
+  const [savedPlans, setSavedPlans] = useState<SavedPlan[]>([]);
+  const [viewedSavedId, setViewedSavedId] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState('');
+
+  useEffect(() => {
+    setSavedPlans(getSavedPlans());
+  }, []);
 
   useEffect(() => {
     if (playerProfile) {
@@ -32,12 +45,43 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
     try {
       const generated = await generateTrainingPlan(providerConfig, playerProfile, contextMessages);
       setPlan(generated);
+      setViewedSavedId(null);
+      setSaveError('');
     } catch (err) {
       const detail = err instanceof Error ? err.message : String(err);
       setError(`Could not generate training plan: ${detail}`);
     } finally {
       setLoading(false);
     }
+  }
+
+  function handleSave(): void {
+    if (!plan) return;
+    const result = savePlan(plan);
+    setSavedPlans(result.plans);
+    if (result.ok) {
+      setViewedSavedId(result.saved.id);
+      setSaveError('');
+    } else if (result.reason === 'full') {
+      setSaveError(
+        `You can keep ${MAX_SAVED_PLANS} plans. Remove one below to make room for this one.`,
+      );
+    } else {
+      setSaveError('Could not save this plan. Your browser storage may be full or turned off.');
+    }
+  }
+
+  function handleView(saved: SavedPlan): void {
+    setPlan(saved.plan);
+    setViewedSavedId(saved.id);
+    setSaveError('');
+    setError('');
+  }
+
+  function handleRemove(id: string): void {
+    setSavedPlans(removeSavedPlan(id));
+    if (viewedSavedId === id) setViewedSavedId(null);
+    setSaveError('');
   }
 
   const freePlansLeft = providerConfig.free ? getFreePlansLeft() : null;
@@ -80,8 +124,65 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
 
       {error && <ErrorMessage className="mb-4">{error}</ErrorMessage>}
 
+      <section aria-labelledby="saved-plans-heading" className="mb-6">
+        <h3 id="saved-plans-heading" className="font-semibold text-pitch-dark text-sm">
+          Saved plans ({savedPlans.length}/{MAX_SAVED_PLANS})
+        </h3>
+        {savedPlans.length === 0 ? (
+          <p className="text-xs text-gray-500 mt-1">
+            Save a plan to come back to it later. It stays in this browser only.
+          </p>
+        ) : (
+          <ul className="mt-2 space-y-2">
+            {savedPlans.map((saved) => (
+              <li
+                key={saved.id}
+                className={`flex items-center justify-between gap-3 rounded-lg border p-3 ${
+                  saved.id === viewedSavedId
+                    ? 'border-pitch-green bg-pitch-green/10'
+                    : 'border-gray-200'
+                }`}
+              >
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-gray-800 break-words">
+                    {saved.plan.weeklyGoal}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    Saved {new Date(saved.savedAt).toLocaleDateString()}
+                  </p>
+                </div>
+                <div className="flex flex-shrink-0 gap-2">
+                  <button
+                    onClick={() => handleView(saved)}
+                    className="px-3 py-2 rounded-lg border border-pitch-green text-pitch-dark text-xs font-semibold"
+                  >
+                    View
+                  </button>
+                  <button
+                    onClick={() => handleRemove(saved.id)}
+                    aria-label={`Remove saved plan: ${saved.plan.weeklyGoal}`}
+                    className="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 text-xs font-semibold"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      {saveError && <ErrorMessage className="mb-4">{saveError}</ErrorMessage>}
+
       {plan && (
         <div className="space-y-4">
+          <button
+            onClick={handleSave}
+            disabled={viewedSavedId !== null}
+            className="w-full sm:w-auto border border-pitch-green text-pitch-dark px-4 py-3 sm:py-2 rounded-lg font-semibold text-sm disabled:opacity-60"
+          >
+            {viewedSavedId !== null ? 'Saved' : 'Save this plan'}
+          </button>
           <div className="bg-pitch-green/10 border border-pitch-green/20 rounded-xl p-4">
             <h3 className="font-semibold text-pitch-dark text-sm">Weekly Goal</h3>
             <p className="text-gray-700 mt-1 text-sm">{plan.weeklyGoal}</p>
