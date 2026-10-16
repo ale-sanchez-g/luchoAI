@@ -107,6 +107,39 @@ describe('storage', () => {
       localStorage.setItem('luchoai_player_profile', 'not-json');
       expect(getPlayerProfile()).toBeNull();
     });
+
+    it('returns null when the stored value is not an object', () => {
+      for (const raw of ['null', '[]', '"abc"', '7']) {
+        localStorage.setItem('luchoai_player_profile', raw);
+        expect(getPlayerProfile()).toBeNull();
+      }
+    });
+
+    it('repairs a stored profile with a bad shape instead of passing it on', () => {
+      localStorage.setItem(
+        'luchoai_player_profile',
+        JSON.stringify({ name: 7, age: 40, position: 'striker', goals: 'abc', weaknesses: [null, ' x '] }),
+      );
+      expect(getPlayerProfile()).toEqual({
+        name: '',
+        age: 18,
+        position: 'midfielder',
+        skillLevel: 'beginner',
+        goals: [],
+        weaknesses: ['x'],
+      });
+    });
+
+    it('trims, drops blanks and caps what it saves', () => {
+      setPlayerProfile({
+        ...SAMPLE_PROFILE,
+        name: '  Lucho  ',
+        goals: ['  a  ', '   ', 'b', 'c', 'd', 'e', 'f', 'g'],
+      });
+      const saved = getPlayerProfile();
+      expect(saved?.name).toBe('Lucho');
+      expect(saved?.goals).toEqual(['a', 'b', 'c', 'd', 'e']);
+    });
   });
 
   describe('wellbeing check-ins', () => {

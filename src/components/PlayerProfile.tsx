@@ -2,7 +2,12 @@
 
 import { useState } from 'react';
 import type { PlayerProfile } from '@/types';
-import { setPlayerProfile } from '@/lib/storage';
+import {
+  PROFILE_MAX_ENTRIES,
+  PROFILE_MAX_ENTRY_LENGTH,
+  PROFILE_MAX_NAME_LENGTH,
+  setPlayerProfile,
+} from '@/lib/storage';
 
 interface PlayerProfileFormProps {
   initialProfile: PlayerProfile | null;
@@ -14,23 +19,23 @@ const AGES: number[] = Array.from({ length: 11 }, (_, i) => 8 + i);
 const LEVELS:PlayerProfile['skillLevel'][] = ['beginner', 'intermediate', 'advanced'];
 
 export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProfileFormProps) {
-  const [profile, setProfile] = useState<PlayerProfile>(
-    initialProfile ?? {
-      name: '',
-      age: 12,
-      position: 'midfielder',
-      skillLevel: 'beginner',
-      goals: [''],
-      weaknesses: [''],
-    },
-  );
+  const [profile, setProfile] = useState<PlayerProfile>(() => ({
+    name: '',
+    age: 12,
+    position: 'midfielder',
+    skillLevel: 'beginner',
+    ...initialProfile,
+    goals: initialProfile?.goals.length ? initialProfile.goals : [''],
+    weaknesses: initialProfile?.weaknesses.length ? initialProfile.weaknesses : [''],
+  }));
 
   function handleSubmit(e: React.FormEvent): void {
     e.preventDefault();
     const cleaned = {
       ...profile,
-      goals: profile.goals.filter(Boolean),
-      weaknesses: profile.weaknesses.filter(Boolean),
+      name: profile.name.trim(),
+      goals: profile.goals.map((g) => g.trim()).filter(Boolean),
+      weaknesses: profile.weaknesses.map((w) => w.trim()).filter(Boolean),
     };
     setPlayerProfile(cleaned);
     onSave(cleaned);
@@ -63,6 +68,7 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
           value={value}
           onChange={(e) => updateList(field, i, e.target.value)}
           placeholder={`${placeholder} ${i + 1}`}
+          maxLength={PROFILE_MAX_ENTRY_LENGTH}
           className="flex-1 min-w-0 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base"
         />
         <button
@@ -94,6 +100,9 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
             value={profile.name}
             onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))}
             className="w-full min-w-0 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base"
+            maxLength={PROFILE_MAX_NAME_LENGTH}
+            pattern=".*\S.*"
+            title="Please enter your name"
             required
           />
         </div>
@@ -155,25 +164,29 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Goals</label>
         {renderList('goals', 'Goal', 'goal')}
-        <button
-          type="button"
-          onClick={() => addToList('goals')}
-          className="text-base text-pitch-green hover:underline"
-        >
-          + Add goal
-        </button>
+        {profile.goals.length < PROFILE_MAX_ENTRIES && (
+          <button
+            type="button"
+            onClick={() => addToList('goals')}
+            className="text-base text-pitch-green hover:underline"
+          >
+            + Add goal
+          </button>
+        )}
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Areas to improve</label>
         {renderList('weaknesses', 'Area', 'area')}
-        <button
-          type="button"
-          onClick={() => addToList('weaknesses')}
-          className="text-base text-pitch-green hover:underline"
-        >
-          + Add area
-        </button>
+        {profile.weaknesses.length < PROFILE_MAX_ENTRIES && (
+          <button
+            type="button"
+            onClick={() => addToList('weaknesses')}
+            className="text-base text-pitch-green hover:underline"
+          >
+            + Add area
+          </button>
+        )}
       </div>
 
       <button

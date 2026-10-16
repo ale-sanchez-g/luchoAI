@@ -33,4 +33,17 @@ describe('PlayerProfileForm', () => {
       expect(field.className).not.toContain('text-sm');
     }
   });
+
+  it('opens with one empty field when the saved profile has no goals', () => {
+    render(
+      <PlayerProfileForm initialProfile={{ ...PROFILE, goals: [] }} onSave={jest.fn()} />,
+    );
+    expect(screen.getByPlaceholderText('Goal 1')).toHaveProperty('value', '');
+  });
+
+  it('stops offering more goals at the limit', () => {
+    render(<PlayerProfileForm initialProfile={PROFILE} onSave={jest.fn()} />);
+    for (let i = 0; i < 3; i++) fireEvent.click(screen.getByText('+ Add goal'));
+    expect(screen.queryByText('+ Add goal')).toBeNull();
+  });
 });

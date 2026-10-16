@@ -90,19 +90,53 @@ export function clearProviderConfig(): void {
   localStorage.removeItem(KEYS.API_KEY);
 }
 
+export const PROFILE_MIN_AGE = 8;
+export const PROFILE_MAX_AGE = 18;
+export const PROFILE_MAX_NAME_LENGTH = 50;
+export const PROFILE_MAX_ENTRY_LENGTH = 200;
+export const PROFILE_MAX_ENTRIES = 5;
+
+const POSITIONS: PlayerProfile['position'][] = ['goalkeeper', 'defender', 'midfielder', 'forward'];
+const SKILL_LEVELS: PlayerProfile['skillLevel'][] = ['beginner', 'intermediate', 'advanced'];
+
+function cleanEntries(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((entry): entry is string => typeof entry === 'string')
+    .map((entry) => entry.trim().slice(0, PROFILE_MAX_ENTRY_LENGTH))
+    .filter(Boolean)
+    .slice(0, PROFILE_MAX_ENTRIES);
+}
+
+// The stored profile can come from an older version or be edited by hand, so rebuild it from
+// known-good fields instead of trusting its shape: a bad value must not blank the profile page.
+function normalizeProfile(value: unknown): PlayerProfile | null {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) return null;
+  const p = value as Record<string, unknown>;
+  const age = typeof p.age === 'number' && Number.isFinite(p.age) ? Math.round(p.age) : 12;
+  return {
+    name: typeof p.name === 'string' ? p.name.trim().slice(0, PROFILE_MAX_NAME_LENGTH) : '',
+    age: Math.min(PROFILE_MAX_AGE, Math.max(PROFILE_MIN_AGE, age)),
+    position: POSITIONS.find((pos) => pos === p.position) ?? 'midfielder',
+    skillLevel: SKILL_LEVELS.find((lvl) => lvl === p.skillLevel) ?? 'beginner',
+    goals: cleanEntries(p.goals),
+    weaknesses: cleanEntries(p.weaknesses),
+  };
+}
+
 export function getPlayerProfile(): PlayerProfile | null {
   if (typeof window === 'undefined') return null;
   const raw = localStorage.getItem(KEYS.PLAYER_PROFILE);
   if (!raw) return null;
   try {
-    return JSON.parse(raw) as PlayerProfile;
+    return normalizeProfile(JSON.parse(raw));
   } catch {
     return null;
   }
 }
 
 export function setPlayerProfile(profile: PlayerProfile): void {
-  localStorage.setItem(KEYS.PLAYER_PROFILE, JSON.stringify(profile));
+  localStorage.setItem(KEYS.PLAYER_PROFILE, JSON.stringify(normalizeProfile(profile)));
 }
 
 export function getCheckIns(): WellbeingCheckIn[] {
