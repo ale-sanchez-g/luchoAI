@@ -28,6 +28,7 @@ describe('PlayerProfileForm', () => {
   it('uses 16px text on inputs so iPhones do not zoom in', () => {
     render(<PlayerProfileForm initialProfile={PROFILE} onSave={jest.fn()} />);
     const fields = [...screen.getAllByRole('textbox'), ...screen.getAllByRole('combobox')];
+    expect(fields.length).toBeGreaterThan(5);
     for (const field of fields) {
       expect(field.className).toContain('text-base');
       expect(field.className).not.toContain('text-sm');
@@ -45,5 +46,12 @@ describe('PlayerProfileForm', () => {
     render(<PlayerProfileForm initialProfile={PROFILE} onSave={jest.fn()} />);
     for (let i = 0; i < 3; i++) fireEvent.click(screen.getByText('+ Add goal'));
     expect(screen.queryByText('+ Add goal')).toBeNull();
+  });
+
+  it('never lets a pasted line break into a goal', () => {
+    render(<PlayerProfileForm initialProfile={PROFILE} onSave={jest.fn()} />);
+    const goal = screen.getByPlaceholderText('Goal 1');
+    fireEvent.change(goal, { target: { value: 'one\n\ntwo' } });
+    expect(goal).toHaveProperty('value', 'one two');
   });
 });

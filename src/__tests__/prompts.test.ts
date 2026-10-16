@@ -66,11 +66,11 @@ describe('prompts', () => {
       const prompt = buildSystemPrompt({
         ...SAMPLE_PROFILE,
         name: 'a'.repeat(80),
-        goals: ['b'.repeat(300)],
+        goals: ['b'.repeat(700)],
         weaknesses: ['one', 'two', 'three', 'four', 'five', 'six'],
       });
       expect(prompt).toContain(`Name: ${'a'.repeat(50)}\n`);
-      expect(prompt).toContain(`Goals: ${'b'.repeat(200)}\n`);
+      expect(prompt).toContain(`Goals: ${'b'.repeat(500)}\n`);
       expect(prompt).toContain('Areas to improve: one, two, three, four, five\n');
     });
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import type { PlayerProfile } from '@/types';
 import {
   PROFILE_MAX_ENTRIES,
@@ -17,6 +17,59 @@ interface PlayerProfileFormProps {
 const POSITIONS: PlayerProfile['position'][] = ['goalkeeper', 'defender', 'midfielder', 'forward'];
 const AGES: number[] = Array.from({ length: 11 }, (_, i) => 8 + i);
 const LEVELS:PlayerProfile['skillLevel'][] = ['beginner', 'intermediate', 'advanced'];
+
+interface ListEntryProps {
+  value: string;
+  placeholder: string;
+  removeLabel: string;
+  onChange: (value: string) => void;
+  onRemove: () => void;
+}
+
+// A textarea that grows with its text, so a long goal is never hidden behind a scrolling
+// one-line box. The remove cross sits inside the box; the right padding keeps text clear of it.
+function ListEntry({ value, placeholder, removeLabel, onChange, onRemove }: ListEntryProps) {
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight + el.offsetHeight - el.clientHeight}px`;
+  }, [value]);
+
+  return (
+    <div className="relative mb-2">
+      <textarea
+        ref={ref}
+        rows={1}
+        value={value}
+        onChange={(e) => onChange(e.target.value.replace(/\s*\n+\s*/g, ' '))}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') e.preventDefault();
+        }}
+        placeholder={placeholder}
+        maxLength={PROFILE_MAX_ENTRY_LENGTH}
+        className="block w-full min-w-0 resize-none overflow-hidden border border-gray-300 rounded-lg pl-3 pr-10 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base leading-6"
+      />
+      <button
+        type="button"
+        onClick={onRemove}
+        aria-label={removeLabel}
+        className="absolute top-px right-px w-10 h-10 flex items-center justify-center rounded-md text-gray-400 hover:bg-gray-100 hover:text-red-600"
+      >
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path
+            d="M5 5l10 10M15 5L5 15"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </button>
+    </div>
+  );
+}
 
 export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProfileFormProps) {
   const [profile, setProfile] = useState<PlayerProfile>(() => ({
@@ -62,31 +115,14 @@ export default function PlayerProfileForm({ initialProfile, onSave }: PlayerProf
 
   function renderList(field: 'goals' | 'weaknesses', placeholder: string, noun: string) {
     return profile[field].map((value, i) => (
-      <div key={i} className="flex items-center gap-2 mb-2">
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => updateList(field, i, e.target.value)}
-          placeholder={`${placeholder} ${i + 1}`}
-          maxLength={PROFILE_MAX_ENTRY_LENGTH}
-          className="flex-1 min-w-0 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base"
-        />
-        <button
-          type="button"
-          onClick={() => removeFromList(field, i)}
-          aria-label={`Remove ${noun} ${i + 1}`}
-          className="shrink-0 w-11 h-11 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 hover:text-red-600"
-        >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path
-              d="M5 5l10 10M15 5L5 15"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
-      </div>
+      <ListEntry
+        key={i}
+        value={value}
+        placeholder={`${placeholder} ${i + 1}`}
+        removeLabel={`Remove ${noun} ${i + 1}`}
+        onChange={(v) => updateList(field, i, v)}
+        onRemove={() => removeFromList(field, i)}
+      />
     ));
   }
 

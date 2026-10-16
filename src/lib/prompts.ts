@@ -42,7 +42,7 @@ Wellbeing and safety (always follow):
 Always keep responses concise and motivating. Use bullet points for drills or training steps.`;
 
 const MAX_FIELD_LENGTH = 50;
-const MAX_ENTRY_LENGTH = 200;
+const MAX_ENTRY_LENGTH = 500;
 const MAX_ENTRIES = 5;
 
 // Profile fields are typed by the player but land in the system prompt, which carries more weight

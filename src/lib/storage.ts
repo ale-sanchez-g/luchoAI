@@ -93,7 +93,7 @@ export function clearProviderConfig(): void {
 export const PROFILE_MIN_AGE = 8;
 export const PROFILE_MAX_AGE = 18;
 export const PROFILE_MAX_NAME_LENGTH = 50;
-export const PROFILE_MAX_ENTRY_LENGTH = 200;
+export const PROFILE_MAX_ENTRY_LENGTH = 500;
 export const PROFILE_MAX_ENTRIES = 5;
 
 const POSITIONS: PlayerProfile['position'][] = ['goalkeeper', 'defender', 'midfielder', 'forward'];
