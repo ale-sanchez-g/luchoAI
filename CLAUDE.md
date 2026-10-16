@@ -128,6 +128,12 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 
 ## Notes for Claude
 
+- **Mandatory for every change that touches the UI or user-visible behaviour: validate it visually, as a real user, in a real browser, before committing.** Lint, tests and build are not enough. Do this every session, for every such change, however small:
+  1. `NODE_ENV=production npm run build`, then drive the built `out/` site with Playwright (Chromium is pre-installed; if the Playwright version wants a different build, pass `CHROMIUM_PATH=/opt/pw-browsers/chromium-<n>/chrome-linux/chrome`). Seed `localStorage` and mock the AI provider with `page.route`, never call a real API.
+  2. Walk the whole user flow, including the empty, full, error and reload-persistence states, at 320×568, 375×667 and 1280×800. Check there is no horizontal scroll and no page errors.
+  3. Take screenshots (`e2e/screenshots/`, gitignored) and actually look at them. Fix wording, layout or spacing problems you see, then re-run.
+  4. Add or extend an end-to-end script in `e2e/` for the feature (see `e2e/saved-plans.mjs`) so the next session can re-run it, and re-run the existing `e2e/*.mjs` scripts to catch regressions.
+  5. Say in the final report what you ran and what you saw. If you could not run a browser, say so plainly rather than claiming it was validated
 - Always run `npm run build` after changes to catch static-export issues (no dynamic routes, no server-side API routes)
 - Never commit `.env.local` or API keys
 - The coaching persona lives in `src/lib/prompts.ts` — edit `BASE_SYSTEM_PROMPT` to tune tone and coaching focus

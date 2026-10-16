@@ -64,7 +64,7 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
       setSaveError('');
     } else if (result.reason === 'full') {
       setSaveError(
-        `You can keep ${MAX_SAVED_PLANS} plans. Remove one below to make room for this one.`,
+        `You can keep ${MAX_SAVED_PLANS} plans. Remove one from your saved plans above to make room for this one.`,
       );
     } else {
       setSaveError('Could not save this plan. Your browser storage may be full or turned off.');
