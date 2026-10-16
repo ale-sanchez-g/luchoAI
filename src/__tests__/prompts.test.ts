@@ -1,4 +1,4 @@
-import { BASE_SYSTEM_PROMPT, buildSystemPrompt } from '@/lib/prompts';
+import { BASE_SYSTEM_PROMPT, buildSystemPrompt, buildTrainingPlanPrompt } from '@/lib/prompts';
 import type { PlayerProfile } from '@/types';
 
 const SAMPLE_PROFILE: PlayerProfile = {
@@ -82,6 +82,64 @@ describe('prompts', () => {
       } as unknown as PlayerProfile;
       expect(buildSystemPrompt(stored)).toContain('Name: \n');
       expect(buildSystemPrompt(stored)).toContain('Goals: Pass better, 7\n');
+    });
+  });
+
+  describe('buildTrainingPlanPrompt', () => {
+    it('keeps a goalkeeper on goalkeeping and away from striker drills', () => {
+      const prompt = buildTrainingPlanPrompt({ ...SAMPLE_PROFILE, position: 'goalkeeper' });
+      expect(prompt).toMatch(/Goalkeeper\. Every session is built around goalkeeping/);
+      expect(prompt).toMatch(/Do NOT give striker/);
+    });
+
+    it('gives each position its own focus', () => {
+      const positions = ['goalkeeper', 'defender', 'midfielder', 'forward'] as const;
+      const prompts = positions.map((position) =>
+        buildTrainingPlanPrompt({ ...SAMPLE_PROFILE, position }),
+      );
+      expect(new Set(prompts).size).toBe(4);
+      expect(prompts[1]).toMatch(/Defender\./);
+      expect(prompts[3]).toMatch(/Forward\./);
+    });
+
+    it('uses playful language and shorter sessions for young children', () => {
+      const prompt = buildTrainingPlanPrompt({ ...SAMPLE_PROFILE, age: 9 });
+      expect(prompt).toMatch(/young child/);
+      expect(prompt).toMatch(/30-45 minutes/);
+      expect(prompt).toMatch(/no heading/);
+    });
+
+    it('speaks to teenagers directly with longer sessions', () => {
+      const prompt = buildTrainingPlanPrompt({ ...SAMPLE_PROFILE, age: 16 });
+      expect(prompt).toMatch(/teenager/);
+      expect(prompt).toMatch(/60-75 minutes/);
+      expect(prompt).not.toMatch(/no heading/);
+    });
+
+    it('falls back to sensible defaults for a stored profile with odd values', () => {
+      const stored = { ...SAMPLE_PROFILE, age: 'x', position: 'winger' } as unknown as PlayerProfile;
+      expect(buildTrainingPlanPrompt(stored)).toMatch(/pre-teen/);
+    });
+
+    it('plans for one helper at most and asks for a solo version of bigger drills', () => {
+      const prompt = buildTrainingPlanPrompt(SAMPLE_PROFILE);
+      expect(prompt).toMatch(/one helper at most/);
+      expect(prompt).toMatch(/alone or with one helper/);
+    });
+
+    it('asks for rest days and a lighter last session', () => {
+      const prompt = buildTrainingPlanPrompt(SAMPLE_PROFILE);
+      expect(prompt).toMatch(/Never plan two hard sessions on back-to-back days/);
+      expect(prompt).toMatch(/rest days/);
+      expect(prompt).toMatch(/last session lighter/);
+    });
+
+    it('talks to the player directly', () => {
+      expect(buildTrainingPlanPrompt(SAMPLE_PROFILE)).toMatch(/Speak directly to the player/);
+    });
+
+    it('still asks for raw JSON only', () => {
+      expect(buildTrainingPlanPrompt(SAMPLE_PROFILE)).toMatch(/Output ONLY a single raw JSON/);
     });
   });
 });
