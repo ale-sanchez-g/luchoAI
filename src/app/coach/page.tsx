@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { getProviderConfig, getPlayerProfile, clearProviderConfig } from '@/lib/storage';
+import { SKILL_LEVEL_LABELS } from '@/lib/skill-levels';
 import type { PlayerProfile, AIProviderConfig } from '@/types';
 import CoachChat from '@/components/CoachChat';
 import ApiKeySetup from '@/components/ApiKeySetup';
@@ -37,7 +38,7 @@ export default function CoachPage() {
         <div className="flex flex-shrink-0 items-center justify-between gap-2 border-b bg-pitch-green/10 px-4 py-1.5">
           <p className="min-w-0 truncate text-xs font-medium text-pitch-dark">
             {playerProfile
-              ? `${playerProfile.name} · ${playerProfile.position} · ${playerProfile.skillLevel}`
+              ? `${playerProfile.name} · ${playerProfile.position} · ${SKILL_LEVEL_LABELS[playerProfile.skillLevel]}`
               : 'Chatting with Coach LuchoAI'}
           </p>
           <div className="flex flex-shrink-0 items-center gap-2">
