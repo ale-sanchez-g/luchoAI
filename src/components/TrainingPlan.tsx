@@ -1,25 +1,124 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { TrainingPlan, PlayerProfile, AIProviderConfig, SavedPlan } from '@/types';
+import type {
+  TrainingPlan,
+  PlayerPosition,
+  PlayerProfile,
+  AIProviderConfig,
+  SavedPlan,
+} from '@/types';
 import { generateTrainingPlan } from '@/lib/claude';
 import {
   getFreePlansLeft,
   getSavedPlans,
   savePlan,
   removeSavedPlan,
+  setPlayerProfile,
   MAX_SAVED_PLANS,
 } from '@/lib/storage';
+import { isExploring, POSITION_AREAS } from '@/lib/positions';
 import { loadContextBatches } from '@/lib/context';
 import type { ContextMessage } from '@/lib/context';
 import ErrorMessage from './ErrorMessage';
+import Icon from './Icon';
 
 interface TrainingPlanViewProps {
   providerConfig: AIProviderConfig;
   playerProfile: PlayerProfile | null;
+  onProfileChange?: (profile: PlayerProfile) => void;
 }
 
-export default function TrainingPlanView({ providerConfig, playerProfile }: TrainingPlanViewProps) {
+const FAVOURITE_SPOTS: { value: PlayerPosition; label: string }[] = [
+  { value: 'forward', label: 'At the front' },
+  { value: 'midfielder', label: 'In the middle' },
+  { value: 'defender', label: 'At the back' },
+  { value: 'goalkeeper', label: 'In goal' },
+  { value: 'all-round', label: 'All of them!' },
+];
+
+const EXPLORER_BADGE =
+  'mb-2 inline-block rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-800';
+const SPOT_CHIP =
+  'inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 px-4 text-sm ' +
+  'font-semibold has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-pitch-green';
+const SPOT_ON = 'border-pitch-green bg-pitch-green text-white';
+const SPOT_OFF = 'border-gray-200 bg-white text-gray-700';
+
+function favouriteNote(position: PlayerPosition): string {
+  if (position === 'all-round') return 'Got it! Your next plan keeps trying every spot.';
+  return (
+    `Got it! Your next plan leans on ${POSITION_AREAS[position]}, with one session in a ` +
+    'different spot.'
+  );
+}
+
+interface ExplorerCheckInProps {
+  profile: PlayerProfile;
+  onProfileChange?: (profile: PlayerProfile) => void;
+}
+
+// A player still finding their position says which spot they enjoyed, and the next plan leans
+// on it. They stay "exploring" either way: picking a favourite is not settling on it.
+function ExplorerCheckIn({ profile, onProfileChange }: ExplorerCheckInProps) {
+  const [answer, setAnswer] = useState<PlayerPosition | null>(null);
+
+  function choose(position: PlayerPosition): void {
+    const updated: PlayerProfile = { ...profile, position, exploring: true };
+    setPlayerProfile(updated);
+    setAnswer(position);
+    onProfileChange?.(updated);
+  }
+
+  return (
+    <section
+      aria-labelledby="favourite-spot-heading"
+      className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4"
+    >
+      <div className="flex items-center gap-3">
+        <Icon name="star" size={32} />
+        <div>
+          <p className="text-xs font-bold text-amber-800">When you have tried them</p>
+          <h3 id="favourite-spot-heading" className="font-bold text-gray-900">
+            Which spot was the most fun?
+          </h3>
+        </div>
+      </div>
+      <div
+        role="radiogroup"
+        aria-labelledby="favourite-spot-heading"
+        className="flex flex-wrap gap-2"
+      >
+        {FAVOURITE_SPOTS.map((spot) => (
+          <label
+            key={spot.value}
+            className={`${SPOT_CHIP} ${answer === spot.value ? SPOT_ON : SPOT_OFF}`}
+          >
+            <input
+              type="radio"
+              name="favourite-spot"
+              checked={answer === spot.value}
+              onChange={() => choose(spot.value)}
+              className="sr-only"
+            />
+            {spot.label}
+          </label>
+        ))}
+      </div>
+      <p role="status" className="text-sm text-gray-700">
+        {answer
+          ? favouriteNote(answer)
+          : 'Your answer helps plan next week. You can keep exploring for as long as you like.'}
+      </p>
+    </section>
+  );
+}
+
+export default function TrainingPlanView({
+  providerConfig,
+  playerProfile,
+  onProfileChange,
+}: TrainingPlanViewProps) {
   const [plan, setPlan] = useState<TrainingPlan | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -85,6 +184,7 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
   }
 
   const freePlansLeft = providerConfig.free ? getFreePlansLeft() : null;
+  const exploring = playerProfile !== null && isExploring(playerProfile);
   const outOfFreePlans = freePlansLeft === 0;
 
   if (!playerProfile) {
@@ -184,8 +284,18 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
             {viewedSavedId !== null ? 'Saved' : 'Save this plan'}
           </button>
           <div className="bg-pitch-green/10 border border-pitch-green/20 rounded-xl p-4">
+            {exploring && (
+              <p className={EXPLORER_BADGE}>
+                Explorer week
+              </p>
+            )}
             <h3 className="font-semibold text-pitch-dark text-sm">Weekly Goal</h3>
             <p className="text-gray-700 mt-1 text-sm">{plan.weeklyGoal}</p>
+            {exploring && (
+              <p className="text-gray-700 mt-2 text-sm">
+                This week you try different spots on the pitch. Notice which one is the most fun!
+              </p>
+            )}
           </div>
 
           {plan.sessions.map((session, i) => (
@@ -221,6 +331,9 @@ export default function TrainingPlanView({ providerConfig, playerProfile }: Trai
               </div>
             </div>
           ))}
+          {exploring && (
+            <ExplorerCheckIn profile={playerProfile} onProfileChange={onProfileChange} />
+          )}
         </div>
       )}
     </div>
