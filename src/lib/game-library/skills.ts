@@ -206,6 +206,8 @@ export const POSITION_SKILLS: Record<PlayerPosition, SkillArea[]> = {
   defender: ['defending-1v1', 'team-defending', 'passing'],
   midfielder: ['passing', 'vision', 'movement'],
   forward: ['finishing', 'taking-on', 'movement'],
+  // One skill from each place on the pitch: front, middle, back and goal.
+  'all-round': ['finishing', 'passing', 'defending-1v1', 'goalkeeping'],
 };
 
 export function getSkillArea(id: SkillArea): SkillAreaInfo {

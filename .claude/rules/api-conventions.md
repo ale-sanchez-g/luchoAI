@@ -29,7 +29,7 @@ All persistence is via `localStorage` through `src/lib/storage.ts`:
 | Key | Type | Purpose |
 |-----|------|---------|
 | `luchoai_api_key` | `string` | User's Anthropic API key |
-| `luchoai_player_profile` | `JSON` | Serialised `PlayerProfile` object |
+| `luchoai_player_profile` | `JSON` | Serialised `PlayerProfile`. `position` may be `all-round`; optional `exploring` and `setupBy` (`player` or `parent`) |
 | `luchoai_wellbeing_checkins` | `JSON` | `WellbeingCheckIn[]`, last 30 days. Sensitive: never send to an AI provider |
 | `luchoai_saved_plans` | `JSON` | `SavedPlan[]`, newest first, max 5. A sixth save is refused until the player removes one |
 | `luchoai_free_questions_used` | `number` | Free Gemini questions spent (limit 5) |

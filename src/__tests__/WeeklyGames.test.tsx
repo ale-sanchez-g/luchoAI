@@ -52,6 +52,21 @@ describe('WeeklyGames', () => {
     });
   });
 
+  it('says when the games are picked so the player tries every position', () => {
+    saveProfile({ ...PROFILE, position: 'all-round', goals: ['Have fun'] });
+    render(<WeeklyGames onPlayRound={jest.fn()} />);
+    expect(screen.getByText('Picked so you try every position.')).toBeInTheDocument();
+    expect(screen.queryByText('Good for your position')).toBeNull();
+  });
+
+  it('says when other positions are mixed in for an exploring player', () => {
+    saveProfile({ ...PROFILE, exploring: true, goals: ['Have fun'] });
+    render(<WeeklyGames onPlayRound={jest.fn()} />);
+    expect(
+      screen.getByText('Picked for a midfielder, with other positions mixed in.'),
+    ).toBeInTheDocument();
+  });
+
   it('opens the first game and leaves the others closed', () => {
     saveProfile(PROFILE);
     const { container } = render(<WeeklyGames onPlayRound={jest.fn()} />);

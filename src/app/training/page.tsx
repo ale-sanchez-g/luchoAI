@@ -28,7 +28,11 @@ export default function TrainingPage() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       <main className="max-w-2xl mx-auto px-3 py-5 sm:px-4 sm:py-8">
-        <TrainingPlanView providerConfig={providerConfig} playerProfile={playerProfile} />
+        <TrainingPlanView
+          providerConfig={providerConfig}
+          playerProfile={playerProfile}
+          onProfileChange={setPlayerProfile}
+        />
       </main>
     </div>
   );

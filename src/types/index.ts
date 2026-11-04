@@ -13,11 +13,18 @@ export interface AIProviderConfig {
 export interface PlayerProfile {
   name: string;
   age: number;
-  position: 'goalkeeper' | 'defender' | 'midfielder' | 'forward';
+  /** 'all-round' means the player is trying every position and has no main one yet. */
+  position: 'goalkeeper' | 'defender' | 'midfielder' | 'forward' | 'all-round';
+  /** Still finding their spot: plans lean on `position` but try the others too. */
+  exploring?: boolean;
+  /** Who filled in the profile: it sets the set-up wording. The coach always talks to the player. */
+  setupBy?: ProfileAuthor;
   skillLevel: 'beginner' | 'intermediate' | 'advanced';
   goals: string[];
   weaknesses: string[];
 }
+
+export type ProfileAuthor = 'player' | 'parent';
 
 export interface Message {
   id: string;

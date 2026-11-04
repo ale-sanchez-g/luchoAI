@@ -15,6 +15,7 @@ import { getLibraryStats, getWeeklyPlan } from '@/lib/game-library';
 import { profileMentionsHeading, safetyNotes } from '@/lib/game-library/safety';
 import { getSkillArea } from '@/lib/game-library/skills';
 import { getPlayerProfile } from '@/lib/storage';
+import { isExploring, POSITION_LABELS } from '@/lib/positions';
 import Icon from './Icon';
 
 const CARD = 'rounded-2xl border border-gray-200 bg-white p-5 shadow-sm';
@@ -54,7 +55,13 @@ function DetailRow({ term, text }: { term: string; text: string }) {
   );
 }
 
-function GameCard({ pick, defaultOpen }: { pick: WeeklyPick; defaultOpen: boolean }) {
+interface GameCardProps {
+  pick: WeeklyPick;
+  defaultOpen: boolean;
+  reasonLabels: Record<PickReason, string>;
+}
+
+function GameCard({ pick, defaultOpen, reasonLabels }: GameCardProps) {
   const { game, twist } = pick;
   const skill = getSkillArea(game.skill);
   const notes = safetyNotes(game);
@@ -80,7 +87,7 @@ function GameCard({ pick, defaultOpen }: { pick: WeeklyPick; defaultOpen: boolea
           <span className={CHIP}>{formatPlayers(game.players)}</span>
           <span className={CHIP}>{game.minutes} min</span>
           <span className="rounded-full bg-green-50 px-2 py-0.5 text-xs text-pitch-dark">
-            {REASON_LABEL[pick.reason]}
+            {reasonLabels[pick.reason]}
           </span>
         </span>
       </summary>
@@ -116,8 +123,12 @@ function focusNote(plan: WeeklyPlan, profile: PlayerProfile | null): string {
   if (plan.focusSource === 'goals') {
     return profile?.name ? `Picked from your goals, ${profile.name}.` : 'Picked from your goals.';
   }
-  if (plan.focusSource === 'position') {
-    return `Picked for a ${profile?.position ?? 'player'}.`;
+  if (plan.focusSource === 'position' && profile) {
+    if (profile.position === 'all-round') return 'Picked so you try every position.';
+    const position = POSITION_LABELS[profile.position]?.toLowerCase() ?? 'player';
+    return isExploring(profile)
+      ? `Picked for a ${position}, with other positions mixed in.`
+      : `Picked for a ${position}.`;
   }
   return 'A different skill each week, so you try everything.';
 }
@@ -146,6 +157,10 @@ export default function WeeklyGames({ onPlayRound }: WeeklyGamesProps) {
   }
 
   const { plan, profile } = loaded;
+  const reasonLabels =
+    profile?.position === 'all-round'
+      ? { ...REASON_LABEL, position: 'Part of trying every position' }
+      : REASON_LABEL;
   const focus = getSkillArea(plan.focus);
   const theme = getTheme(plan.quizTheme);
   const stats = getLibraryStats();
@@ -196,7 +211,12 @@ export default function WeeklyGames({ onPlayRound }: WeeklyGamesProps) {
           <Icon name="ball" className="mr-1 -my-1" /> Play these this week
         </h2>
         {plan.picks.map((pick, i) => (
-          <GameCard key={pick.game.id} pick={pick} defaultOpen={i === 0} />
+          <GameCard
+            key={pick.game.id}
+            pick={pick}
+            defaultOpen={i === 0}
+            reasonLabels={reasonLabels}
+          />
         ))}
         <div
           aria-label="Play it safe"

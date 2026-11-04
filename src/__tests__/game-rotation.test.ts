@@ -420,6 +420,38 @@ describe('buildWeeklyPlan', () => {
     expect(result.picks.length).toBeGreaterThanOrEqual(3);
   });
 
+  it('keeps a settled player on their own position week after week', () => {
+    const vague: PlayerProfile = { ...PROFILE, goals: ['Be the best I can be'], weaknesses: [] };
+    for (let w = 0; w < 12; w += 1) {
+      expect(POSITION_SKILLS.midfielder).toContain(plan(w, vague).focus);
+    }
+  });
+
+  it('gives a player trying every position a skill from each place on the pitch', () => {
+    const allRound: PlayerProfile = {
+      ...PROFILE,
+      position: 'all-round',
+      goals: ['Be the best I can be'],
+      weaknesses: [],
+    };
+    const focuses = Array.from({ length: 4 }, (_, w) => plan(w, allRound).focus);
+    expect(plan(0, allRound).focusSource).toBe('position');
+    expect(new Set(focuses)).toEqual(new Set(POSITION_SKILLS['all-round']));
+  });
+
+  it('gives an exploring player one week in four from another position', () => {
+    const exploring: PlayerProfile = {
+      ...PROFILE,
+      exploring: true,
+      goals: ['Be the best I can be'],
+      weaknesses: [],
+    };
+    const focuses = Array.from({ length: 12 }, (_, w) => plan(w, exploring).focus);
+    const elsewhere = focuses.filter((f) => !POSITION_SKILLS.midfielder.includes(f));
+    expect(elsewhere).toHaveLength(3);
+    expect(new Set(elsewhere)).toEqual(new Set(['finishing', 'defending-1v1', 'goalkeeping']));
+  });
+
   it('rotates through every skill when there is no profile', () => {
     const seen = new Set<SkillArea>();
     for (let w = 0; w < SKILL_AREAS.length; w += 1) {

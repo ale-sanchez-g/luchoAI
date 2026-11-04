@@ -12,6 +12,7 @@ import type {
   WeeklyPick,
   WeeklyPlan,
 } from '@/types';
+import { PITCH_POSITIONS } from '../positions';
 import { POSITION_SKILLS, SKILL_AREAS, skillsFromList } from './skills';
 
 const MS_PER_DAY = 86_400_000;
@@ -148,6 +149,17 @@ export function countWaysToPlay(games: LibraryGame[], twists: GameTwist[]): numb
   );
 }
 
+// A player still finding their spot gets the same mix as their training plan: three turns for
+// their own position's skills, then one for another position's main skill, round all three.
+function positionSkillsFor(profile: PlayerProfile): SkillArea[] {
+  const own = POSITION_SKILLS[profile.position] ?? [];
+  if (profile.position === 'all-round' || profile.exploring !== true) return own;
+  const others = PITCH_POSITIONS.filter((pos) => pos !== profile.position)
+    .map((pos) => POSITION_SKILLS[pos][0])
+    .filter((skill) => !own.includes(skill));
+  return others.flatMap((skill) => [...own, skill]);
+}
+
 function planFocus(profile: PlayerProfile | null): FocusPlan {
   const everySkill = SKILL_AREAS.map((s) => s.id);
   if (!profile) {
@@ -156,7 +168,7 @@ function planFocus(profile: PlayerProfile | null): FocusPlan {
   // The profile comes straight from localStorage, so don't trust its shape.
   const goals = Array.isArray(profile.goals) ? profile.goals : [];
   const areas = Array.isArray(profile.weaknesses) ? profile.weaknesses : [];
-  const positionSkills = POSITION_SKILLS[profile.position] ?? [];
+  const positionSkills = positionSkillsFor(profile);
   const goalSkills = skillsFromList([...goals, ...areas]).slice(0, MAX_FOCUS_SKILLS);
   if (goalSkills.length > 0) {
     return { skills: goalSkills, source: 'goals', goalSkills, positionSkills };

@@ -24,14 +24,15 @@ src/
     training/page.tsx   # Training plan generator
     games/page.tsx      # Weekly games + Game IQ decision games (no AI, no API key needed)
     wellbeing/page.tsx  # Wellbeing check-in, reset tools, helplines (no AI, no API key needed)
-    profile/page.tsx    # Player profile setup
+    profile/page.tsx    # Player profile: step-by-step set-up, then one-page edit
   components/
     Header.tsx          # Navigation bar
     Icon.tsx            # Leaf icon (<img> from public/icons) used instead of emojis
     CoachChat.tsx       # Main AI chat interface
     MessageBubble.tsx   # Individual chat message bubble
-    TrainingPlan.tsx    # Training plan display + generator
-    PlayerProfile.tsx   # Player profile form
+    TrainingPlan.tsx    # Training plan display + generator, explorer week check-in
+    PlayerProfile.tsx   # Profile set-up (one question per screen), edit page, parent hand-off
+    ProfileQuestions.tsx  # The profile questions: who, name and age, position, level, goals
     ApiKeySetup.tsx     # First-run Anthropic API key entry
     GamesHub.tsx        # Games page tabs: This week | Game IQ
     WeeklyGames.tsx     # This week's games, twist, match mission and Game IQ round of the week
@@ -42,6 +43,9 @@ src/
   lib/
     claude.ts           # Anthropic SDK client (sendMessage, generateTrainingPlan)
     prompts.ts          # System prompts (incl. chat scope rules) and player profile injection
+    age-groups.ts       # Ages 8-10, 11-13, 14-18: one set of cut-offs for wording and plans
+    positions.ts        # Positions incl. 'all-round', exploring defaults, labels
+    profile-copy.ts     # Set-up wording per author (player/parent) and age group, goal chips
     guardrails.ts       # Chat screens: off-topic/override requests in, code out
     icons.ts            # ICON_NAMES / IconName for the files in public/icons
     use-visual-viewport-height.ts  # Sets --app-height to the visible screen (iPhone keyboard)
@@ -61,6 +65,7 @@ src/
     index.ts            # PlayerProfile, Message, TrainingPlan, Drill interfaces
   __tests__/
     storage.test.ts     # Unit tests for storage utilities
+    profile-copy.test.ts   # Set-up wording gates: "not sure" everywhere, chips the games match
     game-library.test.ts   # Content gates: safety, kindness, size, coverage, ways to play
     game-rotation.test.ts  # Weekly rotation engine
     __mocks__/
@@ -129,7 +134,7 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 ## Notes for Claude
 
 - **Mandatory for every change that touches the UI or user-visible behaviour: validate it visually, as a real user, in a real browser, before committing.** Lint, tests and build are not enough. Do this every session, for every such change, however small:
-  1. `NODE_ENV=production npm run build`, then drive the built `out/` site with Playwright (Chromium is pre-installed; if the Playwright version wants a different build, pass `CHROMIUM_PATH=/opt/pw-browsers/chromium-<n>/chrome-linux/chrome`). Seed `localStorage` and mock the AI provider with `page.route`, never call a real API.
+  1. `NODE_ENV=production npm run build`, then drive the built `out/` site with Playwright (Chromium is pre-installed; if the Playwright version wants a different build, pass `CHROMIUM_PATH=/opt/pw-browsers/chromium-<n>/chrome-linux64/chrome`). Seed `localStorage` and mock the AI provider with `page.route`, never call a real API.
   2. Walk the whole user flow, including the empty, full, error and reload-persistence states, at 320×568, 375×667 and 1280×800. Check there is no horizontal scroll and no page errors.
   3. Take screenshots (`e2e/screenshots/`, gitignored) and actually look at them. Fix wording, layout or spacing problems you see, then re-run.
   4. Add or extend an end-to-end script in `e2e/` for the feature (see `e2e/saved-plans.mjs`) so the next session can re-run it, and re-run the existing `e2e/*.mjs` scripts to catch regressions.
@@ -142,6 +147,11 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 - `next/image` requires `unoptimized: true` in `next.config.ts` for static export — do not remove that config
 - No emojis in the UI or data: use `<Icon name="…" />` (source art in `iconography/leaf`, served copy in `public/icons`, kept identical by `Icon.test.tsx`). Data fields hold an `IconName`, not an emoji. Use icons at 28px or larger
 - Coach chat layout: the page is one fixed-height column (`h-[var(--app-height,100dvh)]`, `min-h-0` on the panels) so only the message list scrolls and the header and message box stay on screen. Never use `scrollIntoView` or `100vh` there, keep the message box at 16px (`text-base`) or iPhones zoom in, and test at 375×667 and 320×568 (`CoachChat.test.tsx` guards the causes)
+- Profile set-up is for players and for parents who may know little football. Keep the wording in
+  `src/lib/profile-copy.ts`, worded per age group (8-10 get places on a pitch, not position names)
+  and per author. Every question keeps a "not sure" answer, and nothing is pre-picked except "try
+  every position" for under-11s: a silent default (it used to be Midfielder) reads later as the
+  player's own choice. Goal chips must use words `skills.ts` matches; `profile-copy.test.ts` checks
 - Wellbeing check-ins are sensitive data about children: keep them in `localStorage` only and never include them in AI prompts or send them anywhere
 - Helpline numbers in `src/lib/wellbeing.ts` were verified on 2026-10-13 — re-verify against the official sites before changing them
 - Game library content (`src/lib/game-library`) is for children playing without a coach: follow `docs/game-library.md`. There are deliberately no heading games, no elimination, no exercise as a penalty and no outcome-based match missions; `game-library.test.ts` enforces these, so don't loosen the rules to make a game pass. A new game also needs `noTwists` for any kind of twist that would contradict it (a game with no roles opts out of `roles`, a game with no score of `scoring`)
