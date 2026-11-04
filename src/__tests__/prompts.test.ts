@@ -74,6 +74,16 @@ describe('prompts', () => {
       expect(prompt).toContain('Areas to improve: one, two, three, four, five\n');
     });
 
+    it('describe a player who is still trying positions in plain words', () => {
+      expect(buildSystemPrompt({ ...SAMPLE_PROFILE, position: 'all-round' })).toContain(
+        'Position: Trying every position\n',
+      );
+      expect(buildSystemPrompt({ ...SAMPLE_PROFILE, exploring: true })).toContain(
+        'Position: Forward, still trying other positions\n',
+      );
+      expect(buildSystemPrompt(SAMPLE_PROFILE)).toContain('Position: Forward\n');
+    });
+
     it('do not break the prompt when a stored field is not a string', () => {
       const stored = {
         ...SAMPLE_PROFILE,
@@ -88,8 +98,43 @@ describe('prompts', () => {
   describe('buildTrainingPlanPrompt', () => {
     it('keeps a goalkeeper on goalkeeping and away from striker drills', () => {
       const prompt = buildTrainingPlanPrompt({ ...SAMPLE_PROFILE, position: 'goalkeeper' });
-      expect(prompt).toMatch(/Goalkeeper\. Every session is built around goalkeeping/);
+      expect(prompt).toMatch(/Goalkeeper\. Build sessions around goalkeeping/);
       expect(prompt).toMatch(/Do NOT give striker/);
+      expect(prompt).not.toMatch(/explorer/);
+    });
+
+    it('gives a player trying every position a different spot each session', () => {
+      const prompt = buildTrainingPlanPrompt({ ...SAMPLE_PROFILE, position: 'all-round' });
+      expect(prompt).toMatch(/explorer week/);
+      const spots = [
+        'session 1 at the front',
+        'session 2 in the middle',
+        'session 3 at the back',
+        'session 4 in goal',
+      ].map((spot) => prompt.indexOf(spot));
+      expect(spots.every((at) => at >= 0)).toBe(true);
+      expect([...spots].sort((a, b) => a - b)).toEqual(spots);
+      expect(prompt).toMatch(/lighter session/);
+      expect(prompt).toMatch(/diving only onto soft grass or a mat/);
+      expect(prompt).toMatch(/"At the front:", "In the middle:", "At the back:" or "In goal:"/);
+    });
+
+    it('keeps an exploring player on their position for three sessions and tries one more', () => {
+      const prompt = buildTrainingPlanPrompt({
+        ...SAMPLE_PROFILE,
+        position: 'defender',
+        exploring: true,
+      });
+      expect(prompt).toMatch(/Defender\./);
+      expect(prompt).toMatch(/sessions 1, 2 and 4 are about this position/);
+      expect(prompt).toMatch(/session 3 is an explorer session in a different spot/);
+      expect(prompt).toMatch(/Do NOT build sessions around finishing or goalkeeping/);
+    });
+
+    it('treats an unknown stored position as trying every position', () => {
+      const stored = { ...SAMPLE_PROFILE, position: 'winger' } as unknown as PlayerProfile;
+      expect(buildTrainingPlanPrompt(stored)).toMatch(/explorer week/);
+      expect(buildSystemPrompt(stored)).toContain('Position: Trying every position\n');
     });
 
     it('gives each position its own focus', () => {

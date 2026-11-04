@@ -14,7 +14,10 @@ profile always give the same plan (`src/lib/game-library/rotation.ts`).
 1. **Focus skill.** Read from the profile's goals and "areas to improve" (`skills.ts` matches the
    player's own words, so "better dribbler" and "score more goals" both work). With several goals
    the focus rotates through them week by week. If no goal matches, the player's position is used,
-   and with no profile at all every skill takes a turn.
+   and with no profile at all every skill takes a turn. A player trying every position
+   (`all-round`) gets one skill from each place on the pitch in turn; one still exploring from a
+   main position gets three weeks of that position's skills, then one from another position, the
+   same 3:1 mix as their training plan.
 2. **Four games**, one for each way a player really plays:
    - **On your own** (works with one player)
    - **With a friend** (works with two or three)

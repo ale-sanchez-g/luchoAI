@@ -133,11 +133,33 @@ describe('storage', () => {
       expect(getPlayerProfile()).toEqual({
         name: '',
         age: 18,
-        position: 'midfielder',
+        position: 'all-round',
         skillLevel: 'beginner',
         goals: [],
         weaknesses: ['x'],
       });
+    });
+
+    it('keeps the exploring choice and who set the profile up', () => {
+      setPlayerProfile({ ...SAMPLE_PROFILE, exploring: true, setupBy: 'parent' });
+      expect(getPlayerProfile()).toMatchObject({ exploring: true, setupBy: 'parent' });
+      setPlayerProfile({ ...SAMPLE_PROFILE, position: 'all-round', exploring: false });
+      expect(getPlayerProfile()).toMatchObject({ position: 'all-round', exploring: false });
+    });
+
+    it('drops exploring and set-up values it does not know', () => {
+      localStorage.setItem(
+        'luchoai_player_profile',
+        JSON.stringify({ ...SAMPLE_PROFILE, exploring: 'yes', setupBy: 'teacher' }),
+      );
+      const saved = getPlayerProfile();
+      expect(saved).not.toHaveProperty('exploring');
+      expect(saved).not.toHaveProperty('setupBy');
+    });
+
+    it('reads a profile saved before exploring existed as settled in its position', () => {
+      localStorage.setItem('luchoai_player_profile', JSON.stringify(SAMPLE_PROFILE));
+      expect(getPlayerProfile()).toEqual(SAMPLE_PROFILE);
     });
 
     it('trims, drops blanks and caps what it saves', () => {

@@ -1,4 +1,5 @@
 import { SKILL_LEVELS } from './skill-levels';
+import { isPosition } from './positions';
 import { FREE_PLAN_LIMIT, FREE_QUESTION_LIMIT } from './free-key';
 import type {
   PlayerProfile,
@@ -100,8 +101,6 @@ export const PROFILE_MAX_NAME_LENGTH = 50;
 export const PROFILE_MAX_ENTRY_LENGTH = 500;
 export const PROFILE_MAX_ENTRIES = 5;
 
-const POSITIONS: PlayerProfile['position'][] = ['goalkeeper', 'defender', 'midfielder', 'forward'];
-
 function cleanEntries(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
   return value
@@ -120,7 +119,10 @@ function normalizeProfile(value: unknown): PlayerProfile | null {
   return {
     name: typeof p.name === 'string' ? p.name.trim().slice(0, PROFILE_MAX_NAME_LENGTH) : '',
     age: Math.min(PROFILE_MAX_AGE, Math.max(PROFILE_MIN_AGE, age)),
-    position: POSITIONS.find((pos) => pos === p.position) ?? 'midfielder',
+    // An unknown position means we can't tell where they play, so try them all rather than guess.
+    position: isPosition(p.position) ? p.position : 'all-round',
+    ...(typeof p.exploring === 'boolean' && { exploring: p.exploring }),
+    ...((p.setupBy === 'player' || p.setupBy === 'parent') && { setupBy: p.setupBy }),
     skillLevel: SKILL_LEVELS.find((lvl) => lvl === p.skillLevel) ?? 'beginner',
     goals: cleanEntries(p.goals),
     weaknesses: cleanEntries(p.weaknesses),
