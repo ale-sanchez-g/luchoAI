@@ -1,0 +1,190 @@
+# Project Sentinel: pull request validation and merge decision.
+# Docs: docs/sentinel/installation.md. No AI or LLM service is used anywhere in this workflow.
+#
+# Runs for Sentinel's remediation branch on every new commit (earlier runs for the same PR are
+# cancelled, and their evidence is never reused).
+#   evidence  read-only; checks out the PR head and runs its tests, build, e2e and audits.
+#   decide    write access; Sentinel's code and policy come from the BASE commit, the PR head is
+#             read only as data, evidence is parsed as untrusted JSON, and audits plus lockfile
+#             checks are re-run here. Its result is the required status check "Sentinel decision":
+#             it fails only for BLOCKED.
+name: Sentinel PR validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Pull request number to evaluate
+        required: true
+        type: number
+
+permissions: {}
+
+concurrency:
+  group: sentinel-pr-${{ github.event.pull_request.number || inputs.pr }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20' # keep in step with ci.yml and runtime.node in .github/sentinel/config.yml
+  SENTINEL_BRANCH: sentinel/dependency-remediation # keep in step with remediation.branch
+
+jobs:
+  context:
+    name: Resolve pull request
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pull-requests: read
+    outputs:
+      number: ${{ steps.pr.outputs.number }}
+      head-sha: ${{ steps.pr.outputs.head-sha }}
+      base-sha: ${{ steps.pr.outputs.base-sha }}
+      is-sentinel: ${{ steps.pr.outputs.is-sentinel }}
+    steps:
+      - name: Resolve the pull request and check it is Sentinel's
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EVENT_PR: ${{ github.event.pull_request.number }}
+          INPUT_PR: ${{ inputs.pr }}
+        run: |
+          set -euo pipefail
+          number="${EVENT_PR:-$INPUT_PR}"
+          case "$number" in ''|*[!0-9]*) echo "::error::invalid pull request number"; exit 1;; esac
+          pr="$(gh api "repos/$REPO/pulls/$number")"
+          head_ref="$(jq -r '.head.ref' <<<"$pr")"
+          head_repo="$(jq -r '.head.repo.full_name' <<<"$pr")"
+          state="$(jq -r '.state' <<<"$pr")"
+          {
+            echo "number=$number"
+            echo "head-sha=$(jq -r '.head.sha' <<<"$pr")"
+            echo "base-sha=$(jq -r '.base.sha' <<<"$pr")"
+            if [ "$head_ref" = "$SENTINEL_BRANCH" ] && [ "$head_repo" = "$REPO" ] && [ "$state" = "open" ]; then
+              echo "is-sentinel=true"
+            else
+              echo "is-sentinel=false"
+            fi
+          } >> "$GITHUB_OUTPUT"
+
+  evidence:
+    name: Sentinel evidence
+    needs: context
+    if: needs.context.outputs.is-sentinel == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.context.outputs.head-sha }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          package-manager-cache: false
+
+      - name: Install the pull request's dependencies (no install scripts)
+        run: npm ci --ignore-scripts
+
+      - name: Build Sentinel
+        run: npm run sentinel:build
+
+      - name: Install Chromium for the end-to-end scripts
+        run: npx --no-install playwright install --with-deps chromium
+
+      - name: Run tests with coverage, lint, build, e2e and security checks
+        run: node sentinel/dist/cli.js validate --offline --out sentinel-evidence --evidence sentinel-evidence
+
+      - name: Upload evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: sentinel-pr-evidence
+          path: sentinel-evidence/
+          retention-days: 30
+
+  decide:
+    name: Sentinel decision
+    needs: [context, evidence]
+    if: ${{ !cancelled() && needs.context.outputs.is-sentinel == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write # required by GitHub to enable auto-merge
+      pull-requests: write # labels, reviewers, auto-merge
+      issues: write # decision comment and labels
+    steps:
+      # Optional GitHub App: a merge enabled with it triggers the push workflows (CI, deploy).
+      - name: Create GitHub App token
+        id: app-token
+        if: vars.SENTINEL_APP_CLIENT_ID != ''
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.SENTINEL_APP_CLIENT_ID }}
+          private-key: ${{ secrets.SENTINEL_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
+
+      - name: Check out the base revision (trusted Sentinel code, policy and CODEOWNERS)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.context.outputs.base-sha }}
+          path: trusted
+          persist-credentials: false
+
+      - name: Check out the pull request head as data only (never executed)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.context.outputs.head-sha }}
+          path: pr
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          package-manager-cache: false
+
+      - name: Install trusted dependencies (no install scripts)
+        working-directory: trusted
+        run: npm ci --ignore-scripts
+
+      - name: Build Sentinel from the base revision
+        working-directory: trusted
+        run: npm run sentinel:build
+
+      - name: Download evidence (untrusted data)
+        if: needs.evidence.result == 'success' || needs.evidence.result == 'failure'
+        continue-on-error: true
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: sentinel-pr-evidence
+          path: evidence
+
+      - name: Evaluate the pull request and act on the decision
+        env:
+          SENTINEL_GITHUB_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+          PR_NUMBER: ${{ needs.context.outputs.number }}
+          EVIDENCE_RESULT: ${{ needs.evidence.result }}
+        run: >-
+          node trusted/sentinel/dist/cli.js pr-evaluate
+          --pr "$PR_NUMBER"
+          --repo pr
+          --trusted-dir trusted
+          --config trusted/.github/sentinel/config.yml
+          --evidence evidence
+          --evidence-result "$EVIDENCE_RESULT"
+          --out sentinel-decision
+
+      - name: Upload decision reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: sentinel-pr-decision
+          path: sentinel-decision/
+          retention-days: 90

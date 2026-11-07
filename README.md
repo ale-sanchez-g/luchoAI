@@ -64,6 +64,14 @@ This app is deployed as a static site on GitHub Pages. Enable GitHub Pages in re
 
 Live URL: `https://ale-sanchez-g.github.io/luchoAI/`
 
+## Dependency security (Project Sentinel)
+
+A weekly workflow finds vulnerable dependencies, traces where they are used, applies patch/minor
+fixes, runs the full validation (unit tests with per-test coverage attribution, lint, build, e2e
+browser scripts, audits) and decides deterministically, without AI, whether the pull request can
+auto-merge, needs review by the owners of the impacted files, or is blocked.
+See [docs/sentinel](./docs/sentinel/README.md).
+
 ## Development
 
 See [CLAUDE.md](./CLAUDE.md) for full architecture, conventions, and AI integration details.

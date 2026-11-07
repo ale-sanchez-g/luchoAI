@@ -12,8 +12,8 @@ const config = {
     '**/__tests__/**/*.test.ts',
     '**/__tests__/**/*.test.tsx',
   ],
-  testPathIgnorePatterns: ['/node_modules/', '/.claude/worktrees/'],
-  modulePathIgnorePatterns: ['/.claude/worktrees/'],
+  testPathIgnorePatterns: ['/node_modules/', '/.claude/worktrees/', '<rootDir>/sentinel/'],
+  modulePathIgnorePatterns: ['/.claude/worktrees/', '<rootDir>/sentinel/'],
 };
 
 module.exports = config;

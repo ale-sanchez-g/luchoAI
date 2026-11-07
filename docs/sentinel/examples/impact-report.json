@@ -1,0 +1,3709 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportType": "impact-report",
+  "executionId": "local-20261107T084414364Z",
+  "generatedAt": "2026-11-07T08:44:18.037Z",
+  "repository": {
+    "slug": null,
+    "commitSha": "30d396af1718e5e7832de5bb06baa0a3cb73a295",
+    "ref": null
+  },
+  "tool": {
+    "name": "project-sentinel",
+    "version": "1.0.0"
+  },
+  "limitations": [],
+  "coverageScope": "direct",
+  "packages": [
+    {
+      "package": "baseline-browser-mapping",
+      "vulnerabilityKeys": [
+        "GHSA-w5vr-8v7q-w6rv|baseline-browser-mapping"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [],
+      "typeOnlyFiles": [],
+      "dependentModules": [],
+      "entryPoints": [],
+      "components": [],
+      "configurationFiles": [
+        "jest.config.js",
+        "package.json",
+        "postcss.config.mjs",
+        "sentinel/tsconfig.json"
+      ],
+      "ciFiles": [
+        ".github/workflows/ci.yml"
+      ],
+      "testFiles": [
+        "sentinel/test/coverage.test.ts",
+        "sentinel/test/scenarios.test.ts",
+        "sentinel/test/validation.test.ts"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:baseline-browser-mapping"
+        ],
+        "edges": []
+      },
+      "risk": {
+        "level": "LOW",
+        "signals": []
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "baseline-browser-mapping is reached through jest, ts-jest, autoprefixer; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "brace-expansion",
+      "vulnerabilityKeys": [
+        "GHSA-6j4f-fj2g-mc7p|brace-expansion",
+        "GHSA-mh99-v99m-4gvg|brace-expansion",
+        "GHSA-qhr7-859c-m2p7|brace-expansion",
+        "GHSA-rgw5-rvv9-x895|brace-expansion",
+        "GHSA-3jxr-9vmj-r5cp|brace-expansion",
+        "GHSA-q2hr-2g5m-vwhr|brace-expansion"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [],
+      "typeOnlyFiles": [],
+      "dependentModules": [],
+      "entryPoints": [],
+      "components": [],
+      "configurationFiles": [
+        ".claude/hooks/validate-code.sh",
+        "eslint.config.mjs",
+        "jest.config.js",
+        "package.json",
+        "sentinel/tsconfig.json",
+        "tsconfig.json"
+      ],
+      "ciFiles": [
+        ".github/workflows/ci.yml"
+      ],
+      "testFiles": [
+        "sentinel/test/coverage.test.ts",
+        "sentinel/test/scenarios.test.ts",
+        "sentinel/test/validation.test.ts"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:brace-expansion"
+        ],
+        "edges": []
+      },
+      "risk": {
+        "level": "LOW",
+        "signals": []
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "brace-expansion is reached through eslint, jest, eslint-config-next, ts-jest; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "browserslist",
+      "vulnerabilityKeys": [
+        "GHSA-73wf-gq98-2v4g|browserslist",
+        "GHSA-c83g-rgw3-j3cx|browserslist"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [],
+      "typeOnlyFiles": [],
+      "dependentModules": [],
+      "entryPoints": [],
+      "components": [],
+      "configurationFiles": [
+        "jest.config.js",
+        "package.json",
+        "postcss.config.mjs",
+        "sentinel/tsconfig.json"
+      ],
+      "ciFiles": [
+        ".github/workflows/ci.yml"
+      ],
+      "testFiles": [
+        "sentinel/test/coverage.test.ts",
+        "sentinel/test/scenarios.test.ts",
+        "sentinel/test/validation.test.ts"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:browserslist"
+        ],
+        "edges": []
+      },
+      "risk": {
+        "level": "LOW",
+        "signals": []
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "browserslist is reached through jest, ts-jest, autoprefixer; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "deepmerge",
+      "vulnerabilityKeys": [
+        "GHSA-gcqx-w48m-w2h4|deepmerge"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [],
+      "typeOnlyFiles": [],
+      "dependentModules": [],
+      "entryPoints": [],
+      "components": [],
+      "configurationFiles": [
+        "jest.config.js",
+        "package.json",
+        "sentinel/tsconfig.json"
+      ],
+      "ciFiles": [
+        ".github/workflows/ci.yml"
+      ],
+      "testFiles": [
+        "sentinel/test/coverage.test.ts",
+        "sentinel/test/scenarios.test.ts",
+        "sentinel/test/validation.test.ts"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:deepmerge"
+        ],
+        "edges": []
+      },
+      "risk": {
+        "level": "LOW",
+        "signals": []
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "deepmerge is reached through jest, ts-jest; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "form-data",
+      "vulnerabilityKeys": [
+        "GHSA-hmw2-7cc7-3qxx|form-data"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [
+        "src/lib/claude.ts"
+      ],
+      "typeOnlyFiles": [],
+      "dependentModules": [
+        "src/app/coach/page.tsx",
+        "src/app/training/page.tsx",
+        "src/components/CoachChat.tsx",
+        "src/components/TrainingPlan.tsx"
+      ],
+      "entryPoints": [
+        "src/app/coach/page.tsx",
+        "src/app/training/page.tsx"
+      ],
+      "components": [
+        "src/app/coach",
+        "src/app/training",
+        "src/components",
+        "src/lib"
+      ],
+      "configurationFiles": [
+        "jest.config.js"
+      ],
+      "ciFiles": [],
+      "testFiles": [
+        "src/__tests__/claude.test.ts"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:form-data",
+          "src/app/coach/page.tsx",
+          "src/app/training/page.tsx",
+          "src/components/CoachChat.tsx",
+          "src/components/TrainingPlan.tsx",
+          "src/lib/claude.ts"
+        ],
+        "edges": [
+          [
+            "package:@anthropic-ai/sdk",
+            "src/lib/claude.ts"
+          ],
+          [
+            "src/components/CoachChat.tsx",
+            "src/app/coach/page.tsx"
+          ],
+          [
+            "src/components/TrainingPlan.tsx",
+            "src/app/training/page.tsx"
+          ],
+          [
+            "src/lib/claude.ts",
+            "src/components/CoachChat.tsx"
+          ],
+          [
+            "src/lib/claude.ts",
+            "src/components/TrainingPlan.tsx"
+          ]
+        ]
+      },
+      "risk": {
+        "level": "LOW",
+        "signals": []
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "form-data is reached through jest-environment-jsdom, @anthropic-ai/sdk; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "handlebars",
+      "vulnerabilityKeys": [
+        "GHSA-8r5x-fm3f-whwj|handlebars",
+        "GHSA-p8wg-vrv2-v86f|handlebars",
+        "GHSA-xw65-4hp5-5hc7|handlebars"
+      ],
+      "usageStatus": "TOOLING_ONLY",
+      "directFiles": [],
+      "transitiveFiles": [],
+      "typeOnlyFiles": [],
+      "dependentModules": [],
+      "entryPoints": [],
+      "components": [],
+      "configurationFiles": [
+        "jest.config.js"
+      ],
+      "ciFiles": [],
+      "testFiles": [],
+      "downstreamGraph": {
+        "nodes": [
+          "package:handlebars"
+        ],
+        "edges": []
+      },
+      "risk": {
+        "level": "LOW",
+        "signals": []
+      },
+      "unknowns": []
+    },
+    {
+      "package": "js-yaml",
+      "vulnerabilityKeys": [
+        "GHSA-2883-xcg3-v3hh|js-yaml",
+        "GHSA-52cp-r559-cp3m|js-yaml",
+        "GHSA-5p4m-2wfm-xmqj|js-yaml",
+        "GHSA-h67p-54hq-rp68|js-yaml"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [],
+      "typeOnlyFiles": [],
+      "dependentModules": [],
+      "entryPoints": [],
+      "components": [],
+      "configurationFiles": [
+        ".claude/hooks/validate-code.sh",
+        "eslint.config.mjs",
+        "jest.config.js",
+        "package.json",
+        "sentinel/tsconfig.json",
+        "tsconfig.json"
+      ],
+      "ciFiles": [
+        ".github/workflows/ci.yml"
+      ],
+      "testFiles": [
+        "sentinel/test/coverage.test.ts",
+        "sentinel/test/scenarios.test.ts",
+        "sentinel/test/validation.test.ts"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:js-yaml"
+        ],
+        "edges": []
+      },
+      "risk": {
+        "level": "LOW",
+        "signals": []
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "js-yaml is reached through eslint, jest, eslint-config-next, ts-jest; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "minimatch",
+      "vulnerabilityKeys": [
+        "GHSA-g3hv-75wg-m249|minimatch"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [],
+      "typeOnlyFiles": [],
+      "dependentModules": [],
+      "entryPoints": [],
+      "components": [],
+      "configurationFiles": [
+        ".claude/hooks/validate-code.sh",
+        "eslint.config.mjs",
+        "jest.config.js",
+        "package.json",
+        "sentinel/tsconfig.json",
+        "tsconfig.json"
+      ],
+      "ciFiles": [
+        ".github/workflows/ci.yml"
+      ],
+      "testFiles": [
+        "sentinel/test/coverage.test.ts",
+        "sentinel/test/scenarios.test.ts",
+        "sentinel/test/validation.test.ts"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:minimatch"
+        ],
+        "edges": []
+      },
+      "risk": {
+        "level": "LOW",
+        "signals": []
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "minimatch is reached through eslint, jest, eslint-config-next, ts-jest; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "nanoid",
+      "vulnerabilityKeys": [
+        "GHSA-28wg-ghj8-5hjv|nanoid",
+        "GHSA-2v37-7h3g-55p8|nanoid"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx",
+        "src/components/Header.tsx",
+        "src/components/PlayerProfile.tsx",
+        "src/components/WeeklyGames.tsx"
+      ],
+      "typeOnlyFiles": [
+        "next.config.ts",
+        "src/app/games/page.tsx",
+        "src/app/manifest.ts",
+        "src/app/wellbeing/page.tsx",
+        "tailwind.config.ts"
+      ],
+      "dependentModules": [
+        "src/app/coach/page.tsx",
+        "src/app/games/page.tsx",
+        "src/app/profile/page.tsx",
+        "src/app/training/page.tsx",
+        "src/app/wellbeing/page.tsx",
+        "src/components/GamesHub.tsx"
+      ],
+      "entryPoints": [
+        "src/app/coach/page.tsx",
+        "src/app/games/page.tsx",
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx",
+        "src/app/profile/page.tsx",
+        "src/app/training/page.tsx",
+        "src/app/wellbeing/page.tsx"
+      ],
+      "components": [
+        "src/app",
+        "src/app/coach",
+        "src/app/games",
+        "src/app/profile",
+        "src/app/training",
+        "src/app/wellbeing",
+        "src/components"
+      ],
+      "configurationFiles": [
+        "eslint.config.mjs",
+        "next.config.ts",
+        "package.json",
+        "postcss.config.mjs",
+        "tsconfig.json"
+      ],
+      "ciFiles": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/deploy.yml"
+      ],
+      "testFiles": [
+        "src/__tests__/Header.test.tsx"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:nanoid",
+          "src/app/coach/page.tsx",
+          "src/app/games/page.tsx",
+          "src/app/layout.tsx",
+          "src/app/not-found.tsx",
+          "src/app/page.tsx",
+          "src/app/profile/page.tsx",
+          "src/app/training/page.tsx",
+          "src/app/wellbeing/page.tsx",
+          "src/components/GamesHub.tsx",
+          "src/components/Header.tsx",
+          "src/components/PlayerProfile.tsx",
+          "src/components/WeeklyGames.tsx"
+        ],
+        "edges": [
+          [
+            "package:next",
+            "src/app/layout.tsx"
+          ],
+          [
+            "package:next",
+            "src/app/not-found.tsx"
+          ],
+          [
+            "package:next",
+            "src/app/page.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/Header.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/PlayerProfile.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/WeeklyGames.tsx"
+          ],
+          [
+            "src/components/GamesHub.tsx",
+            "src/app/games/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/coach/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/games/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/profile/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/training/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/wellbeing/page.tsx"
+          ],
+          [
+            "src/components/PlayerProfile.tsx",
+            "src/app/profile/page.tsx"
+          ],
+          [
+            "src/components/WeeklyGames.tsx",
+            "src/components/GamesHub.tsx"
+          ]
+        ]
+      },
+      "risk": {
+        "level": "MEDIUM",
+        "signals": [
+          {
+            "code": "BUILD_TOOL",
+            "package": "nanoid",
+            "detail": "next runs in the build; the files it processes cannot be listed statically"
+          }
+        ]
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "nanoid is reached through next, postcss, tailwindcss, autoprefixer; whether its vulnerable code runs cannot be determined statically"
+        },
+        {
+          "code": "BUILD_TOOL_SCOPE",
+          "message": "next runs in the build; the files it processes cannot be listed statically"
+        }
+      ]
+    },
+    {
+      "package": "next",
+      "vulnerabilityKeys": [
+        "GHSA-9qr9-h5gf-34mp|next",
+        "GHSA-p293-qw3h-jr36|next",
+        "GHSA-2464-fhr4-w9xw|next",
+        "GHSA-2xp9-vwfh-vxw4|next",
+        "GHSA-c4j6-fc7j-m34r|next",
+        "GHSA-267c-6grr-h53f|next",
+        "GHSA-26hh-7cqf-hhc6|next",
+        "GHSA-36qx-fr4f-26g5|next",
+        "GHSA-8h8q-6873-q5fj|next",
+        "GHSA-h25m-26qc-wcjf|next",
+        "GHSA-mg66-mrh9-m8jx|next",
+        "GHSA-mwv6-3258-q52c|next",
+        "GHSA-q4gf-8mx6-v5v3|next",
+        "GHSA-89xv-2m56-2m9x|next",
+        "GHSA-m99w-x7hq-7vfj|next",
+        "GHSA-p3m5-59mp-jv5r|next",
+        "GHSA-p9j2-gv94-2wf4|next",
+        "GHSA-4342-x723-ch2f|next",
+        "GHSA-g5qg-72qw-gw5v|next",
+        "GHSA-gx5p-jg67-6x7h|next",
+        "GHSA-9g9p-9gw9-jx7f|next",
+        "GHSA-h64f-5h5j-jqjh|next",
+        "GHSA-wfc6-r584-vfw7|next",
+        "GHSA-4jqv-mc3x-m676|next",
+        "GHSA-w37m-7fhw-fmv9|next",
+        "GHSA-mcj8-r9mp-w47p|next",
+        "GHSA-ffhc-5mcf-pf4q|next",
+        "GHSA-xv57-4mr9-wg8v|next",
+        "GHSA-3x4c-7xq6-9pq8|next",
+        "GHSA-4633-3j49-mh5q|next",
+        "GHSA-4c39-4ccg-62r3|next",
+        "GHSA-68g3-v927-f742|next",
+        "GHSA-955p-x3mx-jcvp|next",
+        "GHSA-ggv3-7p47-pfv8|next",
+        "GHSA-3g8h-86w9-wvmq|next",
+        "GHSA-vfv6-92ff-j949|next"
+      ],
+      "usageStatus": "USED_DIRECTLY",
+      "directFiles": [
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx",
+        "src/components/Header.tsx",
+        "src/components/PlayerProfile.tsx",
+        "src/components/WeeklyGames.tsx"
+      ],
+      "transitiveFiles": [],
+      "typeOnlyFiles": [
+        "next.config.ts",
+        "src/app/games/page.tsx",
+        "src/app/manifest.ts",
+        "src/app/wellbeing/page.tsx"
+      ],
+      "dependentModules": [
+        "src/app/coach/page.tsx",
+        "src/app/games/page.tsx",
+        "src/app/profile/page.tsx",
+        "src/app/training/page.tsx",
+        "src/app/wellbeing/page.tsx",
+        "src/components/GamesHub.tsx"
+      ],
+      "entryPoints": [
+        "src/app/coach/page.tsx",
+        "src/app/games/page.tsx",
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx",
+        "src/app/profile/page.tsx",
+        "src/app/training/page.tsx",
+        "src/app/wellbeing/page.tsx"
+      ],
+      "components": [
+        "src/app",
+        "src/app/coach",
+        "src/app/games",
+        "src/app/profile",
+        "src/app/training",
+        "src/app/wellbeing",
+        "src/components"
+      ],
+      "configurationFiles": [
+        "eslint.config.mjs",
+        "next.config.ts",
+        "package.json",
+        "tsconfig.json"
+      ],
+      "ciFiles": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/deploy.yml"
+      ],
+      "testFiles": [
+        "src/__tests__/Header.test.tsx"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:next",
+          "src/app/coach/page.tsx",
+          "src/app/games/page.tsx",
+          "src/app/layout.tsx",
+          "src/app/not-found.tsx",
+          "src/app/page.tsx",
+          "src/app/profile/page.tsx",
+          "src/app/training/page.tsx",
+          "src/app/wellbeing/page.tsx",
+          "src/components/GamesHub.tsx",
+          "src/components/Header.tsx",
+          "src/components/PlayerProfile.tsx",
+          "src/components/WeeklyGames.tsx"
+        ],
+        "edges": [
+          [
+            "package:next",
+            "src/app/layout.tsx"
+          ],
+          [
+            "package:next",
+            "src/app/not-found.tsx"
+          ],
+          [
+            "package:next",
+            "src/app/page.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/Header.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/PlayerProfile.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/WeeklyGames.tsx"
+          ],
+          [
+            "src/components/GamesHub.tsx",
+            "src/app/games/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/coach/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/games/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/profile/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/training/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/wellbeing/page.tsx"
+          ],
+          [
+            "src/components/PlayerProfile.tsx",
+            "src/app/profile/page.tsx"
+          ],
+          [
+            "src/components/WeeklyGames.tsx",
+            "src/components/GamesHub.tsx"
+          ]
+        ]
+      },
+      "risk": {
+        "level": "MEDIUM",
+        "signals": [
+          {
+            "code": "BUILD_TOOL",
+            "package": "next",
+            "detail": "next runs in the build; the files it processes cannot be listed statically"
+          }
+        ]
+      },
+      "unknowns": [
+        {
+          "code": "BUILD_TOOL_SCOPE",
+          "message": "next runs in the build; the files it processes cannot be listed statically"
+        }
+      ]
+    },
+    {
+      "package": "postcss",
+      "vulnerabilityKeys": [
+        "GHSA-r28c-9q8g-f849|postcss",
+        "GHSA-6g55-p6wh-862q|postcss",
+        "GHSA-qx2v-qp2m-jg93|postcss",
+        "GHSA-fxqj-rqcc-2cmp|postcss"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx",
+        "src/components/Header.tsx",
+        "src/components/PlayerProfile.tsx",
+        "src/components/WeeklyGames.tsx"
+      ],
+      "typeOnlyFiles": [
+        "next.config.ts",
+        "src/app/games/page.tsx",
+        "src/app/manifest.ts",
+        "src/app/wellbeing/page.tsx",
+        "tailwind.config.ts"
+      ],
+      "dependentModules": [
+        "src/app/coach/page.tsx",
+        "src/app/games/page.tsx",
+        "src/app/profile/page.tsx",
+        "src/app/training/page.tsx",
+        "src/app/wellbeing/page.tsx",
+        "src/components/GamesHub.tsx"
+      ],
+      "entryPoints": [
+        "src/app/coach/page.tsx",
+        "src/app/games/page.tsx",
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx",
+        "src/app/profile/page.tsx",
+        "src/app/training/page.tsx",
+        "src/app/wellbeing/page.tsx"
+      ],
+      "components": [
+        "src/app",
+        "src/app/coach",
+        "src/app/games",
+        "src/app/profile",
+        "src/app/training",
+        "src/app/wellbeing",
+        "src/components"
+      ],
+      "configurationFiles": [
+        "eslint.config.mjs",
+        "next.config.ts",
+        "package.json",
+        "postcss.config.mjs",
+        "tsconfig.json"
+      ],
+      "ciFiles": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/deploy.yml"
+      ],
+      "testFiles": [
+        "src/__tests__/Header.test.tsx"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:postcss",
+          "src/app/coach/page.tsx",
+          "src/app/games/page.tsx",
+          "src/app/layout.tsx",
+          "src/app/not-found.tsx",
+          "src/app/page.tsx",
+          "src/app/profile/page.tsx",
+          "src/app/training/page.tsx",
+          "src/app/wellbeing/page.tsx",
+          "src/components/GamesHub.tsx",
+          "src/components/Header.tsx",
+          "src/components/PlayerProfile.tsx",
+          "src/components/WeeklyGames.tsx"
+        ],
+        "edges": [
+          [
+            "package:next",
+            "src/app/layout.tsx"
+          ],
+          [
+            "package:next",
+            "src/app/not-found.tsx"
+          ],
+          [
+            "package:next",
+            "src/app/page.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/Header.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/PlayerProfile.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/WeeklyGames.tsx"
+          ],
+          [
+            "src/components/GamesHub.tsx",
+            "src/app/games/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/coach/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/games/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/profile/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/training/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/wellbeing/page.tsx"
+          ],
+          [
+            "src/components/PlayerProfile.tsx",
+            "src/app/profile/page.tsx"
+          ],
+          [
+            "src/components/WeeklyGames.tsx",
+            "src/components/GamesHub.tsx"
+          ]
+        ]
+      },
+      "risk": {
+        "level": "MEDIUM",
+        "signals": [
+          {
+            "code": "BUILD_TOOL",
+            "package": "postcss",
+            "detail": "next runs in the build; the files it processes cannot be listed statically"
+          }
+        ]
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "postcss is reached through next, postcss, tailwindcss, autoprefixer; whether its vulnerable code runs cannot be determined statically"
+        },
+        {
+          "code": "BUILD_TOOL_SCOPE",
+          "message": "next runs in the build; the files it processes cannot be listed statically"
+        }
+      ]
+    },
+    {
+      "package": "postcss-selector-parser",
+      "vulnerabilityKeys": [
+        "GHSA-rj75-hqrm-r3gf|postcss-selector-parser",
+        "GHSA-w9m9-85wc-3x92|postcss-selector-parser"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [],
+      "typeOnlyFiles": [
+        "tailwind.config.ts"
+      ],
+      "dependentModules": [],
+      "entryPoints": [],
+      "components": [],
+      "configurationFiles": [
+        "postcss.config.mjs"
+      ],
+      "ciFiles": [],
+      "testFiles": [],
+      "downstreamGraph": {
+        "nodes": [
+          "package:postcss-selector-parser"
+        ],
+        "edges": []
+      },
+      "risk": {
+        "level": "LOW",
+        "signals": []
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "postcss-selector-parser is reached through tailwindcss; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "sharp",
+      "vulnerabilityKeys": [
+        "GHSA-f88m-g3jw-g9cj|sharp",
+        "GHSA-rgj7-g3m4-5g8c|sharp",
+        "GHSA-wq5f-xc86-pv6w|sharp"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx",
+        "src/components/Header.tsx",
+        "src/components/PlayerProfile.tsx",
+        "src/components/WeeklyGames.tsx"
+      ],
+      "typeOnlyFiles": [
+        "next.config.ts",
+        "src/app/games/page.tsx",
+        "src/app/manifest.ts",
+        "src/app/wellbeing/page.tsx"
+      ],
+      "dependentModules": [
+        "src/app/coach/page.tsx",
+        "src/app/games/page.tsx",
+        "src/app/profile/page.tsx",
+        "src/app/training/page.tsx",
+        "src/app/wellbeing/page.tsx",
+        "src/components/GamesHub.tsx"
+      ],
+      "entryPoints": [
+        "src/app/coach/page.tsx",
+        "src/app/games/page.tsx",
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx",
+        "src/app/profile/page.tsx",
+        "src/app/training/page.tsx",
+        "src/app/wellbeing/page.tsx"
+      ],
+      "components": [
+        "src/app",
+        "src/app/coach",
+        "src/app/games",
+        "src/app/profile",
+        "src/app/training",
+        "src/app/wellbeing",
+        "src/components"
+      ],
+      "configurationFiles": [
+        "eslint.config.mjs",
+        "next.config.ts",
+        "package.json",
+        "tsconfig.json"
+      ],
+      "ciFiles": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/deploy.yml"
+      ],
+      "testFiles": [
+        "src/__tests__/Header.test.tsx"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:sharp",
+          "src/app/coach/page.tsx",
+          "src/app/games/page.tsx",
+          "src/app/layout.tsx",
+          "src/app/not-found.tsx",
+          "src/app/page.tsx",
+          "src/app/profile/page.tsx",
+          "src/app/training/page.tsx",
+          "src/app/wellbeing/page.tsx",
+          "src/components/GamesHub.tsx",
+          "src/components/Header.tsx",
+          "src/components/PlayerProfile.tsx",
+          "src/components/WeeklyGames.tsx"
+        ],
+        "edges": [
+          [
+            "package:next",
+            "src/app/layout.tsx"
+          ],
+          [
+            "package:next",
+            "src/app/not-found.tsx"
+          ],
+          [
+            "package:next",
+            "src/app/page.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/Header.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/PlayerProfile.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/WeeklyGames.tsx"
+          ],
+          [
+            "src/components/GamesHub.tsx",
+            "src/app/games/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/coach/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/games/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/profile/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/training/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/wellbeing/page.tsx"
+          ],
+          [
+            "src/components/PlayerProfile.tsx",
+            "src/app/profile/page.tsx"
+          ],
+          [
+            "src/components/WeeklyGames.tsx",
+            "src/components/GamesHub.tsx"
+          ]
+        ]
+      },
+      "risk": {
+        "level": "MEDIUM",
+        "signals": [
+          {
+            "code": "BUILD_TOOL",
+            "package": "sharp",
+            "detail": "next runs in the build; the files it processes cannot be listed statically"
+          }
+        ]
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "sharp is reached through next; whether its vulnerable code runs cannot be determined statically"
+        },
+        {
+          "code": "BUILD_TOOL_SCOPE",
+          "message": "next runs in the build; the files it processes cannot be listed statically"
+        }
+      ]
+    },
+    {
+      "package": "source-map-js",
+      "vulnerabilityKeys": [
+        "GHSA-68fv-2mgg-jv7q|source-map-js"
+      ],
+      "usageStatus": "USED_TRANSITIVELY",
+      "directFiles": [],
+      "transitiveFiles": [
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx",
+        "src/components/Header.tsx",
+        "src/components/PlayerProfile.tsx",
+        "src/components/WeeklyGames.tsx"
+      ],
+      "typeOnlyFiles": [
+        "next.config.ts",
+        "src/app/games/page.tsx",
+        "src/app/manifest.ts",
+        "src/app/wellbeing/page.tsx",
+        "tailwind.config.ts"
+      ],
+      "dependentModules": [
+        "src/app/coach/page.tsx",
+        "src/app/games/page.tsx",
+        "src/app/profile/page.tsx",
+        "src/app/training/page.tsx",
+        "src/app/wellbeing/page.tsx",
+        "src/components/GamesHub.tsx"
+      ],
+      "entryPoints": [
+        "src/app/coach/page.tsx",
+        "src/app/games/page.tsx",
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx",
+        "src/app/profile/page.tsx",
+        "src/app/training/page.tsx",
+        "src/app/wellbeing/page.tsx"
+      ],
+      "components": [
+        "src/app",
+        "src/app/coach",
+        "src/app/games",
+        "src/app/profile",
+        "src/app/training",
+        "src/app/wellbeing",
+        "src/components"
+      ],
+      "configurationFiles": [
+        "eslint.config.mjs",
+        "next.config.ts",
+        "package.json",
+        "postcss.config.mjs",
+        "tsconfig.json"
+      ],
+      "ciFiles": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/deploy.yml"
+      ],
+      "testFiles": [
+        "src/__tests__/Header.test.tsx"
+      ],
+      "downstreamGraph": {
+        "nodes": [
+          "package:source-map-js",
+          "src/app/coach/page.tsx",
+          "src/app/games/page.tsx",
+          "src/app/layout.tsx",
+          "src/app/not-found.tsx",
+          "src/app/page.tsx",
+          "src/app/profile/page.tsx",
+          "src/app/training/page.tsx",
+          "src/app/wellbeing/page.tsx",
+          "src/components/GamesHub.tsx",
+          "src/components/Header.tsx",
+          "src/components/PlayerProfile.tsx",
+          "src/components/WeeklyGames.tsx"
+        ],
+        "edges": [
+          [
+            "package:next",
+            "src/app/layout.tsx"
+          ],
+          [
+            "package:next",
+            "src/app/not-found.tsx"
+          ],
+          [
+            "package:next",
+            "src/app/page.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/Header.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/PlayerProfile.tsx"
+          ],
+          [
+            "package:next",
+            "src/components/WeeklyGames.tsx"
+          ],
+          [
+            "src/components/GamesHub.tsx",
+            "src/app/games/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/coach/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/games/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/profile/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/training/page.tsx"
+          ],
+          [
+            "src/components/Header.tsx",
+            "src/app/wellbeing/page.tsx"
+          ],
+          [
+            "src/components/PlayerProfile.tsx",
+            "src/app/profile/page.tsx"
+          ],
+          [
+            "src/components/WeeklyGames.tsx",
+            "src/components/GamesHub.tsx"
+          ]
+        ]
+      },
+      "risk": {
+        "level": "MEDIUM",
+        "signals": [
+          {
+            "code": "BUILD_TOOL",
+            "package": "source-map-js",
+            "detail": "next runs in the build; the files it processes cannot be listed statically"
+          }
+        ]
+      },
+      "unknowns": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "source-map-js is reached through next, postcss, tailwindcss, autoprefixer; whether its vulnerable code runs cannot be determined statically"
+        },
+        {
+          "code": "BUILD_TOOL_SCOPE",
+          "message": "next runs in the build; the files it processes cannot be listed statically"
+        }
+      ]
+    }
+  ],
+  "impactedFiles": [
+    {
+      "file": ".claude/hooks/validate-code.sh",
+      "fileClass": "tooling",
+      "impactKinds": [
+        "CONFIGURATION"
+      ],
+      "packages": [
+        "brace-expansion",
+        "js-yaml",
+        "minimatch"
+      ],
+      "confidence": "INFERRED",
+      "traces": [
+        [
+          {
+            "from": "package:eslint",
+            "to": ".claude/hooks/validate-code.sh",
+            "relationship": "TEXT_REFERENCE",
+            "evidence": ".claude/hooks/validate-code.sh:18 npx eslint --max-warnings=0 \"$CHANGED_FILE\" || { (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint",
+            "to": ".claude/hooks/validate-code.sh",
+            "relationship": "TEXT_REFERENCE",
+            "evidence": ".claude/hooks/validate-code.sh:18 npx eslint --max-warnings=0 \"$CHANGED_FILE\" || { (installs js-yaml)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint",
+            "to": ".claude/hooks/validate-code.sh",
+            "relationship": "TEXT_REFERENCE",
+            "evidence": ".claude/hooks/validate-code.sh:18 npx eslint --max-warnings=0 \"$CHANGED_FILE\" || { (installs minimatch)"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "tooling files do not require evidence under policy"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "fileClass": "ci",
+      "impactKinds": [
+        "CI"
+      ],
+      "packages": [
+        "baseline-browser-mapping",
+        "brace-expansion",
+        "browserslist",
+        "deepmerge",
+        "js-yaml",
+        "minimatch",
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:jest",
+            "to": ".github/workflows/ci.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/ci.yml:56 job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest (installs baseline-browser-mapping)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": ".github/workflows/ci.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/ci.yml:56 job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": ".github/workflows/ci.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/ci.yml:56 job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest (installs browserslist)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": ".github/workflows/ci.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/ci.yml:56 job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest (installs deepmerge)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": ".github/workflows/ci.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/ci.yml:56 job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest (installs js-yaml)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": ".github/workflows/ci.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/ci.yml:56 job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest (installs minimatch)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": ".github/workflows/ci.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/ci.yml:34 job lint-and-build: \"npm run lint\" npm script chain lint runs the \"next\" binary of next (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": ".github/workflows/ci.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/ci.yml:37 job lint-and-build: \"npm run build\" npm script chain build runs the \"next\" binary of next (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": ".github/workflows/ci.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/ci.yml:34 job lint-and-build: \"npm run lint\" npm script chain lint runs the \"next\" binary of next"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": ".github/workflows/ci.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/ci.yml:37 job lint-and-build: \"npm run build\" npm script chain build runs the \"next\" binary of next"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "ci files do not require evidence under policy"
+    },
+    {
+      "file": ".github/workflows/deploy.yml",
+      "fileClass": "ci",
+      "impactKinds": [
+        "CI"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": ".github/workflows/deploy.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/deploy.yml:39 job build: \"npm run build\" npm script chain build runs the \"next\" binary of next (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": ".github/workflows/deploy.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/deploy.yml:39 job build: \"npm run build\" npm script chain build runs the \"next\" binary of next"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": ".github/workflows/deploy.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/deploy.yml:39 job build: \"npm run build\" npm script chain build runs the \"next\" binary of next (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": ".github/workflows/deploy.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/deploy.yml:39 job build: \"npm run build\" npm script chain build runs the \"next\" binary of next (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": ".github/workflows/deploy.yml",
+            "relationship": "CI_WORKFLOW",
+            "evidence": ".github/workflows/deploy.yml:39 job build: \"npm run build\" npm script chain build runs the \"next\" binary of next (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "ci files do not require evidence under policy"
+    },
+    {
+      "file": "eslint.config.mjs",
+      "fileClass": "configuration",
+      "impactKinds": [
+        "CONFIGURATION"
+      ],
+      "packages": [
+        "brace-expansion",
+        "js-yaml",
+        "minimatch",
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "INFERRED",
+      "traces": [
+        [
+          {
+            "from": "package:eslint",
+            "to": "eslint.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "eslint.config.mjs config file naming: eslint.config.mjs is eslint's configuration file (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint-config-next",
+            "to": "eslint.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "eslint.config.mjs:12 ESLint shareable config naming: \"next/core-web-vitals\" (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint-config-next",
+            "to": "eslint.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "eslint.config.mjs:12 ESLint shareable config naming: \"next/typescript\" (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint",
+            "to": "eslint.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "eslint.config.mjs config file naming: eslint.config.mjs is eslint's configuration file (installs js-yaml)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint-config-next",
+            "to": "eslint.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "eslint.config.mjs:12 ESLint shareable config naming: \"next/core-web-vitals\" (installs js-yaml)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint-config-next",
+            "to": "eslint.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "eslint.config.mjs:12 ESLint shareable config naming: \"next/typescript\" (installs js-yaml)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint",
+            "to": "eslint.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "eslint.config.mjs config file naming: eslint.config.mjs is eslint's configuration file (installs minimatch)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint-config-next",
+            "to": "eslint.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "eslint.config.mjs:12 ESLint shareable config naming: \"next/core-web-vitals\" (installs minimatch)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint-config-next",
+            "to": "eslint.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "eslint.config.mjs:12 ESLint shareable config naming: \"next/typescript\" (installs minimatch)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "eslint.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "eslint.config.mjs:12 subpath: \"next/core-web-vitals\" (installs nanoid)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "configuration that references the package; needs a passing validation command"
+    },
+    {
+      "file": "jest.config.js",
+      "fileClass": "configuration",
+      "impactKinds": [
+        "CONFIGURATION"
+      ],
+      "packages": [
+        "baseline-browser-mapping",
+        "brace-expansion",
+        "browserslist",
+        "deepmerge",
+        "form-data",
+        "handlebars",
+        "js-yaml",
+        "minimatch"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:jest",
+            "to": "jest.config.js",
+            "relationship": "CONFIGURATION",
+            "evidence": "jest.config.js config file naming: jest.config.js is jest's configuration file (installs baseline-browser-mapping)"
+          }
+        ],
+        [
+          {
+            "from": "package:ts-jest",
+            "to": "jest.config.js",
+            "relationship": "CONFIGURATION",
+            "evidence": "jest.config.js:5 literal: \"ts-jest\" (installs baseline-browser-mapping)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "jest.config.js",
+            "relationship": "CONFIGURATION",
+            "evidence": "jest.config.js config file naming: jest.config.js is jest's configuration file (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:ts-jest",
+            "to": "jest.config.js",
+            "relationship": "CONFIGURATION",
+            "evidence": "jest.config.js:5 literal: \"ts-jest\" (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "jest.config.js",
+            "relationship": "CONFIGURATION",
+            "evidence": "jest.config.js config file naming: jest.config.js is jest's configuration file (installs browserslist)"
+          }
+        ],
+        [
+          {
+            "from": "package:ts-jest",
+            "to": "jest.config.js",
+            "relationship": "CONFIGURATION",
+            "evidence": "jest.config.js:5 literal: \"ts-jest\" (installs browserslist)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "jest.config.js",
+            "relationship": "CONFIGURATION",
+            "evidence": "jest.config.js config file naming: jest.config.js is jest's configuration file (installs deepmerge)"
+          }
+        ],
+        [
+          {
+            "from": "package:ts-jest",
+            "to": "jest.config.js",
+            "relationship": "CONFIGURATION",
+            "evidence": "jest.config.js:5 literal: \"ts-jest\" (installs deepmerge)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest-environment-jsdom",
+            "to": "jest.config.js",
+            "relationship": "CONFIGURATION",
+            "evidence": "jest.config.js:3 jest testEnvironment naming: \"jsdom\" (installs form-data)"
+          }
+        ],
+        [
+          {
+            "from": "package:ts-jest",
+            "to": "jest.config.js",
+            "relationship": "CONFIGURATION",
+            "evidence": "jest.config.js:5 literal: \"ts-jest\" (installs handlebars)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "configuration that references the package; needs a passing validation command"
+    },
+    {
+      "file": "next.config.ts",
+      "fileClass": "configuration",
+      "impactKinds": [
+        "CONFIGURATION",
+        "TYPE_ONLY"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "next.config.ts",
+            "relationship": "CONFIGURATION",
+            "evidence": "next.config.ts config file naming: next.config.ts is next's configuration file (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "next.config.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "next.config.ts:1 import type { NextConfig } from 'next'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "next.config.ts",
+            "relationship": "CONFIGURATION",
+            "evidence": "next.config.ts config file naming: next.config.ts is next's configuration file"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "next.config.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "next.config.ts:1 import type { NextConfig } from 'next';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "next.config.ts",
+            "relationship": "CONFIGURATION",
+            "evidence": "next.config.ts config file naming: next.config.ts is next's configuration file (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "next.config.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "next.config.ts:1 import type { NextConfig } from 'next'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "next.config.ts",
+            "relationship": "CONFIGURATION",
+            "evidence": "next.config.ts config file naming: next.config.ts is next's configuration file (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "next.config.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "next.config.ts:1 import type { NextConfig } from 'next'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "next.config.ts",
+            "relationship": "CONFIGURATION",
+            "evidence": "next.config.ts config file naming: next.config.ts is next's configuration file (installs source-map-js)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "next.config.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "next.config.ts:1 import type { NextConfig } from 'next'; (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "configuration that references the package; needs a passing validation command"
+    },
+    {
+      "file": "package.json",
+      "fileClass": "configuration",
+      "impactKinds": [
+        "BUILD_SCRIPT"
+      ],
+      "packages": [
+        "baseline-browser-mapping",
+        "brace-expansion",
+        "browserslist",
+        "deepmerge",
+        "js-yaml",
+        "minimatch",
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:jest",
+            "to": "package.json",
+            "relationship": "BUILD_SCRIPT",
+            "evidence": "package.json:10 scripts.test \"jest --ci\" runs the \"jest\" binary of jest (installs baseline-browser-mapping)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "package.json",
+            "relationship": "BUILD_SCRIPT",
+            "evidence": "package.json:11 scripts.test:watch \"jest\" runs the \"jest\" binary of jest (installs baseline-browser-mapping)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "package.json",
+            "relationship": "BUILD_SCRIPT",
+            "evidence": "package.json:15 scripts.sentinel:test \"jest --ci -c sentinel/jest.config.js\" runs the \"jest\" binary of jest (installs baseline-browser-mapping)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "package.json",
+            "relationship": "BUILD_SCRIPT",
+            "evidence": "package.json:10 scripts.test \"jest --ci\" runs the \"jest\" binary of jest (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "package.json",
+            "relationship": "BUILD_SCRIPT",
+            "evidence": "package.json:11 scripts.test:watch \"jest\" runs the \"jest\" binary of jest (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "package.json",
+            "relationship": "BUILD_SCRIPT",
+            "evidence": "package.json:15 scripts.sentinel:test \"jest --ci -c sentinel/jest.config.js\" runs the \"jest\" binary of jest (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "package.json",
+            "relationship": "BUILD_SCRIPT",
+            "evidence": "package.json:10 scripts.test \"jest --ci\" runs the \"jest\" binary of jest (installs browserslist)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "package.json",
+            "relationship": "BUILD_SCRIPT",
+            "evidence": "package.json:11 scripts.test:watch \"jest\" runs the \"jest\" binary of jest (installs browserslist)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "package.json",
+            "relationship": "BUILD_SCRIPT",
+            "evidence": "package.json:15 scripts.sentinel:test \"jest --ci -c sentinel/jest.config.js\" runs the \"jest\" binary of jest (installs browserslist)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "package.json",
+            "relationship": "BUILD_SCRIPT",
+            "evidence": "package.json:10 scripts.test \"jest --ci\" runs the \"jest\" binary of jest (installs deepmerge)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "configuration that references the package; needs a passing validation command"
+    },
+    {
+      "file": "postcss.config.mjs",
+      "fileClass": "configuration",
+      "impactKinds": [
+        "CONFIGURATION"
+      ],
+      "packages": [
+        "baseline-browser-mapping",
+        "browserslist",
+        "nanoid",
+        "postcss",
+        "postcss-selector-parser",
+        "source-map-js"
+      ],
+      "confidence": "INFERRED",
+      "traces": [
+        [
+          {
+            "from": "package:autoprefixer",
+            "to": "postcss.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "postcss.config.mjs:4 literal (object key): \"autoprefixer\" (installs baseline-browser-mapping)"
+          }
+        ],
+        [
+          {
+            "from": "package:autoprefixer",
+            "to": "postcss.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "postcss.config.mjs:4 literal (object key): \"autoprefixer\" (installs browserslist)"
+          }
+        ],
+        [
+          {
+            "from": "package:postcss",
+            "to": "postcss.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "postcss.config.mjs config file naming: postcss.config.mjs is postcss's configuration file (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:tailwindcss",
+            "to": "postcss.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "postcss.config.mjs:3 literal (object key): \"tailwindcss\" (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:autoprefixer",
+            "to": "postcss.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "postcss.config.mjs:4 literal (object key): \"autoprefixer\" (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:postcss",
+            "to": "postcss.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "postcss.config.mjs config file naming: postcss.config.mjs is postcss's configuration file"
+          }
+        ],
+        [
+          {
+            "from": "package:tailwindcss",
+            "to": "postcss.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "postcss.config.mjs:3 literal (object key): \"tailwindcss\" (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:autoprefixer",
+            "to": "postcss.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "postcss.config.mjs:4 literal (object key): \"autoprefixer\" (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:tailwindcss",
+            "to": "postcss.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "postcss.config.mjs:3 literal (object key): \"tailwindcss\" (installs postcss-selector-parser)"
+          }
+        ],
+        [
+          {
+            "from": "package:postcss",
+            "to": "postcss.config.mjs",
+            "relationship": "CONFIGURATION",
+            "evidence": "postcss.config.mjs config file naming: postcss.config.mjs is postcss's configuration file (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "configuration that references the package; needs a passing validation command"
+    },
+    {
+      "file": "sentinel/test/coverage.test.ts",
+      "fileClass": "test",
+      "impactKinds": [
+        "TEST"
+      ],
+      "packages": [
+        "baseline-browser-mapping",
+        "brace-expansion",
+        "browserslist",
+        "deepmerge",
+        "js-yaml",
+        "minimatch"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/coverage.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/coverage.test.ts:68 require.resolve('jest/bin/jest') (installs baseline-browser-mapping)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/coverage.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/coverage.test.ts:68 require.resolve('jest/bin/jest') (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/coverage.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/coverage.test.ts:68 require.resolve('jest/bin/jest') (installs browserslist)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/coverage.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/coverage.test.ts:68 require.resolve('jest/bin/jest') (installs deepmerge)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/coverage.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/coverage.test.ts:68 require.resolve('jest/bin/jest') (installs js-yaml)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/coverage.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/coverage.test.ts:68 require.resolve('jest/bin/jest') (installs minimatch)"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "test files do not require evidence under policy"
+    },
+    {
+      "file": "sentinel/test/scenarios.test.ts",
+      "fileClass": "test",
+      "impactKinds": [
+        "TEST"
+      ],
+      "packages": [
+        "baseline-browser-mapping",
+        "brace-expansion",
+        "browserslist",
+        "deepmerge",
+        "js-yaml",
+        "minimatch"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/scenarios.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/scenarios.test.ts:26 require.resolve('jest/bin/jest') (installs baseline-browser-mapping)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/scenarios.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/scenarios.test.ts:26 require.resolve('jest/bin/jest') (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/scenarios.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/scenarios.test.ts:26 require.resolve('jest/bin/jest') (installs browserslist)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/scenarios.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/scenarios.test.ts:26 require.resolve('jest/bin/jest') (installs deepmerge)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/scenarios.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/scenarios.test.ts:26 require.resolve('jest/bin/jest') (installs js-yaml)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/scenarios.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/scenarios.test.ts:26 require.resolve('jest/bin/jest') (installs minimatch)"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "test files do not require evidence under policy"
+    },
+    {
+      "file": "sentinel/test/validation.test.ts",
+      "fileClass": "test",
+      "impactKinds": [
+        "TEST"
+      ],
+      "packages": [
+        "baseline-browser-mapping",
+        "brace-expansion",
+        "browserslist",
+        "deepmerge",
+        "js-yaml",
+        "minimatch"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/validation.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/validation.test.ts:31 require.resolve('jest/bin/jest') (installs baseline-browser-mapping)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/validation.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/validation.test.ts:31 require.resolve('jest/bin/jest') (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/validation.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/validation.test.ts:31 require.resolve('jest/bin/jest') (installs browserslist)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/validation.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/validation.test.ts:31 require.resolve('jest/bin/jest') (installs deepmerge)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/validation.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/validation.test.ts:31 require.resolve('jest/bin/jest') (installs js-yaml)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/test/validation.test.ts",
+            "relationship": "REQUIRE",
+            "evidence": "sentinel/test/validation.test.ts:31 require.resolve('jest/bin/jest') (installs minimatch)"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "test files do not require evidence under policy"
+    },
+    {
+      "file": "sentinel/tsconfig.json",
+      "fileClass": "tooling",
+      "impactKinds": [
+        "CONFIGURATION"
+      ],
+      "packages": [
+        "baseline-browser-mapping",
+        "brace-expansion",
+        "browserslist",
+        "deepmerge",
+        "js-yaml",
+        "minimatch"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "sentinel/tsconfig.json:7 literal: \"jest\" (installs baseline-browser-mapping)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "sentinel/tsconfig.json:7 literal: \"jest\" (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "sentinel/tsconfig.json:7 literal: \"jest\" (installs browserslist)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "sentinel/tsconfig.json:7 literal: \"jest\" (installs deepmerge)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "sentinel/tsconfig.json:7 literal: \"jest\" (installs js-yaml)"
+          }
+        ],
+        [
+          {
+            "from": "package:jest",
+            "to": "sentinel/tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "sentinel/tsconfig.json:7 literal: \"jest\" (installs minimatch)"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "tooling files do not require evidence under policy"
+    },
+    {
+      "file": "src/__tests__/claude.test.ts",
+      "fileClass": "test",
+      "impactKinds": [
+        "TEST"
+      ],
+      "packages": [
+        "form-data"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:@anthropic-ai/sdk",
+            "to": "src/__tests__/claude.test.ts",
+            "relationship": "TEST_MOCK",
+            "evidence": "src/__tests__/claude.test.ts:19 jest.mock('@anthropic-ai/sdk', () => jest.fn().mockImplementation(() => ({ messages: { create: mockCreate }, })) ) (installs form-data)"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "test files do not require evidence under policy"
+    },
+    {
+      "file": "src/__tests__/Header.test.tsx",
+      "fileClass": "test",
+      "impactKinds": [
+        "TEST"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/__tests__/Header.test.tsx",
+            "relationship": "TEST_MOCK",
+            "evidence": "src/__tests__/Header.test.tsx:6 jest.mock('next/navigation', () => ({ usePathname: () => mockPathname(), })) (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/__tests__/Header.test.tsx",
+            "relationship": "TEST_MOCK",
+            "evidence": "src/__tests__/Header.test.tsx:6 jest.mock('next/navigation', () => ({ usePathname: () => mockPathname(), }))"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/__tests__/Header.test.tsx",
+            "relationship": "TEST_MOCK",
+            "evidence": "src/__tests__/Header.test.tsx:6 jest.mock('next/navigation', () => ({ usePathname: () => mockPathname(), })) (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/__tests__/Header.test.tsx",
+            "relationship": "TEST_MOCK",
+            "evidence": "src/__tests__/Header.test.tsx:6 jest.mock('next/navigation', () => ({ usePathname: () => mockPathname(), })) (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/__tests__/Header.test.tsx",
+            "relationship": "TEST_MOCK",
+            "evidence": "src/__tests__/Header.test.tsx:6 jest.mock('next/navigation', () => ({ usePathname: () => mockPathname(), })) (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "test files do not require evidence under policy"
+    },
+    {
+      "file": "src/app/coach/page.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DEPENDENT_MODULE"
+      ],
+      "packages": [
+        "form-data",
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "INFERRED",
+      "traces": [
+        [
+          {
+            "from": "package:@anthropic-ai/sdk",
+            "to": "src/lib/claude.ts",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/lib/claude.ts:1 import Anthropic from '@anthropic-ai/sdk'; (installs form-data)"
+          },
+          {
+            "from": "src/lib/claude.ts",
+            "to": "src/components/CoachChat.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/components/CoachChat.tsx:5 import { sendMessage, FREE_LIMIT_MESSAGE } from '@/lib/claude';"
+          },
+          {
+            "from": "src/components/CoachChat.tsx",
+            "to": "src/app/coach/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/coach/page.tsx:8 import CoachChat from '@/components/CoachChat';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs nanoid)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/coach/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/coach/page.tsx:10 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link';"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/coach/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/coach/page.tsx:10 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs postcss)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/coach/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/coach/page.tsx:10 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs sharp)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/coach/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/coach/page.tsx:10 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs source-map-js)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/coach/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/coach/page.tsx:10 import Header from '@/components/Header';"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "imports an impacted module; reported, not required under scope \"direct\""
+    },
+    {
+      "file": "src/app/games/page.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DEPENDENT_MODULE",
+        "TYPE_ONLY"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/games/page.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/games/page.tsx:1 import type { Metadata } from 'next'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs nanoid)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/games/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/games/page.tsx:2 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/games/page.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/games/page.tsx:1 import type { Metadata } from 'next';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link';"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/games/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/games/page.tsx:2 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/games/page.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/games/page.tsx:1 import type { Metadata } from 'next'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs postcss)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/games/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/games/page.tsx:2 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/games/page.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/games/page.tsx:1 import type { Metadata } from 'next'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs sharp)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/games/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/games/page.tsx:2 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/games/page.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/games/page.tsx:1 import type { Metadata } from 'next'; (installs source-map-js)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs source-map-js)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/games/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/games/page.tsx:2 import Header from '@/components/Header';"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "type-only import (no runtime effect); covered by the build type-check"
+    },
+    {
+      "file": "src/app/layout.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DIRECT",
+        "TRANSITIVE",
+        "TYPE_ONLY"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/layout.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/layout.tsx:1 import type { Metadata, Viewport } from 'next'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/layout.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/layout.tsx:3 import { Inter } from 'next/font/google'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/layout.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/layout.tsx:1 import type { Metadata, Viewport } from 'next';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/layout.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/layout.tsx:3 import { Inter } from 'next/font/google';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/layout.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/layout.tsx:1 import type { Metadata, Viewport } from 'next'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/layout.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/layout.tsx:3 import { Inter } from 'next/font/google'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/layout.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/layout.tsx:1 import type { Metadata, Viewport } from 'next'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/layout.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/layout.tsx:3 import { Inter } from 'next/font/google'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/layout.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/layout.tsx:1 import type { Metadata, Viewport } from 'next'; (installs source-map-js)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/layout.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/layout.tsx:3 import { Inter } from 'next/font/google'; (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "references the vulnerable package directly"
+    },
+    {
+      "file": "src/app/manifest.ts",
+      "fileClass": "production",
+      "impactKinds": [
+        "TYPE_ONLY"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/manifest.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/manifest.ts:1 import type { MetadataRoute } from 'next'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/manifest.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/manifest.ts:1 import type { MetadataRoute } from 'next';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/manifest.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/manifest.ts:1 import type { MetadataRoute } from 'next'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/manifest.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/manifest.ts:1 import type { MetadataRoute } from 'next'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/manifest.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/manifest.ts:1 import type { MetadataRoute } from 'next'; (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "type-only import (no runtime effect); covered by the build type-check"
+    },
+    {
+      "file": "src/app/not-found.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DIRECT",
+        "TRANSITIVE"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/not-found.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/not-found.tsx:1 import Link from 'next/link'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/not-found.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/not-found.tsx:1 import Link from 'next/link';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/not-found.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/not-found.tsx:1 import Link from 'next/link'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/not-found.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/not-found.tsx:1 import Link from 'next/link'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/not-found.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/not-found.tsx:1 import Link from 'next/link'; (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "references the vulnerable package directly"
+    },
+    {
+      "file": "src/app/page.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DIRECT",
+        "TRANSITIVE"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/page.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/page.tsx:1 import Link from 'next/link'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/page.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/page.tsx:1 import Link from 'next/link';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/page.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/page.tsx:1 import Link from 'next/link'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/page.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/page.tsx:1 import Link from 'next/link'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/page.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/app/page.tsx:1 import Link from 'next/link'; (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "references the vulnerable package directly"
+    },
+    {
+      "file": "src/app/profile/page.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DEPENDENT_MODULE"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "INFERRED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs nanoid)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/profile/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/profile/page.tsx:8 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link';"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/profile/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/profile/page.tsx:8 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs postcss)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/profile/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/profile/page.tsx:8 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs sharp)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/profile/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/profile/page.tsx:8 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs source-map-js)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/profile/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/profile/page.tsx:8 import Header from '@/components/Header';"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "imports an impacted module; reported, not required under scope \"direct\""
+    },
+    {
+      "file": "src/app/training/page.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DEPENDENT_MODULE"
+      ],
+      "packages": [
+        "form-data",
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "INFERRED",
+      "traces": [
+        [
+          {
+            "from": "package:@anthropic-ai/sdk",
+            "to": "src/lib/claude.ts",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/lib/claude.ts:1 import Anthropic from '@anthropic-ai/sdk'; (installs form-data)"
+          },
+          {
+            "from": "src/lib/claude.ts",
+            "to": "src/components/TrainingPlan.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/components/TrainingPlan.tsx:11 import { generateTrainingPlan } from '@/lib/claude';"
+          },
+          {
+            "from": "src/components/TrainingPlan.tsx",
+            "to": "src/app/training/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/training/page.tsx:6 import TrainingPlanView from '@/components/TrainingPlan';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs nanoid)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/training/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/training/page.tsx:8 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link';"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/training/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/training/page.tsx:8 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs postcss)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/training/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/training/page.tsx:8 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs sharp)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/training/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/training/page.tsx:8 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs source-map-js)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/training/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/training/page.tsx:8 import Header from '@/components/Header';"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "imports an impacted module; reported, not required under scope \"direct\""
+    },
+    {
+      "file": "src/app/wellbeing/page.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DEPENDENT_MODULE",
+        "TYPE_ONLY"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/wellbeing/page.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/wellbeing/page.tsx:1 import type { Metadata } from 'next'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs nanoid)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/wellbeing/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/wellbeing/page.tsx:2 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/wellbeing/page.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/wellbeing/page.tsx:1 import type { Metadata } from 'next';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link';"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/wellbeing/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/wellbeing/page.tsx:2 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/wellbeing/page.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/wellbeing/page.tsx:1 import type { Metadata } from 'next'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs postcss)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/wellbeing/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/wellbeing/page.tsx:2 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/wellbeing/page.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/wellbeing/page.tsx:1 import type { Metadata } from 'next'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs sharp)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/wellbeing/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/wellbeing/page.tsx:2 import Header from '@/components/Header';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/app/wellbeing/page.tsx",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "src/app/wellbeing/page.tsx:1 import type { Metadata } from 'next'; (installs source-map-js)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs source-map-js)"
+          },
+          {
+            "from": "src/components/Header.tsx",
+            "to": "src/app/wellbeing/page.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/app/wellbeing/page.tsx:2 import Header from '@/components/Header';"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "type-only import (no runtime effect); covered by the build type-check"
+    },
+    {
+      "file": "src/components/CoachChat.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DEPENDENT_MODULE"
+      ],
+      "packages": [
+        "form-data"
+      ],
+      "confidence": "INFERRED",
+      "traces": [
+        [
+          {
+            "from": "package:@anthropic-ai/sdk",
+            "to": "src/lib/claude.ts",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/lib/claude.ts:1 import Anthropic from '@anthropic-ai/sdk'; (installs form-data)"
+          },
+          {
+            "from": "src/lib/claude.ts",
+            "to": "src/components/CoachChat.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/components/CoachChat.tsx:5 import { sendMessage, FREE_LIMIT_MESSAGE } from '@/lib/claude';"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "imports an impacted module; reported, not required under scope \"direct\""
+    },
+    {
+      "file": "src/components/GamesHub.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DEPENDENT_MODULE"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "INFERRED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/WeeklyGames.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/WeeklyGames.tsx:4 import Link from 'next/link'; (installs nanoid)"
+          },
+          {
+            "from": "src/components/WeeklyGames.tsx",
+            "to": "src/components/GamesHub.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/components/GamesHub.tsx:7 import WeeklyGames from './WeeklyGames';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/WeeklyGames.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/WeeklyGames.tsx:4 import Link from 'next/link';"
+          },
+          {
+            "from": "src/components/WeeklyGames.tsx",
+            "to": "src/components/GamesHub.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/components/GamesHub.tsx:7 import WeeklyGames from './WeeklyGames';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/WeeklyGames.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/WeeklyGames.tsx:4 import Link from 'next/link'; (installs postcss)"
+          },
+          {
+            "from": "src/components/WeeklyGames.tsx",
+            "to": "src/components/GamesHub.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/components/GamesHub.tsx:7 import WeeklyGames from './WeeklyGames';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/WeeklyGames.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/WeeklyGames.tsx:4 import Link from 'next/link'; (installs sharp)"
+          },
+          {
+            "from": "src/components/WeeklyGames.tsx",
+            "to": "src/components/GamesHub.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/components/GamesHub.tsx:7 import WeeklyGames from './WeeklyGames';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/WeeklyGames.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/WeeklyGames.tsx:4 import Link from 'next/link'; (installs source-map-js)"
+          },
+          {
+            "from": "src/components/WeeklyGames.tsx",
+            "to": "src/components/GamesHub.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/components/GamesHub.tsx:7 import WeeklyGames from './WeeklyGames';"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "imports an impacted module; reported, not required under scope \"direct\""
+    },
+    {
+      "file": "src/components/Header.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DIRECT",
+        "TRANSITIVE"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:4 import { usePathname } from 'next/navigation'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:4 import { usePathname } from 'next/navigation';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:4 import { usePathname } from 'next/navigation'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:4 import { usePathname } from 'next/navigation'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:3 import Link from 'next/link'; (installs source-map-js)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/Header.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/Header.tsx:4 import { usePathname } from 'next/navigation'; (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "references the vulnerable package directly"
+    },
+    {
+      "file": "src/components/PlayerProfile.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DIRECT",
+        "TRANSITIVE"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/PlayerProfile.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/PlayerProfile.tsx:3 import Link from 'next/link'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/PlayerProfile.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/PlayerProfile.tsx:3 import Link from 'next/link';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/PlayerProfile.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/PlayerProfile.tsx:3 import Link from 'next/link'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/PlayerProfile.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/PlayerProfile.tsx:3 import Link from 'next/link'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/PlayerProfile.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/PlayerProfile.tsx:3 import Link from 'next/link'; (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "references the vulnerable package directly"
+    },
+    {
+      "file": "src/components/TrainingPlan.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DEPENDENT_MODULE"
+      ],
+      "packages": [
+        "form-data"
+      ],
+      "confidence": "INFERRED",
+      "traces": [
+        [
+          {
+            "from": "package:@anthropic-ai/sdk",
+            "to": "src/lib/claude.ts",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/lib/claude.ts:1 import Anthropic from '@anthropic-ai/sdk'; (installs form-data)"
+          },
+          {
+            "from": "src/lib/claude.ts",
+            "to": "src/components/TrainingPlan.tsx",
+            "relationship": "IMPORTED_BY",
+            "evidence": "src/components/TrainingPlan.tsx:11 import { generateTrainingPlan } from '@/lib/claude';"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "imports an impacted module; reported, not required under scope \"direct\""
+    },
+    {
+      "file": "src/components/WeeklyGames.tsx",
+      "fileClass": "production",
+      "impactKinds": [
+        "DIRECT",
+        "TRANSITIVE"
+      ],
+      "packages": [
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/WeeklyGames.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/WeeklyGames.tsx:4 import Link from 'next/link'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/WeeklyGames.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/WeeklyGames.tsx:4 import Link from 'next/link';"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/WeeklyGames.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/WeeklyGames.tsx:4 import Link from 'next/link'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/WeeklyGames.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/WeeklyGames.tsx:4 import Link from 'next/link'; (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "src/components/WeeklyGames.tsx",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/components/WeeklyGames.tsx:4 import Link from 'next/link'; (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "references the vulnerable package directly"
+    },
+    {
+      "file": "src/lib/claude.ts",
+      "fileClass": "production",
+      "impactKinds": [
+        "TRANSITIVE"
+      ],
+      "packages": [
+        "form-data"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:@anthropic-ai/sdk",
+            "to": "src/lib/claude.ts",
+            "relationship": "DIRECT_IMPORT",
+            "evidence": "src/lib/claude.ts:1 import Anthropic from '@anthropic-ai/sdk'; (installs form-data)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "imports a dependency that installs the vulnerable package"
+    },
+    {
+      "file": "tailwind.config.ts",
+      "fileClass": "configuration",
+      "impactKinds": [
+        "TYPE_ONLY"
+      ],
+      "packages": [
+        "nanoid",
+        "postcss",
+        "postcss-selector-parser",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:tailwindcss",
+            "to": "tailwind.config.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "tailwind.config.ts:1 import type { Config } from 'tailwindcss'; (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:tailwindcss",
+            "to": "tailwind.config.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "tailwind.config.ts:1 import type { Config } from 'tailwindcss'; (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:tailwindcss",
+            "to": "tailwind.config.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "tailwind.config.ts:1 import type { Config } from 'tailwindcss'; (installs postcss-selector-parser)"
+          }
+        ],
+        [
+          {
+            "from": "package:tailwindcss",
+            "to": "tailwind.config.ts",
+            "relationship": "TYPE_IMPORT",
+            "evidence": "tailwind.config.ts:1 import type { Config } from 'tailwindcss'; (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": false,
+      "evidenceReason": "type-only import (no runtime effect); covered by the build type-check"
+    },
+    {
+      "file": "tsconfig.json",
+      "fileClass": "configuration",
+      "impactKinds": [
+        "CONFIGURATION"
+      ],
+      "packages": [
+        "brace-expansion",
+        "js-yaml",
+        "minimatch",
+        "nanoid",
+        "next",
+        "postcss",
+        "sharp",
+        "source-map-js"
+      ],
+      "confidence": "CONFIRMED",
+      "traces": [
+        [
+          {
+            "from": "package:eslint-config-next",
+            "to": "tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "tsconfig.json:16 ESLint shareable config naming: \"next\" (installs brace-expansion)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint-config-next",
+            "to": "tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "tsconfig.json:16 ESLint shareable config naming: \"next\" (installs js-yaml)"
+          }
+        ],
+        [
+          {
+            "from": "package:eslint-config-next",
+            "to": "tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "tsconfig.json:16 ESLint shareable config naming: \"next\" (installs minimatch)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "tsconfig.json:16 literal: \"next\" (installs nanoid)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "tsconfig.json:16 literal: \"next\""
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "tsconfig.json:16 literal: \"next\" (installs postcss)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "tsconfig.json:16 literal: \"next\" (installs sharp)"
+          }
+        ],
+        [
+          {
+            "from": "package:next",
+            "to": "tsconfig.json",
+            "relationship": "CONFIGURATION",
+            "evidence": "tsconfig.json:16 literal: \"next\" (installs source-map-js)"
+          }
+        ]
+      ],
+      "evidenceRequired": true,
+      "evidenceReason": "configuration that references the package; needs a passing validation command"
+    }
+  ]
+}

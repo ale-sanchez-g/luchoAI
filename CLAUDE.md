@@ -74,6 +74,15 @@ src/
   workflows/
     ci.yml              # Lint + build on every push
     deploy.yml          # Deploy to GitHub Pages on push to main
+    weekly-sentinel.yml        # Project Sentinel: weekly dependency remediation PR
+    sentinel-pr-validation.yml # Project Sentinel: per-commit evidence + merge decision
+  sentinel/config.yml   # Sentinel policy (schema: sentinel/schemas/config.schema.json)
+sentinel/               # Project Sentinel engine (TypeScript, no AI), see docs/sentinel/README.md
+  src/                  # discovery, vulnerabilities, usage, impact, coverage, remediation,
+                        # validation, governance, github, pipeline, cli.ts
+  schemas/              # JSON Schemas for the policy and every report
+  test/                 # unit, integration and scenario A-I tests; fixtures/ are fake repos
+docs/sentinel/          # discovery report, architecture, installation, security, troubleshooting
 ```
 
 ## Key Commands
@@ -91,8 +100,17 @@ npm run build
 # Run tests
 npm test
 
-# Lint
+# Lint (covers src/ and sentinel/)
 npm run lint
+
+# End-to-end browser scripts (needs a build with an empty base path first)
+NODE_ENV=production NEXT_PUBLIC_BASE_PATH= npm run build && npm run test:e2e
+
+# Project Sentinel
+npm run sentinel:build      # compile to sentinel/dist (git-ignored)
+npm run sentinel:typecheck
+npm run sentinel:test
+node sentinel/dist/cli.js --help
 ```
 
 ## GitHub Pages Deployment
@@ -132,6 +150,14 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 - Target audience is children aged 8–18 — language in UI and AI prompts must be encouraging, positive, and age-appropriate
 
 ## Notes for Claude
+
+- **Project Sentinel** (`sentinel/`, docs in `docs/sentinel/`) is deterministic: never add AI or
+  LLM calls to it. Its rules are enforced by tests: every report matches a schema in
+  `sentinel/schemas/`, every reason code is listed in `docs/sentinel/decision-reference.md`, and
+  `sentinel/test/workflows.test.ts` checks the workflows (SHA-pinned actions, per-job least
+  privilege, `npm ci --ignore-scripts`, no `${{ }}` in `run:` scripts, no `always()`). Unknown must
+  never be treated as pass. Run Sentinel locally with `--offline` so it cannot touch real PRs
+  (sessions may have a GitHub token in the environment), and run `remediate` only on a scratch clone
 
 - **Mandatory for every change that touches the UI or user-visible behaviour: validate it visually, as a real user, in a real browser, before committing.** Lint, tests and build are not enough. Do this every session, for every such change, however small:
   1. `NODE_ENV=production npm run build`, then drive the built `out/` site with Playwright (Chromium is pre-installed; if the Playwright version wants a different build, pass `CHROMIUM_PATH=/opt/pw-browsers/chromium-<n>/chrome-linux64/chrome`). Seed `localStorage` and mock the AI provider with `page.route`, never call a real API.

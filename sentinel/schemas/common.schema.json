@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ale-sanchez-g/luchoAI/sentinel/schemas/common.schema.json",
+  "title": "Project Sentinel shared definitions",
+  "definitions": {
+    "schemaVersion": { "const": "1.0.0" },
+    "executionId": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "sha": { "type": ["string", "null"], "pattern": "^[0-9a-f]{7,64}$" },
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "relativePath": { "type": "string", "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$)).*$" },
+    "limitation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message"],
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "message": { "type": "string", "minLength": 1 },
+        "subject": { "type": "string" }
+      }
+    },
+    "limitations": { "type": "array", "items": { "$ref": "#/definitions/limitation" } },
+    "repositoryRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slug", "commitSha", "ref"],
+      "properties": {
+        "slug": { "type": ["string", "null"], "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+        "commitSha": { "$ref": "#/definitions/sha" },
+        "ref": { "type": ["string", "null"] }
+      }
+    },
+    "tool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "const": "project-sentinel" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+      }
+    },
+    "severity": { "enum": ["critical", "high", "moderate", "low", "info"] },
+    "severityCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["critical", "high", "moderate", "low", "info"],
+      "properties": {
+        "critical": { "type": "integer", "minimum": 0 },
+        "high": { "type": "integer", "minimum": 0 },
+        "moderate": { "type": "integer", "minimum": 0 },
+        "low": { "type": "integer", "minimum": 0 },
+        "info": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "fileClass": {
+      "enum": ["production", "test", "configuration", "ci", "infrastructure", "tooling", "documentation", "other"]
+    },
+    "outcome": { "enum": ["AUTO_MERGE", "HUMAN_REVIEW", "BLOCKED"] },
+    "upgradeType": { "enum": ["patch", "minor", "major"] },
+    "gateId": { "enum": ["G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8"] },
+    "gateStatus": { "enum": ["PASS", "FAIL", "UNKNOWN", "NOT_APPLICABLE"] },
+    "fixStatus": {
+      "enum": ["FIXABLE", "MAJOR_UPGRADE_REQUIRED", "PARENT_UPGRADE_REQUIRED", "NO_FIX_AVAILABLE", "UNKNOWN"]
+    },
+    "usageStatus": { "enum": ["USED_DIRECTLY", "USED_TRANSITIVELY", "TOOLING_ONLY", "UNKNOWN"] },
+    "confidence": { "enum": ["CONFIRMED", "INFERRED"] },
+    "coverageStatus": {
+      "enum": [
+        "TESTED_AND_COVERED",
+        "TESTED_INSUFFICIENT_COVERAGE",
+        "NOT_TESTED",
+        "TEST_NOT_EXECUTED",
+        "TEST_FAILED",
+        "COVERAGE_UNAVAILABLE",
+        "INSTRUMENTATION_UNSUPPORTED"
+      ]
+    },
+    "riskSignal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "package", "detail"],
+      "properties": {
+        "code": {
+          "enum": [
+            "MAJOR_UPGRADE",
+            "ZERO_MAJOR_MINOR_BUMP",
+            "ZERO_ZERO_PATCH_BUMP",
+            "PRERELEASE_TARGET",
+            "ENGINES_INCOMPATIBLE",
+            "ENGINES_CHANGED",
+            "PEER_DEPENDENCIES_CHANGED",
+            "INSTALL_SCRIPT",
+            "LICENSE_CHANGED",
+            "DEPRECATED_VERSION",
+            "RECENT_RELEASE",
+            "BUILD_TOOL",
+            "METADATA_UNAVAILABLE"
+          ]
+        },
+        "package": { "type": "string", "minLength": 1 },
+        "detail": { "type": "string" }
+      }
+    },
+    "stringList": { "type": "array", "items": { "type": "string" } },
+    "pathList": { "type": "array", "items": { "$ref": "#/definitions/relativePath" } }
+  }
+}

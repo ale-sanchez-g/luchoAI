@@ -1,0 +1,2884 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportType": "dependency-usage-report",
+  "executionId": "local-20261107T084414364Z",
+  "generatedAt": "2026-11-07T08:44:14.768Z",
+  "repository": {
+    "slug": null,
+    "commitSha": "30d396af1718e5e7832de5bb06baa0a3cb73a295",
+    "ref": null
+  },
+  "tool": {
+    "name": "project-sentinel",
+    "version": "1.0.0"
+  },
+  "limitations": [],
+  "scannedFiles": 283,
+  "skippedFiles": [],
+  "parseErrors": [],
+  "dynamicImports": [],
+  "packages": [
+    {
+      "package": "baseline-browser-mapping",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "autoprefixer",
+        "jest",
+        "ts-jest"
+      ],
+      "binaries": [
+        "baseline-browser-mapping"
+      ],
+      "references": [
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 56,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm test",
+          "referencedPackage": "jest",
+          "detector": "workflow",
+          "evidence": "job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest",
+          "fileClass": "ci"
+        },
+        {
+          "file": "jest.config.js",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "jest.config.js",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "config file naming: jest.config.js is jest's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "jest.config.js",
+          "line": 5,
+          "column": 25,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "ts-jest",
+          "referencedPackage": "ts-jest",
+          "detector": "config",
+          "evidence": "literal: \"ts-jest\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 10,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test \"jest --ci\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 11,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test:watch",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test:watch \"jest\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 15,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.sentinel:test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.sentinel:test \"jest --ci -c sentinel/jest.config.js\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "line": 4,
+          "column": 5,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "autoprefixer",
+          "referencedPackage": "autoprefixer",
+          "detector": "config",
+          "evidence": "literal (object key): \"autoprefixer\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "sentinel/test/coverage.test.ts",
+          "line": 68,
+          "column": 18,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/scenarios.test.ts",
+          "line": 26,
+          "column": 14,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/validation.test.ts",
+          "line": 31,
+          "column": 52,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/tsconfig.json",
+          "line": 7,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "jest",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "literal: \"jest\"",
+          "fileClass": "tooling"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "baseline-browser-mapping is reached through jest, ts-jest, autoprefixer; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "brace-expansion",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "eslint",
+        "eslint-config-next",
+        "jest",
+        "ts-jest"
+      ],
+      "binaries": [],
+      "references": [
+        {
+          "file": ".claude/hooks/validate-code.sh",
+          "line": 18,
+          "column": 5,
+          "relationship": "TEXT_REFERENCE",
+          "confidence": "INFERRED",
+          "specifier": "eslint",
+          "referencedPackage": "eslint",
+          "detector": "text-search",
+          "evidence": "npx eslint --max-warnings=0 \"$CHANGED_FILE\" || {",
+          "fileClass": "tooling"
+        },
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 56,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm test",
+          "referencedPackage": "jest",
+          "detector": "workflow",
+          "evidence": "job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest",
+          "fileClass": "ci"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "eslint.config.mjs",
+          "referencedPackage": "eslint",
+          "detector": "config",
+          "evidence": "config file naming: eslint.config.mjs is eslint's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 21,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/core-web-vitals",
+          "referencedPackage": "eslint-config-next",
+          "detector": "config",
+          "evidence": "ESLint shareable config naming: \"next/core-web-vitals\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 45,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/typescript",
+          "referencedPackage": "eslint-config-next",
+          "detector": "config",
+          "evidence": "ESLint shareable config naming: \"next/typescript\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "jest.config.js",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "jest.config.js",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "config file naming: jest.config.js is jest's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "jest.config.js",
+          "line": 5,
+          "column": 25,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "ts-jest",
+          "referencedPackage": "ts-jest",
+          "detector": "config",
+          "evidence": "literal: \"ts-jest\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 10,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test \"jest --ci\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 11,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test:watch",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test:watch \"jest\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 15,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.sentinel:test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.sentinel:test \"jest --ci -c sentinel/jest.config.js\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "sentinel/test/coverage.test.ts",
+          "line": 68,
+          "column": 18,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/scenarios.test.ts",
+          "line": 26,
+          "column": 14,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/validation.test.ts",
+          "line": 31,
+          "column": 52,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/tsconfig.json",
+          "line": 7,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "jest",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "literal: \"jest\"",
+          "fileClass": "tooling"
+        },
+        {
+          "file": "tsconfig.json",
+          "line": 16,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next",
+          "referencedPackage": "eslint-config-next",
+          "detector": "config",
+          "evidence": "ESLint shareable config naming: \"next\"",
+          "fileClass": "configuration"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "brace-expansion is reached through eslint, jest, eslint-config-next, ts-jest; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "browserslist",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "autoprefixer",
+        "jest",
+        "ts-jest"
+      ],
+      "binaries": [
+        "browserslist"
+      ],
+      "references": [
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 56,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm test",
+          "referencedPackage": "jest",
+          "detector": "workflow",
+          "evidence": "job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest",
+          "fileClass": "ci"
+        },
+        {
+          "file": "jest.config.js",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "jest.config.js",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "config file naming: jest.config.js is jest's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "jest.config.js",
+          "line": 5,
+          "column": 25,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "ts-jest",
+          "referencedPackage": "ts-jest",
+          "detector": "config",
+          "evidence": "literal: \"ts-jest\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 10,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test \"jest --ci\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 11,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test:watch",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test:watch \"jest\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 15,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.sentinel:test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.sentinel:test \"jest --ci -c sentinel/jest.config.js\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "line": 4,
+          "column": 5,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "autoprefixer",
+          "referencedPackage": "autoprefixer",
+          "detector": "config",
+          "evidence": "literal (object key): \"autoprefixer\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "sentinel/test/coverage.test.ts",
+          "line": 68,
+          "column": 18,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/scenarios.test.ts",
+          "line": 26,
+          "column": 14,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/validation.test.ts",
+          "line": 31,
+          "column": 52,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/tsconfig.json",
+          "line": 7,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "jest",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "literal: \"jest\"",
+          "fileClass": "tooling"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "browserslist is reached through jest, ts-jest, autoprefixer; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "deepmerge",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "jest",
+        "ts-jest"
+      ],
+      "binaries": [],
+      "references": [
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 56,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm test",
+          "referencedPackage": "jest",
+          "detector": "workflow",
+          "evidence": "job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest",
+          "fileClass": "ci"
+        },
+        {
+          "file": "jest.config.js",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "jest.config.js",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "config file naming: jest.config.js is jest's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "jest.config.js",
+          "line": 5,
+          "column": 25,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "ts-jest",
+          "referencedPackage": "ts-jest",
+          "detector": "config",
+          "evidence": "literal: \"ts-jest\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 10,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test \"jest --ci\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 11,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test:watch",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test:watch \"jest\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 15,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.sentinel:test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.sentinel:test \"jest --ci -c sentinel/jest.config.js\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "sentinel/test/coverage.test.ts",
+          "line": 68,
+          "column": 18,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/scenarios.test.ts",
+          "line": 26,
+          "column": 14,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/validation.test.ts",
+          "line": 31,
+          "column": 52,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/tsconfig.json",
+          "line": 7,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "jest",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "literal: \"jest\"",
+          "fileClass": "tooling"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "deepmerge is reached through jest, ts-jest; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "form-data",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "@anthropic-ai/sdk",
+        "jest-environment-jsdom"
+      ],
+      "binaries": [],
+      "references": [
+        {
+          "file": "jest.config.js",
+          "line": 3,
+          "column": 20,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "jsdom",
+          "referencedPackage": "jest-environment-jsdom",
+          "detector": "config",
+          "evidence": "jest testEnvironment naming: \"jsdom\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "src/__tests__/claude.test.ts",
+          "line": 19,
+          "column": 1,
+          "relationship": "TEST_MOCK",
+          "confidence": "CONFIRMED",
+          "specifier": "@anthropic-ai/sdk",
+          "referencedPackage": "@anthropic-ai/sdk",
+          "detector": "ast",
+          "evidence": "jest.mock('@anthropic-ai/sdk', () => jest.fn().mockImplementation(() => ({ messages: { create: mockCreate }, })) )",
+          "fileClass": "test"
+        },
+        {
+          "file": "src/lib/claude.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "@anthropic-ai/sdk",
+          "referencedPackage": "@anthropic-ai/sdk",
+          "detector": "ast",
+          "evidence": "import Anthropic from '@anthropic-ai/sdk';",
+          "fileClass": "production"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "form-data is reached through jest-environment-jsdom, @anthropic-ai/sdk; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "handlebars",
+      "status": "TOOLING_ONLY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "ts-jest"
+      ],
+      "binaries": [
+        "handlebars"
+      ],
+      "references": [
+        {
+          "file": "jest.config.js",
+          "line": 5,
+          "column": 25,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "ts-jest",
+          "referencedPackage": "ts-jest",
+          "detector": "config",
+          "evidence": "literal: \"ts-jest\"",
+          "fileClass": "configuration"
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "package": "js-yaml",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "eslint",
+        "eslint-config-next",
+        "jest",
+        "ts-jest"
+      ],
+      "binaries": [
+        "js-yaml"
+      ],
+      "references": [
+        {
+          "file": ".claude/hooks/validate-code.sh",
+          "line": 18,
+          "column": 5,
+          "relationship": "TEXT_REFERENCE",
+          "confidence": "INFERRED",
+          "specifier": "eslint",
+          "referencedPackage": "eslint",
+          "detector": "text-search",
+          "evidence": "npx eslint --max-warnings=0 \"$CHANGED_FILE\" || {",
+          "fileClass": "tooling"
+        },
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 56,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm test",
+          "referencedPackage": "jest",
+          "detector": "workflow",
+          "evidence": "job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest",
+          "fileClass": "ci"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "eslint.config.mjs",
+          "referencedPackage": "eslint",
+          "detector": "config",
+          "evidence": "config file naming: eslint.config.mjs is eslint's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 21,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/core-web-vitals",
+          "referencedPackage": "eslint-config-next",
+          "detector": "config",
+          "evidence": "ESLint shareable config naming: \"next/core-web-vitals\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 45,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/typescript",
+          "referencedPackage": "eslint-config-next",
+          "detector": "config",
+          "evidence": "ESLint shareable config naming: \"next/typescript\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "jest.config.js",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "jest.config.js",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "config file naming: jest.config.js is jest's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "jest.config.js",
+          "line": 5,
+          "column": 25,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "ts-jest",
+          "referencedPackage": "ts-jest",
+          "detector": "config",
+          "evidence": "literal: \"ts-jest\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 10,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test \"jest --ci\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 11,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test:watch",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test:watch \"jest\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 15,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.sentinel:test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.sentinel:test \"jest --ci -c sentinel/jest.config.js\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "sentinel/test/coverage.test.ts",
+          "line": 68,
+          "column": 18,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/scenarios.test.ts",
+          "line": 26,
+          "column": 14,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/validation.test.ts",
+          "line": 31,
+          "column": 52,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/tsconfig.json",
+          "line": 7,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "jest",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "literal: \"jest\"",
+          "fileClass": "tooling"
+        },
+        {
+          "file": "tsconfig.json",
+          "line": 16,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next",
+          "referencedPackage": "eslint-config-next",
+          "detector": "config",
+          "evidence": "ESLint shareable config naming: \"next\"",
+          "fileClass": "configuration"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "js-yaml is reached through eslint, jest, eslint-config-next, ts-jest; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "minimatch",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "eslint",
+        "eslint-config-next",
+        "jest",
+        "ts-jest"
+      ],
+      "binaries": [],
+      "references": [
+        {
+          "file": ".claude/hooks/validate-code.sh",
+          "line": 18,
+          "column": 5,
+          "relationship": "TEXT_REFERENCE",
+          "confidence": "INFERRED",
+          "specifier": "eslint",
+          "referencedPackage": "eslint",
+          "detector": "text-search",
+          "evidence": "npx eslint --max-warnings=0 \"$CHANGED_FILE\" || {",
+          "fileClass": "tooling"
+        },
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 56,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm test",
+          "referencedPackage": "jest",
+          "detector": "workflow",
+          "evidence": "job test: \"npm test\" npm script chain test runs the \"jest\" binary of jest",
+          "fileClass": "ci"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "eslint.config.mjs",
+          "referencedPackage": "eslint",
+          "detector": "config",
+          "evidence": "config file naming: eslint.config.mjs is eslint's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 21,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/core-web-vitals",
+          "referencedPackage": "eslint-config-next",
+          "detector": "config",
+          "evidence": "ESLint shareable config naming: \"next/core-web-vitals\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 45,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/typescript",
+          "referencedPackage": "eslint-config-next",
+          "detector": "config",
+          "evidence": "ESLint shareable config naming: \"next/typescript\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "jest.config.js",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "jest.config.js",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "config file naming: jest.config.js is jest's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "jest.config.js",
+          "line": 5,
+          "column": 25,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "ts-jest",
+          "referencedPackage": "ts-jest",
+          "detector": "config",
+          "evidence": "literal: \"ts-jest\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 10,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test \"jest --ci\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 11,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.test:watch",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.test:watch \"jest\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 15,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.sentinel:test",
+          "referencedPackage": "jest",
+          "detector": "package-json",
+          "evidence": "scripts.sentinel:test \"jest --ci -c sentinel/jest.config.js\" runs the \"jest\" binary of jest",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "sentinel/test/coverage.test.ts",
+          "line": 68,
+          "column": 18,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/scenarios.test.ts",
+          "line": 26,
+          "column": 14,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/test/validation.test.ts",
+          "line": 31,
+          "column": 52,
+          "relationship": "REQUIRE",
+          "confidence": "CONFIRMED",
+          "specifier": "jest/bin/jest",
+          "referencedPackage": "jest",
+          "detector": "ast",
+          "evidence": "require.resolve('jest/bin/jest')",
+          "fileClass": "test"
+        },
+        {
+          "file": "sentinel/tsconfig.json",
+          "line": 7,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "jest",
+          "referencedPackage": "jest",
+          "detector": "config",
+          "evidence": "literal: \"jest\"",
+          "fileClass": "tooling"
+        },
+        {
+          "file": "tsconfig.json",
+          "line": 16,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next",
+          "referencedPackage": "eslint-config-next",
+          "detector": "config",
+          "evidence": "ESLint shareable config naming: \"next\"",
+          "fileClass": "configuration"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "minimatch is reached through eslint, jest, eslint-config-next, ts-jest; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "nanoid",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "autoprefixer",
+        "next",
+        "postcss",
+        "tailwindcss"
+      ],
+      "binaries": [
+        "nanoid"
+      ],
+      "references": [
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 34,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run lint",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job lint-and-build: \"npm run lint\" npm script chain lint runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 37,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run build",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job lint-and-build: \"npm run build\" npm script chain build runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": ".github/workflows/deploy.yml",
+          "line": 39,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run build",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job build: \"npm run build\" npm script chain build runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 21,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/core-web-vitals",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "subpath: \"next/core-web-vitals\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 45,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/typescript",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "subpath: \"next/typescript\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "next.config.ts",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next.config.ts",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "config file naming: next.config.ts is next's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "next.config.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { NextConfig } from 'next';",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 6,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.dev",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.dev \"next dev\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 7,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.build",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.build \"next build\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 8,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.start",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.start \"next start\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 9,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.lint",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.lint \"next lint --dir src --dir sentinel\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "postcss.config.mjs",
+          "referencedPackage": "postcss",
+          "detector": "config",
+          "evidence": "config file naming: postcss.config.mjs is postcss's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "line": 3,
+          "column": 5,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "tailwindcss",
+          "referencedPackage": "tailwindcss",
+          "detector": "config",
+          "evidence": "literal (object key): \"tailwindcss\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "line": 4,
+          "column": 5,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "autoprefixer",
+          "referencedPackage": "autoprefixer",
+          "detector": "config",
+          "evidence": "literal (object key): \"autoprefixer\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "src/__tests__/Header.test.tsx",
+          "line": 6,
+          "column": 1,
+          "relationship": "TEST_MOCK",
+          "confidence": "CONFIRMED",
+          "specifier": "next/navigation",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "jest.mock('next/navigation', () => ({ usePathname: () => mockPathname(), }))",
+          "fileClass": "test"
+        },
+        {
+          "file": "src/app/games/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/layout.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata, Viewport } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/layout.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/font/google",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import { Inter } from 'next/font/google';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/manifest.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { MetadataRoute } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/not-found.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/wellbeing/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/Header.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/Header.tsx",
+          "line": 4,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/navigation",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import { usePathname } from 'next/navigation';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/PlayerProfile.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/WeeklyGames.tsx",
+          "line": 4,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "tailwind.config.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "tailwindcss",
+          "referencedPackage": "tailwindcss",
+          "detector": "ast",
+          "evidence": "import type { Config } from 'tailwindcss';",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "tsconfig.json",
+          "line": 16,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "literal: \"next\"",
+          "fileClass": "configuration"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "nanoid is reached through next, postcss, tailwindcss, autoprefixer; whether its vulnerable code runs cannot be determined statically"
+        },
+        {
+          "code": "BUILD_TOOL_SCOPE",
+          "message": "next runs in the build; the files it processes cannot be listed statically"
+        }
+      ]
+    },
+    {
+      "package": "next",
+      "status": "USED_DIRECTLY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [],
+      "binaries": [
+        "next"
+      ],
+      "references": [
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 34,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run lint",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job lint-and-build: \"npm run lint\" npm script chain lint runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 37,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run build",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job lint-and-build: \"npm run build\" npm script chain build runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": ".github/workflows/deploy.yml",
+          "line": 39,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run build",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job build: \"npm run build\" npm script chain build runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 21,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/core-web-vitals",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "subpath: \"next/core-web-vitals\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 45,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/typescript",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "subpath: \"next/typescript\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "next.config.ts",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next.config.ts",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "config file naming: next.config.ts is next's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "next.config.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { NextConfig } from 'next';",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 6,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.dev",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.dev \"next dev\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 7,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.build",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.build \"next build\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 8,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.start",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.start \"next start\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 9,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.lint",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.lint \"next lint --dir src --dir sentinel\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "src/__tests__/Header.test.tsx",
+          "line": 6,
+          "column": 1,
+          "relationship": "TEST_MOCK",
+          "confidence": "CONFIRMED",
+          "specifier": "next/navigation",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "jest.mock('next/navigation', () => ({ usePathname: () => mockPathname(), }))",
+          "fileClass": "test"
+        },
+        {
+          "file": "src/app/games/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/layout.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata, Viewport } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/layout.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/font/google",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import { Inter } from 'next/font/google';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/manifest.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { MetadataRoute } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/not-found.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/wellbeing/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/Header.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/Header.tsx",
+          "line": 4,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/navigation",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import { usePathname } from 'next/navigation';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/PlayerProfile.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/WeeklyGames.tsx",
+          "line": 4,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "tsconfig.json",
+          "line": 16,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "literal: \"next\"",
+          "fileClass": "configuration"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "BUILD_TOOL_SCOPE",
+          "message": "next runs in the build; the files it processes cannot be listed statically"
+        }
+      ]
+    },
+    {
+      "package": "postcss",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "autoprefixer",
+        "next",
+        "tailwindcss"
+      ],
+      "binaries": [],
+      "references": [
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 34,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run lint",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job lint-and-build: \"npm run lint\" npm script chain lint runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 37,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run build",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job lint-and-build: \"npm run build\" npm script chain build runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": ".github/workflows/deploy.yml",
+          "line": 39,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run build",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job build: \"npm run build\" npm script chain build runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 21,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/core-web-vitals",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "subpath: \"next/core-web-vitals\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 45,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/typescript",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "subpath: \"next/typescript\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "next.config.ts",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next.config.ts",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "config file naming: next.config.ts is next's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "next.config.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { NextConfig } from 'next';",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 6,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.dev",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.dev \"next dev\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 7,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.build",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.build \"next build\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 8,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.start",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.start \"next start\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 9,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.lint",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.lint \"next lint --dir src --dir sentinel\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "postcss.config.mjs",
+          "referencedPackage": "postcss",
+          "detector": "config",
+          "evidence": "config file naming: postcss.config.mjs is postcss's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "line": 3,
+          "column": 5,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "tailwindcss",
+          "referencedPackage": "tailwindcss",
+          "detector": "config",
+          "evidence": "literal (object key): \"tailwindcss\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "line": 4,
+          "column": 5,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "autoprefixer",
+          "referencedPackage": "autoprefixer",
+          "detector": "config",
+          "evidence": "literal (object key): \"autoprefixer\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "src/__tests__/Header.test.tsx",
+          "line": 6,
+          "column": 1,
+          "relationship": "TEST_MOCK",
+          "confidence": "CONFIRMED",
+          "specifier": "next/navigation",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "jest.mock('next/navigation', () => ({ usePathname: () => mockPathname(), }))",
+          "fileClass": "test"
+        },
+        {
+          "file": "src/app/games/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/layout.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata, Viewport } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/layout.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/font/google",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import { Inter } from 'next/font/google';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/manifest.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { MetadataRoute } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/not-found.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/wellbeing/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/Header.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/Header.tsx",
+          "line": 4,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/navigation",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import { usePathname } from 'next/navigation';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/PlayerProfile.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/WeeklyGames.tsx",
+          "line": 4,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "tailwind.config.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "tailwindcss",
+          "referencedPackage": "tailwindcss",
+          "detector": "ast",
+          "evidence": "import type { Config } from 'tailwindcss';",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "tsconfig.json",
+          "line": 16,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "literal: \"next\"",
+          "fileClass": "configuration"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "postcss is reached through next, postcss, tailwindcss, autoprefixer; whether its vulnerable code runs cannot be determined statically"
+        },
+        {
+          "code": "BUILD_TOOL_SCOPE",
+          "message": "next runs in the build; the files it processes cannot be listed statically"
+        }
+      ]
+    },
+    {
+      "package": "postcss-selector-parser",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "tailwindcss"
+      ],
+      "binaries": [],
+      "references": [
+        {
+          "file": "postcss.config.mjs",
+          "line": 3,
+          "column": 5,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "tailwindcss",
+          "referencedPackage": "tailwindcss",
+          "detector": "config",
+          "evidence": "literal (object key): \"tailwindcss\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "tailwind.config.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "tailwindcss",
+          "referencedPackage": "tailwindcss",
+          "detector": "ast",
+          "evidence": "import type { Config } from 'tailwindcss';",
+          "fileClass": "configuration"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "postcss-selector-parser is reached through tailwindcss; whether its vulnerable code runs cannot be determined statically"
+        }
+      ]
+    },
+    {
+      "package": "sharp",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "next"
+      ],
+      "binaries": [],
+      "references": [
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 34,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run lint",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job lint-and-build: \"npm run lint\" npm script chain lint runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 37,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run build",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job lint-and-build: \"npm run build\" npm script chain build runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": ".github/workflows/deploy.yml",
+          "line": 39,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run build",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job build: \"npm run build\" npm script chain build runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 21,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/core-web-vitals",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "subpath: \"next/core-web-vitals\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 45,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/typescript",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "subpath: \"next/typescript\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "next.config.ts",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next.config.ts",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "config file naming: next.config.ts is next's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "next.config.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { NextConfig } from 'next';",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 6,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.dev",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.dev \"next dev\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 7,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.build",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.build \"next build\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 8,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.start",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.start \"next start\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 9,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.lint",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.lint \"next lint --dir src --dir sentinel\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "src/__tests__/Header.test.tsx",
+          "line": 6,
+          "column": 1,
+          "relationship": "TEST_MOCK",
+          "confidence": "CONFIRMED",
+          "specifier": "next/navigation",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "jest.mock('next/navigation', () => ({ usePathname: () => mockPathname(), }))",
+          "fileClass": "test"
+        },
+        {
+          "file": "src/app/games/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/layout.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata, Viewport } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/layout.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/font/google",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import { Inter } from 'next/font/google';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/manifest.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { MetadataRoute } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/not-found.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/wellbeing/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/Header.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/Header.tsx",
+          "line": 4,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/navigation",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import { usePathname } from 'next/navigation';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/PlayerProfile.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/WeeklyGames.tsx",
+          "line": 4,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "tsconfig.json",
+          "line": 16,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "literal: \"next\"",
+          "fileClass": "configuration"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "sharp is reached through next; whether its vulnerable code runs cannot be determined statically"
+        },
+        {
+          "code": "BUILD_TOOL_SCOPE",
+          "message": "next runs in the build; the files it processes cannot be listed statically"
+        }
+      ]
+    },
+    {
+      "package": "source-map-js",
+      "status": "USED_TRANSITIVELY",
+      "completeness": "COMPLETE",
+      "viaDirectDependencies": [
+        "autoprefixer",
+        "next",
+        "postcss",
+        "tailwindcss"
+      ],
+      "binaries": [],
+      "references": [
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 34,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run lint",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job lint-and-build: \"npm run lint\" npm script chain lint runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": ".github/workflows/ci.yml",
+          "line": 37,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run build",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job lint-and-build: \"npm run build\" npm script chain build runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": ".github/workflows/deploy.yml",
+          "line": 39,
+          "column": null,
+          "relationship": "CI_WORKFLOW",
+          "confidence": "CONFIRMED",
+          "specifier": "npm run build",
+          "referencedPackage": "next",
+          "detector": "workflow",
+          "evidence": "job build: \"npm run build\" npm script chain build runs the \"next\" binary of next",
+          "fileClass": "ci"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 21,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/core-web-vitals",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "subpath: \"next/core-web-vitals\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "eslint.config.mjs",
+          "line": 12,
+          "column": 45,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next/typescript",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "subpath: \"next/typescript\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "next.config.ts",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "next.config.ts",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "config file naming: next.config.ts is next's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "next.config.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { NextConfig } from 'next';",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 6,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.dev",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.dev \"next dev\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 7,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.build",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.build \"next build\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 8,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.start",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.start \"next start\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "package.json",
+          "line": 9,
+          "column": null,
+          "relationship": "BUILD_SCRIPT",
+          "confidence": "CONFIRMED",
+          "specifier": "scripts.lint",
+          "referencedPackage": "next",
+          "detector": "package-json",
+          "evidence": "scripts.lint \"next lint --dir src --dir sentinel\" runs the \"next\" binary of next",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "line": null,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "postcss.config.mjs",
+          "referencedPackage": "postcss",
+          "detector": "config",
+          "evidence": "config file naming: postcss.config.mjs is postcss's configuration file",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "line": 3,
+          "column": 5,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "tailwindcss",
+          "referencedPackage": "tailwindcss",
+          "detector": "config",
+          "evidence": "literal (object key): \"tailwindcss\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "postcss.config.mjs",
+          "line": 4,
+          "column": 5,
+          "relationship": "CONFIGURATION",
+          "confidence": "INFERRED",
+          "specifier": "autoprefixer",
+          "referencedPackage": "autoprefixer",
+          "detector": "config",
+          "evidence": "literal (object key): \"autoprefixer\"",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "src/__tests__/Header.test.tsx",
+          "line": 6,
+          "column": 1,
+          "relationship": "TEST_MOCK",
+          "confidence": "CONFIRMED",
+          "specifier": "next/navigation",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "jest.mock('next/navigation', () => ({ usePathname: () => mockPathname(), }))",
+          "fileClass": "test"
+        },
+        {
+          "file": "src/app/games/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/layout.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata, Viewport } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/layout.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/font/google",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import { Inter } from 'next/font/google';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/manifest.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { MetadataRoute } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/not-found.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/app/wellbeing/page.tsx",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import type { Metadata } from 'next';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/Header.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/Header.tsx",
+          "line": 4,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/navigation",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import { usePathname } from 'next/navigation';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/PlayerProfile.tsx",
+          "line": 3,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "src/components/WeeklyGames.tsx",
+          "line": 4,
+          "column": 1,
+          "relationship": "DIRECT_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "next/link",
+          "referencedPackage": "next",
+          "detector": "ast",
+          "evidence": "import Link from 'next/link';",
+          "fileClass": "production"
+        },
+        {
+          "file": "tailwind.config.ts",
+          "line": 1,
+          "column": 1,
+          "relationship": "TYPE_IMPORT",
+          "confidence": "CONFIRMED",
+          "specifier": "tailwindcss",
+          "referencedPackage": "tailwindcss",
+          "detector": "ast",
+          "evidence": "import type { Config } from 'tailwindcss';",
+          "fileClass": "configuration"
+        },
+        {
+          "file": "tsconfig.json",
+          "line": 16,
+          "column": null,
+          "relationship": "CONFIGURATION",
+          "confidence": "CONFIRMED",
+          "specifier": "next",
+          "referencedPackage": "next",
+          "detector": "config",
+          "evidence": "literal: \"next\"",
+          "fileClass": "configuration"
+        }
+      ],
+      "limitations": [
+        {
+          "code": "TRANSITIVE_REACHABILITY_UNKNOWN",
+          "message": "source-map-js is reached through next, postcss, tailwindcss, autoprefixer; whether its vulnerable code runs cannot be determined statically"
+        },
+        {
+          "code": "BUILD_TOOL_SCOPE",
+          "message": "next runs in the build; the files it processes cannot be listed statically"
+        }
+      ]
+    }
+  ]
+}

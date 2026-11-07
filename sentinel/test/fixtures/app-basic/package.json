@@ -1,0 +1,19 @@
+{
+  "name": "app-basic",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "webfw build",
+    "test": "test-runner --ci",
+    "deploy": "./scripts/deploy.sh"
+  },
+  "dependencies": {
+    "web-framework": "^1.0.0",
+    "http-client": "^2.0.0",
+    "ghost-pkg": "^1.0.0"
+  },
+  "devDependencies": {
+    "test-runner": "^1.0.0",
+    "ts-transform": "^1.0.0"
+  }
+}

@@ -6,9 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --dir src --dir sentinel",
     "test": "jest --ci",
-    "test:watch": "jest"
+    "test:watch": "jest",
+    "test:e2e": "node e2e/profile-setup.mjs && node e2e/saved-plans.mjs",
+    "sentinel:build": "tsc -p sentinel/tsconfig.build.json",
+    "sentinel:typecheck": "tsc -p sentinel/tsconfig.json",
+    "sentinel:test": "jest --ci -c sentinel/jest.config.js",
+    "sentinel": "node sentinel/dist/cli.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.0",
@@ -28,6 +33,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/semver": "^7.8.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
@@ -35,8 +41,10 @@
     "jest-environment-jsdom": "^29",
     "playwright": "^1.60.0",
     "postcss": "^8.5.3",
+    "semver": "^7.8.6",
     "tailwindcss": "^3.4.17",
     "ts-jest": "^29",
-    "typescript": "^5"
+    "typescript": "^5",
+    "yaml": "^2.9.1"
   }
 }

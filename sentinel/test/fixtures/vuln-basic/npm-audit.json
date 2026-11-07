@@ -1,0 +1,279 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "alpha": {
+      "name": "alpha",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "beta",
+        "gamma",
+        "vips",
+        "zeta"
+      ],
+      "effects": [],
+      "range": "1.0.0",
+      "nodes": [
+        "node_modules/alpha"
+      ],
+      "fixAvailable": true
+    },
+    "beta": {
+      "name": "beta",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1001,
+          "name": "beta",
+          "dependency": "beta",
+          "title": "Beta prototype pollution",
+          "url": "https://github.com/advisories/GHSA-2222-3333-4444",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": null
+          },
+          "range": ">=2.0.0 <2.1.5"
+        },
+        {
+          "source": 1002,
+          "name": "beta",
+          "dependency": "beta",
+          "title": "Beta ReDoS",
+          "url": "https://github.com/advisories/GHSA-5555-6666-7777",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-1333"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": null
+          },
+          "range": "<1.2.5"
+        }
+      ],
+      "effects": [
+        "alpha",
+        "tool"
+      ],
+      "range": "<1.2.5 || >=2.0.0 <2.1.5",
+      "nodes": [
+        "node_modules/beta",
+        "node_modules/tool/node_modules/beta"
+      ],
+      "fixAvailable": true
+    },
+    "deep": {
+      "name": "deep",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1004,
+          "name": "deep",
+          "dependency": "deep",
+          "title": "Deep merge pollution",
+          "url": "https://github.com/advisories/GHSA-ffff-gggg-hhhh",
+          "severity": "low",
+          "cwe": [],
+          "cvss": {
+            "score": 3.1,
+            "vectorString": null
+          },
+          "range": ">=4.0.0 <=4.9.9"
+        }
+      ],
+      "effects": [
+        "tool"
+      ],
+      "range": ">=4.0.0 <=4.9.9",
+      "nodes": [
+        "node_modules/deep"
+      ],
+      "fixAvailable": {
+        "name": "tool",
+        "version": "1.0.0",
+        "isSemVerMajor": true
+      }
+    },
+    "gamma": {
+      "name": "gamma",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1008,
+          "name": "gamma",
+          "dependency": "gamma",
+          "title": "Gamma header injection",
+          "url": "https://github.com/advisories/GHSA-wwww-xxxx-2345",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-113"
+          ],
+          "cvss": {
+            "score": 4.0,
+            "vectorString": null
+          },
+          "range": "<1.0.1"
+        }
+      ],
+      "effects": [
+        "alpha"
+      ],
+      "range": "<1.0.1",
+      "nodes": [
+        "node_modules/gamma"
+      ],
+      "fixAvailable": {
+        "name": "alpha",
+        "version": "1.1.0",
+        "isSemVerMajor": false
+      }
+    },
+    "lonely": {
+      "name": "lonely",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        {
+          "source": 1006,
+          "name": "lonely",
+          "dependency": "lonely",
+          "title": "Lonely unmaintained",
+          "url": "https://github.com/advisories/GHSA-qqqq-rrrr-vvvv",
+          "severity": "moderate",
+          "cwe": [],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=1.0.0"
+        }
+      ],
+      "effects": [],
+      "range": ">=1.0.0",
+      "nodes": [
+        "node_modules/lonely"
+      ],
+      "fixAvailable": false
+    },
+    "tool": {
+      "name": "tool",
+      "severity": "critical",
+      "isDirect": true,
+      "via": [
+        {
+          "source": 1003,
+          "name": "tool",
+          "dependency": "tool",
+          "title": "Tool command injection",
+          "url": "https://github.com/advisories/GHSA-8888-9999-cccc",
+          "severity": "critical",
+          "cwe": [
+            "CWE-78"
+          ],
+          "cvss": {
+            "score": 9.8,
+            "vectorString": null
+          },
+          "range": "<2.3.0"
+        },
+        "beta",
+        "deep"
+      ],
+      "effects": [],
+      "range": "<2.3.0",
+      "nodes": [
+        "node_modules/tool"
+      ],
+      "fixAvailable": {
+        "name": "tool",
+        "version": "2.3.1",
+        "isSemVerMajor": false
+      }
+    },
+    "vips": {
+      "name": "vips",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1010,
+          "name": "vips",
+          "dependency": "vips",
+          "title": "Vips image parsing overflow",
+          "url": "https://github.com/advisories/GHSA-hhhh-jjjj-mmmm",
+          "severity": "low",
+          "cwe": [
+            "CWE-190"
+          ],
+          "cvss": {
+            "score": 2.0,
+            "vectorString": null
+          },
+          "range": "<0.35.0"
+        }
+      ],
+      "effects": [
+        "alpha"
+      ],
+      "range": "<0.35.0",
+      "nodes": [
+        "node_modules/vips"
+      ],
+      "fixAvailable": {
+        "name": "alpha",
+        "version": "1.1.0",
+        "isSemVerMajor": false
+      }
+    },
+    "zeta": {
+      "name": "zeta",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1005,
+          "name": "zeta",
+          "dependency": "zeta",
+          "title": "Zeta path traversal",
+          "url": "https://github.com/advisories/GHSA-jjjj-mmmm-pppp",
+          "severity": "high",
+          "cwe": [],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<0.3.2"
+        }
+      ],
+      "effects": [
+        "alpha"
+      ],
+      "range": "<0.3.2",
+      "nodes": [
+        "node_modules/zeta"
+      ],
+      "fixAvailable": {
+        "name": "alpha",
+        "version": "1.1.0",
+        "isSemVerMajor": false
+      }
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 2,
+      "moderate": 3,
+      "high": 3,
+      "critical": 1,
+      "total": 9
+    }
+  }
+}

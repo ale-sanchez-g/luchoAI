@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportType": "repository-discovery",
+  "executionId": "local-20261107T084443925Z",
+  "generatedAt": "2026-11-07T08:44:43.971Z",
+  "repository": {
+    "slug": null,
+    "commitSha": "9636b1de067029cdc3b60924d44adb9d6aa349b0",
+    "ref": null
+  },
+  "tool": {
+    "name": "project-sentinel",
+    "version": "1.0.0"
+  },
+  "limitations": [
+    {
+      "code": "NO_CODEOWNERS",
+      "message": "No CODEOWNERS file; ownership of impacted files cannot be resolved"
+    }
+  ],
+  "languages": [
+    {
+      "name": "TypeScript",
+      "files": 162
+    },
+    {
+      "name": "JavaScript",
+      "files": 6
+    },
+    {
+      "name": "YAML",
+      "files": 5
+    },
+    {
+      "name": "CSS",
+      "files": 1
+    },
+    {
+      "name": "Shell",
+      "files": 1
+    }
+  ],
+  "packageManagers": [
+    {
+      "name": "npm",
+      "manifest": "package.json",
+      "lockfile": "package-lock.json",
+      "lockfileVersion": 3
+    }
+  ],
+  "testFrameworks": [
+    {
+      "name": "jest",
+      "configFile": "jest.config.js",
+      "command": "npm test"
+    },
+    {
+      "name": "playwright",
+      "configFile": null,
+      "command": "npm run test:e2e"
+    }
+  ],
+  "coverage": {
+    "configured": false,
+    "thresholds": null,
+    "source": "jest.config.js"
+  },
+  "ciWorkflows": [
+    ".github/workflows/ci.yml",
+    ".github/workflows/deploy.yml",
+    ".github/workflows/sentinel-pr-validation.yml",
+    ".github/workflows/weekly-sentinel.yml"
+  ],
+  "codeowners": {
+    "path": null,
+    "rules": 0
+  },
+  "securityTools": [
+    "grep-secret-scan",
+    "npm-audit"
+  ]
+}
