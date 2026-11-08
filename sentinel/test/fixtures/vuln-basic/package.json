@@ -1,0 +1,12 @@
+{
+  "name": "fixture-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "alpha": "^1.0.0",
+    "lonely": "^1.0.0",
+    "omega": "^3.0.0"
+  },
+  "devDependencies": {
+    "tool": "2.0.0"
+  }
+}

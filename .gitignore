@@ -41,3 +41,8 @@ CLAUDE.local.md
 
 # E2E screenshots
 e2e/screenshots/
+
+# Project Sentinel build output and local reports
+/sentinel/dist/
+/sentinel-reports/
+/coverage/

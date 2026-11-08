@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ale-sanchez-g/luchoAI/sentinel/schemas/repository-discovery.schema.json",
+  "title": "Project Sentinel repository discovery",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "reportType", "executionId", "generatedAt", "repository", "tool", "limitations",
+    "languages", "packageManagers", "testFrameworks", "coverage", "ciWorkflows", "codeowners", "securityTools"
+  ],
+  "properties": {
+    "schemaVersion": { "$ref": "common.schema.json#/definitions/schemaVersion" },
+    "reportType": { "const": "repository-discovery" },
+    "executionId": { "$ref": "common.schema.json#/definitions/executionId" },
+    "generatedAt": { "$ref": "common.schema.json#/definitions/timestamp" },
+    "repository": { "$ref": "common.schema.json#/definitions/repositoryRef" },
+    "tool": { "$ref": "common.schema.json#/definitions/tool" },
+    "limitations": { "$ref": "common.schema.json#/definitions/limitations" },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "files"],
+        "properties": { "name": { "type": "string" }, "files": { "type": "integer", "minimum": 1 } }
+      }
+    },
+    "packageManagers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "manifest", "lockfile", "lockfileVersion"],
+        "properties": {
+          "name": { "type": "string" },
+          "manifest": { "$ref": "common.schema.json#/definitions/relativePath" },
+          "lockfile": { "type": ["string", "null"] },
+          "lockfileVersion": { "type": ["integer", "null"] }
+        }
+      }
+    },
+    "testFrameworks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "configFile", "command"],
+        "properties": {
+          "name": { "type": "string" },
+          "configFile": { "type": ["string", "null"] },
+          "command": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["configured", "thresholds", "source"],
+      "properties": {
+        "configured": { "type": "boolean" },
+        "thresholds": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["lines", "branches", "functions", "statements"],
+              "properties": {
+                "lines": { "type": ["number", "null"] },
+                "branches": { "type": ["number", "null"] },
+                "functions": { "type": ["number", "null"] },
+                "statements": { "type": ["number", "null"] }
+              }
+            }
+          ]
+        },
+        "source": { "type": ["string", "null"] }
+      }
+    },
+    "ciWorkflows": { "$ref": "common.schema.json#/definitions/pathList" },
+    "codeowners": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "rules"],
+      "properties": {
+        "path": { "type": ["string", "null"] },
+        "rules": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "securityTools": { "$ref": "common.schema.json#/definitions/stringList" }
+  }
+}

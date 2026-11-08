@@ -1,0 +1,465 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ale-sanchez-g/luchoAI/sentinel/schemas/coverage-report.schema.json",
+  "title": "Project Sentinel test coverage intelligence report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reportType",
+    "executionId",
+    "generatedAt",
+    "repository",
+    "tool",
+    "limitations",
+    "policy",
+    "inputs",
+    "attribution",
+    "tests",
+    "files",
+    "summary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "$ref": "common.schema.json#/definitions/schemaVersion"
+    },
+    "reportType": {
+      "const": "coverage-report"
+    },
+    "executionId": {
+      "$ref": "common.schema.json#/definitions/executionId"
+    },
+    "generatedAt": {
+      "$ref": "common.schema.json#/definitions/timestamp"
+    },
+    "repository": {
+      "$ref": "common.schema.json#/definitions/repositoryRef"
+    },
+    "tool": {
+      "$ref": "common.schema.json#/definitions/tool"
+    },
+    "limitations": {
+      "$ref": "common.schema.json#/definitions/limitations"
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lineThreshold",
+        "branchThreshold",
+        "thresholdSource",
+        "scope",
+        "allowSkippedTests",
+        "requireAttribution"
+      ],
+      "properties": {
+        "lineThreshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "branchThreshold": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "thresholdSource": {
+          "type": "string"
+        },
+        "scope": {
+          "enum": [
+            "direct",
+            "direct-and-dependents"
+          ]
+        },
+        "allowSkippedTests": {
+          "type": "boolean"
+        },
+        "requireAttribution": {
+          "type": "boolean"
+        }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "format",
+          "path",
+          "status",
+          "detail"
+        ],
+        "properties": {
+          "format": {
+            "enum": [
+              "istanbul-json",
+              "lcov",
+              "coverage-py-json",
+              "jest-results",
+              "jest-attribution",
+              "jest-list-tests"
+            ]
+          },
+          "path": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "PARSED",
+              "MISSING",
+              "MALFORMED"
+            ]
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "attribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "granularity",
+        "detail"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "granularity": {
+          "enum": [
+            "test-file",
+            "none"
+          ]
+        },
+        "detail": {
+          "type": "string"
+        }
+      }
+    },
+    "tests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "discovered",
+        "executed",
+        "notExecuted"
+      ],
+      "properties": {
+        "discovered": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        },
+        "executed": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        },
+        "notExecuted": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/fileCoverage"
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluated",
+        "requiringEvidence",
+        "byStatus"
+      ],
+      "properties": {
+        "evaluated": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "requiringEvidence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "byStatus": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "TESTED_AND_COVERED",
+            "TESTED_INSUFFICIENT_COVERAGE",
+            "NOT_TESTED",
+            "TEST_NOT_EXECUTED",
+            "TEST_FAILED",
+            "COVERAGE_UNAVAILABLE",
+            "INSTRUMENTATION_UNSUPPORTED"
+          ],
+          "properties": {
+            "TESTED_AND_COVERED": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "TESTED_INSUFFICIENT_COVERAGE": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "NOT_TESTED": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "TEST_NOT_EXECUTED": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "TEST_FAILED": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "COVERAGE_UNAVAILABLE": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "INSTRUMENTATION_UNSUPPORTED": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "fileCoverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "fileClass",
+        "evidenceRequired",
+        "status",
+        "metrics",
+        "associatedTests",
+        "validatedBy",
+        "evidence",
+        "limitations"
+      ],
+      "properties": {
+        "file": {
+          "$ref": "common.schema.json#/definitions/relativePath"
+        },
+        "fileClass": {
+          "$ref": "common.schema.json#/definitions/fileClass"
+        },
+        "evidenceRequired": {
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "common.schema.json#/definitions/coverageStatus"
+        },
+        "metrics": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "lines",
+                "statements",
+                "functions",
+                "branches"
+              ],
+              "properties": {
+                "lines": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "covered",
+                    "total",
+                    "pct"
+                  ],
+                  "properties": {
+                    "covered": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "pct": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "statements": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "covered",
+                    "total",
+                    "pct"
+                  ],
+                  "properties": {
+                    "covered": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "pct": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "functions": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "covered",
+                    "total",
+                    "pct"
+                  ],
+                  "properties": {
+                    "covered": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "pct": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                },
+                "branches": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "covered",
+                    "total",
+                    "pct"
+                  ],
+                  "properties": {
+                    "covered": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "pct": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "associatedTests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "testFile",
+              "association",
+              "discovered",
+              "executed",
+              "result",
+              "executionStrength",
+              "assertions"
+            ],
+            "properties": {
+              "testFile": {
+                "$ref": "common.schema.json#/definitions/relativePath"
+              },
+              "association": {
+                "enum": [
+                  "EXECUTION",
+                  "STATIC_IMPORT",
+                  "BOTH"
+                ]
+              },
+              "discovered": {
+                "type": "boolean"
+              },
+              "executed": {
+                "type": "boolean"
+              },
+              "result": {
+                "enum": [
+                  "PASSED",
+                  "FAILED",
+                  "SKIPPED",
+                  "NOT_EXECUTED",
+                  "ERROR"
+                ]
+              },
+              "executionStrength": {
+                "enum": [
+                  "EXERCISED",
+                  "LOADED_ONLY",
+                  "NONE",
+                  "UNKNOWN"
+                ]
+              },
+              "assertions": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "passed",
+                  "failed",
+                  "skipped"
+                ],
+                "properties": {
+                  "passed": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "failed": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "skipped": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "validatedBy": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "evidence": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "limitations": {
+          "$ref": "common.schema.json#/definitions/limitations"
+        }
+      }
+    }
+  }
+}

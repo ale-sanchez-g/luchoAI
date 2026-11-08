@@ -1,0 +1,260 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ale-sanchez-g/luchoAI/sentinel/schemas/merge-decision.schema.json",
+  "title": "Project Sentinel governance and merge decision",
+  "definitions": {
+    "reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "gate",
+        "effect",
+        "message",
+        "subjects"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]*$"
+        },
+        "gate": {
+          "$ref": "common.schema.json#/definitions/gateId"
+        },
+        "effect": {
+          "enum": [
+            "BLOCK",
+            "REVIEW",
+            "INFO"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "subjects": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        }
+      }
+    },
+    "ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "codeownersFile",
+        "owners",
+        "users",
+        "teams",
+        "emails",
+        "assignments",
+        "unresolvedFiles",
+        "fallbackApplied"
+      ],
+      "properties": {
+        "codeownersFile": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owners": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "users": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "teams": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "emails": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "assignments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "owners",
+              "source",
+              "rule"
+            ],
+            "properties": {
+              "file": {
+                "$ref": "common.schema.json#/definitions/relativePath"
+              },
+              "owners": {
+                "$ref": "common.schema.json#/definitions/stringList"
+              },
+              "source": {
+                "enum": [
+                  "codeowners",
+                  "fallback",
+                  "none"
+                ]
+              },
+              "rule": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "unresolvedFiles": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        },
+        "fallbackApplied": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reportType",
+    "executionId",
+    "generatedAt",
+    "repository",
+    "tool",
+    "limitations",
+    "decision",
+    "gates",
+    "reasons",
+    "pullRequest",
+    "ownership",
+    "labels",
+    "inputs",
+    "decisionDigest"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "$ref": "common.schema.json#/definitions/schemaVersion"
+    },
+    "reportType": {
+      "const": "merge-decision"
+    },
+    "executionId": {
+      "$ref": "common.schema.json#/definitions/executionId"
+    },
+    "generatedAt": {
+      "$ref": "common.schema.json#/definitions/timestamp"
+    },
+    "repository": {
+      "$ref": "common.schema.json#/definitions/repositoryRef"
+    },
+    "tool": {
+      "$ref": "common.schema.json#/definitions/tool"
+    },
+    "limitations": {
+      "$ref": "common.schema.json#/definitions/limitations"
+    },
+    "decision": {
+      "$ref": "common.schema.json#/definitions/outcome"
+    },
+    "gates": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "status",
+          "reasons"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/definitions/gateId"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "common.schema.json#/definitions/gateStatus"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/reason"
+            }
+          }
+        }
+      }
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/reason"
+      }
+    },
+    "pullRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "number",
+        "headSha",
+        "baseRef"
+      ],
+      "properties": {
+        "number": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "headSha": {
+          "$ref": "common.schema.json#/definitions/sha"
+        },
+        "baseRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ownership": {
+      "$ref": "#/definitions/ownership"
+    },
+    "labels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "digests",
+        "policyDigest",
+        "evaluatedAt"
+      ],
+      "properties": {
+        "digests": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "common.schema.json#/definitions/digest"
+          }
+        },
+        "policyDigest": {
+          "$ref": "common.schema.json#/definitions/digest"
+        },
+        "evaluatedAt": {
+          "$ref": "common.schema.json#/definitions/timestamp"
+        }
+      }
+    },
+    "decisionDigest": {
+      "$ref": "common.schema.json#/definitions/digest"
+    }
+  }
+}

@@ -1,0 +1,945 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportType": "coverage-report",
+  "executionId": "local-20261107T084414364Z",
+  "generatedAt": "2026-11-07T08:44:18.054Z",
+  "repository": {
+    "slug": null,
+    "commitSha": "30d396af1718e5e7832de5bb06baa0a3cb73a295",
+    "ref": null
+  },
+  "tool": {
+    "name": "project-sentinel",
+    "version": "1.0.0"
+  },
+  "limitations": [
+    {
+      "code": "ATTRIBUTION_GRANULARITY",
+      "message": "Execution attribution is per test file, not per test case"
+    },
+    {
+      "code": "COVERAGE_NOT_BEHAVIOUR",
+      "message": "Coverage shows code was executed by passing tests, not that its behaviour is asserted"
+    }
+  ],
+  "policy": {
+    "lineThreshold": 80,
+    "branchThreshold": null,
+    "thresholdSource": "policy",
+    "scope": "direct",
+    "allowSkippedTests": false,
+    "requireAttribution": true
+  },
+  "inputs": [
+    {
+      "format": "istanbul-json",
+      "path": "coverage-final.json",
+      "status": "PARSED",
+      "detail": "ok"
+    },
+    {
+      "format": "lcov",
+      "path": "lcov.info",
+      "status": "PARSED",
+      "detail": "ok"
+    },
+    {
+      "format": "jest-attribution",
+      "path": "jest-attribution.json",
+      "status": "PARSED",
+      "detail": "ok"
+    },
+    {
+      "format": "jest-results",
+      "path": "jest-results.json",
+      "status": "PARSED",
+      "detail": "ok"
+    },
+    {
+      "format": "jest-list-tests",
+      "path": "jest-list-tests.json",
+      "status": "PARSED",
+      "detail": "ok"
+    }
+  ],
+  "attribution": {
+    "available": true,
+    "granularity": "test-file",
+    "detail": "23 test files attributed"
+  },
+  "tests": {
+    "discovered": [
+      "src/__tests__/BreathingExercise.test.tsx",
+      "src/__tests__/CoachChat.test.tsx",
+      "src/__tests__/DecisionGame.test.tsx",
+      "src/__tests__/GamesHub.test.tsx",
+      "src/__tests__/Header.test.tsx",
+      "src/__tests__/Icon.test.tsx",
+      "src/__tests__/PlayerProfile.test.tsx",
+      "src/__tests__/TrainingPlan.test.tsx",
+      "src/__tests__/WeeklyGames.test.tsx",
+      "src/__tests__/WellbeingCheckIn.test.tsx",
+      "src/__tests__/claude.test.ts",
+      "src/__tests__/decision-games.test.ts",
+      "src/__tests__/free-key.test.ts",
+      "src/__tests__/game-library.test.ts",
+      "src/__tests__/game-rotation.test.ts",
+      "src/__tests__/game-safety.test.ts",
+      "src/__tests__/guardrails.test.ts",
+      "src/__tests__/profile-copy.test.ts",
+      "src/__tests__/prompts.test.ts",
+      "src/__tests__/providers.test.ts",
+      "src/__tests__/storage.test.ts",
+      "src/__tests__/use-visual-viewport-height.test.tsx",
+      "src/__tests__/wellbeing.test.ts"
+    ],
+    "executed": [
+      "src/__tests__/BreathingExercise.test.tsx",
+      "src/__tests__/CoachChat.test.tsx",
+      "src/__tests__/DecisionGame.test.tsx",
+      "src/__tests__/GamesHub.test.tsx",
+      "src/__tests__/Header.test.tsx",
+      "src/__tests__/Icon.test.tsx",
+      "src/__tests__/PlayerProfile.test.tsx",
+      "src/__tests__/TrainingPlan.test.tsx",
+      "src/__tests__/WeeklyGames.test.tsx",
+      "src/__tests__/WellbeingCheckIn.test.tsx",
+      "src/__tests__/claude.test.ts",
+      "src/__tests__/decision-games.test.ts",
+      "src/__tests__/free-key.test.ts",
+      "src/__tests__/game-library.test.ts",
+      "src/__tests__/game-rotation.test.ts",
+      "src/__tests__/game-safety.test.ts",
+      "src/__tests__/guardrails.test.ts",
+      "src/__tests__/profile-copy.test.ts",
+      "src/__tests__/prompts.test.ts",
+      "src/__tests__/providers.test.ts",
+      "src/__tests__/storage.test.ts",
+      "src/__tests__/use-visual-viewport-height.test.tsx",
+      "src/__tests__/wellbeing.test.ts"
+    ],
+    "notExecuted": []
+  },
+  "files": [
+    {
+      "file": "eslint.config.mjs",
+      "fileClass": "configuration",
+      "evidenceRequired": true,
+      "status": "TESTED_AND_COVERED",
+      "metrics": null,
+      "associatedTests": [],
+      "validatedBy": [
+        "lint"
+      ],
+      "evidence": [
+        "lint: PASSED"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "jest.config.js",
+      "fileClass": "configuration",
+      "evidenceRequired": true,
+      "status": "TESTED_AND_COVERED",
+      "metrics": null,
+      "associatedTests": [],
+      "validatedBy": [
+        "unit-tests"
+      ],
+      "evidence": [
+        "unit-tests: PASSED"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "next.config.ts",
+      "fileClass": "configuration",
+      "evidenceRequired": true,
+      "status": "TESTED_AND_COVERED",
+      "metrics": null,
+      "associatedTests": [],
+      "validatedBy": [
+        "build"
+      ],
+      "evidence": [
+        "build: PASSED"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "package.json",
+      "fileClass": "configuration",
+      "evidenceRequired": true,
+      "status": "TESTED_AND_COVERED",
+      "metrics": null,
+      "associatedTests": [],
+      "validatedBy": [
+        "unit-tests",
+        "lint",
+        "build"
+      ],
+      "evidence": [
+        "unit-tests: PASSED",
+        "lint: PASSED",
+        "build: PASSED"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "postcss.config.mjs",
+      "fileClass": "configuration",
+      "evidenceRequired": true,
+      "status": "TESTED_AND_COVERED",
+      "metrics": null,
+      "associatedTests": [],
+      "validatedBy": [
+        "build"
+      ],
+      "evidence": [
+        "build: PASSED"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/app/coach/page.tsx",
+      "fileClass": "production",
+      "evidenceRequired": false,
+      "status": "NOT_TESTED",
+      "metrics": {
+        "statements": {
+          "covered": 0,
+          "total": 28,
+          "pct": 0
+        },
+        "functions": {
+          "covered": 0,
+          "total": 4,
+          "pct": 0
+        },
+        "branches": {
+          "covered": 0,
+          "total": 4,
+          "pct": 0
+        },
+        "lines": {
+          "covered": 0,
+          "total": 25,
+          "pct": 0
+        }
+      },
+      "associatedTests": [],
+      "validatedBy": [],
+      "evidence": [
+        "lines 0/25 (0%), branches 0/4 (0%), threshold 80% lines",
+        "no passing test executed this file"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/app/games/page.tsx",
+      "fileClass": "production",
+      "evidenceRequired": false,
+      "status": "NOT_TESTED",
+      "metrics": {
+        "statements": {
+          "covered": 0,
+          "total": 5,
+          "pct": 0
+        },
+        "functions": {
+          "covered": 0,
+          "total": 1,
+          "pct": 0
+        },
+        "branches": {
+          "covered": 0,
+          "total": 0,
+          "pct": 100
+        },
+        "lines": {
+          "covered": 0,
+          "total": 5,
+          "pct": 0
+        }
+      },
+      "associatedTests": [],
+      "validatedBy": [],
+      "evidence": [
+        "lines 0/5 (0%), branches 0/0 (100%), threshold 80% lines",
+        "no passing test executed this file"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/app/layout.tsx",
+      "fileClass": "production",
+      "evidenceRequired": true,
+      "status": "NOT_TESTED",
+      "metrics": {
+        "statements": {
+          "covered": 0,
+          "total": 7,
+          "pct": 0
+        },
+        "functions": {
+          "covered": 0,
+          "total": 1,
+          "pct": 0
+        },
+        "branches": {
+          "covered": 0,
+          "total": 0,
+          "pct": 100
+        },
+        "lines": {
+          "covered": 0,
+          "total": 7,
+          "pct": 0
+        }
+      },
+      "associatedTests": [],
+      "validatedBy": [],
+      "evidence": [
+        "lines 0/7 (0%), branches 0/0 (100%), threshold 80% lines",
+        "no passing test executed this file"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/app/manifest.ts",
+      "fileClass": "production",
+      "evidenceRequired": false,
+      "status": "NOT_TESTED",
+      "metrics": {
+        "statements": {
+          "covered": 0,
+          "total": 4,
+          "pct": 0
+        },
+        "functions": {
+          "covered": 0,
+          "total": 1,
+          "pct": 0
+        },
+        "branches": {
+          "covered": 0,
+          "total": 2,
+          "pct": 0
+        },
+        "lines": {
+          "covered": 0,
+          "total": 4,
+          "pct": 0
+        }
+      },
+      "associatedTests": [],
+      "validatedBy": [],
+      "evidence": [
+        "lines 0/4 (0%), branches 0/2 (0%), threshold 80% lines",
+        "no passing test executed this file"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/app/not-found.tsx",
+      "fileClass": "production",
+      "evidenceRequired": true,
+      "status": "NOT_TESTED",
+      "metrics": {
+        "statements": {
+          "covered": 0,
+          "total": 4,
+          "pct": 0
+        },
+        "functions": {
+          "covered": 0,
+          "total": 1,
+          "pct": 0
+        },
+        "branches": {
+          "covered": 0,
+          "total": 0,
+          "pct": 100
+        },
+        "lines": {
+          "covered": 0,
+          "total": 4,
+          "pct": 0
+        }
+      },
+      "associatedTests": [],
+      "validatedBy": [],
+      "evidence": [
+        "lines 0/4 (0%), branches 0/0 (100%), threshold 80% lines",
+        "no passing test executed this file"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/app/page.tsx",
+      "fileClass": "production",
+      "evidenceRequired": true,
+      "status": "NOT_TESTED",
+      "metrics": {
+        "statements": {
+          "covered": 0,
+          "total": 6,
+          "pct": 0
+        },
+        "functions": {
+          "covered": 0,
+          "total": 2,
+          "pct": 0
+        },
+        "branches": {
+          "covered": 0,
+          "total": 0,
+          "pct": 100
+        },
+        "lines": {
+          "covered": 0,
+          "total": 6,
+          "pct": 0
+        }
+      },
+      "associatedTests": [],
+      "validatedBy": [],
+      "evidence": [
+        "lines 0/6 (0%), branches 0/0 (100%), threshold 80% lines",
+        "no passing test executed this file"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/app/profile/page.tsx",
+      "fileClass": "production",
+      "evidenceRequired": false,
+      "status": "NOT_TESTED",
+      "metrics": {
+        "statements": {
+          "covered": 0,
+          "total": 19,
+          "pct": 0
+        },
+        "functions": {
+          "covered": 0,
+          "total": 3,
+          "pct": 0
+        },
+        "branches": {
+          "covered": 0,
+          "total": 2,
+          "pct": 0
+        },
+        "lines": {
+          "covered": 0,
+          "total": 17,
+          "pct": 0
+        }
+      },
+      "associatedTests": [],
+      "validatedBy": [],
+      "evidence": [
+        "lines 0/17 (0%), branches 0/2 (0%), threshold 80% lines",
+        "no passing test executed this file"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/app/training/page.tsx",
+      "fileClass": "production",
+      "evidenceRequired": false,
+      "status": "NOT_TESTED",
+      "metrics": {
+        "statements": {
+          "covered": 0,
+          "total": 19,
+          "pct": 0
+        },
+        "functions": {
+          "covered": 0,
+          "total": 3,
+          "pct": 0
+        },
+        "branches": {
+          "covered": 0,
+          "total": 2,
+          "pct": 0
+        },
+        "lines": {
+          "covered": 0,
+          "total": 17,
+          "pct": 0
+        }
+      },
+      "associatedTests": [],
+      "validatedBy": [],
+      "evidence": [
+        "lines 0/17 (0%), branches 0/2 (0%), threshold 80% lines",
+        "no passing test executed this file"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/app/wellbeing/page.tsx",
+      "fileClass": "production",
+      "evidenceRequired": false,
+      "status": "NOT_TESTED",
+      "metrics": {
+        "statements": {
+          "covered": 0,
+          "total": 16,
+          "pct": 0
+        },
+        "functions": {
+          "covered": 0,
+          "total": 5,
+          "pct": 0
+        },
+        "branches": {
+          "covered": 0,
+          "total": 2,
+          "pct": 0
+        },
+        "lines": {
+          "covered": 0,
+          "total": 16,
+          "pct": 0
+        }
+      },
+      "associatedTests": [],
+      "validatedBy": [],
+      "evidence": [
+        "lines 0/16 (0%), branches 0/2 (0%), threshold 80% lines",
+        "no passing test executed this file"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/components/CoachChat.tsx",
+      "fileClass": "production",
+      "evidenceRequired": false,
+      "status": "TESTED_AND_COVERED",
+      "metrics": {
+        "statements": {
+          "covered": 49,
+          "total": 56,
+          "pct": 87.5
+        },
+        "functions": {
+          "covered": 11,
+          "total": 13,
+          "pct": 84.62
+        },
+        "branches": {
+          "covered": 9,
+          "total": 17,
+          "pct": 52.94
+        },
+        "lines": {
+          "covered": 45,
+          "total": 49,
+          "pct": 91.84
+        }
+      },
+      "associatedTests": [
+        {
+          "testFile": "src/__tests__/CoachChat.test.tsx",
+          "association": "BOTH",
+          "discovered": true,
+          "executed": true,
+          "result": "PASSED",
+          "executionStrength": "EXERCISED",
+          "assertions": {
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          }
+        }
+      ],
+      "validatedBy": [],
+      "evidence": [
+        "lines 45/49 (91.84%), branches 9/17 (52.94%), threshold 80% lines",
+        "exercised by src/__tests__/CoachChat.test.tsx (4 passing assertions)"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/components/GamesHub.tsx",
+      "fileClass": "production",
+      "evidenceRequired": false,
+      "status": "TESTED_AND_COVERED",
+      "metrics": {
+        "statements": {
+          "covered": 21,
+          "total": 22,
+          "pct": 95.45
+        },
+        "functions": {
+          "covered": 8,
+          "total": 8,
+          "pct": 100
+        },
+        "branches": {
+          "covered": 11,
+          "total": 13,
+          "pct": 84.62
+        },
+        "lines": {
+          "covered": 20,
+          "total": 20,
+          "pct": 100
+        }
+      },
+      "associatedTests": [
+        {
+          "testFile": "src/__tests__/GamesHub.test.tsx",
+          "association": "BOTH",
+          "discovered": true,
+          "executed": true,
+          "result": "PASSED",
+          "executionStrength": "EXERCISED",
+          "assertions": {
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          }
+        }
+      ],
+      "validatedBy": [],
+      "evidence": [
+        "lines 20/20 (100%), branches 11/13 (84.62%), threshold 80% lines",
+        "exercised by src/__tests__/GamesHub.test.tsx (5 passing assertions)"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/components/Header.tsx",
+      "fileClass": "production",
+      "evidenceRequired": true,
+      "status": "TESTED_AND_COVERED",
+      "metrics": {
+        "statements": {
+          "covered": 8,
+          "total": 8,
+          "pct": 100
+        },
+        "functions": {
+          "covered": 2,
+          "total": 2,
+          "pct": 100
+        },
+        "branches": {
+          "covered": 6,
+          "total": 6,
+          "pct": 100
+        },
+        "lines": {
+          "covered": 8,
+          "total": 8,
+          "pct": 100
+        }
+      },
+      "associatedTests": [
+        {
+          "testFile": "src/__tests__/Header.test.tsx",
+          "association": "BOTH",
+          "discovered": true,
+          "executed": true,
+          "result": "PASSED",
+          "executionStrength": "EXERCISED",
+          "assertions": {
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          }
+        }
+      ],
+      "validatedBy": [],
+      "evidence": [
+        "lines 8/8 (100%), branches 6/6 (100%), threshold 80% lines",
+        "exercised by src/__tests__/Header.test.tsx (3 passing assertions)"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/components/PlayerProfile.tsx",
+      "fileClass": "production",
+      "evidenceRequired": true,
+      "status": "TESTED_AND_COVERED",
+      "metrics": {
+        "statements": {
+          "covered": 132,
+          "total": 136,
+          "pct": 97.06
+        },
+        "functions": {
+          "covered": 31,
+          "total": 35,
+          "pct": 88.57
+        },
+        "branches": {
+          "covered": 97,
+          "total": 108,
+          "pct": 89.81
+        },
+        "lines": {
+          "covered": 121,
+          "total": 124,
+          "pct": 97.58
+        }
+      },
+      "associatedTests": [
+        {
+          "testFile": "src/__tests__/PlayerProfile.test.tsx",
+          "association": "BOTH",
+          "discovered": true,
+          "executed": true,
+          "result": "PASSED",
+          "executionStrength": "EXERCISED",
+          "assertions": {
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0
+          }
+        }
+      ],
+      "validatedBy": [],
+      "evidence": [
+        "lines 121/124 (97.58%), branches 97/108 (89.81%), threshold 80% lines",
+        "exercised by src/__tests__/PlayerProfile.test.tsx (16 passing assertions)"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/components/TrainingPlan.tsx",
+      "fileClass": "production",
+      "evidenceRequired": false,
+      "status": "TESTED_INSUFFICIENT_COVERAGE",
+      "metrics": {
+        "statements": {
+          "covered": 53,
+          "total": 78,
+          "pct": 67.95
+        },
+        "functions": {
+          "covered": 12,
+          "total": 18,
+          "pct": 66.67
+        },
+        "branches": {
+          "covered": 36,
+          "total": 60,
+          "pct": 60
+        },
+        "lines": {
+          "covered": 52,
+          "total": 74,
+          "pct": 70.27
+        }
+      },
+      "associatedTests": [
+        {
+          "testFile": "src/__tests__/TrainingPlan.test.tsx",
+          "association": "BOTH",
+          "discovered": true,
+          "executed": true,
+          "result": "PASSED",
+          "executionStrength": "EXERCISED",
+          "assertions": {
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          }
+        }
+      ],
+      "validatedBy": [],
+      "evidence": [
+        "lines 52/74 (70.27%), branches 36/60 (60%), threshold 80% lines",
+        "exercised by src/__tests__/TrainingPlan.test.tsx (4 passing assertions)"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/components/WeeklyGames.tsx",
+      "fileClass": "production",
+      "evidenceRequired": true,
+      "status": "TESTED_AND_COVERED",
+      "metrics": {
+        "statements": {
+          "covered": 50,
+          "total": 50,
+          "pct": 100
+        },
+        "functions": {
+          "covered": 10,
+          "total": 10,
+          "pct": 100
+        },
+        "branches": {
+          "covered": 46,
+          "total": 52,
+          "pct": 88.46
+        },
+        "lines": {
+          "covered": 47,
+          "total": 47,
+          "pct": 100
+        }
+      },
+      "associatedTests": [
+        {
+          "testFile": "src/__tests__/GamesHub.test.tsx",
+          "association": "BOTH",
+          "discovered": true,
+          "executed": true,
+          "result": "PASSED",
+          "executionStrength": "EXERCISED",
+          "assertions": {
+            "passed": 5,
+            "failed": 0,
+            "skipped": 0
+          }
+        },
+        {
+          "testFile": "src/__tests__/WeeklyGames.test.tsx",
+          "association": "BOTH",
+          "discovered": true,
+          "executed": true,
+          "result": "PASSED",
+          "executionStrength": "EXERCISED",
+          "assertions": {
+            "passed": 15,
+            "failed": 0,
+            "skipped": 0
+          }
+        }
+      ],
+      "validatedBy": [],
+      "evidence": [
+        "lines 47/47 (100%), branches 46/52 (88.46%), threshold 80% lines",
+        "exercised by src/__tests__/GamesHub.test.tsx (5 passing assertions)",
+        "exercised by src/__tests__/WeeklyGames.test.tsx (15 passing assertions)"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "src/lib/claude.ts",
+      "fileClass": "production",
+      "evidenceRequired": true,
+      "status": "TESTED_AND_COVERED",
+      "metrics": {
+        "statements": {
+          "covered": 107,
+          "total": 127,
+          "pct": 84.25
+        },
+        "functions": {
+          "covered": 19,
+          "total": 30,
+          "pct": 63.33
+        },
+        "branches": {
+          "covered": 50,
+          "total": 85,
+          "pct": 58.82
+        },
+        "lines": {
+          "covered": 102,
+          "total": 116,
+          "pct": 87.93
+        }
+      },
+      "associatedTests": [
+        {
+          "testFile": "src/__tests__/claude.test.ts",
+          "association": "BOTH",
+          "discovered": true,
+          "executed": true,
+          "result": "PASSED",
+          "executionStrength": "EXERCISED",
+          "assertions": {
+            "passed": 26,
+            "failed": 0,
+            "skipped": 0
+          }
+        },
+        {
+          "testFile": "src/__tests__/CoachChat.test.tsx",
+          "association": "STATIC_IMPORT",
+          "discovered": true,
+          "executed": true,
+          "result": "PASSED",
+          "executionStrength": "NONE",
+          "assertions": {
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          }
+        },
+        {
+          "testFile": "src/__tests__/TrainingPlan.test.tsx",
+          "association": "STATIC_IMPORT",
+          "discovered": true,
+          "executed": true,
+          "result": "PASSED",
+          "executionStrength": "NONE",
+          "assertions": {
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          }
+        }
+      ],
+      "validatedBy": [],
+      "evidence": [
+        "lines 102/116 (87.93%), branches 50/85 (58.82%), threshold 80% lines",
+        "exercised by src/__tests__/claude.test.ts (26 passing assertions)"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "tailwind.config.ts",
+      "fileClass": "configuration",
+      "evidenceRequired": false,
+      "status": "TESTED_AND_COVERED",
+      "metrics": null,
+      "associatedTests": [],
+      "validatedBy": [
+        "build"
+      ],
+      "evidence": [
+        "build: PASSED"
+      ],
+      "limitations": []
+    },
+    {
+      "file": "tsconfig.json",
+      "fileClass": "configuration",
+      "evidenceRequired": true,
+      "status": "TESTED_AND_COVERED",
+      "metrics": null,
+      "associatedTests": [],
+      "validatedBy": [
+        "build"
+      ],
+      "evidence": [
+        "build: PASSED"
+      ],
+      "limitations": []
+    }
+  ],
+  "summary": {
+    "evaluated": 23,
+    "requiringEvidence": 13,
+    "byStatus": {
+      "TESTED_AND_COVERED": 10,
+      "TESTED_INSUFFICIENT_COVERAGE": 0,
+      "NOT_TESTED": 3,
+      "TEST_NOT_EXECUTED": 0,
+      "TEST_FAILED": 0,
+      "COVERAGE_UNAVAILABLE": 0,
+      "INSTRUMENTATION_UNSUPPORTED": 0
+    }
+  }
+}

@@ -1,0 +1,436 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportType": "validation-report",
+  "executionId": "local-20261107T084253703Z",
+  "generatedAt": "2026-11-07T08:44:14.127Z",
+  "repository": {
+    "slug": null,
+    "commitSha": "30d396af1718e5e7832de5bb06baa0a3cb73a295",
+    "ref": null
+  },
+  "tool": {
+    "name": "project-sentinel",
+    "version": "1.0.0"
+  },
+  "limitations": [],
+  "commands": [
+    {
+      "id": "unit-tests",
+      "kind": "jest",
+      "category": "test",
+      "argv": [
+        "node_modules/.bin/jest",
+        "--ci",
+        "--coverage",
+        "--coverageReporters=json",
+        "--coverageReporters=lcov",
+        "--coverageDirectory=<evidence>/raw/coverage",
+        "--collectCoverageFrom=src/**/*.{ts,tsx}",
+        "--collectCoverageFrom=!src/__tests__/**",
+        "--json",
+        "--outputFile=<evidence>/raw/jest-results.json",
+        "--reporters=default",
+        "--reporters=<sentinel>/coverage/attribution-reporter.js"
+      ],
+      "required": true,
+      "status": "PASSED",
+      "exitCode": 0,
+      "durationMs": 10407,
+      "startedAt": "2026-11-07T08:42:54.066Z",
+      "outputTail": "SS src/__tests__/GamesHub.test.tsx\nPASS src/__tests__/DecisionGame.test.tsx\nPASS src/__tests__/BreathingExercise.test.tsx\nPASS src/__tests__/storage.test.ts\nPASS src/__tests__/TrainingPlan.test.tsx\nPASS src/__tests__/CoachChat.test.tsx\n  ● Console\n\n    console.error\n      An update to CoachChat inside a test was not wrapped in act(...).\n      \n      When testing, code that causes React state updates should be wrapped into act(...):\n      \n      act(() => {\n        /* fire events that update state */\n      });\n      /* assert on the output */\n      \n      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act\n\n      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19\n      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)\n      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)\n      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)\n      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)\n      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)\n\n    console.error\n      An update to CoachChat inside a test was not wrapped in act(...).\n      \n      When testing, code that causes React state updates should be wrapped into act(...):\n      \n      act(() => {\n        /* fire events that update state */\n      });\n      /* assert on the output */\n      \n      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act\n\n      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19\n      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)\n      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)\n      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)\n      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)\n      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)\n\nPASS src/__tests__/decision-games.test.ts\nPASS src/__tests__/Icon.test.tsx\nPASS src/__tests__/Header.test.tsx\nPASS src/__tests__/prompts.test.ts\nPASS src/__tests__/use-visual-viewport-height.test.tsx\nPASS src/__tests__/guardrails.test.ts\nPASS src/__tests__/profile-copy.test.ts\nPASS src/__tests__/game-safety.test.ts\nPASS src/__tests__/wellbeing.test.ts\nPASS src/__tests__/providers.test.ts\nPASS src/__tests__/free-key.test.ts\nPASS src/__tests__/game-library.test.ts (8.35 s)\n\nTest Suites: 23 passed, 23 total\nTests:       486 passed, 486 total\nSnapshots:   0 total\nTime:        10.12 s\nRan all test suites.\nTest results written to: ../sentinel-weekly2/evidence/raw/jest-results.json",
+      "artifacts": [
+        "logs/unit-tests.log",
+        "jest-results.json",
+        "coverage/coverage-final.json",
+        "coverage/lcov.info",
+        "jest-attribution.json"
+      ]
+    },
+    {
+      "id": "lint",
+      "kind": "command",
+      "category": "lint",
+      "argv": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "required": true,
+      "status": "PASSED",
+      "exitCode": 0,
+      "durationMs": 2248,
+      "startedAt": "2026-11-07T08:43:04.495Z",
+      "outputTail": "> luchoai@0.1.0 lint\n> next lint --dir src --dir sentinel\n\n✔ No ESLint warnings or errors\n\n`next lint` is deprecated and will be removed in Next.js 16.\nFor new projects, use create-next-app to choose your preferred linter.\nFor existing projects, migrate to the ESLint CLI:\nnpx @next/codemod@canary next-lint-to-eslint-cli .",
+      "artifacts": [
+        "logs/lint.log"
+      ]
+    },
+    {
+      "id": "build",
+      "kind": "command",
+      "category": "build",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "required": true,
+      "status": "PASSED",
+      "exitCode": 0,
+      "durationMs": 23200,
+      "startedAt": "2026-11-07T08:43:06.744Z",
+      "outputTail": "> luchoai@0.1.0 build\n> next build\n\n   ▲ Next.js 15.5.28\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 9.7s\n   Linting and checking validity of types ...\n   Collecting page data ...\n   Generating static pages (0/12) ...\n   Generating static pages (3/12) \r\n   Generating static pages (6/12) \r\n   Generating static pages (9/12) \r\n ✓ Generating static pages (12/12)\n   Finalizing page optimization ...\n   Collecting build traces ...\n   Exporting (0/2) ...\n ✓ Exporting (2/2)\n\nRoute (app)                                 Size  First Load JS\n┌ ○ /                                      165 B         106 kB\n├ ○ /_not-found                            127 B         103 kB\n├ ○ /apple-icon.png                          0 B            0 B\n├ ○ /coach                               36.5 kB         302 kB\n├ ○ /games                               65.7 kB         172 kB\n├ ○ /icon.png                                0 B            0 B\n├ ○ /manifest.webmanifest                  127 B         103 kB\n├ ○ /profile                               10 kB         122 kB\n├ ○ /training                            2.88 kB         268 kB\n└ ○ /wellbeing                           7.19 kB         114 kB\n+ First Load JS shared by all             103 kB\n  ├ chunks/493-315ce35df15cf961.js       46.8 kB\n  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB\n  └ other shared chunks (total)          1.94 kB\n\n\n○  (Static)  prerendered as static content",
+      "artifacts": [
+        "logs/build.log"
+      ]
+    },
+    {
+      "id": "e2e-build",
+      "kind": "command",
+      "category": "build",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "required": true,
+      "status": "PASSED",
+      "exitCode": 0,
+      "durationMs": 23571,
+      "startedAt": "2026-11-07T08:43:29.945Z",
+      "outputTail": "> luchoai@0.1.0 build\n> next build\n\n   ▲ Next.js 15.5.28\n\n   Creating an optimized production build ...\n ✓ Compiled successfully in 9.7s\n   Linting and checking validity of types ...\n   Collecting page data ...\n   Generating static pages (0/12) ...\n   Generating static pages (3/12) \r\n   Generating static pages (6/12) \r\n   Generating static pages (9/12) \r\n ✓ Generating static pages (12/12)\n   Finalizing page optimization ...\n   Collecting build traces ...\n   Exporting (0/2) ...\n ✓ Exporting (2/2)\n\nRoute (app)                                 Size  First Load JS\n┌ ○ /                                      165 B         106 kB\n├ ○ /_not-found                            127 B         103 kB\n├ ○ /apple-icon.png                          0 B            0 B\n├ ○ /coach                               36.5 kB         302 kB\n├ ○ /games                               65.7 kB         172 kB\n├ ○ /icon.png                                0 B            0 B\n├ ○ /manifest.webmanifest                  127 B         103 kB\n├ ○ /profile                               10 kB         122 kB\n├ ○ /training                            2.88 kB         268 kB\n└ ○ /wellbeing                           7.18 kB         113 kB\n+ First Load JS shared by all             103 kB\n  ├ chunks/493-fcebdeb6657c12f2.js       46.7 kB\n  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.2 kB\n  └ other shared chunks (total)          1.93 kB\n\n\n○  (Static)  prerendered as static content",
+      "artifacts": [
+        "logs/e2e-build.log"
+      ]
+    },
+    {
+      "id": "e2e",
+      "kind": "command",
+      "category": "test",
+      "argv": [
+        "npm",
+        "run",
+        "test:e2e"
+      ],
+      "required": true,
+      "status": "PASSED",
+      "exitCode": 0,
+      "durationMs": 17240,
+      "startedAt": "2026-11-07T08:43:53.516Z",
+      "outputTail": "in words\nPASS parent: goals as picture tiles, limited to three\nPASS parent: hand-off screen sums it up and says what happens next\nPASS parent: hand over shows the player where to start\nPASS parent: saved profile survives a reload and opens for editing\nPASS parent: edit to midfield but still finding out, save and reload\nPASS parent: no page errors\nPASS player 12: midfielder plus \"not sure yet\"\nPASS player 12: goals matched to midfield\nPASS player 12: no page errors\nPASS player 15: football terms, settled by default\nPASS player 15: goals as pills, for defenders\nPASS player 15: no page errors\nPASS old profile: opens in edit mode as a settled midfielder\nPASS old profile: no page errors\nPASS explorer: plan is marked as an explorer week\nPASS explorer: picking a favourite leans the profile on it\nPASS explorer: no page errors\n\n== desktop ==\nPASS parent: first screen asks who is setting up\nPASS parent: Next without an answer explains what to do\nPASS parent: name and age, with what the age changes\nPASS parent: position starts on \"try everything\" in plain words\nPASS parent: level in plain words\nPASS parent: goals as picture tiles, limited to three\nPASS parent: hand-off screen sums it up and says what happens next\nPASS parent: hand over shows the player where to start\nPASS parent: saved profile survives a reload and opens for editing\nPASS parent: edit to midfield but still finding out, save and reload\nPASS parent: no page errors\nPASS player 12: midfielder plus \"not sure yet\"\nPASS player 12: goals matched to midfield\nPASS player 12: no page errors\nPASS player 15: football terms, settled by default\nPASS player 15: goals as pills, for defenders\nPASS player 15: no page errors\nPASS old profile: opens in edit mode as a settled midfielder\nPASS old profile: no page errors\nPASS explorer: plan is marked as an explorer week\nPASS explorer: picking a favourite leans the profile on it\nPASS explorer: no page errors\n\nAll steps passed\n\n== phone-375 ==\nPASS empty state shows 0/5\nPASS generate then save a plan\nPASS saved plan survives a reload and can be viewed\nPASS fill up to 5 saved plans\nPASS sixth save is refused with a friendly message\nPASS removing one makes room and the sixth plan saves\nPASS removed plan stays gone after reload\nPASS remove everything\nPASS no page errors\n\n== small-320 ==\nPASS empty state shows 0/5\nPASS generate then save a plan\nPASS saved plan survives a reload and can be viewed\nPASS fill up to 5 saved plans\nPASS sixth save is refused with a friendly message\nPASS removing one makes room and the sixth plan saves\nPASS removed plan stays gone after reload\nPASS remove everything\nPASS no page errors\n\n== desktop ==\nPASS empty state shows 0/5\nPASS generate then save a plan\nPASS saved plan survives a reload and can be viewed\nPASS fill up to 5 saved plans\nPASS sixth save is refused with a friendly message\nPASS removing one makes room and the sixth plan saves\nPASS removed plan stays gone after reload\nPASS remove everything\nPASS no page errors\n\nAll e2e steps passed",
+      "artifacts": [
+        "logs/e2e.log"
+      ]
+    },
+    {
+      "id": "npm-audit",
+      "kind": "npm-audit",
+      "category": "security",
+      "argv": [
+        "npm",
+        "audit",
+        "--json",
+        "--package-lock-only"
+      ],
+      "required": true,
+      "status": "PASSED",
+      "exitCode": 1,
+      "durationMs": 1963,
+      "startedAt": "2026-11-07T08:44:10.756Z",
+      "outputTail": "audit report recorded",
+      "artifacts": [
+        "npm-audit.json"
+      ]
+    },
+    {
+      "id": "audit-signatures",
+      "kind": "audit-signatures",
+      "category": "security",
+      "argv": [
+        "npm",
+        "audit",
+        "signatures",
+        "--json"
+      ],
+      "required": true,
+      "status": "ERROR",
+      "exitCode": 1,
+      "durationMs": 955,
+      "startedAt": "2026-11-07T08:44:12.719Z",
+      "outputTail": "npm audit signatures failed: Failed to download",
+      "artifacts": [
+        "audit-signatures.json"
+      ]
+    },
+    {
+      "id": "installed-tree",
+      "kind": "lockfile-check",
+      "category": "integrity",
+      "argv": [
+        "npm",
+        "ls",
+        "--all",
+        "--json"
+      ],
+      "required": true,
+      "status": "PASSED",
+      "exitCode": 0,
+      "durationMs": 444,
+      "startedAt": "2026-11-07T08:44:13.675Z",
+      "outputTail": "installed tree matches the lockfile",
+      "artifacts": []
+    }
+  ],
+  "tests": {
+    "framework": "jest",
+    "discovered": 23,
+    "executedFiles": 23,
+    "total": 486,
+    "passed": 486,
+    "failed": 0,
+    "skipped": 0,
+    "todo": 0,
+    "runtimeErrors": 0,
+    "durationMs": 9020,
+    "success": true,
+    "files": [
+      {
+        "testFile": "src/__tests__/BreathingExercise.test.tsx",
+        "status": "PASSED",
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 169,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/claude.test.ts",
+        "status": "PASSED",
+        "passed": 26,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 353,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/CoachChat.test.tsx",
+        "status": "PASSED",
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 172,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/decision-games.test.ts",
+        "status": "PASSED",
+        "passed": 125,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 184,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/DecisionGame.test.tsx",
+        "status": "PASSED",
+        "passed": 6,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 1089,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/free-key.test.ts",
+        "status": "PASSED",
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 30,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/game-library.test.ts",
+        "status": "PASSED",
+        "passed": 25,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 8350,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/game-rotation.test.ts",
+        "status": "PASSED",
+        "passed": 42,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 3409,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/game-safety.test.ts",
+        "status": "PASSED",
+        "passed": 57,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 52,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/GamesHub.test.tsx",
+        "status": "PASSED",
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 811,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/guardrails.test.ts",
+        "status": "PASSED",
+        "passed": 41,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 84,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/Header.test.tsx",
+        "status": "PASSED",
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 195,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/Icon.test.tsx",
+        "status": "PASSED",
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 147,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/PlayerProfile.test.tsx",
+        "status": "PASSED",
+        "passed": 16,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 4657,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/profile-copy.test.ts",
+        "status": "PASSED",
+        "passed": 13,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 72,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/prompts.test.ts",
+        "status": "PASSED",
+        "passed": 24,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 48,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/providers.test.ts",
+        "status": "PASSED",
+        "passed": 7,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 26,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/storage.test.ts",
+        "status": "PASSED",
+        "passed": 39,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 84,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/TrainingPlan.test.tsx",
+        "status": "PASSED",
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 340,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/use-visual-viewport-height.test.tsx",
+        "status": "PASSED",
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 102,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/WeeklyGames.test.tsx",
+        "status": "PASSED",
+        "passed": 15,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 868,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/wellbeing.test.ts",
+        "status": "PASSED",
+        "passed": 13,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 62,
+        "failureMessage": null
+      },
+      {
+        "testFile": "src/__tests__/WellbeingCheckIn.test.tsx",
+        "status": "PASSED",
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0,
+        "todo": 0,
+        "durationMs": 1565,
+        "failureMessage": null
+      }
+    ]
+  },
+  "summary": {
+    "requiredPassed": false,
+    "failedRequired": [
+      "audit-signatures"
+    ],
+    "notRunRequired": []
+  }
+}

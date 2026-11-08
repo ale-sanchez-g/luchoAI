@@ -1,0 +1,230 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ale-sanchez-g/luchoAI/sentinel/schemas/config.schema.json",
+  "title": "Project Sentinel configuration (.github/sentinel/config.yml)",
+  "description": "Every key is optional; omitted keys use Sentinel's defaults. Unknown keys are rejected.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version"],
+  "properties": {
+    "version": { "const": 1 },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "node": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+){0,2}$" } }
+    },
+    "ecosystems": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "npm": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "manifest": { "$ref": "#/definitions/relativePath" },
+            "lockfile": { "$ref": "#/definitions/relativePath" },
+            "allowedRegistries": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "pattern": "^https://[^\\s]+/$" }
+            }
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "npmAudit": { "type": "boolean" },
+        "githubAdvisoryDatabase": { "type": "boolean" },
+        "dependabotAlerts": { "type": "boolean" },
+        "osvScanner": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "reportPath": { "$ref": "#/definitions/relativePath" }
+          }
+        }
+      }
+    },
+    "severity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "minimum": { "$ref": "#/definitions/severity" } }
+    },
+    "remediation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowedUpgradeTypes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "enum": ["patch", "minor"] }
+        },
+        "minimumReleaseAgeHours": { "type": "integer", "minimum": 0, "maximum": 8760 },
+        "branch": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$" },
+        "commitMessage": { "type": "string", "minLength": 1 },
+        "maxDependencyPaths": { "type": "integer", "minimum": 1, "maximum": 1000 }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "excludedPaths": { "$ref": "#/definitions/globList" },
+        "maxFileSizeBytes": { "type": "integer", "minimum": 1024 },
+        "tsconfig": { "$ref": "#/definitions/relativePath" },
+        "classification": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "test": { "$ref": "#/definitions/globList" },
+            "documentation": { "$ref": "#/definitions/globList" },
+            "ci": { "$ref": "#/definitions/globList" },
+            "infrastructure": { "$ref": "#/definitions/globList" },
+            "tooling": { "$ref": "#/definitions/globList" },
+            "configuration": { "$ref": "#/definitions/globList" },
+            "production": { "$ref": "#/definitions/globList" }
+          }
+        }
+      }
+    },
+    "tests": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "jest": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "command": { "$ref": "#/definitions/argv" },
+            "collectCoverageFrom": { "$ref": "#/definitions/globList" }
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scope": { "enum": ["direct", "direct-and-dependents"] },
+        "lineThreshold": { "type": "number", "minimum": 0, "maximum": 100 },
+        "branchThreshold": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "requireAttribution": { "type": "boolean" },
+        "allowSkippedTests": { "type": "boolean" },
+        "typeOnlyImportsRequireEvidence": { "type": "boolean" },
+        "evidenceRequiredFor": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/definitions/fileClass" }
+        },
+        "configurationEvidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["files", "satisfiedBy"],
+            "properties": {
+              "files": { "$ref": "#/definitions/globList" },
+              "satisfiedBy": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/id" } }
+            }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "kind"],
+            "properties": {
+              "id": { "$ref": "#/definitions/id" },
+              "kind": { "enum": ["jest", "command"] },
+              "category": { "enum": ["test", "build", "lint", "security", "other"] },
+              "run": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+              "env": {
+                "type": "object",
+                "propertyNames": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*$" },
+                "additionalProperties": { "type": "string" }
+              },
+              "required": { "type": "boolean" },
+              "timeoutMinutes": { "type": "integer", "minimum": 1, "maximum": 360 }
+            }
+          }
+        },
+        "npmAudit": { "$ref": "#/definitions/requirement" },
+        "auditSignatures": { "$ref": "#/definitions/requirement" }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "autoMerge": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "mergeMethod": { "enum": ["squash", "merge", "rebase"] }
+          }
+        },
+        "majorUpgradeRequired": { "$ref": "#/definitions/reviewPolicy" },
+        "noFixAvailable": { "$ref": "#/definitions/reviewPolicy" },
+        "unresolvedOwnership": { "$ref": "#/definitions/reviewPolicy" },
+        "buildToolUpgrades": { "$ref": "#/definitions/reviewPolicy" },
+        "allowedChangedFiles": { "$ref": "#/definitions/globList" },
+        "requiredStatusCheck": { "type": "string", "minLength": 1 }
+      }
+    },
+    "codeowners": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fallbackOwners": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^@[A-Za-z0-9][A-Za-z0-9-]*(/[A-Za-z0-9_.-]+)?$" }
+        },
+        "requestReviews": { "type": "boolean" },
+        "assignOwners": { "type": "boolean" }
+      }
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dependencyUpdate": { "$ref": "#/definitions/label" },
+        "coverageComplete": { "$ref": "#/definitions/label" },
+        "coverageIncomplete": { "$ref": "#/definitions/label" },
+        "manualReview": { "$ref": "#/definitions/label" },
+        "validationFailed": { "$ref": "#/definitions/label" }
+      }
+    },
+    "reporting": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "commentMaxChars": { "type": "integer", "minimum": 2000, "maximum": 65000 }
+      }
+    }
+  },
+  "definitions": {
+    "severity": { "enum": ["critical", "high", "moderate", "low", "info"] },
+    "fileClass": {
+      "enum": ["production", "test", "configuration", "ci", "infrastructure", "tooling", "documentation", "other"]
+    },
+    "reviewPolicy": { "enum": ["require-review", "report"] },
+    "requirement": { "enum": ["required", "optional", "disabled"] },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "label": { "type": "string", "minLength": 1, "pattern": "^[^,]{1,50}$" },
+    "relativePath": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\.)[^\\s]+$" },
+    "globList": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "argv": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+  }
+}

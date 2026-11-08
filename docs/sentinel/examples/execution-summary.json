@@ -1,0 +1,806 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportType": "execution-summary",
+  "executionId": "local-20261107T084414364Z",
+  "generatedAt": "2026-11-07T08:44:18.102Z",
+  "repository": {
+    "slug": null,
+    "commitSha": "30d396af1718e5e7832de5bb06baa0a3cb73a295",
+    "ref": null
+  },
+  "tool": {
+    "name": "project-sentinel",
+    "version": "1.0.0"
+  },
+  "limitations": [],
+  "stage": "weekly-evaluate",
+  "vulnerabilities": [
+    {
+      "key": "GHSA-9qr9-h5gf-34mp|next",
+      "ids": [
+        "GHSA-9qr9-h5gf-34mp"
+      ],
+      "severity": "critical",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-8r5x-fm3f-whwj|handlebars",
+      "ids": [
+        "GHSA-8r5x-fm3f-whwj"
+      ],
+      "severity": "critical",
+      "package": "handlebars"
+    },
+    {
+      "key": "GHSA-p293-qw3h-jr36|next",
+      "ids": [
+        "GHSA-p293-qw3h-jr36"
+      ],
+      "severity": "critical",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-2464-fhr4-w9xw|next",
+      "ids": [
+        "GHSA-2464-fhr4-w9xw"
+      ],
+      "severity": "critical",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-2xp9-vwfh-vxw4|next",
+      "ids": [
+        "GHSA-2xp9-vwfh-vxw4"
+      ],
+      "severity": "critical",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-p8wg-vrv2-v86f|handlebars",
+      "ids": [
+        "GHSA-p8wg-vrv2-v86f"
+      ],
+      "severity": "critical",
+      "package": "handlebars"
+    },
+    {
+      "key": "GHSA-c4j6-fc7j-m34r|next",
+      "ids": [
+        "GHSA-c4j6-fc7j-m34r"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-267c-6grr-h53f|next",
+      "ids": [
+        "GHSA-267c-6grr-h53f"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-26hh-7cqf-hhc6|next",
+      "ids": [
+        "GHSA-26hh-7cqf-hhc6"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-36qx-fr4f-26g5|next",
+      "ids": [
+        "GHSA-36qx-fr4f-26g5"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-8h8q-6873-q5fj|next",
+      "ids": [
+        "GHSA-8h8q-6873-q5fj"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-h25m-26qc-wcjf|next",
+      "ids": [
+        "GHSA-h25m-26qc-wcjf"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-mg66-mrh9-m8jx|next",
+      "ids": [
+        "GHSA-mg66-mrh9-m8jx"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-mwv6-3258-q52c|next",
+      "ids": [
+        "GHSA-mwv6-3258-q52c"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-q4gf-8mx6-v5v3|next",
+      "ids": [
+        "GHSA-q4gf-8mx6-v5v3"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-r28c-9q8g-f849|postcss",
+      "ids": [
+        "GHSA-r28c-9q8g-f849"
+      ],
+      "severity": "high",
+      "package": "postcss"
+    },
+    {
+      "key": "GHSA-6j4f-fj2g-mc7p|brace-expansion",
+      "ids": [
+        "GHSA-6j4f-fj2g-mc7p"
+      ],
+      "severity": "high",
+      "package": "brace-expansion"
+    },
+    {
+      "key": "GHSA-mh99-v99m-4gvg|brace-expansion",
+      "ids": [
+        "GHSA-mh99-v99m-4gvg"
+      ],
+      "severity": "high",
+      "package": "brace-expansion"
+    },
+    {
+      "key": "GHSA-qhr7-859c-m2p7|brace-expansion",
+      "ids": [
+        "GHSA-qhr7-859c-m2p7"
+      ],
+      "severity": "high",
+      "package": "brace-expansion"
+    },
+    {
+      "key": "GHSA-rgw5-rvv9-x895|brace-expansion",
+      "ids": [
+        "GHSA-rgw5-rvv9-x895"
+      ],
+      "severity": "high",
+      "package": "brace-expansion"
+    },
+    {
+      "key": "GHSA-73wf-gq98-2v4g|browserslist",
+      "ids": [
+        "GHSA-73wf-gq98-2v4g"
+      ],
+      "severity": "high",
+      "package": "browserslist"
+    },
+    {
+      "key": "GHSA-c83g-rgw3-j3cx|browserslist",
+      "ids": [
+        "GHSA-c83g-rgw3-j3cx"
+      ],
+      "severity": "high",
+      "package": "browserslist"
+    },
+    {
+      "key": "GHSA-hmw2-7cc7-3qxx|form-data",
+      "ids": [
+        "GHSA-hmw2-7cc7-3qxx"
+      ],
+      "severity": "high",
+      "package": "form-data"
+    },
+    {
+      "key": "GHSA-2883-xcg3-v3hh|js-yaml",
+      "ids": [
+        "GHSA-2883-xcg3-v3hh"
+      ],
+      "severity": "high",
+      "package": "js-yaml"
+    },
+    {
+      "key": "GHSA-52cp-r559-cp3m|js-yaml",
+      "ids": [
+        "GHSA-52cp-r559-cp3m"
+      ],
+      "severity": "high",
+      "package": "js-yaml"
+    },
+    {
+      "key": "GHSA-5p4m-2wfm-xmqj|js-yaml",
+      "ids": [
+        "GHSA-5p4m-2wfm-xmqj"
+      ],
+      "severity": "high",
+      "package": "js-yaml"
+    },
+    {
+      "key": "GHSA-6g55-p6wh-862q|postcss",
+      "ids": [
+        "GHSA-6g55-p6wh-862q"
+      ],
+      "severity": "high",
+      "package": "postcss"
+    },
+    {
+      "key": "GHSA-68fv-2mgg-jv7q|source-map-js",
+      "ids": [
+        "GHSA-68fv-2mgg-jv7q"
+      ],
+      "severity": "high",
+      "package": "source-map-js"
+    },
+    {
+      "key": "GHSA-28wg-ghj8-5hjv|nanoid",
+      "ids": [
+        "GHSA-28wg-ghj8-5hjv"
+      ],
+      "severity": "high",
+      "package": "nanoid"
+    },
+    {
+      "key": "GHSA-2v37-7h3g-55p8|nanoid",
+      "ids": [
+        "GHSA-2v37-7h3g-55p8"
+      ],
+      "severity": "high",
+      "package": "nanoid"
+    },
+    {
+      "key": "GHSA-3jxr-9vmj-r5cp|brace-expansion",
+      "ids": [
+        "GHSA-3jxr-9vmj-r5cp"
+      ],
+      "severity": "high",
+      "package": "brace-expansion"
+    },
+    {
+      "key": "GHSA-89xv-2m56-2m9x|next",
+      "ids": [
+        "GHSA-89xv-2m56-2m9x"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-m99w-x7hq-7vfj|next",
+      "ids": [
+        "GHSA-m99w-x7hq-7vfj"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-p3m5-59mp-jv5r|next",
+      "ids": [
+        "GHSA-p3m5-59mp-jv5r"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-p9j2-gv94-2wf4|next",
+      "ids": [
+        "GHSA-p9j2-gv94-2wf4"
+      ],
+      "severity": "high",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-f88m-g3jw-g9cj|sharp",
+      "ids": [
+        "GHSA-f88m-g3jw-g9cj"
+      ],
+      "severity": "high",
+      "package": "sharp"
+    },
+    {
+      "key": "GHSA-rgj7-g3m4-5g8c|sharp",
+      "ids": [
+        "GHSA-rgj7-g3m4-5g8c"
+      ],
+      "severity": "high",
+      "package": "sharp"
+    },
+    {
+      "key": "GHSA-wq5f-xc86-pv6w|sharp",
+      "ids": [
+        "GHSA-wq5f-xc86-pv6w"
+      ],
+      "severity": "high",
+      "package": "sharp"
+    },
+    {
+      "key": "GHSA-4342-x723-ch2f|next",
+      "ids": [
+        "GHSA-4342-x723-ch2f"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-g5qg-72qw-gw5v|next",
+      "ids": [
+        "GHSA-g5qg-72qw-gw5v"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-gx5p-jg67-6x7h|next",
+      "ids": [
+        "GHSA-gx5p-jg67-6x7h"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-qx2v-qp2m-jg93|postcss",
+      "ids": [
+        "GHSA-qx2v-qp2m-jg93"
+      ],
+      "severity": "moderate",
+      "package": "postcss"
+    },
+    {
+      "key": "GHSA-9g9p-9gw9-jx7f|next",
+      "ids": [
+        "GHSA-9g9p-9gw9-jx7f"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-h64f-5h5j-jqjh|next",
+      "ids": [
+        "GHSA-h64f-5h5j-jqjh"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-rj75-hqrm-r3gf|postcss-selector-parser",
+      "ids": [
+        "GHSA-rj75-hqrm-r3gf"
+      ],
+      "severity": "moderate",
+      "package": "postcss-selector-parser"
+    },
+    {
+      "key": "GHSA-wfc6-r584-vfw7|next",
+      "ids": [
+        "GHSA-wfc6-r584-vfw7"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-4jqv-mc3x-m676|next",
+      "ids": [
+        "GHSA-4jqv-mc3x-m676"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-w37m-7fhw-fmv9|next",
+      "ids": [
+        "GHSA-w37m-7fhw-fmv9"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-q2hr-2g5m-vwhr|brace-expansion",
+      "ids": [
+        "GHSA-q2hr-2g5m-vwhr"
+      ],
+      "severity": "moderate",
+      "package": "brace-expansion"
+    },
+    {
+      "key": "GHSA-h67p-54hq-rp68|js-yaml",
+      "ids": [
+        "GHSA-h67p-54hq-rp68"
+      ],
+      "severity": "moderate",
+      "package": "js-yaml"
+    },
+    {
+      "key": "GHSA-mcj8-r9mp-w47p|next",
+      "ids": [
+        "GHSA-mcj8-r9mp-w47p"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-ffhc-5mcf-pf4q|next",
+      "ids": [
+        "GHSA-ffhc-5mcf-pf4q"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-xw65-4hp5-5hc7|handlebars",
+      "ids": [
+        "GHSA-xw65-4hp5-5hc7"
+      ],
+      "severity": "moderate",
+      "package": "handlebars"
+    },
+    {
+      "key": "GHSA-xv57-4mr9-wg8v|next",
+      "ids": [
+        "GHSA-xv57-4mr9-wg8v"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-3x4c-7xq6-9pq8|next",
+      "ids": [
+        "GHSA-3x4c-7xq6-9pq8"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-4633-3j49-mh5q|next",
+      "ids": [
+        "GHSA-4633-3j49-mh5q"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-4c39-4ccg-62r3|next",
+      "ids": [
+        "GHSA-4c39-4ccg-62r3"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-68g3-v927-f742|next",
+      "ids": [
+        "GHSA-68g3-v927-f742"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-955p-x3mx-jcvp|next",
+      "ids": [
+        "GHSA-955p-x3mx-jcvp"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-ggv3-7p47-pfv8|next",
+      "ids": [
+        "GHSA-ggv3-7p47-pfv8"
+      ],
+      "severity": "moderate",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-fxqj-rqcc-2cmp|postcss",
+      "ids": [
+        "GHSA-fxqj-rqcc-2cmp"
+      ],
+      "severity": "moderate",
+      "package": "postcss"
+    },
+    {
+      "key": "GHSA-w5vr-8v7q-w6rv|baseline-browser-mapping",
+      "ids": [
+        "GHSA-w5vr-8v7q-w6rv"
+      ],
+      "severity": "moderate",
+      "package": "baseline-browser-mapping"
+    },
+    {
+      "key": "GHSA-g3hv-75wg-m249|minimatch",
+      "ids": [
+        "GHSA-g3hv-75wg-m249"
+      ],
+      "severity": "moderate",
+      "package": "minimatch"
+    },
+    {
+      "key": "GHSA-gcqx-w48m-w2h4|deepmerge",
+      "ids": [
+        "GHSA-gcqx-w48m-w2h4"
+      ],
+      "severity": "low",
+      "package": "deepmerge"
+    },
+    {
+      "key": "GHSA-w9m9-85wc-3x92|postcss-selector-parser",
+      "ids": [
+        "GHSA-w9m9-85wc-3x92"
+      ],
+      "severity": "low",
+      "package": "postcss-selector-parser"
+    },
+    {
+      "key": "GHSA-3g8h-86w9-wvmq|next",
+      "ids": [
+        "GHSA-3g8h-86w9-wvmq"
+      ],
+      "severity": "low",
+      "package": "next"
+    },
+    {
+      "key": "GHSA-vfv6-92ff-j949|next",
+      "ids": [
+        "GHSA-vfv6-92ff-j949"
+      ],
+      "severity": "low",
+      "package": "next"
+    }
+  ],
+  "dependencyChanges": [
+    {
+      "name": "js-yaml",
+      "from": "3.14.2",
+      "to": "3.15.2"
+    },
+    {
+      "name": "@next/env",
+      "from": "15.3.3",
+      "to": "15.5.28"
+    },
+    {
+      "name": "@next/swc-darwin-arm64",
+      "from": "15.3.3",
+      "to": "15.5.28"
+    },
+    {
+      "name": "@next/swc-darwin-x64",
+      "from": "15.3.3",
+      "to": "15.5.28"
+    },
+    {
+      "name": "@next/swc-linux-arm64-gnu",
+      "from": "15.3.3",
+      "to": "15.5.28"
+    },
+    {
+      "name": "@next/swc-linux-arm64-musl",
+      "from": "15.3.3",
+      "to": "15.5.28"
+    },
+    {
+      "name": "@next/swc-linux-x64-gnu",
+      "from": "15.3.3",
+      "to": "15.5.28"
+    },
+    {
+      "name": "@next/swc-linux-x64-musl",
+      "from": "15.3.3",
+      "to": "15.5.28"
+    },
+    {
+      "name": "@next/swc-win32-arm64-msvc",
+      "from": "15.3.3",
+      "to": "15.5.28"
+    },
+    {
+      "name": "@next/swc-win32-x64-msvc",
+      "from": "15.3.3",
+      "to": "15.5.28"
+    },
+    {
+      "name": "@swc/counter",
+      "from": "0.1.3",
+      "to": null
+    },
+    {
+      "name": "brace-expansion",
+      "from": "5.0.6",
+      "to": "5.0.12"
+    },
+    {
+      "name": "baseline-browser-mapping",
+      "from": "2.10.35",
+      "to": "2.11.35"
+    },
+    {
+      "name": "brace-expansion",
+      "from": "1.1.15",
+      "to": "1.1.21"
+    },
+    {
+      "name": "browserslist",
+      "from": "4.28.2",
+      "to": "4.29.5"
+    },
+    {
+      "name": "busboy",
+      "from": "1.6.0",
+      "to": null
+    },
+    {
+      "name": "caniuse-lite",
+      "from": "1.0.30001797",
+      "to": "1.0.30001823"
+    },
+    {
+      "name": "electron-to-chromium",
+      "from": "1.5.371",
+      "to": "1.5.478"
+    },
+    {
+      "name": "form-data",
+      "from": "4.0.5",
+      "to": "4.0.6"
+    },
+    {
+      "name": "handlebars",
+      "from": "4.7.9",
+      "to": "4.7.10"
+    },
+    {
+      "name": "js-yaml",
+      "from": "4.2.0",
+      "to": "4.3.2"
+    },
+    {
+      "name": "nanoid",
+      "from": "3.3.12",
+      "to": "3.3.20"
+    },
+    {
+      "name": "next",
+      "from": "15.3.3",
+      "to": "15.5.28"
+    },
+    {
+      "name": "node-releases",
+      "from": "2.0.47",
+      "to": "2.0.63"
+    },
+    {
+      "name": "postcss",
+      "from": "8.5.15",
+      "to": "8.5.23"
+    },
+    {
+      "name": "postcss-selector-parser",
+      "from": "6.1.2",
+      "to": "6.1.5"
+    },
+    {
+      "name": "source-map-js",
+      "from": "1.2.1",
+      "to": "1.2.2"
+    },
+    {
+      "name": "streamsearch",
+      "from": "1.1.0",
+      "to": null
+    },
+    {
+      "name": "update-browserslist-db",
+      "from": "1.2.3",
+      "to": "1.3.4"
+    }
+  ],
+  "impactedFiles": [
+    ".claude/hooks/validate-code.sh",
+    ".github/workflows/ci.yml",
+    ".github/workflows/deploy.yml",
+    "eslint.config.mjs",
+    "jest.config.js",
+    "next.config.ts",
+    "package.json",
+    "postcss.config.mjs",
+    "sentinel/test/coverage.test.ts",
+    "sentinel/test/scenarios.test.ts",
+    "sentinel/test/validation.test.ts",
+    "sentinel/tsconfig.json",
+    "src/__tests__/claude.test.ts",
+    "src/__tests__/Header.test.tsx",
+    "src/app/coach/page.tsx",
+    "src/app/games/page.tsx",
+    "src/app/layout.tsx",
+    "src/app/manifest.ts",
+    "src/app/not-found.tsx",
+    "src/app/page.tsx",
+    "src/app/profile/page.tsx",
+    "src/app/training/page.tsx",
+    "src/app/wellbeing/page.tsx",
+    "src/components/CoachChat.tsx",
+    "src/components/GamesHub.tsx",
+    "src/components/Header.tsx",
+    "src/components/PlayerProfile.tsx",
+    "src/components/TrainingPlan.tsx",
+    "src/components/WeeklyGames.tsx",
+    "src/lib/claude.ts",
+    "tailwind.config.ts",
+    "tsconfig.json"
+  ],
+  "tests": {
+    "executed": 486,
+    "passed": 486,
+    "failed": 0,
+    "skipped": 0
+  },
+  "coverage": {
+    "eslint.config.mjs": "TESTED_AND_COVERED",
+    "jest.config.js": "TESTED_AND_COVERED",
+    "next.config.ts": "TESTED_AND_COVERED",
+    "package.json": "TESTED_AND_COVERED",
+    "postcss.config.mjs": "TESTED_AND_COVERED",
+    "src/app/layout.tsx": "NOT_TESTED",
+    "src/app/not-found.tsx": "NOT_TESTED",
+    "src/app/page.tsx": "NOT_TESTED",
+    "src/components/Header.tsx": "TESTED_AND_COVERED",
+    "src/components/PlayerProfile.tsx": "TESTED_AND_COVERED",
+    "src/components/WeeklyGames.tsx": "TESTED_AND_COVERED",
+    "src/lib/claude.ts": "TESTED_AND_COVERED",
+    "tsconfig.json": "TESTED_AND_COVERED"
+  },
+  "gates": [
+    {
+      "id": "G1",
+      "status": "FAIL"
+    },
+    {
+      "id": "G2",
+      "status": "PASS"
+    },
+    {
+      "id": "G3",
+      "status": "FAIL"
+    },
+    {
+      "id": "G4",
+      "status": "FAIL"
+    },
+    {
+      "id": "G5",
+      "status": "PASS"
+    },
+    {
+      "id": "G6",
+      "status": "UNKNOWN"
+    },
+    {
+      "id": "G7",
+      "status": "FAIL"
+    },
+    {
+      "id": "G8",
+      "status": "UNKNOWN"
+    }
+  ],
+  "decision": "HUMAN_REVIEW",
+  "pullRequest": {
+    "number": null,
+    "url": null
+  },
+  "codeownersAssignments": [],
+  "reports": [
+    "coverage-report.json",
+    "dependency-usage-report.json",
+    "impact-report.json",
+    "merge-decision.json",
+    "remediation-report.json",
+    "validation-report.json",
+    "vulnerability-report.json"
+  ]
+}

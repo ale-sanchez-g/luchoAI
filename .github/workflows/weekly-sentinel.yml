@@ -1,0 +1,180 @@
+# Project Sentinel: weekly vulnerability discovery and remediation.
+# Docs: docs/sentinel/installation.md. No AI or LLM service is used anywhere in this workflow.
+#
+# Trust boundaries:
+#   plan     read-only; runs no new dependency code (npm only edits the lockfile, scripts off)
+#            and uploads the patch before anything else runs.
+#   validate read-only; installs and executes the updated dependencies (tests, build, e2e).
+#   publish  write access; builds Sentinel from the default branch, never runs code from the
+#            patch or from artifacts, re-verifies the patch, then pushes and opens the PR.
+name: Sentinel weekly remediation
+
+on:
+  schedule:
+    - cron: '17 4 * * 1' # Mondays 04:17 UTC
+  workflow_dispatch: {}
+
+permissions: {}
+
+concurrency:
+  group: sentinel-weekly
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '20' # keep in step with ci.yml and runtime.node in .github/sentinel/config.yml
+
+jobs:
+  plan:
+    name: Plan remediation
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    outputs:
+      has-changes: ${{ steps.plan.outputs.has-changes }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          package-manager-cache: false
+
+      - name: Install dependencies from the default branch (no install scripts)
+        run: npm ci --ignore-scripts
+
+      - name: Build Sentinel
+        run: npm run sentinel:build
+
+      - name: Discover vulnerabilities, analyse usage and impact, plan remediation
+        id: plan
+        run: node sentinel/dist/cli.js weekly-plan --out sentinel-plan
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # read-only: advisory lookups for CVE ids
+
+      - name: Upload the plan before any updated dependency code runs
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: sentinel-plan
+          path: sentinel-plan/
+          if-no-files-found: error
+          retention-days: 30
+
+  validate:
+    name: Validate remediation
+    needs: plan
+    if: needs.plan.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: sentinel-plan
+          path: sentinel-plan
+
+      - name: Apply the planned dependency patch
+        run: git apply sentinel-plan/remediation.patch
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          package-manager-cache: false
+
+      - name: Install the updated dependencies (no install scripts)
+        run: npm ci --ignore-scripts
+
+      - name: Build Sentinel
+        run: npm run sentinel:build
+
+      - name: Install Chromium for the end-to-end scripts
+        run: npx --no-install playwright install --with-deps chromium
+
+      - name: Run tests with coverage, lint, build, e2e and security checks
+        run: node sentinel/dist/cli.js validate --offline --out sentinel-weekly --evidence sentinel-weekly/evidence
+
+      - name: Coverage intelligence and preliminary decision
+        if: ${{ !cancelled() }}
+        run: node sentinel/dist/cli.js weekly-evaluate --offline --plan sentinel-plan --out sentinel-weekly --evidence sentinel-weekly/evidence
+
+      - name: Upload weekly evidence and reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: sentinel-weekly-evidence
+          path: sentinel-weekly/
+          retention-days: 30
+
+  publish:
+    name: Publish pull request
+    needs: [plan, validate]
+    # Publish even when validation fails: the PR then shows a BLOCKED decision and why.
+    if: ${{ !cancelled() && needs.plan.result == 'success' && needs.plan.outputs.has-changes == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write # push the Sentinel branch
+      pull-requests: write # create or update the pull request
+      issues: write # labels
+      actions: write # dispatch PR validation when publishing with GITHUB_TOKEN
+    steps:
+      # Optional GitHub App: pushes made with it trigger the PR workflows (GITHUB_TOKEN pushes do not).
+      - name: Create GitHub App token
+        id: app-token
+        if: vars.SENTINEL_APP_CLIENT_ID != ''
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.SENTINEL_APP_CLIENT_ID }}
+          private-key: ${{ secrets.SENTINEL_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ steps.app-token.outputs.token || github.token }}
+          persist-credentials: true # this job pushes; it only runs code from the default branch
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          package-manager-cache: false
+
+      - name: Install dependencies from the default branch (no install scripts)
+        run: npm ci --ignore-scripts
+
+      - name: Build Sentinel from the default branch
+        run: npm run sentinel:build
+
+      - name: Download the plan (produced before any updated dependency code ran)
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: sentinel-plan
+          path: sentinel-plan
+
+      - name: Verify the patch, push the branch and create or update the PR
+        env:
+          SENTINEL_GITHUB_TOKEN: ${{ steps.app-token.outputs.token || github.token }}
+          SENTINEL_GIT_NAME: ${{ steps.app-token.outputs.app-slug && format('{0}[bot]', steps.app-token.outputs.app-slug) || 'github-actions[bot]' }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+          DISPATCH: ${{ steps.app-token.outputs.token == '' && 'sentinel-pr-validation.yml' || '' }}
+        run: |
+          set -euo pipefail
+          args=(publish --plan sentinel-plan --out sentinel-publish --base-branch "$BASE_BRANCH")
+          if [ -n "$DISPATCH" ]; then args+=(--dispatch-workflow "$DISPATCH"); fi
+          node sentinel/dist/cli.js "${args[@]}"
+
+      - name: Upload publish report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: sentinel-publish
+          path: sentinel-publish/
+          retention-days: 30

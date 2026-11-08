@@ -1,0 +1,252 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ale-sanchez-g/luchoAI/sentinel/schemas/dependency-usage-report.schema.json",
+  "title": "Project Sentinel dependency usage report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reportType",
+    "executionId",
+    "generatedAt",
+    "repository",
+    "tool",
+    "limitations",
+    "scannedFiles",
+    "skippedFiles",
+    "parseErrors",
+    "dynamicImports",
+    "packages"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "$ref": "common.schema.json#/definitions/schemaVersion"
+    },
+    "reportType": {
+      "const": "dependency-usage-report"
+    },
+    "executionId": {
+      "$ref": "common.schema.json#/definitions/executionId"
+    },
+    "generatedAt": {
+      "$ref": "common.schema.json#/definitions/timestamp"
+    },
+    "repository": {
+      "$ref": "common.schema.json#/definitions/repositoryRef"
+    },
+    "tool": {
+      "$ref": "common.schema.json#/definitions/tool"
+    },
+    "limitations": {
+      "$ref": "common.schema.json#/definitions/limitations"
+    },
+    "scannedFiles": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "skippedFiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "reason"
+        ],
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "parseErrors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "message"
+        ],
+        "properties": {
+          "file": {
+            "$ref": "common.schema.json#/definitions/relativePath"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dynamicImports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "line",
+          "column",
+          "kind",
+          "expression",
+          "fileClass"
+        ],
+        "properties": {
+          "file": {
+            "$ref": "common.schema.json#/definitions/relativePath"
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "column": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "kind": {
+            "enum": [
+              "import()",
+              "require()",
+              "require.resolve()"
+            ]
+          },
+          "expression": {
+            "type": "string"
+          },
+          "fileClass": {
+            "$ref": "common.schema.json#/definitions/fileClass"
+          }
+        }
+      }
+    },
+    "packages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/packageUsage"
+      }
+    }
+  },
+  "definitions": {
+    "packageUsage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package",
+        "status",
+        "completeness",
+        "viaDirectDependencies",
+        "binaries",
+        "references",
+        "limitations"
+      ],
+      "properties": {
+        "package": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "$ref": "common.schema.json#/definitions/usageStatus"
+        },
+        "completeness": {
+          "enum": [
+            "COMPLETE",
+            "PARTIAL",
+            "UNKNOWN"
+          ]
+        },
+        "viaDirectDependencies": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "binaries": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/reference"
+          }
+        },
+        "limitations": {
+          "$ref": "common.schema.json#/definitions/limitations"
+        }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "line",
+        "column",
+        "relationship",
+        "confidence",
+        "specifier",
+        "referencedPackage",
+        "detector",
+        "fileClass",
+        "evidence"
+      ],
+      "properties": {
+        "file": {
+          "$ref": "common.schema.json#/definitions/relativePath"
+        },
+        "line": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "column": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "relationship": {
+          "enum": [
+            "DIRECT_IMPORT",
+            "TYPE_IMPORT",
+            "DYNAMIC_IMPORT",
+            "REQUIRE",
+            "TEST_MOCK",
+            "CONFIGURATION",
+            "BUILD_SCRIPT",
+            "CI_WORKFLOW",
+            "TEXT_REFERENCE"
+          ]
+        },
+        "confidence": {
+          "$ref": "common.schema.json#/definitions/confidence"
+        },
+        "specifier": {
+          "type": "string"
+        },
+        "referencedPackage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "detector": {
+          "enum": [
+            "ast",
+            "package-json",
+            "config",
+            "workflow",
+            "text-search"
+          ]
+        },
+        "fileClass": {
+          "$ref": "common.schema.json#/definitions/fileClass"
+        },
+        "evidence": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,153 @@
+# Project Sentinel policy for luchoAI.
+# Schema: sentinel/schemas/config.schema.json. Unknown keys, wrong types and inconsistent
+# references make Sentinel stop with an error rather than guess. Omitted keys use the defaults
+# in sentinel/src/config/defaults.ts. Lists here replace the default list entirely.
+# The weekly schedule itself lives in .github/workflows/weekly-sentinel.yml (GitHub requires a
+# static cron expression in the workflow file).
+version: 1
+
+runtime:
+  # Node major used by CI (.github/workflows/ci.yml). Used to flag dependency versions whose
+  # "engines" field excludes it. Keep in step with the workflows.
+  node: '20'
+
+ecosystems:
+  npm:
+    manifest: package.json
+    lockfile: package-lock.json
+    # Every "resolved" URL in the lockfile must start with one of these.
+    allowedRegistries:
+      - https://registry.npmjs.org/
+
+sources:
+  npmAudit: true                 # GitHub Advisory Database via the npm registry (primary)
+  githubAdvisoryDatabase: true   # adds CVE ids and patched versions from the advisory API
+  dependabotAlerts: false        # needs a token with "Dependabot alerts: read"
+  osvScanner:
+    enabled: false               # set true and produce osv-results.json to merge OSV findings
+    reportPath: osv-results.json
+
+severity:
+  minimum: low                   # remediate advisories at or above this severity
+
+remediation:
+  allowedUpgradeTypes: [patch, minor]   # major upgrades are never applied automatically
+  # Supply-chain cool-down: a version published more recently than this needs human review.
+  minimumReleaseAgeHours: 48
+  branch: sentinel/dependency-remediation
+  commitMessage: 'fix(deps): remediate vulnerable dependencies'
+  maxDependencyPaths: 10
+
+analysis:
+  excludedPaths:
+    - node_modules/**
+    - '**/node_modules/**'
+    - .next/**
+    - out/**
+    - coverage/**
+    - sentinel-reports/**
+    - sentinel-evidence/**
+    - sentinel/dist/**
+    - sentinel/test/fixtures/**
+    - .claude/worktrees/**
+    - public/**
+    - iconography/**
+  maxFileSizeBytes: 1048576
+  tsconfig: tsconfig.json
+  classification:
+    test: ['src/__tests__/**', '**/*.test.*', 'e2e/**', 'sentinel/test/**']
+    documentation: ['**/*.md', 'docs/**', 'context/**']
+    ci: ['.github/workflows/**']
+    infrastructure: []
+    tooling: ['sentinel/**', '.claude/**', '/.mcp.json', '.github/sentinel/**']
+    configuration: ['/package.json', '/*.config.{js,cjs,mjs,ts}', '/tsconfig.json']
+    production: ['src/**']
+
+tests:
+  jest:
+    command: [node_modules/.bin/jest, --ci]
+    collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/__tests__/**']
+
+coverage:
+  # "direct": files that reference the vulnerable package (or the direct dependency that brings
+  # it in) need evidence. "direct-and-dependents": every module that imports those files too.
+  scope: direct
+  lineThreshold: 80              # matches the repo's testing guidance (.claude/skills/testing-patterns)
+  branchThreshold: null          # reported, not enforced (no stated repo standard)
+  requireAttribution: true       # a passing test must have executed the file
+  allowSkippedTests: false
+  typeOnlyImportsRequireEvidence: false   # `import type` has no runtime effect; the build covers it
+  evidenceRequiredFor: [production, configuration]
+  # A configuration file counts as validated when these commands passed.
+  configurationEvidence:
+    - files: [jest.config.js]
+      satisfiedBy: [unit-tests]
+    - files: [next.config.ts, tsconfig.json, postcss.config.mjs, tailwind.config.ts]
+      satisfiedBy: [build]
+    - files: [eslint.config.mjs]
+      satisfiedBy: [lint]
+    - files: [package.json]
+      satisfiedBy: [unit-tests, lint, build]
+
+validation:
+  commands:
+    - id: unit-tests
+      kind: jest               # run with coverage and per-test attribution by Sentinel
+      category: test
+      required: true
+      timeoutMinutes: 20
+    - id: lint
+      kind: command
+      category: lint
+      run: [npm, run, lint]
+      required: true
+      timeoutMinutes: 10
+    - id: build
+      kind: command
+      category: build
+      run: [npm, run, build]
+      env:
+        NODE_ENV: production
+        NEXT_PUBLIC_BASE_PATH: /luchoAI
+      required: true
+      timeoutMinutes: 20
+    # The e2e scripts serve out/ at "/", so they need a build without the Pages base path.
+    - id: e2e-build
+      kind: command
+      category: build
+      run: [npm, run, build]
+      env:
+        NODE_ENV: production
+        NEXT_PUBLIC_BASE_PATH: ''
+      required: true
+      timeoutMinutes: 20
+    - id: e2e
+      kind: command
+      category: test
+      run: [npm, run, 'test:e2e']
+      required: true
+      timeoutMinutes: 20
+  npmAudit: required
+  auditSignatures: required
+
+governance:
+  autoMerge:
+    enabled: true
+    mergeMethod: squash          # .claude/rules/pr.md: squash commits before merging
+  majorUpgradeRequired: require-review
+  noFixAvailable: report         # unfixable advisories are listed but do not hold back other fixes
+  unresolvedOwnership: require-review
+  buildToolUpgrades: require-review
+  allowedChangedFiles: [/package.json, /package-lock.json]
+  # Name of the decision job; make it a required status check on main (see docs/sentinel/installation.md).
+  requiredStatusCheck: Sentinel decision
+
+codeowners:
+  # Owners requested when an impacted file has no CODEOWNERS entry, e.g. ['@org/security'].
+  # Left empty because this repository has no CODEOWNERS file or team yet.
+  fallbackOwners: []
+  requestReviews: true
+  assignOwners: true
+
+reporting:
+  commentMaxChars: 60000

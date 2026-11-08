@@ -1,0 +1,713 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportType": "merge-decision",
+  "executionId": "local-20261107T084414364Z",
+  "generatedAt": "2026-11-07T08:44:18.060Z",
+  "repository": {
+    "slug": null,
+    "commitSha": "30d396af1718e5e7832de5bb06baa0a3cb73a295",
+    "ref": null
+  },
+  "tool": {
+    "name": "project-sentinel",
+    "version": "1.0.0"
+  },
+  "limitations": [],
+  "decision": "HUMAN_REVIEW",
+  "gates": [
+    {
+      "id": "G1",
+      "name": "Vulnerability remediation completed",
+      "status": "FAIL",
+      "reasons": [
+        {
+          "code": "MAJOR_UPGRADE_REQUIRED",
+          "gate": "G1",
+          "effect": "REVIEW",
+          "message": "minimatch (node_modules/@typescript-eslint/typescript-estree/node_modules/minimatch) is not remediated automatically: lowest fixed version 11.0.1 is a major upgrade from 10.2.5",
+          "subjects": [
+            "GHSA-g3hv-75wg-m249|minimatch"
+          ]
+        },
+        {
+          "code": "MAJOR_UPGRADE_REQUIRED",
+          "gate": "G1",
+          "effect": "REVIEW",
+          "message": "sharp (node_modules/sharp) is not remediated automatically: lowest fixed version 0.35.0 is a major upgrade from 0.34.5",
+          "subjects": [
+            "GHSA-f88m-g3jw-g9cj|sharp"
+          ]
+        },
+        {
+          "code": "MAJOR_UPGRADE_REQUIRED",
+          "gate": "G1",
+          "effect": "REVIEW",
+          "message": "sharp (node_modules/sharp) is not remediated automatically: lowest fixed version 0.35.4 is a major upgrade from 0.34.5",
+          "subjects": [
+            "GHSA-rgj7-g3m4-5g8c|sharp"
+          ]
+        },
+        {
+          "code": "MAJOR_UPGRADE_REQUIRED",
+          "gate": "G1",
+          "effect": "REVIEW",
+          "message": "sharp (node_modules/sharp) is not remediated automatically: lowest fixed version 0.35.5 is a major upgrade from 0.34.5",
+          "subjects": [
+            "GHSA-wq5f-xc86-pv6w|sharp"
+          ]
+        },
+        {
+          "code": "PARENT_UPGRADE_REQUIRED",
+          "gate": "G1",
+          "effect": "REVIEW",
+          "message": "postcss (node_modules/next/node_modules/postcss) is not remediated automatically: fixed in 8.5.12, outside the range declared by next (8.4.31); npm's suggestion rejected: next@15.5.29 still requires postcss 8.4.31 (resolves to 8.4.31, still vulnerable)",
+          "subjects": [
+            "GHSA-6g55-p6wh-862q|postcss"
+          ]
+        },
+        {
+          "code": "PARENT_UPGRADE_REQUIRED",
+          "gate": "G1",
+          "effect": "REVIEW",
+          "message": "postcss (node_modules/next/node_modules/postcss) is not remediated automatically: fixed in 8.5.23, outside the range declared by next (8.4.31); npm's suggestion rejected: next@15.5.29 still requires postcss 8.4.31 (resolves to 8.4.31, still vulnerable)",
+          "subjects": [
+            "GHSA-fxqj-rqcc-2cmp|postcss"
+          ]
+        },
+        {
+          "code": "PARENT_UPGRADE_REQUIRED",
+          "gate": "G1",
+          "effect": "REVIEW",
+          "message": "postcss (node_modules/next/node_modules/postcss) is not remediated automatically: fixed in 8.5.10, outside the range declared by next (8.4.31); npm's suggestion rejected: next@15.5.29 still requires postcss 8.4.31 (resolves to 8.4.31, still vulnerable)",
+          "subjects": [
+            "GHSA-qx2v-qp2m-jg93|postcss"
+          ]
+        },
+        {
+          "code": "PARENT_UPGRADE_REQUIRED",
+          "gate": "G1",
+          "effect": "REVIEW",
+          "message": "postcss (node_modules/next/node_modules/postcss) is not remediated automatically: fixed in 8.5.18, outside the range declared by next (8.4.31); npm's suggestion rejected: next@15.5.29 still requires postcss 8.4.31 (resolves to 8.4.31, still vulnerable)",
+          "subjects": [
+            "GHSA-r28c-9q8g-f849|postcss"
+          ]
+        },
+        {
+          "code": "NO_FIX_AVAILABLE",
+          "gate": "G1",
+          "effect": "INFO",
+          "message": "deepmerge (node_modules/deepmerge) is not remediated automatically: no published version of deepmerge newer than 4.3.1 is outside >=4.2.0 <=4.3.1",
+          "subjects": [
+            "GHSA-gcqx-w48m-w2h4|deepmerge"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "G2",
+      "name": "Dependency usage analysis completed",
+      "status": "PASS",
+      "reasons": []
+    },
+    {
+      "id": "G3",
+      "name": "Impact analysis completed",
+      "status": "FAIL",
+      "reasons": [
+        {
+          "code": "BUILD_TOOL_UPGRADE",
+          "gate": "G3",
+          "effect": "REVIEW",
+          "message": "nanoid: next runs in the build; the files it processes cannot be listed statically",
+          "subjects": [
+            "nanoid"
+          ]
+        },
+        {
+          "code": "BUILD_TOOL_UPGRADE",
+          "gate": "G3",
+          "effect": "REVIEW",
+          "message": "next: next runs in the build; the files it processes cannot be listed statically",
+          "subjects": [
+            "next"
+          ]
+        },
+        {
+          "code": "BUILD_TOOL_UPGRADE",
+          "gate": "G3",
+          "effect": "REVIEW",
+          "message": "postcss: next runs in the build; the files it processes cannot be listed statically",
+          "subjects": [
+            "postcss"
+          ]
+        },
+        {
+          "code": "BUILD_TOOL_UPGRADE",
+          "gate": "G3",
+          "effect": "REVIEW",
+          "message": "source-map-js: next runs in the build; the files it processes cannot be listed statically",
+          "subjects": [
+            "source-map-js"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "G4",
+      "name": "Impacted files have attributable test coverage",
+      "status": "FAIL",
+      "reasons": [
+        {
+          "code": "FILE_NOT_TESTED",
+          "gate": "G4",
+          "effect": "REVIEW",
+          "message": "no passing test exercises this impacted file",
+          "subjects": [
+            "src/app/layout.tsx",
+            "src/app/not-found.tsx",
+            "src/app/page.tsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "G5",
+      "name": "Required tests executed successfully",
+      "status": "PASS",
+      "reasons": []
+    },
+    {
+      "id": "G6",
+      "name": "Builds and security validations pass",
+      "status": "UNKNOWN",
+      "reasons": [
+        {
+          "code": "SIGNATURE_VERIFICATION_UNAVAILABLE",
+          "gate": "G6",
+          "effect": "REVIEW",
+          "message": "registry signatures not verified: npm audit signatures failed: Failed to download",
+          "subjects": []
+        }
+      ]
+    },
+    {
+      "id": "G7",
+      "name": "No unresolved compatibility or governance restriction",
+      "status": "FAIL",
+      "reasons": [
+        {
+          "code": "OWNERSHIP_UNRESOLVED",
+          "gate": "G7",
+          "effect": "REVIEW",
+          "message": "impacted files have no CODEOWNERS owner and no fallback owners are configured",
+          "subjects": [
+            ".claude/hooks/validate-code.sh",
+            ".github/workflows/ci.yml",
+            ".github/workflows/deploy.yml",
+            "eslint.config.mjs",
+            "jest.config.js",
+            "next.config.ts",
+            "package.json",
+            "postcss.config.mjs",
+            "sentinel/test/coverage.test.ts",
+            "sentinel/test/scenarios.test.ts",
+            "sentinel/test/validation.test.ts",
+            "sentinel/tsconfig.json",
+            "src/__tests__/Header.test.tsx",
+            "src/__tests__/claude.test.ts",
+            "src/app/coach/page.tsx",
+            "src/app/games/page.tsx",
+            "src/app/layout.tsx",
+            "src/app/manifest.ts",
+            "src/app/not-found.tsx",
+            "src/app/page.tsx",
+            "src/app/profile/page.tsx",
+            "src/app/training/page.tsx",
+            "src/app/wellbeing/page.tsx",
+            "src/components/CoachChat.tsx",
+            "src/components/GamesHub.tsx",
+            "src/components/Header.tsx",
+            "src/components/PlayerProfile.tsx",
+            "src/components/TrainingPlan.tsx",
+            "src/components/WeeklyGames.tsx",
+            "src/lib/claude.ts",
+            "tailwind.config.ts",
+            "tsconfig.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "G8",
+      "name": "Branch protection and merge requirements satisfied",
+      "status": "UNKNOWN",
+      "reasons": [
+        {
+          "code": "NO_PULL_REQUEST",
+          "gate": "G8",
+          "effect": "REVIEW",
+          "message": "evaluated before the pull request exists; the PR validation workflow makes the final decision",
+          "subjects": []
+        },
+        {
+          "code": "PROTECTION_UNKNOWN",
+          "gate": "G8",
+          "effect": "REVIEW",
+          "message": "branch protection could not be read",
+          "subjects": []
+        }
+      ]
+    }
+  ],
+  "reasons": [
+    {
+      "code": "MAJOR_UPGRADE_REQUIRED",
+      "gate": "G1",
+      "effect": "REVIEW",
+      "message": "minimatch (node_modules/@typescript-eslint/typescript-estree/node_modules/minimatch) is not remediated automatically: lowest fixed version 11.0.1 is a major upgrade from 10.2.5",
+      "subjects": [
+        "GHSA-g3hv-75wg-m249|minimatch"
+      ]
+    },
+    {
+      "code": "MAJOR_UPGRADE_REQUIRED",
+      "gate": "G1",
+      "effect": "REVIEW",
+      "message": "sharp (node_modules/sharp) is not remediated automatically: lowest fixed version 0.35.0 is a major upgrade from 0.34.5",
+      "subjects": [
+        "GHSA-f88m-g3jw-g9cj|sharp"
+      ]
+    },
+    {
+      "code": "MAJOR_UPGRADE_REQUIRED",
+      "gate": "G1",
+      "effect": "REVIEW",
+      "message": "sharp (node_modules/sharp) is not remediated automatically: lowest fixed version 0.35.4 is a major upgrade from 0.34.5",
+      "subjects": [
+        "GHSA-rgj7-g3m4-5g8c|sharp"
+      ]
+    },
+    {
+      "code": "MAJOR_UPGRADE_REQUIRED",
+      "gate": "G1",
+      "effect": "REVIEW",
+      "message": "sharp (node_modules/sharp) is not remediated automatically: lowest fixed version 0.35.5 is a major upgrade from 0.34.5",
+      "subjects": [
+        "GHSA-wq5f-xc86-pv6w|sharp"
+      ]
+    },
+    {
+      "code": "PARENT_UPGRADE_REQUIRED",
+      "gate": "G1",
+      "effect": "REVIEW",
+      "message": "postcss (node_modules/next/node_modules/postcss) is not remediated automatically: fixed in 8.5.12, outside the range declared by next (8.4.31); npm's suggestion rejected: next@15.5.29 still requires postcss 8.4.31 (resolves to 8.4.31, still vulnerable)",
+      "subjects": [
+        "GHSA-6g55-p6wh-862q|postcss"
+      ]
+    },
+    {
+      "code": "PARENT_UPGRADE_REQUIRED",
+      "gate": "G1",
+      "effect": "REVIEW",
+      "message": "postcss (node_modules/next/node_modules/postcss) is not remediated automatically: fixed in 8.5.23, outside the range declared by next (8.4.31); npm's suggestion rejected: next@15.5.29 still requires postcss 8.4.31 (resolves to 8.4.31, still vulnerable)",
+      "subjects": [
+        "GHSA-fxqj-rqcc-2cmp|postcss"
+      ]
+    },
+    {
+      "code": "PARENT_UPGRADE_REQUIRED",
+      "gate": "G1",
+      "effect": "REVIEW",
+      "message": "postcss (node_modules/next/node_modules/postcss) is not remediated automatically: fixed in 8.5.10, outside the range declared by next (8.4.31); npm's suggestion rejected: next@15.5.29 still requires postcss 8.4.31 (resolves to 8.4.31, still vulnerable)",
+      "subjects": [
+        "GHSA-qx2v-qp2m-jg93|postcss"
+      ]
+    },
+    {
+      "code": "PARENT_UPGRADE_REQUIRED",
+      "gate": "G1",
+      "effect": "REVIEW",
+      "message": "postcss (node_modules/next/node_modules/postcss) is not remediated automatically: fixed in 8.5.18, outside the range declared by next (8.4.31); npm's suggestion rejected: next@15.5.29 still requires postcss 8.4.31 (resolves to 8.4.31, still vulnerable)",
+      "subjects": [
+        "GHSA-r28c-9q8g-f849|postcss"
+      ]
+    },
+    {
+      "code": "NO_FIX_AVAILABLE",
+      "gate": "G1",
+      "effect": "INFO",
+      "message": "deepmerge (node_modules/deepmerge) is not remediated automatically: no published version of deepmerge newer than 4.3.1 is outside >=4.2.0 <=4.3.1",
+      "subjects": [
+        "GHSA-gcqx-w48m-w2h4|deepmerge"
+      ]
+    },
+    {
+      "code": "BUILD_TOOL_UPGRADE",
+      "gate": "G3",
+      "effect": "REVIEW",
+      "message": "nanoid: next runs in the build; the files it processes cannot be listed statically",
+      "subjects": [
+        "nanoid"
+      ]
+    },
+    {
+      "code": "BUILD_TOOL_UPGRADE",
+      "gate": "G3",
+      "effect": "REVIEW",
+      "message": "next: next runs in the build; the files it processes cannot be listed statically",
+      "subjects": [
+        "next"
+      ]
+    },
+    {
+      "code": "BUILD_TOOL_UPGRADE",
+      "gate": "G3",
+      "effect": "REVIEW",
+      "message": "postcss: next runs in the build; the files it processes cannot be listed statically",
+      "subjects": [
+        "postcss"
+      ]
+    },
+    {
+      "code": "BUILD_TOOL_UPGRADE",
+      "gate": "G3",
+      "effect": "REVIEW",
+      "message": "source-map-js: next runs in the build; the files it processes cannot be listed statically",
+      "subjects": [
+        "source-map-js"
+      ]
+    },
+    {
+      "code": "FILE_NOT_TESTED",
+      "gate": "G4",
+      "effect": "REVIEW",
+      "message": "no passing test exercises this impacted file",
+      "subjects": [
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx"
+      ]
+    },
+    {
+      "code": "SIGNATURE_VERIFICATION_UNAVAILABLE",
+      "gate": "G6",
+      "effect": "REVIEW",
+      "message": "registry signatures not verified: npm audit signatures failed: Failed to download",
+      "subjects": []
+    },
+    {
+      "code": "OWNERSHIP_UNRESOLVED",
+      "gate": "G7",
+      "effect": "REVIEW",
+      "message": "impacted files have no CODEOWNERS owner and no fallback owners are configured",
+      "subjects": [
+        ".claude/hooks/validate-code.sh",
+        ".github/workflows/ci.yml",
+        ".github/workflows/deploy.yml",
+        "eslint.config.mjs",
+        "jest.config.js",
+        "next.config.ts",
+        "package.json",
+        "postcss.config.mjs",
+        "sentinel/test/coverage.test.ts",
+        "sentinel/test/scenarios.test.ts",
+        "sentinel/test/validation.test.ts",
+        "sentinel/tsconfig.json",
+        "src/__tests__/Header.test.tsx",
+        "src/__tests__/claude.test.ts",
+        "src/app/coach/page.tsx",
+        "src/app/games/page.tsx",
+        "src/app/layout.tsx",
+        "src/app/manifest.ts",
+        "src/app/not-found.tsx",
+        "src/app/page.tsx",
+        "src/app/profile/page.tsx",
+        "src/app/training/page.tsx",
+        "src/app/wellbeing/page.tsx",
+        "src/components/CoachChat.tsx",
+        "src/components/GamesHub.tsx",
+        "src/components/Header.tsx",
+        "src/components/PlayerProfile.tsx",
+        "src/components/TrainingPlan.tsx",
+        "src/components/WeeklyGames.tsx",
+        "src/lib/claude.ts",
+        "tailwind.config.ts",
+        "tsconfig.json"
+      ]
+    },
+    {
+      "code": "NO_PULL_REQUEST",
+      "gate": "G8",
+      "effect": "REVIEW",
+      "message": "evaluated before the pull request exists; the PR validation workflow makes the final decision",
+      "subjects": []
+    },
+    {
+      "code": "PROTECTION_UNKNOWN",
+      "gate": "G8",
+      "effect": "REVIEW",
+      "message": "branch protection could not be read",
+      "subjects": []
+    }
+  ],
+  "pullRequest": {
+    "number": null,
+    "headSha": null,
+    "baseRef": null
+  },
+  "ownership": {
+    "codeownersFile": null,
+    "owners": [],
+    "users": [],
+    "teams": [],
+    "emails": [],
+    "assignments": [
+      {
+        "file": ".claude/hooks/validate-code.sh",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": ".github/workflows/ci.yml",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": ".github/workflows/deploy.yml",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "eslint.config.mjs",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "jest.config.js",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "next.config.ts",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "package.json",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "postcss.config.mjs",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "sentinel/test/coverage.test.ts",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "sentinel/test/scenarios.test.ts",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "sentinel/test/validation.test.ts",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "sentinel/tsconfig.json",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/__tests__/Header.test.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/__tests__/claude.test.ts",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/app/coach/page.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/app/games/page.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/app/layout.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/app/manifest.ts",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/app/not-found.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/app/page.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/app/profile/page.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/app/training/page.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/app/wellbeing/page.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/components/CoachChat.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/components/GamesHub.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/components/Header.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/components/PlayerProfile.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/components/TrainingPlan.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/components/WeeklyGames.tsx",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "src/lib/claude.ts",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "tailwind.config.ts",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      },
+      {
+        "file": "tsconfig.json",
+        "owners": [],
+        "source": "none",
+        "rule": null
+      }
+    ],
+    "unresolvedFiles": [
+      ".claude/hooks/validate-code.sh",
+      ".github/workflows/ci.yml",
+      ".github/workflows/deploy.yml",
+      "eslint.config.mjs",
+      "jest.config.js",
+      "next.config.ts",
+      "package.json",
+      "postcss.config.mjs",
+      "sentinel/test/coverage.test.ts",
+      "sentinel/test/scenarios.test.ts",
+      "sentinel/test/validation.test.ts",
+      "sentinel/tsconfig.json",
+      "src/__tests__/Header.test.tsx",
+      "src/__tests__/claude.test.ts",
+      "src/app/coach/page.tsx",
+      "src/app/games/page.tsx",
+      "src/app/layout.tsx",
+      "src/app/manifest.ts",
+      "src/app/not-found.tsx",
+      "src/app/page.tsx",
+      "src/app/profile/page.tsx",
+      "src/app/training/page.tsx",
+      "src/app/wellbeing/page.tsx",
+      "src/components/CoachChat.tsx",
+      "src/components/GamesHub.tsx",
+      "src/components/Header.tsx",
+      "src/components/PlayerProfile.tsx",
+      "src/components/TrainingPlan.tsx",
+      "src/components/WeeklyGames.tsx",
+      "src/lib/claude.ts",
+      "tailwind.config.ts",
+      "tsconfig.json"
+    ],
+    "fallbackApplied": false
+  },
+  "labels": [
+    "security/dependency-update",
+    "security/coverage-incomplete",
+    "security/manual-review"
+  ],
+  "inputs": {
+    "digests": {
+      "vulnerabilities": "89ac4f27752fa63cc66e70231ec60a51a0ac7c781b8831f0f21a77d80df05a45",
+      "usage": "cf2c7c22028fe948eb404419ad48d01fa4622ff29dbed2aacb9e069d236745c0",
+      "impact": "a7a04c7ba076c455e47a3a984d24a28c065a56c30784876f8c72688dcc9e7a22",
+      "coverage": "8c98a5de9687338d5b450fd67d87486c42074c25beb40b2833760ea83001b5f9",
+      "remediation": "3b6191ed3d2519d3d1b2e0bd5d1a0b273c5eca9a856e8964ee99ce8895d2b6f8",
+      "validation": "d9cd90bb37a34d279a4672020644b275feae8bd992d377694fd19e13e15e8267",
+      "facts": "33f0c2fc14d0d85021de8ddba2cbfa88fb4cb90e3fe065cf84519ff115f007e5"
+    },
+    "policyDigest": "e969d1ea81b4dc431ee1acbaf173819437d6272214b161fc8f97fbaf477a8de3",
+    "evaluatedAt": "2026-11-07T08:44:18.060Z"
+  },
+  "decisionDigest": "2abc045cbab1d38afd5dcc842a8a714da2f8f3508467724ec392cf75c91fcfd4"
+}

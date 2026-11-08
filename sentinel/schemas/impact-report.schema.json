@@ -1,0 +1,259 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ale-sanchez-g/luchoAI/sentinel/schemas/impact-report.schema.json",
+  "title": "Project Sentinel dependency impact report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reportType",
+    "executionId",
+    "generatedAt",
+    "repository",
+    "tool",
+    "limitations",
+    "coverageScope",
+    "packages",
+    "impactedFiles"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "$ref": "common.schema.json#/definitions/schemaVersion"
+    },
+    "reportType": {
+      "const": "impact-report"
+    },
+    "executionId": {
+      "$ref": "common.schema.json#/definitions/executionId"
+    },
+    "generatedAt": {
+      "$ref": "common.schema.json#/definitions/timestamp"
+    },
+    "repository": {
+      "$ref": "common.schema.json#/definitions/repositoryRef"
+    },
+    "tool": {
+      "$ref": "common.schema.json#/definitions/tool"
+    },
+    "limitations": {
+      "$ref": "common.schema.json#/definitions/limitations"
+    },
+    "coverageScope": {
+      "enum": [
+        "direct",
+        "direct-and-dependents"
+      ]
+    },
+    "packages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/packageImpact"
+      }
+    },
+    "impactedFiles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/impactedFile"
+      }
+    }
+  },
+  "definitions": {
+    "packageImpact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "package",
+        "vulnerabilityKeys",
+        "usageStatus",
+        "directFiles",
+        "transitiveFiles",
+        "typeOnlyFiles",
+        "dependentModules",
+        "entryPoints",
+        "components",
+        "configurationFiles",
+        "ciFiles",
+        "testFiles",
+        "downstreamGraph",
+        "risk",
+        "unknowns"
+      ],
+      "properties": {
+        "package": {
+          "type": "string",
+          "minLength": 1
+        },
+        "vulnerabilityKeys": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "usageStatus": {
+          "$ref": "common.schema.json#/definitions/usageStatus"
+        },
+        "directFiles": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        },
+        "transitiveFiles": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        },
+        "typeOnlyFiles": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        },
+        "dependentModules": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        },
+        "entryPoints": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        },
+        "components": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "configurationFiles": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        },
+        "ciFiles": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        },
+        "testFiles": {
+          "$ref": "common.schema.json#/definitions/pathList"
+        },
+        "downstreamGraph": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "nodes",
+            "edges"
+          ],
+          "properties": {
+            "nodes": {
+              "$ref": "common.schema.json#/definitions/stringList"
+            },
+            "edges": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "risk": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "level",
+            "signals"
+          ],
+          "properties": {
+            "level": {
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH",
+                "UNKNOWN"
+              ]
+            },
+            "signals": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/definitions/riskSignal"
+              }
+            }
+          }
+        },
+        "unknowns": {
+          "$ref": "common.schema.json#/definitions/limitations"
+        }
+      }
+    },
+    "impactedFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "fileClass",
+        "impactKinds",
+        "packages",
+        "confidence",
+        "traces",
+        "evidenceRequired",
+        "evidenceReason"
+      ],
+      "properties": {
+        "file": {
+          "$ref": "common.schema.json#/definitions/relativePath"
+        },
+        "fileClass": {
+          "$ref": "common.schema.json#/definitions/fileClass"
+        },
+        "impactKinds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "DIRECT",
+              "TRANSITIVE",
+              "TYPE_ONLY",
+              "DEPENDENT_MODULE",
+              "CONFIGURATION",
+              "BUILD_SCRIPT",
+              "CI",
+              "TEST"
+            ]
+          }
+        },
+        "packages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "$ref": "common.schema.json#/definitions/confidence"
+        },
+        "traces": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "from",
+                "to",
+                "relationship",
+                "evidence"
+              ],
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                },
+                "relationship": {
+                  "type": "string"
+                },
+                "evidence": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "evidenceRequired": {
+          "type": "boolean"
+        },
+        "evidenceReason": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

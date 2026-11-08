@@ -1,0 +1,535 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ale-sanchez-g/luchoAI/sentinel/schemas/remediation-report.schema.json",
+  "title": "Project Sentinel dependency remediation report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reportType",
+    "executionId",
+    "generatedAt",
+    "repository",
+    "tool",
+    "limitations",
+    "mode",
+    "baseSha",
+    "headSha",
+    "actions",
+    "escalations",
+    "changes",
+    "manifestChanges",
+    "changedFiles",
+    "verification",
+    "integrity",
+    "compatibility",
+    "patch"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "$ref": "common.schema.json#/definitions/schemaVersion"
+    },
+    "reportType": {
+      "const": "remediation-report"
+    },
+    "executionId": {
+      "$ref": "common.schema.json#/definitions/executionId"
+    },
+    "generatedAt": {
+      "$ref": "common.schema.json#/definitions/timestamp"
+    },
+    "repository": {
+      "$ref": "common.schema.json#/definitions/repositoryRef"
+    },
+    "tool": {
+      "$ref": "common.schema.json#/definitions/tool"
+    },
+    "limitations": {
+      "$ref": "common.schema.json#/definitions/limitations"
+    },
+    "mode": {
+      "enum": [
+        "apply",
+        "verify"
+      ]
+    },
+    "baseSha": {
+      "$ref": "common.schema.json#/definitions/sha"
+    },
+    "headSha": {
+      "$ref": "common.schema.json#/definitions/sha"
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "package",
+          "spec",
+          "argv",
+          "targets",
+          "status",
+          "exitCode",
+          "durationMs",
+          "detail"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "npm-install",
+              "npm-update"
+            ]
+          },
+          "package": {
+            "type": "string"
+          },
+          "spec": {
+            "type": "string"
+          },
+          "argv": {
+            "$ref": "common.schema.json#/definitions/stringList"
+          },
+          "targets": {
+            "$ref": "common.schema.json#/definitions/stringList"
+          },
+          "status": {
+            "enum": [
+              "APPLIED",
+              "FAILED",
+              "SKIPPED"
+            ]
+          },
+          "exitCode": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "durationMs": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "escalations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "vulnerabilityKey",
+          "package",
+          "location",
+          "reason",
+          "detail"
+        ],
+        "properties": {
+          "vulnerabilityKey": {
+            "type": "string"
+          },
+          "package": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "reason": {
+            "enum": [
+              "FIXABLE",
+              "MAJOR_UPGRADE_REQUIRED",
+              "PARENT_UPGRADE_REQUIRED",
+              "NO_FIX_AVAILABLE",
+              "UNKNOWN",
+              "OUT_OF_SCOPE",
+              "MANIFEST_SPEC_UNSUPPORTED",
+              "REMEDIATION_FAILED"
+            ]
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "location",
+          "changeType",
+          "from",
+          "to",
+          "upgradeType",
+          "relation",
+          "relatedTo",
+          "dev",
+          "hasInstallScript",
+          "license",
+          "previousLicense"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "changeType": {
+            "enum": [
+              "updated",
+              "added",
+              "removed"
+            ]
+          },
+          "from": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "to": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "upgradeType": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "patch",
+              "minor",
+              "major",
+              "downgrade",
+              null
+            ]
+          },
+          "relation": {
+            "enum": [
+              "targeted",
+              "dependency-of-targeted",
+              "unrelated"
+            ]
+          },
+          "relatedTo": {
+            "$ref": "common.schema.json#/definitions/stringList"
+          },
+          "dev": {
+            "type": "boolean"
+          },
+          "hasInstallScript": {
+            "type": "boolean"
+          },
+          "license": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "previousLicense": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "manifestChanges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "field",
+          "package",
+          "from",
+          "to",
+          "allowed"
+        ],
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "package": {
+            "type": "string"
+          },
+          "from": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "to": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "allowed": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "changedFiles": {
+      "$ref": "common.schema.json#/definitions/pathList"
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "before",
+        "after",
+        "targeted",
+        "resolved",
+        "remaining",
+        "introduced"
+      ],
+      "properties": {
+        "before": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "advisoryKeys",
+            "bySeverity",
+            "severities"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "OK",
+                "UNAVAILABLE",
+                "ERROR"
+              ]
+            },
+            "advisoryKeys": {
+              "$ref": "common.schema.json#/definitions/stringList"
+            },
+            "bySeverity": {
+              "$ref": "common.schema.json#/definitions/severityCounts"
+            },
+            "severities": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "common.schema.json#/definitions/severity"
+              }
+            }
+          }
+        },
+        "after": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "advisoryKeys",
+            "bySeverity",
+            "severities"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "OK",
+                "UNAVAILABLE",
+                "ERROR"
+              ]
+            },
+            "advisoryKeys": {
+              "$ref": "common.schema.json#/definitions/stringList"
+            },
+            "bySeverity": {
+              "$ref": "common.schema.json#/definitions/severityCounts"
+            },
+            "severities": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "common.schema.json#/definitions/severity"
+              }
+            }
+          }
+        },
+        "targeted": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "resolved": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "remaining": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "introduced": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lockfileConsistent",
+        "lockfileDetail",
+        "registry",
+        "missingIntegrity",
+        "signatures"
+      ],
+      "properties": {
+        "lockfileConsistent": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN"
+          ]
+        },
+        "lockfileDetail": {
+          "type": "string"
+        },
+        "registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "allowed",
+            "violations"
+          ],
+          "properties": {
+            "allowed": {
+              "$ref": "common.schema.json#/definitions/stringList"
+            },
+            "violations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "location",
+                  "resolved"
+                ],
+                "properties": {
+                  "location": {
+                    "type": "string"
+                  },
+                  "resolved": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "missingIntegrity": {
+          "$ref": "common.schema.json#/definitions/stringList"
+        },
+        "signatures": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "invalid",
+            "missing",
+            "detail"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "VERIFIED",
+                "INVALID",
+                "MISSING_SIGNATURES",
+                "UNAVAILABLE",
+                "NOT_RUN"
+              ]
+            },
+            "invalid": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "version",
+                  "code"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "missing": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "version"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "detail": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "compatibility": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/definitions/riskSignal"
+      }
+    },
+    "patch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "sha256"
+      ],
+      "properties": {
+        "file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

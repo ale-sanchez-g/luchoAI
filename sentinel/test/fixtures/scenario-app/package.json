@@ -1,0 +1,12 @@
+{
+  "name": "scenario-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "jest --ci"
+  },
+  "dependencies": {
+    "vuln-lib": "^1.0.0",
+    "ghost-lib": "^1.0.0"
+  }
+}
