@@ -13,6 +13,7 @@ export default function ProfilePage() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read storage after hydration
     setProviderConfig(getProviderConfig());
     setPlayerProfile(getPlayerProfile());
     setReady(true);

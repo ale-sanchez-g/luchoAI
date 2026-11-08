@@ -346,6 +346,7 @@ export default function DecisionGame({ initialThemeId = null }: DecisionGameProp
   const [newBest, setNewBest] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read storage after hydration
     setBestScores(getBestScores());
   }, []);
 

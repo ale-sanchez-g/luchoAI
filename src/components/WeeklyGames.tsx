@@ -145,6 +145,7 @@ export default function WeeklyGames({ onPlayRound }: WeeklyGamesProps) {
   // The week and the player's goals only exist in the browser, so the first render is empty.
   useEffect(() => {
     const profile = getPlayerProfile();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read storage after hydration
     setLoaded({ plan: getWeeklyPlan(new Date(), profile), profile });
   }, []);
 

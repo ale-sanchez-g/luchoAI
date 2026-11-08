@@ -19,6 +19,7 @@ export default function CoachPage() {
   useVisualViewportHeight();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read storage after hydration
     setProviderConfig(getProviderConfig());
     setPlayerProfile(getPlayerProfile());
     setReady(true);

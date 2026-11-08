@@ -128,6 +128,7 @@ export default function TrainingPlanView({
   const [saveError, setSaveError] = useState('');
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read storage after hydration
     setSavedPlans(getSavedPlans());
   }, []);
 

@@ -101,6 +101,7 @@ export default function WellbeingCheckIn() {
 
   useEffect(() => {
     const stored = getCheckIns();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- read storage after hydration
     setHistory(stored);
     const today = stored.find((c) => c.date === toDateKey(new Date()));
     if (today) {
