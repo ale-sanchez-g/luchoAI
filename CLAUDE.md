@@ -49,6 +49,7 @@ src/
     guardrails.ts       # Chat screens: off-topic/override requests in, code out
     icons.ts            # ICON_NAMES / IconName for the files in public/icons
     use-visual-viewport-height.ts  # Sets --app-height to the visible screen (iPhone keyboard)
+    use-stored-state.ts # useStoredState: state loaded from localStorage after hydration
     storage.ts          # localStorage helpers (apiKey, playerProfile, check-ins, game scores)
     decision-games.ts   # Game IQ scenarios + on-pitch games (static content)
     game-library/       # Weekly game library (see docs/game-library.md)
@@ -173,10 +174,13 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 - All AI calls must have error handling with user-friendly messages shown in the UI
 - Next.js upgrades: keep `eslint-config-next` on the exact `next` version, run
   `e2e/routes-smoke.mjs` (every route, both visitor states, three sizes, client-side navigation) and
-  commit the `tsconfig.json` edits `next build` makes. eslint-plugin-react-hooks 7 flags
-  `react-hooks/set-state-in-effect`: reading `localStorage` in a mount effect is the deliberate
-  exception (the static HTML must match the first render), marked line by line with a `--` reason;
-  don't silence the rule globally
+  commit the `tsconfig.json` edits `next build` makes
+- Load saved (`localStorage`) data into a component with `useStoredState` from
+  `src/lib/use-stored-state.ts`, never with `useEffect(() => setX(getX()), [])`: the static HTML
+  must match the first render, so the saved value can only be read after hydration, and the hook is
+  the one place allowed to set state from an effect. One disable comment silences a whole effect,
+  so `next-framework.test.ts` keeps that hook the only `react-hooks/set-state-in-effect`
+  exception and lint fails on unused disable comments
 - `next/image` requires `unoptimized: true` in `next.config.ts` for static export — do not remove that config
 - No emojis in the UI or data: use `<Icon name="…" />` (source art in `iconography/leaf`, served copy in `public/icons`, kept identical by `Icon.test.tsx`). Data fields hold an `IconName`, not an emoji. Use icons at 28px or larger
 - Coach chat layout: the page is one fixed-height column (`h-[var(--app-height,100dvh)]`, `min-h-0` on the panels) so only the message list scrolls and the header and message box stay on screen. Never use `scrollIntoView` or `100vh` there, keep the message box at 16px (`text-base`) or iPhones zoom in, and test at 375×667 and 320×568 (`CoachChat.test.tsx` guards the causes)

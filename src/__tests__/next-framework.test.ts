@@ -93,15 +93,23 @@ describe('framework tooling', () => {
     expect(pkg.scripts['test:e2e']).toMatch(/e2e\/routes-smoke\.mjs/);
   });
 
-  it('gives every set-state-in-effect exception a reason', () => {
-    const offenders = listSourceFiles(path.join(ROOT, 'src')).flatMap((file) =>
+  it('keeps the only set-state-in-effect exception inside useStoredState', () => {
+    // One disable silences a whole effect, so components load saved data through the hook.
+    const exceptions = listSourceFiles(path.join(ROOT, 'src')).flatMap((file) =>
       fs
         .readFileSync(file, 'utf8')
         .split('\n')
-        .filter((line) => line.includes('set-state-in-effect') && !line.includes(' -- '))
-        .map((line) => `${path.relative(ROOT, file)}: ${line.trim()}`),
+        .filter((line) => /eslint-disable.*react-hooks\/set-state-in-effect/.test(line))
+        .map((line) => ({ file: path.relative(ROOT, file), reason: line.split(' -- ')[1] })),
     );
-    expect(offenders).toEqual([]);
+    expect(exceptions).toEqual([
+      { file: 'src/lib/use-stored-state.ts', reason: 'read storage after hydration' },
+    ]);
+  });
+
+  it('fails lint on disable comments that no longer suppress anything', () => {
+    const config = fs.readFileSync(path.join(ROOT, 'eslint.config.mjs'), 'utf8');
+    expect(config).toMatch(/reportUnusedDisableDirectives:\s*'error'/);
   });
 });
 

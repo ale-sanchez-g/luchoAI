@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useStoredState } from '@/lib/use-stored-state';
 import { getProviderConfig, getPlayerProfile, clearProviderConfig } from '@/lib/storage';
 import { SKILL_LEVEL_LABELS } from '@/lib/skill-levels';
 import { POSITION_LABELS } from '@/lib/positions';
@@ -13,17 +13,15 @@ import { getProvider } from '@/lib/providers';
 import { useVisualViewportHeight } from '@/lib/use-visual-viewport-height';
 
 export default function CoachPage() {
-  const [providerConfig, setProviderConfig] = useState<AIProviderConfig | null>(null);
-  const [playerProfile, setPlayerProfile] = useState<PlayerProfile | null>(null);
-  const [ready, setReady] = useState(false);
+  const [providerConfig, setProviderConfig, ready] = useStoredState<AIProviderConfig | null>(
+    getProviderConfig,
+    null,
+  );
+  const [playerProfile] = useStoredState<PlayerProfile | null>(
+    getPlayerProfile,
+    null,
+  );
   useVisualViewportHeight();
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- read storage after hydration
-    setProviderConfig(getProviderConfig());
-    setPlayerProfile(getPlayerProfile());
-    setReady(true);
-  }, []);
 
   if (!ready) return <div className="min-h-screen bg-gray-50" />;
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useStoredState } from '@/lib/use-stored-state';
 import { getProviderConfig, getPlayerProfile } from '@/lib/storage';
 import type { PlayerProfile, AIProviderConfig } from '@/types';
 import TrainingPlanView from '@/components/TrainingPlan';
@@ -8,16 +8,14 @@ import ApiKeySetup from '@/components/ApiKeySetup';
 import Header from '@/components/Header';
 
 export default function TrainingPage() {
-  const [providerConfig, setProviderConfig] = useState<AIProviderConfig | null>(null);
-  const [playerProfile, setPlayerProfile] = useState<PlayerProfile | null>(null);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- read storage after hydration
-    setProviderConfig(getProviderConfig());
-    setPlayerProfile(getPlayerProfile());
-    setReady(true);
-  }, []);
+  const [providerConfig, setProviderConfig, ready] = useStoredState<AIProviderConfig | null>(
+    getProviderConfig,
+    null,
+  );
+  const [playerProfile, setPlayerProfile] = useStoredState<PlayerProfile | null>(
+    getPlayerProfile,
+    null,
+  );
 
   if (!ready) return <div className="min-h-screen bg-gray-50" />;
 

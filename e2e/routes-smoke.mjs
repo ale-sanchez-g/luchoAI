@@ -192,6 +192,55 @@ await step('header links navigate client-side without a full reload', async () =
   await context.close();
 });
 
+await step('saved data appears once each page has loaded, and survives a reload', async () => {
+  const context = await browser.newContext({ viewport: { width: 375, height: 667 } });
+  await context.route(/^https:\/\/(?!localhost)/, (route) => route.abort());
+  const today = new Date();
+  const dateKey = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, '0'),
+    String(today.getDate()).padStart(2, '0'),
+  ].join('-');
+  const allGood = { sleep: 3, football: 3, school: 3, people: 3, fun: 3 };
+  await context.addInitScript(
+    ({ items, checkIn }) => {
+      if (localStorage.getItem('smoke-seeded')) return;
+      localStorage.setItem('smoke-seeded', '1');
+      for (const [key, value] of Object.entries(items)) localStorage.setItem(key, value);
+      localStorage.setItem('luchoai_wellbeing_checkins', JSON.stringify([checkIn]));
+      localStorage.setItem('luchoai_game_scores', JSON.stringify({ space: 2 }));
+    },
+    { items: RETURNING_PLAYER, checkIn: { date: dateKey, mood: 5, balance: allGood, proudOf: '' } },
+  );
+  const page = await context.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+
+  for (const reload of [false, true]) {
+    await page.goto(`${base}/wellbeing/`, { waitUntil: 'networkidle' });
+    if (reload) await page.reload({ waitUntil: 'networkidle' });
+    await page.getByRole('button', { name: "Update today's check-in" }).waitFor();
+    await page.getByRole('button', { name: "Update today's check-in" }).click();
+    assert(
+      await page
+        .getByRole('group', { name: /feeling today/ })
+        .getByRole('radio', { name: 'Great', exact: true })
+        .isChecked(),
+      "today's mood is not filled in when updating",
+    );
+
+    await page.goto(`${base}/games/`, { waitUntil: 'networkidle' });
+    await page.getByRole('tab', { name: 'Game IQ' }).click();
+    await page.getByText(/Best: 2\/\d+ · Play again/).first().waitFor();
+
+    await page.goto(`${base}/coach/`, { waitUntil: 'networkidle' });
+    await page.getByText(/Lucho · Midfielder/).waitFor();
+  }
+  await page.screenshot({ path: path.join(SHOTS, 'routes-saved-data-coach.png') });
+  assert(errors.length === 0, errors.join('; '));
+  await context.close();
+});
+
 await browser.close();
 server.close();
 

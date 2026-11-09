@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useStoredState } from '@/lib/use-stored-state';
 import Link from 'next/link';
 import type {
   DecisionThemeId,
@@ -138,16 +138,14 @@ interface WeeklyGamesProps {
 }
 
 export default function WeeklyGames({ onPlayRound }: WeeklyGamesProps) {
-  const [loaded, setLoaded] = useState<{ plan: WeeklyPlan; profile: PlayerProfile | null } | null>(
+  // The week and the player's goals only exist in the browser, so the first render is empty.
+  const [loaded] = useStoredState<{ plan: WeeklyPlan; profile: PlayerProfile | null } | null>(
+    () => {
+      const profile = getPlayerProfile();
+      return { plan: getWeeklyPlan(new Date(), profile), profile };
+    },
     null,
   );
-
-  // The week and the player's goals only exist in the browser, so the first render is empty.
-  useEffect(() => {
-    const profile = getPlayerProfile();
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- read storage after hydration
-    setLoaded({ plan: getWeeklyPlan(new Date(), profile), profile });
-  }, []);
 
   if (!loaded) {
     return (
