@@ -5,7 +5,7 @@ LuchoAI is an AI-augmented coaching platform that helps young football (soccer) 
 ## Tech Stack
 
 - **Language**: TypeScript
-- **Framework**: Next.js 15 (App Router, static export)
+- **Framework**: Next.js 16 (App Router, static export, Turbopack build)
 - **Styling**: Tailwind CSS v3
 - **AI**: Anthropic Claude API (`@anthropic-ai/sdk`, client-side via user-supplied key)
 - **Infrastructure**: GitHub Pages (static hosting via GitHub Actions)
@@ -49,6 +49,7 @@ src/
     guardrails.ts       # Chat screens: off-topic/override requests in, code out
     icons.ts            # ICON_NAMES / IconName for the files in public/icons
     use-visual-viewport-height.ts  # Sets --app-height to the visible screen (iPhone keyboard)
+    use-stored-state.ts # useStoredState: state loaded from localStorage after hydration
     storage.ts          # localStorage helpers (apiKey, playerProfile, check-ins, game scores)
     decision-games.ts   # Game IQ scenarios + on-pitch games (static content)
     game-library/       # Weekly game library (see docs/game-library.md)
@@ -68,6 +69,7 @@ src/
     profile-copy.test.ts   # Set-up wording gates: "not sure" everywhere, chips the games match
     game-library.test.ts   # Content gates: safety, kindness, size, coverage, ways to play
     game-rotation.test.ts  # Weekly rotation engine
+    next-framework.test.ts # Upgrade guards: static-export config, lint tooling, manifest, page titles
     __mocks__/
       styleMock.ts      # CSS module mock for Jest
 .github/
@@ -100,7 +102,7 @@ npm run build
 # Run tests
 npm test
 
-# Lint (covers src/ and sentinel/)
+# Lint (covers src/ and sentinel/; plain ESLint CLI, Next 16 removed `next lint`)
 npm run lint
 
 # End-to-end browser scripts (needs a build with an empty base path first)
@@ -170,6 +172,15 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 - The coaching persona lives in `src/lib/prompts.ts` — edit `BASE_SYSTEM_PROMPT` to tune tone and coaching focus
 - Prefer editing existing components over creating new ones
 - All AI calls must have error handling with user-friendly messages shown in the UI
+- Next.js upgrades: keep `eslint-config-next` on the exact `next` version, run
+  `e2e/routes-smoke.mjs` (every route, both visitor states, three sizes, client-side navigation) and
+  commit the `tsconfig.json` edits `next build` makes
+- Load saved (`localStorage`) data into a component with `useStoredState` from
+  `src/lib/use-stored-state.ts`, never with `useEffect(() => setX(getX()), [])`: the static HTML
+  must match the first render, so the saved value can only be read after hydration, and the hook is
+  the one place allowed to set state from an effect. One disable comment silences a whole effect,
+  so `next-framework.test.ts` keeps that hook the only `react-hooks/set-state-in-effect`
+  exception and lint fails on unused disable comments
 - `next/image` requires `unoptimized: true` in `next.config.ts` for static export — do not remove that config
 - No emojis in the UI or data: use `<Icon name="…" />` (source art in `iconography/leaf`, served copy in `public/icons`, kept identical by `Icon.test.tsx`). Data fields hold an `IconName`, not an emoji. Use icons at 28px or larger
 - Coach chat layout: the page is one fixed-height column (`h-[var(--app-height,100dvh)]`, `min-h-0` on the panels) so only the message list scrolls and the header and message box stay on screen. Never use `scrollIntoView` or `100vh` there, keep the message box at 16px (`text-base`) or iPhones zoom in, and test at 375×667 and 320×568 (`CoachChat.test.tsx` guards the causes)

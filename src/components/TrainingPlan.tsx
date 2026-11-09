@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useStoredState } from '@/lib/use-stored-state';
 import type {
   TrainingPlan,
   PlayerPosition,
@@ -123,13 +124,9 @@ export default function TrainingPlanView({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [contextMessages, setContextMessages] = useState<ContextMessage[]>([]);
-  const [savedPlans, setSavedPlans] = useState<SavedPlan[]>([]);
+  const [savedPlans, setSavedPlans] = useStoredState<SavedPlan[]>(getSavedPlans, []);
   const [viewedSavedId, setViewedSavedId] = useState<string | null>(null);
   const [saveError, setSaveError] = useState('');
-
-  useEffect(() => {
-    setSavedPlans(getSavedPlans());
-  }, []);
 
   useEffect(() => {
     if (playerProfile) {

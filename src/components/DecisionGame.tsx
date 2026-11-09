@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useStoredState } from '@/lib/use-stored-state';
 import type { BestScores, DecisionOption, DecisionTheme, DecisionThemeId } from '@/types';
 import { DECISION_THEMES, getTheme } from '@/lib/decision-games';
 import { getBestScores, saveBestScore } from '@/lib/storage';
@@ -337,17 +338,13 @@ interface DecisionGameProps {
 }
 
 export default function DecisionGame({ initialThemeId = null }: DecisionGameProps) {
-  const [bestScores, setBestScores] = useState<BestScores>({});
+  const [bestScores, setBestScores] = useStoredState<BestScores>(getBestScores, {});
   const [themeId, setThemeId] = useState<DecisionThemeId | null>(initialThemeId);
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
   const [newBest, setNewBest] = useState(false);
-
-  useEffect(() => {
-    setBestScores(getBestScores());
-  }, []);
 
   const theme = themeId === null ? null : getTheme(themeId);
 

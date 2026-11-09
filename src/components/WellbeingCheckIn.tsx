@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useStoredState } from '@/lib/use-stored-state';
 import type { FormEvent } from 'react';
 import type { BalanceArea, BalanceLevel, MoodLevel, WellbeingCheckIn as CheckIn } from '@/types';
 import {
@@ -90,26 +91,28 @@ function CheckInResult({ checkIn, supportNeeded, onEdit }: CheckInResultProps) {
   );
 }
 
+function findToday(checkIns: CheckIn[]): CheckIn | undefined {
+  return checkIns.find((c) => c.date === toDateKey(new Date()));
+}
+
 export default function WellbeingCheckIn() {
-  const [history, setHistory] = useState<CheckIn[]>([]);
-  const [mood, setMood] = useState<MoodLevel | null>(null);
-  const [balance, setBalance] = useState<BalanceDraft>({});
-  const [proudOf, setProudOf] = useState('');
-  const [editing, setEditing] = useState(true);
+  const [saved, , loaded] = useStoredState<CheckIn[]>(getCheckIns, []);
+  // A new key once the saved check-ins are read restarts the form from today's answers.
+  return <CheckInPanel key={loaded ? 'saved' : 'initial'} saved={saved} />;
+}
+
+interface CheckInPanelProps {
+  saved: CheckIn[];
+}
+
+function CheckInPanel({ saved }: CheckInPanelProps) {
+  const [history, setHistory] = useState<CheckIn[]>(saved);
+  const [mood, setMood] = useState<MoodLevel | null>(() => findToday(saved)?.mood ?? null);
+  const [balance, setBalance] = useState<BalanceDraft>(() => findToday(saved)?.balance ?? {});
+  const [proudOf, setProudOf] = useState(() => findToday(saved)?.proudOf ?? '');
+  const [editing, setEditing] = useState(() => findToday(saved) === undefined);
   const [confirmingClear, setConfirmingClear] = useState(false);
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    const stored = getCheckIns();
-    setHistory(stored);
-    const today = stored.find((c) => c.date === toDateKey(new Date()));
-    if (today) {
-      setMood(today.mood);
-      setBalance(today.balance);
-      setProudOf(today.proudOf);
-      setEditing(false);
-    }
-  }, []);
 
   function handleSubmit(e: FormEvent): void {
     e.preventDefault();
