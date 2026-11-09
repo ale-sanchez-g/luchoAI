@@ -3,6 +3,7 @@ import { getAgeGroup, SESSION_MINUTES } from './age-groups';
 import type { AgeGroup } from './age-groups';
 import { describePosition, isPosition } from './positions';
 import type { PitchPosition } from './positions';
+import { describeDrillSetups } from './drill-setups';
 
 export const BASE_SYSTEM_PROMPT = `You are LuchoAI, an expert football (soccer) coach and mentor specialising in youth player development. Your role is to help young players aged 8-18 reach their full potential.
 
@@ -135,8 +136,9 @@ function positionGuide(profile: PlayerProfile): string {
 const AGE_LANGUAGE: Record<AgeGroup, string> = {
   young:
     'The player is a young child. Use short, simple sentences and everyday words, no ' +
-    'jargon. Make every drill a fun game with a story or challenge, keep drills to 5-10 ' +
-    'minutes and give at most 2 coaching points per drill. Keep it playful and cheerful.',
+    'jargon or football shorthand (say "you against your helper", not "1v1"). Make every ' +
+    'drill a fun game with a story or challenge, keep drills to 5-10 minutes and give at ' +
+    'most 2 coaching points per drill. Keep it playful and cheerful.',
   middle:
     'The player is a pre-teen. Use clear, friendly language and explain football words the ' +
     'first time they appear. Mix games with simple technical practice, and give 2-3 coaching ' +
@@ -161,6 +163,8 @@ Session length: about ${SESSION_MINUTES[group]}, with drill durations adding up 
 Language and style: ${AGE_LANGUAGE[group]}
 Who they train with: assume one helper at most, such as a friend, brother, sister or parent. Every drill must work with one helper, and where a drill needs more people, also give a way to do it alone or with one helper. Describe each drill in clear steps that a reader can follow without guessing.
 Safety: include a warm-up and a cool-down, use drills that ${young ? 'involve no heading and ' : ''}can be done safely without a coach, and keep the week balanced. Never plan two hard sessions on back-to-back days: say in each session's notes how many rest days to take before the next one, and make the last session lighter.
+Pictures: give every drill a "setup", the one picture below that best shows how to lay it out. Use "none" when no picture fits; never invent a new one.
+${describeDrillSetups()}
 Speak directly to the player ("you") in the title, description, coaching points and notes, in this style.
 
 Output ONLY a single raw JSON object — no markdown, no code fences, no text before or after the JSON.
@@ -180,7 +184,8 @@ Required JSON schema (all fields are required):
           "name": "Drill name",
           "duration": 10,
           "description": "What to do",
-          "coachingPoints": ["Coaching tip 1", "Coaching tip 2"]
+          "coachingPoints": ["Coaching tip 1", "Coaching tip 2"],
+          "setup": "slalom"
         }
       ],
       "notes": "Overall session tip"

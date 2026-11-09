@@ -19,7 +19,11 @@ const PLAN: TrainingPlan = {
     duration: 35,
     focus: `${spot}: games`,
     notes: 'Rest a day after.',
-    drills: [{ name: 'Game', duration: 10, description: 'Play.', coachingPoints: ['Have fun'] }],
+    drills: [
+      { name: 'Game', duration: 10, description: 'Play.', coachingPoints: ['Have fun'] },
+      { name: 'Weave', duration: 5, description: 'Go.', coachingPoints: [], setup: 'slalom' },
+      { name: 'Odd', duration: 5, description: 'Go.', coachingPoints: [], setup: 'rondo' },
+    ],
   })),
 };
 
@@ -80,5 +84,15 @@ describe('TrainingPlanView explorer week', () => {
     await showPlan({ ...MIA, position: 'defender', exploring: false });
     expect(screen.queryByText('Explorer week')).toBeNull();
     expect(screen.queryByText('Which spot was the most fun?')).toBeNull();
+  });
+});
+
+describe('TrainingPlanView drill pictures', () => {
+  beforeEach(() => localStorage.clear());
+
+  it('shows a picture only for drills with a setup the app can draw', async () => {
+    await showPlan({ ...MIA, position: 'forward', exploring: false });
+    expect(screen.getAllByRole('img', { name: /in and out of a line of cones/ })).toHaveLength(4);
+    expect(screen.getAllByRole('figure')).toHaveLength(4);
   });
 });
