@@ -1,3 +1,4 @@
+import { DRILL_SETUP_IDS } from '@/lib/drill-setups';
 import { BASE_SYSTEM_PROMPT, buildSystemPrompt, buildTrainingPlanPrompt } from '@/lib/prompts';
 import type { PlayerProfile } from '@/types';
 
@@ -152,6 +153,17 @@ describe('prompts', () => {
       expect(prompt).toMatch(/young child/);
       expect(prompt).toMatch(/30-45 minutes/);
       expect(prompt).toMatch(/no heading/);
+    });
+
+    it('tells young children "you against your helper" instead of "1v1"', () => {
+      expect(buildTrainingPlanPrompt({ ...SAMPLE_PROFILE, age: 9 })).toMatch(/not "1v1"/);
+    });
+
+    it('asks for one picture per drill from the setups the app can draw', () => {
+      const prompt = buildTrainingPlanPrompt(SAMPLE_PROFILE);
+      for (const id of DRILL_SETUP_IDS) expect(prompt).toContain(`- ${id}: `);
+      expect(prompt).toMatch(/"setup": "slalom"/);
+      expect(prompt).toMatch(/Use "none" when no picture fits/);
     });
 
     it('speaks to teenagers directly with longer sessions', () => {

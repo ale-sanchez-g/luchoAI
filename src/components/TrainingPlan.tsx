@@ -23,6 +23,8 @@ import { loadContextBatches } from '@/lib/context';
 import type { ContextMessage } from '@/lib/context';
 import ErrorMessage from './ErrorMessage';
 import Icon from './Icon';
+import DrillDiagram from './DrillDiagram';
+import { isDrillSetup } from '@/lib/drill-setups';
 
 interface TrainingPlanViewProps {
   providerConfig: AIProviderConfig;
@@ -311,6 +313,7 @@ export default function TrainingPlanView({
                       <span className="min-w-0 break-words font-medium text-sm text-gray-800">{drill.name}</span>
                       <span className="flex-shrink-0 whitespace-nowrap text-xs text-gray-500">{drill.duration} min</span>
                     </div>
+                    {isDrillSetup(drill.setup) && <DrillDiagram setup={drill.setup} />}
                     <p className="text-xs text-gray-600 mb-2 break-words">{drill.description}</p>
                     <ul className="space-y-1">
                       {drill.coachingPoints.map((point, k) => (

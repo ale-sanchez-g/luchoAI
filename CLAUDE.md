@@ -31,6 +31,7 @@ src/
     CoachChat.tsx       # Main AI chat interface
     MessageBubble.tsx   # Individual chat message bubble
     TrainingPlan.tsx    # Training plan display + generator, explorer week check-in
+    DrillDiagram.tsx    # Top-down drill picture (cones, you, helper, lines) + its key
     PlayerProfile.tsx   # Profile set-up (one question per screen), edit page, parent hand-off
     ProfileQuestions.tsx  # The profile questions: who, name and age, position, level, goals
     ApiKeySetup.tsx     # First-run Anthropic API key entry
@@ -51,6 +52,7 @@ src/
     use-visual-viewport-height.ts  # Sets --app-height to the visible screen (iPhone keyboard)
     use-stored-state.ts # useStoredState: state loaded from localStorage after hydration
     storage.ts          # localStorage helpers (apiKey, playerProfile, check-ins, game scores)
+    drill-setups.ts     # The drill pictures the AI can pick (slalom, gates, wall...) and their scenes
     decision-games.ts   # Game IQ scenarios + on-pitch games (static content)
     game-library/       # Weekly game library (see docs/game-library.md)
       index.ts          #   GAME_LIBRARY, getWeeklyPlan, getLibraryStats
@@ -189,6 +191,10 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
   and per author. Every question keeps a "not sure" answer, and nothing is pre-picked except "try
   every position" for under-11s: a silent default (it used to be Midfielder) reads later as the
   player's own choice. Goal chips must use words `skills.ts` matches; `profile-copy.test.ts` checks
+- Training-plan pictures: the AI only names a `setup` from `src/lib/drill-setups.ts`; every picture
+  is drawn by `DrillDiagram.tsx`, never generated. An unknown or missing setup shows no picture, so
+  older saved plans still work. To add a picture, add a scene there and check it in
+  `e2e/drill-pictures.mjs` close-ups
 - Wellbeing check-ins are sensitive data about children: keep them in `localStorage` only and never include them in AI prompts or send them anywhere
 - Helpline numbers in `src/lib/wellbeing.ts` were verified on 2026-10-13 — re-verify against the official sites before changing them
 - Game library content (`src/lib/game-library`) is for children playing without a coach: follow `docs/game-library.md`. There are deliberately no heading games, no elimination, no exercise as a penalty and no outcome-based match missions; `game-library.test.ts` enforces these, so don't loosen the rules to make a game pass. A new game also needs `noTwists` for any kind of twist that would contradict it (a game with no roles opts out of `roles`, a game with no score of `scoring`)

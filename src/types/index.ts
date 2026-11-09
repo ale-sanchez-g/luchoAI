@@ -1,4 +1,5 @@
 import type { IconName } from '@/lib/icons';
+import type { DrillSetup } from '@/lib/drill-setups';
 
 export type AIProvider = 'anthropic' | 'openai' | 'gemini' | 'huggingface';
 
@@ -38,6 +39,8 @@ export interface Drill {
   duration: number;
   description: string;
   coachingPoints: string[];
+  /** Which picture to show. Kept loose because it comes from the AI: check with isDrillSetup. */
+  setup?: DrillSetup | string;
 }
 
 export interface TrainingSession {
