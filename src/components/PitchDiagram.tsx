@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import type { PitchPoint, PitchScene } from '@/types';
 
 export const PITCH_WIDTH = 100;
@@ -17,6 +20,21 @@ const COLORS = {
   run: '#fde68a',
 };
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+export const KEY_PLAYER_FACE = `${BASE_PATH}/players/key-player.webp`;
+
+// At 11 pitch units the face stays above 28px on a 320px phone, yet only brushes the ball,
+// which sits about 6 units from you when you have it.
+const FACE_SIZE = 11;
+const FACE_TOP = FACE_SIZE / 2;
+// An orange disc behind the chin, like a shirt collar, keeps "You" orange as in the key.
+const DISC = { dy: FACE_SIZE * 0.12, r: FACE_SIZE * 0.43, stroke: 0.7 };
+const FACE_BOTTOM = DISC.dy + DISC.r + DISC.stroke / 2;
+// "YOU" in bold at 3.4: its capitals stand 2.45 tall and the outline adds 0.4 all round.
+const LABEL_CAP = 2.45;
+const LABEL_OUTLINE = 0.4;
+const LABEL_GAP = 1;
+
 export interface PitchMarker {
   id: string;
   at: PitchPoint;
@@ -33,14 +51,45 @@ function trianglePoints({ x, y }: PitchPoint): string {
   return `${x},${y - 3.8} ${x - 3.4},${y + 2.4} ${x + 3.4},${y + 2.4}`;
 }
 
-// The "YOU" label normally sits above the player, but flips below when someone stands just
-// above (e.g. a defender tight on your back) so the label never hides them.
-function youLabelY(scene: PitchScene): number {
+// The "YOU" label normally sits above the face, but flips below when someone (or an answer
+// marker) is just above, e.g. a defender tight on your back, so the label never hides them.
+function youLabelY(scene: PitchScene, markers: PitchMarker[]): number {
   const { you } = scene;
-  const crowdedAbove = [...scene.teammates, ...scene.opponents].some(
-    (p) => Math.abs(p.x - you.x) < 8 && you.y - p.y > 0 && you.y - p.y < 11,
+  const above = you.y - FACE_TOP - LABEL_GAP - LABEL_OUTLINE;
+  const below = you.y + FACE_BOTTOM + LABEL_GAP + LABEL_OUTLINE + LABEL_CAP;
+  const nearby = [...scene.teammates, ...scene.opponents, ...markers.map((m) => m.at)];
+  const crowdedAbove = nearby.some(
+    (p) => Math.abs(p.x - you.x) < 8 && you.y - p.y > 0 && you.y - p.y < 13.5,
   );
-  return crowdedAbove || you.y < 9 ? you.y + 8.6 : you.y - 5.6;
+  const noRoomAbove = above - LABEL_CAP - LABEL_OUTLINE < 0;
+  return crowdedAbove || noRoomAbove ? below : above;
+}
+
+function KeyPlayer({ at }: { at: PitchPoint }) {
+  // Chrome draws a broken-picture icon for a face that fails to load; the plain disc is better.
+  const [faceFailed, setFaceFailed] = useState(false);
+  return (
+    <g data-key-player="">
+      <circle
+        cx={at.x}
+        cy={at.y + DISC.dy}
+        r={DISC.r}
+        fill={COLORS.you}
+        stroke={COLORS.ink}
+        strokeWidth={DISC.stroke}
+      />
+      {!faceFailed && (
+        <image
+          href={KEY_PLAYER_FACE}
+          x={at.x - FACE_TOP}
+          y={at.y - FACE_TOP}
+          width={FACE_SIZE}
+          height={FACE_SIZE}
+          onError={() => setFaceFailed(true)}
+        />
+      )}
+    </g>
+  );
 }
 
 function GoalEnd({ end }: { end: 'top' | 'bottom' }) {
@@ -132,6 +181,8 @@ export default function PitchDiagram({
         />
       ))}
 
+      {/* Drawn before everyone else, so a defender tight on your back stays in full view. */}
+      <KeyPlayer at={scene.you} />
       {scene.teammates.map((p, i) => (
         <circle
           key={`t${i}`}
@@ -154,17 +205,9 @@ export default function PitchDiagram({
         />
       ))}
 
-      <circle
-        cx={scene.you.x}
-        cy={scene.you.y}
-        r={3.8}
-        fill={COLORS.you}
-        stroke={COLORS.ink}
-        strokeWidth={0.9}
-      />
       <text
         x={scene.you.x}
-        y={youLabelY(scene)}
+        y={youLabelY(scene, markers)}
         textAnchor="middle"
         fontSize={3.4}
         fontWeight={700}
@@ -220,8 +263,12 @@ export function PitchLegend() {
   return (
     <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-600" aria-label="Pitch key">
       <li className="flex items-center gap-1">
-        <svg viewBox="0 0 10 10" className="h-3 w-3" aria-hidden="true">
-          <circle cx={5} cy={5} r={4} fill={COLORS.you} stroke={COLORS.ink} />
+        <svg
+          viewBox={`${-FACE_TOP} ${-FACE_TOP} ${FACE_SIZE} ${FACE_TOP + FACE_BOTTOM}`}
+          className="h-7 w-7"
+          aria-hidden="true"
+        >
+          <KeyPlayer at={{ x: 0, y: 0 }} />
         </svg>
         You
       </li>
