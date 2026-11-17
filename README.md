@@ -38,6 +38,17 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000), choose your AI provider, select a model, and enter your API key to start.
 
+### Try a change before you deploy it
+
+```bash
+npm run preview            # this computer: http://localhost:4173/luchoAI/
+npm run preview -- --host  # also prints an address for a phone on the same Wi-Fi
+```
+
+This builds the site exactly as the deploy does and serves it at the same addresses as GitHub
+Pages, so you can click through a change before pushing to `main`. Nothing is published. The
+"Try 5 free questions" button only appears if `GEMINI_FREE_API_KEY` is set when you run it.
+
 ## Architecture
 
 Fully static Next.js site — no server. All AI calls go directly from the browser to the provider's API using the key you enter. The multi-provider routing lives in `src/lib/claude.ts`; provider definitions (models, key validation, hints) are in `src/lib/providers.ts`.

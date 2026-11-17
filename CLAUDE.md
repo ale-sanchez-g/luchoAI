@@ -38,7 +38,7 @@ src/
     GamesHub.tsx        # Games page tabs: This week | Game IQ
     WeeklyGames.tsx     # This week's games, twist, match mission and Game IQ round of the week
     DecisionGame.tsx    # Game IQ: theme picker, scenarios, round summary
-    PitchDiagram.tsx    # SVG pitch used by decision scenarios + legend
+    PitchDiagram.tsx    # SVG pitch used by decision scenarios + legend; YOU is the key-player face
     WellbeingCheckIn.tsx  # Daily mood + life-balance check-in and history
     BreathingExercise.tsx # Guided breathe-in-4 / breathe-out-6 pacer
   lib/
@@ -100,6 +100,11 @@ npm run dev
 
 # Build static export (output → out/)
 npm run build
+
+# Build like the deploy and serve it at http://localhost:4173/luchoAI/ for manual testing
+# (`next start` can't serve a static export). --host adds a same-Wi-Fi address for phones,
+# --no-build serves the existing out/ (must be a /luchoAI build)
+npm run preview
 
 # Run tests
 npm test
@@ -195,6 +200,11 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
   is drawn by `DrillDiagram.tsx`, never generated. An unknown or missing setup shows no picture, so
   older saved plans still work. To add a picture, add a scene there and check it in
   `e2e/drill-pictures.mjs` close-ups
+- Game IQ draws YOU as the key player's face, `public/players/key-player.webp` (art, not an
+  emoji): a 256px WebP kept under 60KB by `PitchDiagram.test.tsx`, on an orange disc that stays
+  if the picture fails to load. Opponents are drawn over the face, and answer markers count when
+  placing the YOU label. After moving a player or marker, run `e2e/game-iq-key-player.mjs`: it
+  walks all 30 situations at three sizes and fails on any overlap
 - Wellbeing check-ins are sensitive data about children: keep them in `localStorage` only and never include them in AI prompts or send them anywhere
 - Helpline numbers in `src/lib/wellbeing.ts` were verified on 2026-10-13 — re-verify against the official sites before changing them
 - Game library content (`src/lib/game-library`) is for children playing without a coach: follow `docs/game-library.md`. There are deliberately no heading games, no elimination, no exercise as a penalty and no outcome-based match missions; `game-library.test.ts` enforces these, so don't loosen the rules to make a game pass. A new game also needs `noTwists` for any kind of twist that would contradict it (a game with no roles opts out of `roles`, a game with no score of `scoring`)
