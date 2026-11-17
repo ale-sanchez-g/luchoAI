@@ -101,6 +101,11 @@ npm run dev
 # Build static export (output → out/)
 npm run build
 
+# Build like the deploy and serve it at http://localhost:4173/luchoAI/ for manual testing
+# (`next start` can't serve a static export). --host adds a same-Wi-Fi address for phones,
+# --no-build serves the existing out/ (must be a /luchoAI build)
+npm run preview
+
 # Run tests
 npm test
 
