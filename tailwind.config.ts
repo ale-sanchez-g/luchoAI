@@ -13,6 +13,16 @@ const config: Config = {
         'pitch-dark': '#0f5a2b',
         gold: '#f59e0b',
       },
+      keyframes: {
+        // A ring that grows and fades around what you can drag on the Game IQ pitch.
+        'pitch-pulse': {
+          '0%': { transform: 'scale(1)', opacity: '0.9' },
+          '100%': { transform: 'scale(1.8)', opacity: '0' },
+        },
+      },
+      animation: {
+        'pitch-pulse': 'pitch-pulse 1.8s ease-out infinite',
+      },
     },
   },
   plugins: [],

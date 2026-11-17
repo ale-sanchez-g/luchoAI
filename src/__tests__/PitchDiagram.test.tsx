@@ -7,8 +7,12 @@ import PitchDiagram, {
   PITCH_HEIGHT,
   PITCH_WIDTH,
   PitchLegend,
+  layoutMarkers,
 } from '@/components/PitchDiagram';
 import { DECISION_THEMES } from '@/lib/decision-games';
+import { BADGE_RADIUS, distance } from '@/lib/pitch-play';
+import type { PitchPoint } from '@/types';
+import { clearOfPlayers } from './helpers/pitch-shapes';
 
 const ROOT = join(__dirname, '..', '..');
 const FACE_FILE = join(ROOT, 'public', 'players', 'key-player.webp');
@@ -17,7 +21,7 @@ type Scenario = (typeof SCENARIOS)[number];
 
 // Draws a situation the way the game does, with its answer markers on the pitch.
 function drawSituation(s: Scenario) {
-  const markers = s.options.flatMap((o) => (o.marker ? [{ id: o.id, at: o.marker }] : []));
+  const markers = s.options.flatMap((o) => (o.marker ? [{ id: o.id, target: o.marker }] : []));
   return render(<PitchDiagram scene={s.scene} label={s.title} markers={markers} />);
 }
 
@@ -65,7 +69,11 @@ describe('key player on the Game IQ pitch', () => {
     const { container, rerender } = render(<PitchDiagram scene={scene} label="Spare player" />);
     expect(Number(youLabel(container).getAttribute('y'))).toBeLessThan(scene.you.y);
     rerender(
-      <PitchDiagram scene={scene} label="Spare player" markers={[{ id: 'B', at: { x: 52, y: 41 } }]} />,
+      <PitchDiagram
+        scene={scene}
+        label="Spare player"
+        markers={[{ id: 'B', target: { x: 52, y: 41 } }]}
+      />,
     );
     expect(Number(youLabel(container).getAttribute('y'))).toBeGreaterThan(scene.you.y);
   });
@@ -91,4 +99,145 @@ describe('key player on the Game IQ pitch', () => {
     // The original art is 1.7MB; the pitch only ever shows it at about 40px.
     expect(statSync(FACE_FILE).size).toBeLessThan(60 * 1024);
   });
+});
+
+// jsdom has no PointerEvent; React reads pointerId and isPrimary from it.
+class TestPointerEvent extends MouseEvent {
+  pointerId: number;
+  isPrimary: boolean;
+  constructor(type: string, init: PointerEventInit = {}) {
+    super(type, init);
+    this.pointerId = init.pointerId ?? 1;
+    this.isPrimary = init.isPrimary ?? true;
+  }
+}
+if (!('PointerEvent' in window)) Object.assign(window, { PointerEvent: TestPointerEvent });
+
+const byId = (id: string): Scenario => SCENARIOS.find((s) => s.id === id)!;
+const markersOf = (s: Scenario) =>
+  s.options.flatMap((o) => (o.marker ? [{ id: o.id, target: o.marker }] : []));
+// The pitch is drawn 400px wide in these tests, so a pitch unit is 4px.
+const at = (p: PitchPoint) => ({ clientX: p.x * 4, clientY: p.y * 4, pointerId: 1 });
+
+function drawAnswerable(s: Scenario) {
+  const onChoose = jest.fn();
+  const onAim = jest.fn();
+  const view = render(
+    <PitchDiagram
+      scene={s.scene}
+      label={s.title}
+      markers={markersOf(s)}
+      answer={{ control: s.control, onChoose, onAim }}
+    />,
+  );
+  const svg = view.container.querySelector('svg[role="img"]') as SVGSVGElement;
+  svg.getBoundingClientRect = () =>
+    ({ left: 0, top: 0, right: 400, bottom: 300, width: 400, height: 300, x: 0, y: 0 }) as DOMRect;
+  const handle = view.container.querySelector('[data-draggable]') as Element;
+  return { ...view, onChoose, onAim, handle };
+}
+
+describe('answering on the Game IQ pitch', () => {
+  const shadow = byId('space-shadow');
+
+  it('lets you drag YOU onto a letter, saying what the drop means on the way', () => {
+    const { container, handle, onChoose, onAim } = drawAnswerable(shadow);
+    fireEvent.pointerDown(handle, at(shadow.scene.you));
+    fireEvent.pointerMove(handle, at({ x: 60, y: 33 }));
+    fireEvent.pointerMove(handle, at({ x: 69, y: 35 }));
+    expect(onAim).toHaveBeenLastCalledWith({ kind: 'dragging', over: 'B' });
+    // YOU follows the pointer, with a faded copy left where the drag began.
+    expect(container.querySelectorAll('image')).toHaveLength(2);
+    fireEvent.pointerUp(handle, at({ x: 69, y: 35 }));
+    expect(onChoose).toHaveBeenCalledWith('B');
+    expect(container.querySelectorAll('image')).toHaveLength(1);
+  });
+
+  it('puts YOU back and answers nothing when dropped away from every letter', () => {
+    const { handle, onChoose, onAim } = drawAnswerable(shadow);
+    fireEvent.pointerDown(handle, at(shadow.scene.you));
+    fireEvent.pointerMove(handle, at({ x: 85, y: 65 }));
+    fireEvent.pointerUp(handle, at({ x: 85, y: 65 }));
+    expect(onChoose).not.toHaveBeenCalled();
+    expect(onAim).toHaveBeenLastCalledWith({ kind: 'missed' });
+  });
+
+  it('treats a press without a drag as a tap on YOU, which asks for a drag', () => {
+    const { handle, onChoose, onAim } = drawAnswerable(shadow);
+    fireEvent.pointerDown(handle, at(shadow.scene.you));
+    fireEvent.pointerUp(handle, at({ x: shadow.scene.you.x + 0.2, y: shadow.scene.you.y }));
+    expect(onChoose).not.toHaveBeenCalled();
+    expect(onAim).toHaveBeenLastCalledWith({ kind: 'tapped' });
+  });
+
+  it('answers when a letter is tapped, including "stay where you are" on your own ring', () => {
+    const { container, onChoose } = drawAnswerable(shadow);
+    fireEvent.click(container.querySelector('[data-marker="A"]') as Element);
+    expect(onChoose).toHaveBeenLastCalledWith('A');
+    fireEvent.click(container.querySelector('[data-marker="C"]') as Element);
+    expect(onChoose).toHaveBeenLastCalledWith('C');
+  });
+
+  it('passes by dragging the ball onto a teammate', () => {
+    const protect = byId('touch-protect');
+    const { handle, onChoose } = drawAnswerable(protect);
+    fireEvent.pointerDown(handle, at(protect.scene.ball));
+    fireEvent.pointerMove(handle, at({ x: 34, y: 60 }));
+    fireEvent.pointerUp(handle, at({ x: 31, y: 62 }));
+    expect(onChoose).toHaveBeenCalledWith('A');
+  });
+
+  it('shoots by dragging the ball into the goal', () => {
+    const shot = byId('shoot-clear-sight');
+    const { handle, onChoose } = drawAnswerable(shot);
+    fireEvent.pointerDown(handle, at(shot.scene.ball));
+    fireEvent.pointerMove(handle, at({ x: 50, y: 10 }));
+    fireEvent.pointerUp(handle, at({ x: 47, y: 3 }));
+    expect(onChoose).toHaveBeenCalledWith('C');
+  });
+
+  it('is only a picture when there is nothing to answer', () => {
+    const { container } = drawSituation(shadow);
+    expect(container.querySelector('[data-draggable]')).toBeNull();
+    expect(container.querySelector('[data-marker="A"]')).not.toHaveClass('cursor-pointer');
+  });
+
+  it('shows what the watched player is doing in a "when" play', () => {
+    const timing = byId('space-timing');
+    render(
+      <PitchDiagram
+        scene={timing.scene}
+        label={timing.title}
+        callout={{ at: timing.scene.teammates[0], text: 'Looks up!', below: true }}
+      />,
+    );
+    expect(screen.getByText('Looks up!')).toBeInTheDocument();
+  });
+
+  it.each(SCENARIOS.filter((s) => !s.timing).map((s) => [s.id, s] as const))(
+    '%s keeps every answer letter clear of players, the YOU label and each other',
+    (_, s) => {
+      const layout = layoutMarkers(s.scene, markersOf(s));
+      const letters = [
+        ...layout.targets.filter((t) => t.kind === 'spot').map((t) => ({ ...t.at, r: t.radius })),
+        ...Object.values(layout.badges).map((b) => ({ ...b, r: BADGE_RADIUS })),
+      ];
+      expect(letters).toHaveLength(3);
+      // "YOU" is about 8 units wide and sits on its baseline.
+      const label = { left: s.scene.you.x - 4, right: s.scene.you.x + 4 };
+      const labelTop = layout.labelY - 2.85;
+      const labelBottom = layout.labelY + 0.4;
+      letters.forEach((c, i) => {
+        expect(clearOfPlayers(c, c.r, s.scene)).toBeGreaterThan(0);
+        const dx = Math.max(label.left - c.x, 0, c.x - label.right);
+        const dy = Math.max(labelTop - c.y, 0, c.y - labelBottom);
+        expect(Math.hypot(dx, dy)).toBeGreaterThan(c.r);
+        expect(c.x - c.r).toBeGreaterThanOrEqual(0);
+        expect(c.x + c.r).toBeLessThanOrEqual(PITCH_WIDTH);
+        expect(c.y - c.r).toBeGreaterThanOrEqual(0);
+        expect(c.y + c.r).toBeLessThanOrEqual(PITCH_HEIGHT);
+        letters.slice(i + 1).forEach((o) => expect(distance(c, o)).toBeGreaterThan(c.r + o.r));
+      });
+    },
+  );
 });

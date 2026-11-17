@@ -2,14 +2,24 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useStoredState } from '@/lib/use-stored-state';
-import type { BestScores, DecisionOption, DecisionTheme, DecisionThemeId } from '@/types';
+import type {
+  BestScores,
+  DecisionOption,
+  DecisionTheme,
+  DecisionThemeId,
+  PitchScene,
+} from '@/types';
 import { DECISION_THEMES, getTheme } from '@/lib/decision-games';
 import { getBestScores, saveBestScore } from '@/lib/storage';
-import PitchDiagram, { PitchLegend } from './PitchDiagram';
+import { PitchLegend } from './PitchDiagram';
+import LivePitch from './LivePitch';
+import type { PitchRun } from './LivePitch';
 import Icon from './Icon';
 import type { IconName } from '@/lib/icons';
 
 const CARD = 'rounded-2xl border border-gray-200 bg-white p-5 shadow-sm';
+const BACK_LINK =
+  'shrink-0 whitespace-nowrap text-sm font-medium text-pitch-green hover:underline';
 
 function resultMessage(score: number, total: number): { icon: IconName; text: string } {
   if (score === total) return { icon: 'star', text: 'Perfect! You read the game like a pro.' };
@@ -43,8 +53,8 @@ function ThemePicker({ bestScores, onPick }: ThemePickerProps) {
       <div>
         <h1 className="text-2xl font-bold text-gray-800">Game IQ</h1>
         <p className="text-gray-600 text-sm mt-1">
-          Great players make great decisions. Read the picture, make the call, and learn the cues
-          top players look for.
+          Great players make great decisions. Watch the play, make your move on the pitch, see
+          what happens, and learn the cues top players look for.
         </p>
       </div>
 
@@ -95,7 +105,19 @@ function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: Scen
   const total = theme.scenarios.length;
   const correct = scenario.options.find((o) => o.correct);
   const chosen = scenario.options.find((o) => o.id === selected);
-  const markers = scenario.options.flatMap((o) => (o.marker ? [{ id: o.id, at: o.marker }] : []));
+  const [run, setRun] = useState<{ id: number; run: PitchRun }>({ id: 0, run: { kind: 'lead' } });
+
+  function startRun(next: PitchRun): void {
+    setRun((current) => ({ id: current.id + 1, run: next }));
+  }
+
+  // Answers come from the pitch (a drop, a tap or GO) or from the buttons; either way the pitch
+  // then plays out what happens next.
+  function choose(optionId: string, from: PitchScene = scenario.scene): void {
+    if (selected !== null) return;
+    onChoose(optionId);
+    startRun({ kind: 'outcome', option: optionId, from });
+  }
 
   // Each new situation replaces the buttons the player just used, so move focus (and scroll)
   // back to the top of the game instead of leaving it stranded at the bottom of the page.
@@ -104,9 +126,9 @@ function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: Scen
   }, [scenario.id]);
 
   // Answering disables the option buttons, which would drop keyboard focus back to the top of
-  // the page; hand it to the Next button instead.
+  // the page; hand it to the Next button instead. Without scrolling, so the play stays in view.
   useEffect(() => {
-    if (selected !== null) nextRef.current?.focus();
+    if (selected !== null) nextRef.current?.focus({ preventScroll: true });
   }, [selected]);
 
   return (
@@ -115,16 +137,19 @@ function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: Scen
         <button
           type="button"
           onClick={onQuit}
-          className="text-sm font-medium text-pitch-green hover:underline"
+          className={BACK_LINK}
         >
           ← All games
         </button>
         <h1
           ref={headingRef}
           tabIndex={-1}
-          className="text-sm font-medium text-gray-600 focus:outline-none"
+          className="text-right text-sm font-medium text-gray-600 focus:outline-none"
         >
-          <Icon name={theme.icon} className="mr-1 -my-1" /> {theme.title} · {index + 1} of {total}
+          <Icon name={theme.icon} className="mr-1 -my-1" /> {theme.title}{' '}
+          <span className="whitespace-nowrap">
+            · {index + 1} of {total}
+          </span>
         </h1>
       </div>
       <ol className="flex gap-1" aria-hidden="true">
@@ -139,24 +164,26 @@ function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: Scen
       </ol>
 
       <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <PitchDiagram
-          scene={scenario.scene}
-          label={`${scenario.title}. ${scenario.situation}`}
-          markers={markers}
-          highlightedMarker={selected === null ? null : correct?.id}
-        />
-        <div className="space-y-3 p-4">
+        <div className="space-y-1 px-4 pb-3 pt-4">
           <h2 className="font-bold text-gray-800">{scenario.title}</h2>
           <p className="text-sm text-gray-700">{scenario.situation}</p>
-          <p className="font-semibold text-pitch-dark">{scenario.question}</p>
-
+        </div>
+        <LivePitch
+          scenario={scenario}
+          run={run.run}
+          runId={run.id}
+          selected={selected}
+          onChoose={choose}
+          onRun={startRun}
+        />
+        <div className="space-y-3 p-4">
           <div className="space-y-2">
             {scenario.options.map((option) => (
               <button
                 key={option.id}
                 type="button"
                 disabled={selected !== null}
-                onClick={() => onChoose(option.id)}
+                onClick={() => choose(option.id)}
                 className={optionClass(option, selected)}
               >
                 <span className="font-bold">{option.id}.</span> {option.label}
@@ -398,6 +425,7 @@ export default function DecisionGame({ initialThemeId = null }: DecisionGameProp
 
   return (
     <ScenarioView
+      key={theme.scenarios[index].id}
       theme={theme}
       index={index}
       selected={selected}

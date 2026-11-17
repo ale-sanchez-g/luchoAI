@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import DecisionGame from '@/components/DecisionGame';
 import { DECISION_THEMES, getTheme } from '@/lib/decision-games';
 import type { DecisionOption } from '@/types';
@@ -84,6 +84,80 @@ describe('DecisionGame', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Choose another game' }));
     expect(screen.getByText('Best: 4/4 · Play again')).toBeInTheDocument();
+  });
+
+  it('plays out what happens after an answer, and can show the best choice', () => {
+    render(<DecisionGame />);
+    fireEvent.click(screen.getByRole('button', { name: /Move into Space/ }));
+    expect(screen.getByText(FIRST.question)).toBeInTheDocument();
+    expect(screen.getByText('Drag YOU onto a letter, or tap a letter.')).toBeInTheDocument();
+
+    const wrong = FIRST.options.find((o) => !o.correct)!;
+    const best = correctOption(0);
+    fireEvent.click(optionButton(wrong));
+    expect(screen.getByText(wrong.result)).toBeInTheDocument();
+    expect(screen.getByText(`You chose ${wrong.id}: ${wrong.label}`)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'See the best choice' }));
+    expect(screen.getByText(best.result)).toBeInTheDocument();
+    expect(screen.getByText(`Best choice ${best.id}: ${best.label}`)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Watch again' })).toBeInTheDocument();
+  });
+
+  it('takes an answer tapped on the pitch, just like a button', () => {
+    const { container } = render(<DecisionGame />);
+    fireEvent.click(screen.getByRole('button', { name: /Move into Space/ }));
+    const best = correctOption(0);
+    fireEvent.click(container.querySelector(`[data-marker="${best.id}"]`) as Element);
+    expect(screen.getByRole('status')).toHaveTextContent('Great decision!');
+    expect(container.querySelector('[data-marker]')).toBeNull();
+    FIRST.options.forEach((o) => {
+      expect(screen.getByRole('button', { name: new RegExp(`^${o.id}\\. `) })).toBeDisabled();
+    });
+  });
+
+  describe('a "when" question', () => {
+    const TIMING = SPACE.scenarios.findIndex((s) => s.timing);
+
+    function reachTimingQuestion(): void {
+      render(<DecisionGame />);
+      fireEvent.click(screen.getByRole('button', { name: /Move into Space/ }));
+      for (let i = 0; i < TIMING; i += 1) {
+        fireEvent.click(optionButton(correctOption(i)));
+        fireEvent.click(screen.getByRole('button', { name: /Next situation/ }));
+      }
+    }
+
+    beforeEach(() => jest.useFakeTimers());
+    afterEach(() => jest.useRealTimers());
+
+    it('answers with the moment you tap GO', () => {
+      reachTimingQuestion();
+      fireEvent.click(screen.getByRole('button', { name: 'Start' }));
+      act(() => {
+        jest.advanceTimersByTime(500);
+      });
+      expect(screen.getByText('Head down')).toBeInTheDocument();
+      act(() => {
+        jest.advanceTimersByTime(2200);
+      });
+      expect(screen.getByText('Looks up!')).toBeInTheDocument();
+      fireEvent.click(screen.getByRole('button', { name: 'GO!' }));
+      expect(screen.getByRole('status')).toHaveTextContent('Great decision!');
+    });
+
+    it('counts waiting until the chance has gone as "too late"', () => {
+      reachTimingQuestion();
+      fireEvent.click(screen.getByRole('button', { name: 'Start' }));
+      act(() => {
+        jest.advanceTimersByTime(8000);
+      });
+      const late = SPACE.scenarios[TIMING].options.find((o) => o.result === 'Too late!')!;
+      expect(screen.getByRole('status')).toHaveTextContent(late.feedback);
+      expect(screen.getByRole('button', { name: new RegExp(`^${late.id}\\. `) })).toHaveTextContent(
+        'Your pick',
+      );
+    });
   });
 
   it('counts only correct answers and celebrates a new personal best', () => {
