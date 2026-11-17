@@ -38,7 +38,8 @@ src/
     GamesHub.tsx        # Games page tabs: This week | Game IQ
     WeeklyGames.tsx     # This week's games, twist, match mission and Game IQ round of the week
     DecisionGame.tsx    # Game IQ: theme picker, scenarios, round summary
-    PitchDiagram.tsx    # SVG pitch used by decision scenarios + legend; YOU is the key-player face
+    LivePitch.tsx       # Game IQ pitch in motion: build-up, answer on the pitch, what happens next
+    PitchDiagram.tsx    # SVG pitch + legend; drag YOU/ball or tap a letter; YOU is the key-player face
     WellbeingCheckIn.tsx  # Daily mood + life-balance check-in and history
     BreathingExercise.tsx # Guided breathe-in-4 / breathe-out-6 pacer
   lib/
@@ -53,7 +54,9 @@ src/
     use-stored-state.ts # useStoredState: state loaded from localStorage after hydration
     storage.ts          # localStorage helpers (apiKey, playerProfile, check-ins, game scores)
     drill-setups.ts     # The drill pictures the AI can pick (slalom, gates, wall...) and their scenes
-    decision-games.ts   # Game IQ scenarios + on-pitch games (static content)
+    decision-games.ts   # Game IQ scenarios, their plays + on-pitch games (static content)
+    pitch-play.ts       # Game IQ motion: beats, timelines, answer targets, drops (pure functions)
+    use-play-clock.ts   # requestAnimationFrame clock + reduced-motion check for the pitch
     game-library/       # Weekly game library (see docs/game-library.md)
       index.ts          #   GAME_LIBRARY, getWeeklyPlan, getLibraryStats
       rotation.ts       #   Deterministic weekly plan (focus, slots, twists, mission)
@@ -205,6 +208,20 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
   if the picture fails to load. Opponents are drawn over the face, and answer markers count when
   placing the YOU label. After moving a player or marker, run `e2e/game-iq-key-player.mjs`: it
   walks all 30 situations at three sizes and fails on any overlap
+- Game IQ is played on the pitch: each situation's build-up (`lead`) moves the players into the
+  picture, the player drags YOU or the ball (`control`) onto a letter or taps one, and the pitch
+  plays that answer's `play` beat by beat, ending on its `result` ("Intercepted!"). A beat names
+  who moves where (`you`, `ball`, `t0` teammates, `o0` opponents); timings come from distances in
+  `pitch-play.ts`, so plays need no durations. Answers sit on the pitch as a spot, a ring around a
+  player (`'t1'` pass to them, `'you'`/`'ball'` stay where you are) or `'goal'`; a "when" question
+  has no letters but a `timing` play where the player taps GO!. `decision-games.test.ts` keeps
+  each answer droppable on its own letter, each play heading for its letter, spots clear of
+  players and every move on the pitch; `e2e/game-iq-motion.mjs` answers all 30 situations on the
+  pitch at three sizes, checks letters never cover a player and every tap target is at least 24px,
+  and drives mouse, finger (no page scroll while dragging), keyboard and GO!. Keep the A/B/C
+  buttons: they are the keyboard and screen-reader way to answer, and the no-drag alternative
+  WCAG 2.5.7 asks for. Positions are a pure function of elapsed time (`sceneAt`), driven by
+  `usePlayClock`, so no effect sets state; with reduced motion plays jump to how they end
 - Wellbeing check-ins are sensitive data about children: keep them in `localStorage` only and never include them in AI prompts or send them anywhere
 - Helpline numbers in `src/lib/wellbeing.ts` were verified on 2026-10-13 — re-verify against the official sites before changing them
 - Game library content (`src/lib/game-library`) is for children playing without a coach: follow `docs/game-library.md`. There are deliberately no heading games, no elimination, no exercise as a penalty and no outcome-based match missions; `game-library.test.ts` enforces these, so don't loosen the rules to make a game pass. A new game also needs `noTwists` for any kind of twist that would contradict it (a game with no roles opts out of `roles`, a game with no score of `scoring`)

@@ -116,6 +116,8 @@ for (const vp of [
   console.log(`\n== ${vp.name} ==`);
   const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
   const page = await context.newPage();
+  // The checks measure each situation's still picture, so skip the build-up that leads into it.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   const faceResponses = [];
@@ -147,6 +149,9 @@ for (const vp of [
       const found = [];
       for (let i = 0; ; i += 1) {
         await page.locator('svg[role="img"] [data-key-player] image').waitFor();
+        await page
+          .locator('[data-live-pitch][data-stage="decide"], [data-live-pitch][data-stage="ready"]')
+          .waitFor();
         const issues = problems(await page.evaluate(measure));
         if (issues.length) found.push(`situation ${i + 1}: ${issues.join(', ')}`);
         await noHScroll();

@@ -109,12 +109,46 @@ export interface PitchScene {
   arrows?: PitchArrow[];
 }
 
+/** A player on the Game IQ pitch, or the ball: 't0' is the first teammate, 'o2' the third. */
+export type PitchActor = 'you' | 'ball' | `t${number}` | `o${number}`;
+
+/** One step of a play: where the named players (and the ball) move to, all at the same time. */
+export type PlayBeat = Partial<Record<PitchActor, PitchPoint>>;
+
+/**
+ * Where an answer sits on the pitch: a spot to go to, a player or the ball (pass to a teammate,
+ * win the ball, or 'you' to stay where you are), or 'goal' for a shot.
+ */
+export type PitchTarget = PitchPoint | PitchActor | 'goal';
+
 export interface DecisionOption {
   id: string;
   label: string;
   correct: boolean;
   feedback: string;
-  marker?: PitchPoint;
+  /** Drag onto it, or tap it, to give this answer on the pitch. "When" questions have none. */
+  marker?: PitchTarget;
+  /** What happens next if you pick it, beat by beat from the decision picture. */
+  play: PlayBeat[];
+  /** A few words shown when the play is over, like "Intercepted!". */
+  result: string;
+}
+
+/** A moment in a "when" question: tapping GO during it gives `option` as your answer. */
+export interface TimingPhase {
+  option: string;
+  /** What the player you are watching is doing, shown above them: "Head down". */
+  cue: string;
+  beats: PlayBeat[];
+  /** How long the moment lasts, in milliseconds. */
+  ms: number;
+}
+
+/** A "when" question plays on after the picture; you tap GO at the moment you choose. */
+export interface TimingPlay {
+  /** The player whose cues to read, like the passer. */
+  watch: PitchActor;
+  phases: TimingPhase[];
 }
 
 export interface DecisionScenario {
@@ -123,6 +157,12 @@ export interface DecisionScenario {
   situation: string;
   question: string;
   scene: PitchScene;
+  /** What you move to answer: yourself (where you go) or the ball (where it goes). */
+  control: 'you' | 'ball';
+  /** Where things were a moment earlier. The play starts here and moves into the picture. */
+  lead: PlayBeat[];
+  /** For "when" questions: the play carries on and you tap GO at the moment you choose. */
+  timing?: TimingPlay;
   options: DecisionOption[];
   cue: string;
 }

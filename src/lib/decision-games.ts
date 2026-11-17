@@ -27,6 +27,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 80, y: 20 },
           ],
         },
+        control: 'you',
+        lead: [{ you: { x: 58, y: 24 }, ball: { x: 90, y: 71 }, o0: { x: 41, y: 41 } }],
         options: [
           {
             id: 'A',
@@ -35,6 +37,11 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'The defender is still in the way, and now the pass is even longer and harder.',
             marker: { x: 50, y: 12 },
+            play: [
+              { you: { x: 50, y: 13 } },
+              { ball: { x: 50.6, y: 50.6 }, o0: { x: 50.5, y: 46.5 } },
+            ],
+            result: 'Intercepted!',
           },
           {
             id: 'B',
@@ -44,6 +51,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'Now there is a clear line between you and the ball. If you can see the ball, ' +
               'your teammate can pass to you.',
             marker: { x: 70, y: 36 },
+            play: [{ you: { x: 70, y: 36 } }, { ball: { x: 66, y: 40 }, o0: { x: 55, y: 44 } }],
+            result: 'Pass arrives!',
           },
           {
             id: 'C',
@@ -51,6 +60,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: false,
             feedback:
               "Shouting louder doesn't move the defender. The pass would be intercepted.",
+            marker: 'you',
+            play: [{ ball: { x: 50.6, y: 50.6 }, o0: { x: 50.5, y: 46.5 } }],
+            result: 'Intercepted!',
           },
         ],
         cue: 'Can you see the ball clearly? If a defender is in the way, move until you can.',
@@ -71,6 +83,15 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 45, y: 32 },
           ],
         },
+        control: 'you',
+        lead: [
+          {
+            you: { x: 16, y: 68 },
+            ball: { x: 19, y: 49 },
+            t0: { x: 16, y: 52 },
+            o0: { x: 20, y: 18 },
+          },
+        ],
         options: [
           {
             id: 'A',
@@ -80,6 +101,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'From an angle your teammate can see you and pass easily, and you get the ball ' +
               'facing forward.',
             marker: { x: 38, y: 54 },
+            play: [
+              { you: { x: 38, y: 54 } },
+              { ball: { x: 33.5, y: 51.5 } },
+              { you: { x: 40, y: 44 }, ball: { x: 43.5, y: 40.5 } },
+            ],
+            result: 'Facing forward!',
           },
           {
             id: 'B',
@@ -88,6 +115,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'In a straight line your teammate has to turn right around to pass to you, and ' +
               "you can't see what's ahead.",
+            marker: 'you',
+            play: [{ o0: { x: 17, y: 33 } }, { ball: { x: 21, y: 41 }, o0: { x: 20.5, y: 35.5 } }],
+            result: 'No easy pass',
           },
           {
             id: 'C',
@@ -97,6 +127,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'Too close! One defender can now guard you both, and there is no space to pass ' +
               'into.',
             marker: { x: 26, y: 39 },
+            play: [{ you: { x: 26, y: 40 } }, { o0: { x: 21, y: 32.5 } }],
+            result: 'Both marked!',
           },
         ],
         cue: 'Support at an angle. Make a triangle, not a straight line.',
@@ -127,6 +159,16 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 80, y: 22 },
           ],
         },
+        control: 'you',
+        lead: [
+          {
+            you: { x: 34, y: 66 },
+            ball: { x: 22, y: 70 },
+            o0: { x: 28, y: 40 },
+            o1: { x: 58, y: 41 },
+            o2: { x: 80, y: 40 },
+          },
+        ],
         options: [
           {
             id: 'A',
@@ -135,6 +177,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'You are tightly marked there. The defender can step in front and win the ball.',
             marker: { x: 48, y: 26 },
+            play: [{ you: { x: 48, y: 26 } }, { ball: { x: 47, y: 31.5 }, o4: { x: 46.5, y: 28 } }],
+            result: 'Intercepted!',
           },
           {
             id: 'B',
@@ -143,6 +187,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               "It's safe, but getting the ball there doesn't take your team past anyone.",
             marker: { x: 38, y: 70 },
+            play: [{ you: { x: 38, y: 68.5 } }, { ball: { x: 43.5, y: 66.5 } }],
+            result: 'Nobody beaten',
           },
           {
             id: 'C',
@@ -152,6 +198,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'The most dangerous space on the pitch! From here you can turn and run at their ' +
               'defenders.',
             marker: { x: 40, y: 34 },
+            play: [
+              { you: { x: 40, y: 34 } },
+              { ball: { x: 44.5, y: 37 } },
+              { you: { x: 41, y: 30 }, ball: { x: 45.5, y: 27 } },
+            ],
+            result: 'Turn and attack!',
           },
         ],
         cue: "Look for the gaps between the lines. That's where you can turn and attack.",
@@ -166,12 +218,35 @@ export const DECISION_THEMES: DecisionTheme[] = [
         scene: {
           you: { x: 68, y: 48 },
           ball: { x: 37, y: 52 },
-          teammates: [{ x: 34, y: 56 }],
+          teammates: [
+            { x: 34, y: 56 },
+            { x: 14, y: 64 },
+          ],
           opponents: [
-            { x: 64, y: 36 },
+            { x: 78, y: 40 },
             { x: 30, y: 40 },
           ],
           arrows: [{ from: { x: 72, y: 46 }, to: { x: 80, y: 16 }, kind: 'run' }],
+        },
+        control: 'you',
+        lead: [{ ball: { x: 30, y: 72 }, t0: { x: 36, y: 60 } }],
+        timing: {
+          watch: 't0',
+          phases: [
+            {
+              option: 'A',
+              cue: 'Head down',
+              ms: 2300,
+              beats: [
+                { ball: { x: 35.5, y: 51.8 } },
+                { ball: { x: 38.2, y: 53.8 } },
+                { ball: { x: 36, y: 52.3 } },
+                { ball: { x: 37, y: 52 } },
+              ],
+            },
+            { option: 'C', cue: 'Looks up!', ms: 1500, beats: [] },
+            { option: 'B', cue: 'Passes', ms: 1300, beats: [{ ball: { x: 17.5, y: 61 } }] },
+          ],
         },
         options: [
           {
@@ -181,12 +256,16 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               "Too early! They can't pass yet, so the defender just follows you and the space " +
               'closes. You might be offside too.',
+            play: [{ you: { x: 79, y: 20 }, o0: { x: 80, y: 27 } }],
+            result: 'Too early!',
           },
           {
             id: 'B',
             label: 'After they have passed to someone else',
             correct: false,
             feedback: 'Too late. The chance has gone.',
+            play: [{ ball: { x: 17.5, y: 61 } }, { you: { x: 74, y: 33 }, o0: { x: 79, y: 33 } }],
+            result: 'Too late!',
           },
           {
             id: 'C',
@@ -195,6 +274,11 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Perfect timing. When the passer looks up, they can see your run and play the ' +
               'ball into the space.',
+            play: [
+              { you: { x: 72, y: 35 }, o0: { x: 80, y: 36 } },
+              { you: { x: 79, y: 20 }, ball: { x: 75.5, y: 24.5 }, o0: { x: 82, y: 30 } },
+            ],
+            result: 'Perfect timing!',
           },
         ],
         cue: 'Watch the passer: head down means get ready, head up means GO!',
@@ -253,6 +337,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { from: { x: 30, y: 36 }, to: { x: 41, y: 39 }, kind: 'run' },
           ],
         },
+        control: 'ball',
+        lead: [{ ball: { x: 52.5, y: 67 }, o0: { x: 18, y: 32 } }],
         options: [
           {
             id: 'A',
@@ -260,6 +346,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: false,
             feedback: "That's towards the defender, so you'd be giving them the ball.",
             marker: { x: 39, y: 30 },
+            play: [{ ball: { x: 47, y: 45 } }, { ball: { x: 40, y: 34 }, o0: { x: 37, y: 36 } }],
+            result: 'Tackled!',
           },
           {
             id: 'B',
@@ -267,6 +355,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: false,
             feedback:
               'Stopping the ball gives the defender time to arrive and tackle. Keep it moving.',
+            marker: { x: 50, y: 50 },
+            play: [{ ball: { x: 50, y: 47 } }, { o0: { x: 44.5, y: 43 }, ball: { x: 42, y: 48 } }],
+            result: 'Too slow!',
           },
           {
             id: 'C',
@@ -275,6 +366,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Touching it away from the defender gives you time and space for your next move.',
             marker: { x: 63, y: 33 },
+            play: [
+              { ball: { x: 52.5, y: 45.5 } },
+              { ball: { x: 62, y: 34 }, you: { x: 57, y: 37 }, o0: { x: 38, y: 38 } },
+              { you: { x: 63, y: 26 }, ball: { x: 66, y: 22 } },
+            ],
+            result: 'Space to play!',
           },
         ],
         cue: 'Know where the defender is BEFORE the ball arrives, then touch it away from them.',
@@ -296,6 +393,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
           ],
           arrows: [{ from: { x: 33, y: 61 }, to: { x: 46, y: 46 }, kind: 'pass' }],
         },
+        control: 'ball',
+        lead: [{ ball: { x: 33, y: 61 }, you: { x: 50, y: 46 }, o0: { x: 50, y: 30 } }],
         options: [
           {
             id: 'A',
@@ -304,12 +403,25 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Your body is a shield. Keep the ball on the side away from the defender and ' +
               'look for a teammate.',
+            marker: 't0',
+            play: [
+              { ball: { x: 45, y: 46.5 } },
+              { o0: { x: 52.5, y: 37 } },
+              { ball: { x: 33, y: 61 } },
+            ],
+            result: 'Kept it!',
           },
           {
             id: 'B',
             label: 'Spin and turn straight away',
             correct: false,
             feedback: 'With a defender this close, turning runs you straight into them.',
+            marker: { x: 37, y: 31 },
+            play: [
+              { ball: { x: 45.5, y: 46 } },
+              { you: { x: 44, y: 38 }, ball: { x: 39, y: 33.5 }, o0: { x: 42.5, y: 32 } },
+            ],
+            result: 'Tackled!',
           },
           {
             id: 'C',
@@ -318,6 +430,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'A great trick when there is space behind you, but the defender is right there ' +
               'to take it.',
+            marker: { x: 61, y: 31 },
+            play: [{ ball: { x: 57, y: 34 } }, { o0: { x: 57, y: 30 }, ball: { x: 60, y: 33 } }],
+            result: 'Their ball!',
           },
         ],
         cue: 'Defender tight behind you? Protect it or pass it back. Lots of space? Turn!',
@@ -342,18 +457,30 @@ export const DECISION_THEMES: DecisionTheme[] = [
           ],
           arrows: [{ from: { x: 31, y: 65 }, to: { x: 46, y: 49 }, kind: 'pass' }],
         },
+        control: 'ball',
+        lead: [{ ball: { x: 31.5, y: 64.5 }, you: { x: 46, y: 52 } }],
         options: [
           {
             id: 'A',
             label: 'Pass it straight back to where it came from',
             correct: false,
             feedback: "Safe, but you had time to turn and attack. That's a chance missed!",
+            marker: 't0',
+            play: [{ ball: { x: 45, y: 50.5 } }, { ball: { x: 31, y: 65 } }],
+            result: 'Chance missed',
           },
           {
             id: 'B',
             label: 'Open up and take your first touch forward into the space',
             correct: true,
             feedback: 'You looked, you saw space, so your first touch goes forward. Now attack!',
+            marker: { x: 60, y: 34 },
+            play: [
+              { ball: { x: 46, y: 49.5 } },
+              { ball: { x: 59, y: 35 }, you: { x: 55, y: 40 } },
+              { you: { x: 60, y: 28 }, ball: { x: 63.5, y: 24.5 } },
+            ],
+            result: 'Attack!',
           },
           {
             id: 'C',
@@ -362,6 +489,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Looking after the ball arrives is too late. Look first, so your first touch can ' +
               'already go forward.',
+            marker: { x: 43, y: 55 },
+            play: [{ ball: { x: 44.5, y: 51.5 } }, { o0: { x: 36, y: 34 }, o1: { x: 64, y: 30 } }],
+            result: 'Too slow!',
           },
         ],
         cue:
@@ -392,12 +522,25 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { from: { x: 57, y: 44.5 }, to: { x: 51, y: 47 }, kind: 'run' },
           ],
         },
+        control: 'ball',
+        lead: [{ ball: { x: 42.5, y: 68.8 }, o0: { x: 24, y: 40 }, o1: { x: 68, y: 38 } }],
         options: [
           {
             id: 'A',
             label: 'Take a touch and try to dribble past both of them',
             correct: false,
             feedback: 'Two defenders are arriving fast. One touch and they will trap you.',
+            marker: { x: 46, y: 35 },
+            play: [
+              { ball: { x: 44, y: 53 } },
+              {
+                you: { x: 46, y: 41 },
+                ball: { x: 46.5, y: 35.5 },
+                o0: { x: 43, y: 37 },
+                o1: { x: 50, y: 37 },
+              },
+            ],
+            result: 'Trapped!',
           },
           {
             id: 'B',
@@ -406,12 +549,25 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Sometimes the best first touch is a pass! The ball moves faster than any ' +
               'defender.',
+            marker: 't1',
+            play: [
+              { ball: { x: 44.5, y: 53.5 } },
+              { ball: { x: 71.5, y: 25 }, o0: { x: 40, y: 46 }, o1: { x: 52, y: 46 } },
+            ],
+            result: 'Beat the press!',
           },
           {
             id: 'C',
             label: 'Take a big touch backwards',
             correct: false,
             feedback: 'They will chase you down, and your free teammate was the better choice.',
+            marker: { x: 55, y: 63 },
+            play: [
+              { ball: { x: 44.5, y: 53.5 } },
+              { ball: { x: 54, y: 62 }, you: { x: 50, y: 57 } },
+              { o0: { x: 42, y: 56 }, o1: { x: 58, y: 55 } },
+            ],
+            result: 'Chased down!',
           },
         ],
         cue:
@@ -478,6 +634,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 22, y: 20 },
           ],
         },
+        control: 'you',
+        lead: [{ ball: { x: 76.5, y: 21 } }, { ball: { x: 50.5, y: 32.5 } }],
         options: [
           {
             id: 'A',
@@ -486,18 +644,33 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'A bad touch is a press trigger. The ball is loose and they are off balance, so ' +
               'go!',
+            marker: 'ball',
+            play: [
+              { you: { x: 53, y: 40.5 }, o0: { x: 51, y: 30.5 } },
+              { you: { x: 60, y: 44 }, ball: { x: 64.5, y: 41.5 } },
+            ],
+            result: 'Won it!',
           },
           {
             id: 'B',
             label: 'Hold your position and wait',
             correct: false,
             feedback: 'You miss the moment. One more touch and they have it under control.',
+            marker: 'you',
+            play: [{ o0: { x: 53, y: 31.5 } }, { o0: { x: 60, y: 36 }, ball: { x: 61, y: 40 } }],
+            result: 'Chance gone',
           },
           {
             id: 'C',
             label: 'Drop back towards your goal',
             correct: false,
             feedback: 'That gives them time to fix their mistake and attack you.',
+            marker: { x: 50, y: 62 },
+            play: [
+              { you: { x: 50, y: 62 }, o0: { x: 53, y: 31.5 } },
+              { o0: { x: 52, y: 44 }, ball: { x: 52.5, y: 48 } },
+            ],
+            result: 'They attack!',
           },
         ],
         cue:
@@ -528,6 +701,17 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { from: { x: 62, y: 9.5 }, to: { x: 63, y: 17 }, kind: 'run' },
           ],
         },
+        control: 'you',
+        lead: [
+          {
+            ball: { x: 42, y: 16 },
+            o0: { x: 39, y: 12 },
+            o1: { x: 68, y: 9 },
+            you: { x: 52, y: 44 },
+            t0: { x: 31, y: 3.5 },
+            t1: { x: 61, y: 3.5 },
+          },
+        ],
         options: [
           {
             id: 'A',
@@ -536,6 +720,13 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'If you miss, they are through on goal. And if you go to the ball, they just ' +
               'pass to the free attacker.',
+            marker: { x: 43, y: 37 },
+            play: [
+              { you: { x: 44, y: 35 } },
+              { ball: { x: 66.5, y: 28 } },
+              { o1: { x: 60, y: 52 }, ball: { x: 60.5, y: 56 } },
+            ],
+            result: "They're through!",
           },
           {
             id: 'B',
@@ -544,12 +735,37 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Slow them down! Every second helps your teammates get back. Stay on your feet ' +
               'and try to block the pass.',
+            marker: { x: 52, y: 58.5 },
+            play: [
+              {
+                you: { x: 52, y: 58 },
+                o0: { x: 44, y: 40 },
+                ball: { x: 47, y: 43.5 },
+                o1: { x: 66, y: 36 },
+                t0: { x: 36, y: 28 },
+                t1: { x: 60, y: 26 },
+              },
+              {
+                t0: { x: 36, y: 49 },
+                t1: { x: 62, y: 44 },
+                o0: { x: 43, y: 44 },
+                ball: { x: 45, y: 47.5 },
+              },
+            ],
+            result: 'Help is here!',
           },
           {
             id: 'C',
             label: 'Run back and stand on your goal line',
             correct: false,
             feedback: 'Too deep. That gives them a free shot from the edge of the box.',
+            marker: { x: 52, y: 70 },
+            play: [
+              { you: { x: 54, y: 68.5 }, o0: { x: 46, y: 44 }, ball: { x: 49, y: 47.5 } },
+              { o0: { x: 47, y: 53 }, ball: { x: 50, y: 56.5 } },
+              { ball: { x: 44.8, y: 73.8 } },
+            ],
+            result: 'Free shot!',
           },
         ],
         cue: "Outnumbered? Delay, don't dive. Buy time for your teammates to get back.",
@@ -575,6 +791,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 60, y: 58 },
           ],
         },
+        control: 'you',
+        lead: [{ ball: { x: 22, y: 8 }, o1: { x: 70, y: 50 } }],
         options: [
           {
             id: 'A',
@@ -583,12 +801,25 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'You will arrive too late, and the space you leave is exactly where they will ' +
               'pass.',
+            marker: { x: 50, y: 22 },
+            play: [
+              { you: { x: 50, y: 24 }, ball: { x: 60, y: 52.5 } },
+              { o1: { x: 56, y: 63 }, ball: { x: 55.5, y: 67.5 } },
+            ],
+            result: 'Through ball!',
           },
           {
             id: 'B',
             label: 'Drop all the way back into your own box',
             correct: false,
             feedback: 'Too deep! You give them loads of space to run into.',
+            marker: { x: 46, y: 63 },
+            play: [
+              { you: { x: 46, y: 63 } },
+              { o0: { x: 50, y: 30 }, ball: { x: 50.5, y: 34.5 } },
+              { o0: { x: 48, y: 44 }, ball: { x: 48.5, y: 48.5 } },
+            ],
+            result: 'Loads of space',
           },
           {
             id: 'C',
@@ -597,6 +828,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               "If you can't get there in time, stay in shape. Cutting out the pass is as good " +
               'as a tackle.',
+            marker: { x: 56.5, y: 42 },
+            play: [{ you: { x: 56.5, y: 41 } }, { ball: { x: 61.5, y: 36.5 } }],
+            result: 'Pass cut out!',
           },
         ],
         cue: 'Can you get there while the ball is still rolling? Yes: press. No: hold and cover.',
@@ -621,6 +855,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 44, y: 28 },
           ],
         },
+        control: 'you',
+        lead: [{ ball: { x: 40.5, y: 30.5 }, o0: { x: 12, y: 26 } }],
         options: [
           {
             id: 'A',
@@ -629,12 +865,22 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'The sideline is like an extra defender. Block the inside, and with your ' +
               "teammate's help you can trap them.",
+            marker: { x: 16, y: 36 },
+            play: [
+              { you: { x: 16, y: 37 } },
+              { o0: { x: 7, y: 45 }, ball: { x: 8, y: 49 } },
+              { t0: { x: 10, y: 52 }, you: { x: 15, y: 46 }, ball: { x: 13.5, y: 53 } },
+            ],
+            result: 'Ball won!',
           },
           {
             id: 'B',
             label: 'Stay in the middle and let them come to you',
             correct: false,
             feedback: 'That gives them time to look up and pass into the middle.',
+            marker: 'you',
+            play: [{ o0: { x: 10, y: 36 } }, { ball: { x: 41, y: 31.5 } }],
+            result: 'Pass inside',
           },
           {
             id: 'C',
@@ -643,6 +889,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Forcing them inside opens up the middle of the pitch, where they have more ' +
               'passing options.',
+            marker: { x: 5, y: 43 },
+            play: [
+              { you: { x: 6, y: 42 }, o0: { x: 12, y: 34 }, ball: { x: 15, y: 37 } },
+              { ball: { x: 41, y: 31.5 } },
+            ],
+            result: 'Middle opens up',
           },
         ],
         cue: 'Use the sideline as an extra defender: block the inside, show them outside.',
@@ -706,6 +958,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
           ],
           arrows: [{ from: { x: 39, y: 16 }, to: { x: 46.3, y: 27.2 }, kind: 'pass' }],
         },
+        control: 'you',
+        lead: [{ ball: { x: 40.5, y: 16 }, t0: { x: 44, y: 54 }, you: { x: 72, y: 38 } }],
         options: [
           {
             id: 'A',
@@ -714,6 +968,13 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               "They're too far away to get a pass right now. Staying with them leaves your " +
               'teammate to win the ball on their own.',
+            marker: { x: 84, y: 27 },
+            play: [
+              { you: { x: 84, y: 27 } },
+              { o0: { x: 56, y: 38 }, ball: { x: 58, y: 42 } },
+              { o0: { x: 60, y: 52 }, ball: { x: 60.5, y: 56.5 } },
+            ],
+            result: 'They escape!',
           },
           {
             id: 'B',
@@ -723,6 +984,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
               "They can't see you coming, so you and your teammate trap them 2 v 1 and win " +
               'the ball. Then look to counter!',
             marker: { x: 55.5, y: 36 },
+            play: [
+              { you: { x: 54.5, y: 36 } },
+              { you: { x: 51, y: 31 }, ball: { x: 56, y: 28.5 }, o0: { x: 46, y: 35 } },
+              { you: { x: 62, y: 24 }, ball: { x: 66, y: 20.5 } },
+            ],
+            result: 'Ball won!',
           },
           {
             id: 'C',
@@ -732,6 +999,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
               "There's no danger behind you right now. This is the moment to win the ball, " +
               'not to back off.',
             marker: { x: 68, y: 62 },
+            play: [
+              { you: { x: 68, y: 61 } },
+              { o0: { x: 40, y: 34 }, ball: { x: 36.5, y: 36.5 } },
+              { ball: { x: 21.5, y: 39.5 }, o0: { x: 38, y: 33 } },
+            ],
+            result: 'Easy pass out',
           },
         ],
         cue:
@@ -762,6 +1035,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
           ],
           arrows: [{ from: { x: 38.5, y: 44.5 }, to: { x: 34, y: 38.5 }, kind: 'run' }],
         },
+        control: 'you',
+        lead: [{ ball: { x: 44, y: 17.5 }, t0: { x: 44, y: 55 }, you: { x: 64, y: 52 } }],
         options: [
           {
             id: 'A',
@@ -770,6 +1045,13 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               "Two of you on the ball leaves their teammate free. With their head up, they'll " +
               'just pass to them.',
+            marker: { x: 38, y: 29 },
+            play: [
+              { you: { x: 38, y: 29 } },
+              { ball: { x: 52, y: 42.5 } },
+              { o1: { x: 56, y: 50 }, ball: { x: 56.5, y: 54.5 } },
+            ],
+            result: 'Easy pass',
           },
           {
             id: 'B',
@@ -777,6 +1059,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: false,
             feedback: 'Too far away. That gives them an easy pass and time to turn.',
             marker: { x: 70, y: 60 },
+            play: [
+              { you: { x: 70, y: 60 } },
+              { ball: { x: 52, y: 42.5 } },
+              { o1: { x: 54, y: 52 }, ball: { x: 54.5, y: 56.5 } },
+            ],
+            result: 'Time to turn',
           },
           {
             id: 'C',
@@ -786,6 +1074,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
               "Now there's no easy pass. The player on the ball is trapped, and if they force " +
               'it, you can intercept.',
             marker: { x: 50, y: 45.5 },
+            play: [{ you: { x: 50.5, y: 45 } }, { ball: { x: 46.5, y: 39.5 } }],
+            result: 'Intercepted!',
           },
         ],
         cue:
@@ -814,6 +1104,15 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 22, y: 28 },
           ],
         },
+        control: 'you',
+        lead: [
+          {
+            o0: { x: 48, y: 18 },
+            ball: { x: 48, y: 23 },
+            t0: { x: 48, y: 50 },
+            you: { x: 78, y: 36 },
+          },
+        ],
         options: [
           {
             id: 'A',
@@ -821,6 +1120,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: false,
             feedback: 'Side by side, one dribble or one pass gets past you both at the same time.',
             marker: { x: 57, y: 42 },
+            play: [
+              { you: { x: 56, y: 42 } },
+              { o0: { x: 38, y: 40 }, ball: { x: 38.5, y: 44.5 } },
+              { o0: { x: 36, y: 54 }, ball: { x: 36.5, y: 58.5 } },
+            ],
+            result: 'Past you both!',
           },
           {
             id: 'B',
@@ -830,6 +1135,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
               "Perfect cover. If the attacker beats your teammate, you're ready to step in, " +
               'and you can still see their winger.',
             marker: { x: 58, y: 53 },
+            play: [
+              { you: { x: 58, y: 53 } },
+              { o0: { x: 56, y: 44 }, ball: { x: 56.5, y: 48.5 } },
+              { you: { x: 62, y: 50 }, ball: { x: 66.5, y: 47.5 } },
+            ],
+            result: 'Ball won!',
           },
           {
             id: 'C',
@@ -839,6 +1150,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'The ball is the biggest danger. If your teammate gets beaten, nobody is between ' +
               'the attacker and your goal.',
             marker: { x: 84, y: 32 },
+            play: [
+              { you: { x: 84, y: 32 } },
+              { o0: { x: 56, y: 44 }, ball: { x: 56.5, y: 48.5 } },
+              { o0: { x: 54, y: 58 }, ball: { x: 54.5, y: 62.5 } },
+            ],
+            result: 'Through on goal',
           },
         ],
         cue:
@@ -868,6 +1185,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 32, y: 24 },
           ],
         },
+        control: 'you',
+        lead: [{ ball: { x: 32, y: 28 }, o0: { x: 16, y: 26 } }],
         options: [
           {
             id: 'A',
@@ -877,6 +1196,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'Now your defence is compact and connected. The winger is far from the ball, so ' +
               'you still have time to get to them if the ball is switched.',
             marker: { x: 68, y: 57 },
+            play: [{ you: { x: 68, y: 57 } }, { o2: { x: 64, y: 50 } }],
+            result: 'Gap closed!',
           },
           {
             id: 'B',
@@ -885,6 +1206,13 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'That leaves a huge gap between you and your teammates. One pass through it and ' +
               'their striker is in on goal.',
+            marker: 'you',
+            play: [
+              { o2: { x: 72, y: 52 } },
+              { ball: { x: 73, y: 57 } },
+              { o2: { x: 68, y: 64 }, ball: { x: 68.5, y: 68.5 } },
+            ],
+            result: 'In on goal!',
           },
           {
             id: 'C',
@@ -893,6 +1221,13 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Your teammates are much closer to the ball. Running across leaves your whole ' +
               'side of the pitch empty.',
+            marker: { x: 25, y: 30 },
+            play: [
+              { you: { x: 25, y: 30 } },
+              { ball: { x: 88.5, y: 37.5 } },
+              { o1: { x: 86, y: 58 }, ball: { x: 86, y: 62.5 } },
+            ],
+            result: 'Wide open!',
           },
         ],
         cue:
@@ -953,6 +1288,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 42, y: 22 },
             { x: 82, y: 38 },
             { x: 20, y: 62 },
+            { x: 50, y: 69 },
           ],
           opponents: [
             { x: 36, y: 46 },
@@ -961,6 +1297,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 60, y: 16 },
           ],
         },
+        control: 'ball',
+        lead: [{ ball: { x: 64.5, y: 55 }, you: { x: 48, y: 55 }, o0: { x: 40, y: 48 } }],
         options: [
           {
             id: 'A',
@@ -969,6 +1307,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'One quick forward pass and your striker is through before their defenders can ' +
               'get back.',
+            marker: 't0',
+            play: [
+              { ball: { x: 44.5, y: 25 } },
+              { t0: { x: 46, y: 10 }, ball: { x: 49.5, y: 7 }, o3: { x: 55, y: 13 } },
+            ],
+            result: 'Through on goal!',
           },
           {
             id: 'B',
@@ -976,6 +1320,17 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: false,
             feedback:
               'Every extra touch gives their players time to get back. The chance disappears.',
+            marker: { x: 62, y: 41 },
+            play: [
+              { you: { x: 56, y: 44 }, ball: { x: 61, y: 41 } },
+              {
+                o0: { x: 46, y: 36 },
+                o1: { x: 40, y: 46 },
+                o2: { x: 64, y: 48 },
+                o3: { x: 52, y: 26 },
+              },
+            ],
+            result: 'Chance gone',
           },
           {
             id: 'C',
@@ -984,6 +1339,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Safe, but the counter-attack is over before it starts. Their whole team gets ' +
               'back into shape.',
+            marker: 't3',
+            play: [
+              { ball: { x: 52.5, y: 65.5 } },
+              { o0: { x: 42, y: 38 }, o3: { x: 54, y: 28 }, o2: { x: 62, y: 46 } },
+            ],
+            result: 'Counter over',
           },
         ],
         cue:
@@ -1013,6 +1374,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 56, y: 11 },
           ],
         },
+        control: 'ball',
+        lead: [{ ball: { x: 28, y: 60 }, you: { x: 42, y: 52 }, o0: { x: 40, y: 30 } }],
         options: [
           {
             id: 'A',
@@ -1021,12 +1384,24 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               "They're right on your back. Turning here is the quickest way to lose the ball " +
               'again.',
+            marker: { x: 34, y: 30 },
+            play: [
+              { you: { x: 40, y: 38 }, ball: { x: 35, y: 33 } },
+              { o0: { x: 37, y: 31 }, ball: { x: 33, y: 37.5 } },
+            ],
+            result: 'Lost it!',
           },
           {
             id: 'B',
             label: 'Kick it forward over your shoulder without looking',
             correct: false,
             feedback: 'A blind kick usually goes straight back to the other team.',
+            marker: { x: 52, y: 27 },
+            play: [
+              { ball: { x: 53, y: 25 } },
+              { o3: { x: 57, y: 21.5 }, ball: { x: 56.5, y: 25.5 } },
+            ],
+            result: 'Their ball!',
           },
           {
             id: 'C',
@@ -1035,6 +1410,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               "They can see the whole pitch and play the forward pass you couldn't. Quick and " +
               'simple keeps the counter-attack alive.',
+            marker: 't0',
+            play: [{ ball: { x: 57.5, y: 51 } }, { ball: { x: 51.5, y: 21.5 } }],
+            result: 'Counter on!',
           },
         ],
         cue: "Can't play forward yourself? Pass to the teammate who can.",
@@ -1062,6 +1440,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
           ],
           arrows: [{ from: { x: 43.5, y: 56 }, to: { x: 48.8, y: 37 }, kind: 'pass' }],
         },
+        control: 'you',
+        lead: [{ ball: { x: 44.5, y: 55.5 } }],
         options: [
           {
             id: 'A',
@@ -1070,6 +1450,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               "Your striker is under pressure with nobody close to pass to. Don't leave them " +
               'on their own!',
+            marker: 'you',
+            play: [
+              { ball: { x: 50, y: 31.5 }, o0: { x: 50, y: 23.5 } },
+              { o0: { x: 47, y: 27 }, ball: { x: 45, y: 30.5 } },
+            ],
+            result: 'Ball lost',
           },
           {
             id: 'B',
@@ -1079,6 +1465,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
               "Give and go! Your striker lays it back to you first time, and you're facing " +
               'forward for the next pass.',
             marker: { x: 40, y: 40 },
+            play: [
+              { you: { x: 40, y: 40 }, ball: { x: 50, y: 31.5 } },
+              { ball: { x: 44.5, y: 38 } },
+              { ball: { x: 79, y: 28.5 }, o0: { x: 49, y: 24 } },
+            ],
+            result: 'Give and go!',
           },
           {
             id: 'C',
@@ -1088,6 +1480,11 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'The counter-attack needs support right now. Without you, your striker will ' +
               'probably lose the ball.',
             marker: { x: 40, y: 70 },
+            play: [
+              { you: { x: 40, y: 68.5 }, ball: { x: 50, y: 31.5 }, o0: { x: 50, y: 23.5 } },
+              { o0: { x: 47, y: 27 }, ball: { x: 45, y: 30.5 } },
+            ],
+            result: 'No support',
           },
         ],
         cue:
@@ -1116,6 +1513,15 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 50, y: 6 },
           ],
         },
+        control: 'you',
+        lead: [
+          {
+            ball: { x: 35.5, y: 51 },
+            t0: { x: 44, y: 40 },
+            t1: { x: 32, y: 54 },
+            you: { x: 68, y: 66 },
+          },
+        ],
         options: [
           {
             id: 'A',
@@ -1125,6 +1531,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'Now your striker has a forward pass to play. Quick forward runs make a ' +
               'counter-attack really dangerous.',
             marker: { x: 72, y: 18 },
+            play: [
+              { you: { x: 72, y: 19 } },
+              { ball: { x: 68.5, y: 22.5 } },
+              { you: { x: 64, y: 11 }, ball: { x: 60.5, y: 8.5 } },
+            ],
+            result: 'Into space!',
           },
           {
             id: 'B',
@@ -1134,6 +1546,11 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'A teammate is already there. Two players behind the ball and nobody ahead ' +
               'means no forward pass.',
             marker: { x: 50, y: 48 },
+            play: [
+              { you: { x: 50, y: 48 } },
+              { o2: { x: 58, y: 32 }, o0: { x: 46, y: 20 }, o1: { x: 32, y: 24 } },
+            ],
+            result: 'No way forward',
           },
           {
             id: 'C',
@@ -1142,6 +1559,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'A pass back to you slows everything down and gives their defenders time to get ' +
               'back.',
+            marker: 'you',
+            play: [
+              { ball: { x: 61, y: 53 } },
+              { o2: { x: 62, y: 46 }, o0: { x: 50, y: 30 }, o1: { x: 36, y: 28 } },
+            ],
+            result: 'Too slow',
           },
         ],
         cue:
@@ -1204,11 +1627,13 @@ export const DECISION_THEMES: DecisionTheme[] = [
           opponents: [
             { x: 50, y: 5 },
             { x: 64, y: 30 },
-            { x: 74, y: 12 },
+            { x: 73, y: 6 },
             { x: 28, y: 14 },
           ],
           arrows: [{ from: { x: 61, y: 28.5 }, to: { x: 55.5, y: 25 }, kind: 'run' }],
         },
+        control: 'ball',
+        lead: [{ you: { x: 42, y: 36 }, ball: { x: 47, y: 33 }, o1: { x: 72, y: 36 } }],
         options: [
           {
             id: 'A',
@@ -1216,6 +1641,13 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: false,
             feedback:
               'They are at a tighter angle with a defender close by. You had the better chance.',
+            marker: 't0',
+            play: [
+              { ball: { x: 78.5, y: 13 } },
+              { o2: { x: 73, y: 10 } },
+              { ball: { x: 73.5, y: 14 } },
+            ],
+            result: 'Harder chance',
           },
           {
             id: 'B',
@@ -1223,6 +1655,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: false,
             feedback:
               "The defender gets there and blocks it. With a clear sight of goal, don't wait.",
+            marker: { x: 52, y: 13 },
+            play: [
+              { you: { x: 48.5, y: 17.5 }, ball: { x: 52.5, y: 13.5 }, o1: { x: 57, y: 21 } },
+              { o1: { x: 54, y: 16.5 }, ball: { x: 55, y: 19.5 } },
+            ],
+            result: 'Blocked!',
           },
           {
             id: 'C',
@@ -1231,6 +1669,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'If you think you can score, take the shot! Hit the target and make the keeper ' +
               'work.',
+            marker: 'goal',
+            play: [{ ball: { x: 45.5, y: 1.8 }, o0: { x: 53.5, y: 5 } }],
+            result: 'Goal!',
           },
         ],
         cue: 'Clear sight of goal and close enough to score? Take the shot!',
@@ -1253,6 +1694,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 72, y: 13 },
           ],
         },
+        control: 'ball',
+        lead: [{ you: { x: 16, y: 28 }, ball: { x: 21, y: 26 }, t0: { x: 58, y: 28 } }],
         options: [
           {
             id: 'A',
@@ -1260,6 +1703,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: true,
             feedback:
               "They have a big gap to aim at. If you can't score, pass to someone who can!",
+            marker: 't0',
+            play: [
+              { ball: { x: 52.5, y: 16.5 } },
+              { ball: { x: 52, y: 1.8 }, o0: { x: 48, y: 5 } },
+            ],
+            result: 'Goal!',
           },
           {
             id: 'B',
@@ -1268,6 +1717,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'The defender and the keeper are covering the angle, so your shot will probably ' +
               'be blocked.',
+            marker: 'goal',
+            play: [{ ball: { x: 37.5, y: 12.2 }, o1: { x: 38.5, y: 9 } }],
+            result: 'Blocked!',
           },
           {
             id: 'C',
@@ -1276,6 +1728,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Two players to beat in a tiny space, while your teammate waits with a better ' +
               'chance.',
+            marker: { x: 38, y: 20 },
+            play: [{ you: { x: 32, y: 18 }, ball: { x: 37.5, y: 19 } }, { o1: { x: 38, y: 15.5 } }],
+            result: 'Tackled!',
           },
         ],
         cue: "Can't score from where you are? Pass to a teammate who can.",
@@ -1293,7 +1748,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
           ball: { x: 55.5, y: 56 },
           teammates: [
             { x: 72, y: 30 },
-            { x: 38, y: 70 },
+            { x: 38, y: 69 },
           ],
           opponents: [
             { x: 50, y: 6 },
@@ -1304,6 +1759,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 16, y: 46 },
           ],
         },
+        control: 'ball',
+        lead: [{ ball: { x: 41, y: 65.5 }, you: { x: 52, y: 64 } }],
         options: [
           {
             id: 'A',
@@ -1312,6 +1769,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               "It's too far to score. The keeper catches it easily, and your team loses the " +
               'ball.',
+            marker: 'goal',
+            play: [{ ball: { x: 50.5, y: 9.8 } }],
+            result: 'Easy save',
           },
           {
             id: 'B',
@@ -1320,6 +1780,17 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Safe, but you had open space to attack. Now your team is even further from ' +
               'scoring.',
+            marker: 't1',
+            play: [
+              { ball: { x: 41.5, y: 66 } },
+              {
+                o1: { x: 32, y: 30 },
+                o2: { x: 46, y: 30 },
+                o3: { x: 62, y: 31 },
+                o4: { x: 79, y: 35 },
+              },
+            ],
+            result: 'Further away',
           },
           {
             id: 'C',
@@ -1329,6 +1800,11 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'Too far to score? Get closer! Push the ball ahead of you and run, then shoot or ' +
               'pass when you get near.',
             marker: { x: 52, y: 36 },
+            play: [
+              { you: { x: 49, y: 40 }, ball: { x: 53, y: 36.5 } },
+              { you: { x: 49, y: 31 }, ball: { x: 53, y: 27.5 }, o2: { x: 47, y: 22 } },
+            ],
+            result: 'Closer to goal!',
           },
         ],
         cue:
@@ -1361,6 +1837,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
           ],
           arrows: [{ from: { x: 53.5, y: 30.4 }, to: { x: 52, y: 21 }, kind: 'run' }],
         },
+        control: 'ball',
+        lead: [{ you: { x: 46, y: 66 }, ball: { x: 51.5, y: 64 }, t0: { x: 58, y: 44 } }],
         options: [
           {
             id: 'A',
@@ -1369,6 +1847,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'A long, high ball is hard to control, and their keeper can come out and collect ' +
               'it.',
+            marker: { x: 40, y: 12 },
+            play: [{ ball: { x: 40.5, y: 12.5 } }, { o0: { x: 41, y: 8.5 } }],
+            result: "Keeper's ball",
           },
           {
             id: 'B',
@@ -1378,6 +1859,8 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'The gap is open and your teammate is already running. One pass through it gets ' +
               'past their whole defence!',
             marker: { x: 51.5, y: 15.5 },
+            play: [{ ball: { x: 51.5, y: 16.5 }, t0: { x: 52, y: 20 } }],
+            result: 'Through!',
           },
           {
             id: 'C',
@@ -1386,6 +1869,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Two defenders are waiting there. Going around works when the wing is free, but ' +
               'not this time.',
+            marker: 't1',
+            play: [{ ball: { x: 87, y: 32.5 } }, { o4: { x: 88, y: 28.5 }, o5: { x: 86, y: 40 } }],
+            result: 'Two waiting!',
           },
         ],
         cue:
@@ -1441,9 +1927,23 @@ export const DECISION_THEMES: DecisionTheme[] = [
           opponents: [
             { x: 56, y: 32 },
             { x: 50, y: 6 },
+            { x: 18, y: 68 },
           ],
-          arrows: [{ from: { x: 74, y: 44 }, to: { x: 77, y: 41 }, kind: 'run' }],
+          arrows: [
+            { from: { x: 74, y: 44 }, to: { x: 77, y: 41 }, kind: 'run' },
+            { from: { x: 21, y: 65 }, to: { x: 28, y: 58 }, kind: 'run' },
+          ],
         },
+        control: 'ball',
+        lead: [
+          {
+            you: { x: 44, y: 62 },
+            ball: { x: 49.5, y: 60 },
+            t0: { x: 74, y: 52 },
+            o0: { x: 58, y: 24 },
+            o2: { x: 10, y: 72 },
+          },
+        ],
         options: [
           {
             id: 'A',
@@ -1452,6 +1952,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'You are choosing the hard way. If you lose it, your free teammate never touches ' +
               'the ball.',
+            marker: { x: 55, y: 22 },
+            play: [
+              { you: { x: 51, y: 40 }, ball: { x: 55, y: 36.5 } },
+              { o0: { x: 55, y: 34 }, ball: { x: 60.5, y: 37 } },
+            ],
+            result: 'Tackled!',
           },
           {
             id: 'B',
@@ -1460,7 +1966,13 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Two attackers against one defender means someone is free. Make the defender ' +
               'come to you, then give the ball to the player they cannot reach.',
-            marker: { x: 52, y: 41 },
+            marker: 't0',
+            play: [
+              { you: { x: 50, y: 41 }, ball: { x: 54, y: 38.5 }, o0: { x: 54, y: 33 } },
+              { ball: { x: 74.5, y: 37.5 } },
+              { t0: { x: 66, y: 14 }, ball: { x: 64, y: 10.5 } },
+            ],
+            result: 'Spare player!',
           },
           {
             id: 'C',
@@ -1469,6 +1981,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Waiting gives their defenders time to run back, and then the extra player ' +
               'disappears.',
+            marker: 'ball',
+            play: [
+              { o2: { x: 34, y: 52 }, o0: { x: 64, y: 36 } },
+              { o2: { x: 42, y: 45 }, o0: { x: 70, y: 37 } },
+            ],
+            result: 'Chance gone',
           },
         ],
         cue: 'More of us than them? Draw the defender, then pass to the free player.',
@@ -1499,6 +2017,17 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 50, y: 6 },
           ],
         },
+        control: 'ball',
+        lead: [
+          {
+            you: { x: 34, y: 52 },
+            ball: { x: 39.5, y: 50 },
+            t1: { x: 38, y: 30 },
+            o1: { x: 40, y: 40 },
+            o2: { x: 32, y: 44 },
+            o3: { x: 54, y: 34 },
+          },
+        ],
         options: [
           {
             id: 'A',
@@ -1507,6 +2036,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'There are lots of defenders in that corner. Short passes get squeezed and you ' +
               'might lose the ball.',
+            marker: 't0',
+            play: [{ ball: { x: 22.5, y: 44 } }],
+            result: 'Squeezed!',
           },
           {
             id: 'B',
@@ -1514,6 +2046,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: false,
             feedback:
               'Defenders are waiting there. You would be going where the space is not.',
+            marker: { x: 36, y: 44 },
+            play: [
+              { you: { x: 31, y: 46 }, ball: { x: 35.5, y: 44 } },
+              { o1: { x: 34, y: 40 }, o3: { x: 39.5, y: 41 } },
+            ],
+            result: 'Crowded out',
           },
           {
             id: 'C',
@@ -1522,7 +2060,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'They all moved over to stop you, which left the far side empty. One good pass ' +
               'across and your winger is up against just one defender.',
-            marker: { x: 86, y: 42 },
+            marker: 't3',
+            play: [
+              { ball: { x: 86.5, y: 35.5 } },
+              { t3: { x: 88, y: 22 }, ball: { x: 88, y: 18.5 } },
+            ],
+            result: 'Space on the wing',
           },
         ],
         cue: 'Lots of players on one side? Look across: the space is usually on the other.',
@@ -1547,12 +2090,14 @@ export const DECISION_THEMES: DecisionTheme[] = [
           opponents: [
             { x: 47, y: 42 },
             { x: 46, y: 28 },
-            { x: 66, y: 40 },
+            { x: 64, y: 30 },
             { x: 24, y: 34 },
             { x: 50, y: 6 },
           ],
           arrows: [{ from: { x: 70, y: 48.5 }, to: { x: 72, y: 34 }, kind: 'run' }],
         },
+        control: 'ball',
+        lead: [{ ball: { x: 37, y: 70 }, you: { x: 40, y: 68 }, t2: { x: 68, y: 62 } }],
         options: [
           {
             id: 'A',
@@ -1561,12 +2106,22 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Pass, lay-off, through ball. The defender watches the ball and loses sight of ' +
               'the runner, who gets the ball in space.',
+            marker: 't1',
+            play: [
+              { ball: { x: 53, y: 48.5 } },
+              { ball: { x: 71.5, y: 31 }, t2: { x: 72.5, y: 35 }, o0: { x: 51, y: 45 } },
+              { t2: { x: 68, y: 18 }, ball: { x: 66, y: 14.5 } },
+            ],
+            result: "Runner's free!",
           },
           {
             id: 'B',
             label: 'Hit the pass to your striker through the gap',
             correct: false,
             feedback: 'The defender in the lane steps across and wins it. The lane is closed.',
+            marker: 't0',
+            play: [{ ball: { x: 47, y: 46.2 }, o0: { x: 47.5, y: 42.5 } }],
+            result: 'Intercepted!',
           },
           {
             id: 'C',
@@ -1575,6 +2130,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'You would be running into the exact player you could not pass through. You ' +
               'have teammates who are free.',
+            marker: { x: 46, y: 50 },
+            play: [{ you: { x: 44, y: 54 }, ball: { x: 47.5, y: 50 } }, { o0: { x: 46.5, y: 46 } }],
+            result: 'Lost it!',
           },
         ],
         cue: "Can't pass straight to them? Use a teammate as a stepping stone, and send a runner.",
@@ -1639,6 +2197,11 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 60, y: 10 },
           ],
         },
+        control: 'you',
+        lead: [
+          { you: { x: 52, y: 24 }, ball: { x: 56.5, y: 21 }, o0: { x: 50, y: 13 } },
+          { ball: { x: 50, y: 18.5 }, o0: { x: 50, y: 20 } },
+        ],
         options: [
           {
             id: 'A',
@@ -1647,6 +2210,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'They have just won it and are not settled. Win it back in these first few ' +
               'seconds and you are close to goal. If it takes longer, drop back into shape.',
+            marker: { x: 59, y: 22 },
+            play: [
+              { you: { x: 57, y: 23 }, t0: { x: 40, y: 24 }, t1: { x: 66, y: 21 } },
+              { ball: { x: 52.5, y: 20 }, o0: { x: 47, y: 20 } },
+            ],
+            result: 'Won it back!',
           },
           {
             id: 'B',
@@ -1655,6 +2224,9 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'The first seconds after you lose it are the best time to win it back. Waiting ' +
               'hands them time to look up.',
+            marker: 'you',
+            play: [{ ball: { x: 43, y: 14 } }],
+            result: 'They kept it',
           },
           {
             id: 'C',
@@ -1664,6 +2236,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'Drop back if the first few seconds do not work, but not before you have tried. ' +
               'Right now they are easy to catch.',
             marker: { x: 50, y: 56 },
+            play: [
+              { you: { x: 50, y: 56 } },
+              { ball: { x: 43, y: 14 } },
+              { o3: { x: 40, y: 30 }, ball: { x: 40.5, y: 34.5 } },
+            ],
+            result: 'Chance missed',
           },
         ],
         cue:
@@ -1694,6 +2272,15 @@ export const DECISION_THEMES: DecisionTheme[] = [
             { x: 50, y: 6 },
           ],
         },
+        control: 'you',
+        lead: [
+          {
+            ball: { x: 66, y: 39 },
+            t0: { x: 64, y: 42 },
+            you: { x: 50, y: 64 },
+            o0: { x: 42, y: 52 },
+          },
+        ],
         options: [
           {
             id: 'A',
@@ -1703,6 +2290,13 @@ export const DECISION_THEMES: DecisionTheme[] = [
               'There are already enough of you up there. If you lose it, their striker has ' +
               'nobody to stop them.',
             marker: { x: 38, y: 14 },
+            play: [
+              { you: { x: 38, y: 15 } },
+              { o1: { x: 73, y: 19.5 }, ball: { x: 73, y: 23.5 } },
+              { ball: { x: 38.5, y: 48 } },
+              { o0: { x: 42, y: 62 }, ball: { x: 42.5, y: 66.5 } },
+            ],
+            result: 'Nobody back!',
           },
           {
             id: 'B',
@@ -1712,6 +2306,11 @@ export const DECISION_THEMES: DecisionTheme[] = [
               "You are your team's insurance. If you lose the ball, you are already there to " +
               'stop the counter-attack. If you never need it, you lost nothing.',
             marker: { x: 33, y: 51 },
+            play: [
+              { you: { x: 34, y: 51 }, o1: { x: 73, y: 19.5 }, ball: { x: 73, y: 23.5 } },
+              { ball: { x: 38, y: 47 } },
+            ],
+            result: 'Counter stopped!',
           },
           {
             id: 'C',
@@ -1720,6 +2319,13 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Now you are in the crowd, and nobody is left to mark their striker.',
             marker: { x: 62, y: 34 },
+            play: [
+              { you: { x: 62, y: 34 }, o1: { x: 73, y: 19.5 }, ball: { x: 73, y: 23.5 } },
+              { ball: { x: 57.5, y: 26 } },
+              { ball: { x: 38.5, y: 48 } },
+              { o0: { x: 42, y: 62 }, ball: { x: 42.5, y: 66.5 } },
+            ],
+            result: "Striker's free!",
           },
         ],
         cue: 'Not in the attack? If we lose it now, who is yours? Stay close enough to stop them.',
@@ -1749,6 +2355,15 @@ export const DECISION_THEMES: DecisionTheme[] = [
           ],
           arrows: [{ from: { x: 50, y: 14 }, to: { x: 50, y: 37 }, kind: 'pass' }],
         },
+        control: 'you',
+        lead: [
+          {
+            ball: { x: 50, y: 10 },
+            o1: { x: 56, y: 28 },
+            t0: { x: 52, y: 52 },
+            you: { x: 34, y: 54 },
+          },
+        ],
         options: [
           {
             id: 'A',
@@ -1757,6 +2372,13 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Whoever gets there first picks up the loose ball. If you wait, that will be ' +
               'someone who is already moving.',
+            marker: 'you',
+            play: [
+              { ball: { x: 51, y: 40.5 }, o1: { x: 52.5, y: 38.5 }, t0: { x: 56, y: 45 } },
+              { ball: { x: 47.5, y: 54.5 }, o1: { x: 48, y: 49 } },
+              { o1: { x: 47.5, y: 50.5 } },
+            ],
+            result: 'Their ball!',
           },
           {
             id: 'B',
@@ -1765,6 +2387,17 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'Now nobody is near the ball. You gave away the middle of the pitch.',
             marker: { x: 38, y: 66 },
+            play: [
+              {
+                you: { x: 38, y: 66 },
+                ball: { x: 51, y: 40.5 },
+                o1: { x: 52.5, y: 38.5 },
+                t0: { x: 56, y: 45 },
+              },
+              { ball: { x: 47.5, y: 54.5 }, o1: { x: 48, y: 49 } },
+              { o1: { x: 47.5, y: 50.5 } },
+            ],
+            result: 'Nobody there!',
           },
           {
             id: 'C',
@@ -1773,7 +2406,18 @@ export const DECISION_THEMES: DecisionTheme[] = [
             feedback:
               'The second ball is up for grabs. Read where it will fall and get there before ' +
               'the others.',
-            marker: { x: 45, y: 52 },
+            marker: { x: 47, y: 53 },
+            play: [
+              {
+                you: { x: 46, y: 55 },
+                ball: { x: 51, y: 40.5 },
+                o1: { x: 52.5, y: 38.5 },
+                t0: { x: 56, y: 45 },
+              },
+              { ball: { x: 50.5, y: 52 } },
+              { ball: { x: 70.5, y: 51.5 } },
+            ],
+            result: 'First to it!',
           },
         ],
         cue: 'Ball in the air? Watch where it will land, and move there before it does.',
