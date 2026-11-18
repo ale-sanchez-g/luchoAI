@@ -90,7 +90,7 @@ describe('DecisionGame', () => {
     render(<DecisionGame />);
     fireEvent.click(screen.getByRole('button', { name: /Move into Space/ }));
     expect(screen.getByText(FIRST.question)).toBeInTheDocument();
-    expect(screen.getByText('Drag YOU onto a letter, or tap a letter.')).toBeInTheDocument();
+    expect(screen.getByText('Drag YOU onto a letter, or tap one.')).toBeInTheDocument();
 
     const wrong = FIRST.options.find((o) => !o.correct)!;
     const best = correctOption(0);

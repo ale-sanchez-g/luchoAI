@@ -35,7 +35,8 @@ interface LivePitchProps {
 }
 
 const STRIP_BUTTON =
-  'shrink-0 rounded-full bg-white/15 px-3 py-1.5 text-sm font-semibold text-white ' +
+  'shrink-0 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white sm:py-1.5 ' +
+  'sm:text-sm ' +
   'transition-colors hover:bg-white/25';
 const GOLD_BUTTON =
   'shrink-0 rounded-full bg-gold text-pitch-dark transition-colors hover:bg-yellow-400';
@@ -47,7 +48,7 @@ function hint(aim: PitchAim, scenario: DecisionScenario, option: (id: string) =>
   }
   if (aim.kind === 'tapped') return `Press and hold ${what}, then drag onto a letter.`;
   if (aim.kind === 'missed') return 'That was not on a letter. Try again, or tap a letter.';
-  return `Drag ${what} onto a letter, or tap a letter.`;
+  return `Drag ${what} onto a letter, or tap one.`;
 }
 
 export default function LivePitch({
@@ -128,18 +129,28 @@ export default function LivePitch({
   const shown = outcome ? find(outcome.option) : undefined;
   const chosen = selected === null ? undefined : find(selected);
   // Once a play is over its buttons go under the words on phones, so the words keep their width.
-  const stripLayout =
-    stage === 'done'
-      ? 'flex-col sm:flex-row sm:items-start sm:justify-between'
-      : 'items-start justify-between';
-
   return (
-    <div data-live-pitch="" data-stage={stage}>
-      {/* On wide screens the pitch is capped at about half the screen height, so it and the
-          words under it stay in view together; the dark band frames it like a stadium. */}
-      <div className="bg-pitch-dark">
+    <div
+      data-live-pitch=""
+      data-stage={stage}
+      className="flex flex-1 flex-col sm:block sm:flex-none"
+    >
+      {/* On phones the game fills the screen: the band takes whatever height is left and the
+          pitch is the biggest 4:3 box that fits it, so the answers and Next stay on screen. On
+          wider screens the pitch is capped at about half the screen height instead; the dark
+          band frames it like a stadium. */}
+      <div
+        className={
+          'min-h-[6.5rem] flex-1 bg-pitch-dark [container-type:size] max-sm:flex ' +
+          'max-sm:items-center max-sm:justify-center sm:min-h-0 sm:flex-none ' +
+          'sm:[container-type:normal]'
+        }
+      >
         <div
-          className="mx-auto max-w-[max(320px,calc(52svh*4/3))]"
+          className={
+            'mx-auto w-[min(100cqw,calc(100cqh*4/3))] sm:w-auto ' +
+            'sm:max-w-[max(320px,calc(52svh*4/3))]'
+          }
           onClick={stage === 'timing' ? go : undefined}
         >
           <PitchDiagram
@@ -161,7 +172,12 @@ export default function LivePitch({
         </div>
       </div>
 
-      <div className={`flex gap-3 bg-pitch-dark px-4 py-3 text-white ${stripLayout}`}>
+      <div
+        className={
+          'flex shrink-0 items-start justify-between gap-3 bg-pitch-dark px-4 py-1.5 text-white ' +
+          'sm:py-3'
+        }
+      >
         {stage === 'lead' && (
           <>
             <p className="text-sm text-green-100">Watch the play…</p>
@@ -179,7 +195,10 @@ export default function LivePitch({
           <>
             <div className="min-w-0">
               <p className="font-semibold">{scenario.question}</p>
-              <p className="mt-0.5 text-sm text-green-100" data-pitch-hint="">
+              <p
+                className="mt-0.5 text-sm text-green-100 [@media(max-height:600px)]:hidden"
+                data-pitch-hint=""
+              >
                 {hint(aim, scenario, optionText)}
               </p>
             </div>
@@ -243,7 +262,7 @@ export default function LivePitch({
               </p>
             </div>
             {stage === 'done' && (
-              <div className="flex flex-wrap gap-2 sm:shrink-0 sm:flex-col sm:items-end">
+              <div className="flex shrink-0 flex-col items-end gap-1.5 sm:gap-2">
                 <button
                   type="button"
                   className={STRIP_BUTTON}

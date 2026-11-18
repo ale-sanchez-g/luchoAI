@@ -11,6 +11,7 @@ import type {
 } from '@/types';
 import { DECISION_THEMES, getTheme } from '@/lib/decision-games';
 import { getBestScores, saveBestScore } from '@/lib/storage';
+import { useVisualViewportHeight } from '@/lib/use-visual-viewport-height';
 import { PitchLegend } from './PitchDiagram';
 import LivePitch from './LivePitch';
 import type { PitchRun } from './LivePitch';
@@ -18,6 +19,12 @@ import Icon from './Icon';
 import type { IconName } from '@/lib/icons';
 
 const CARD = 'rounded-2xl border border-gray-200 bg-white p-5 shadow-sm';
+// On phones a round fills the screen (below the iPhone's floating address bar) so the pitch, the
+// answers and Next are all in view with no scrolling; from `sm` up it is an ordinary page.
+const SCENARIO_SHELL =
+  'fixed inset-x-0 top-0 z-50 flex h-[var(--app-height,100dvh)] flex-col gap-1.5 overflow-hidden ' +
+  'overscroll-none bg-gray-50 px-3 pb-10 pt-2 [@media(max-height:600px)]:pb-3 sm:static sm:z-auto sm:block sm:h-auto ' +
+  'sm:space-y-4 sm:overflow-visible sm:bg-transparent sm:p-0';
 const BACK_LINK =
   'shrink-0 whitespace-nowrap text-sm font-medium text-pitch-green hover:underline';
 
@@ -33,7 +40,8 @@ function resultMessage(score: number, total: number): { icon: IconName; text: st
 }
 
 function optionClass(option: DecisionOption, selected: string | null): string {
-  const base = 'w-full rounded-xl border-2 px-3 py-2 text-left text-sm transition-colors';
+  const base =
+    'w-full rounded-xl border-2 px-3 py-1 text-left text-sm transition-colors sm:py-2';
   if (selected === null) {
     return `${base} border-gray-200 bg-white text-gray-800 hover:border-pitch-green`;
   }
@@ -99,6 +107,7 @@ interface ScenarioViewProps {
 }
 
 function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: ScenarioViewProps) {
+  useVisualViewportHeight();
   const headingRef = useRef<HTMLHeadingElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
   const scenario = theme.scenarios[index];
@@ -131,9 +140,12 @@ function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: Scen
     if (selected !== null) nextRef.current?.focus({ preventScroll: true });
   }, [selected]);
 
+  const answered = selected !== null;
+
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between gap-3">
+    <div className={SCENARIO_SHELL}>
+      {/* One row on phones (back, progress, which situation) to leave the pitch more room. */}
+      <div className="flex shrink-0 flex-wrap items-center justify-between gap-x-3 gap-y-2">
         <button
           type="button"
           onClick={onQuit}
@@ -141,32 +153,48 @@ function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: Scen
         >
           ← All games
         </button>
+        <ol
+          className="order-2 flex min-w-8 flex-1 gap-1 sm:order-last sm:basis-full"
+          aria-hidden="true"
+        >
+          {theme.scenarios.map((s, i) => (
+            <li
+              key={s.id}
+              className={`h-1.5 flex-1 rounded-full ${
+                i < index ? 'bg-pitch-green' : i === index ? 'bg-gold' : 'bg-gray-200'
+              }`}
+            />
+          ))}
+        </ol>
         <h1
           ref={headingRef}
           tabIndex={-1}
-          className="text-right text-sm font-medium text-gray-600 focus:outline-none"
+          className="order-3 text-right text-sm font-medium text-gray-600 focus:outline-none sm:order-2"
         >
-          <Icon name={theme.icon} className="mr-1 -my-1" /> {theme.title}{' '}
+          <Icon name={theme.icon} className="mr-1 -my-1" />{' '}
+          <span className="max-sm:sr-only">{theme.title} · </span>
           <span className="whitespace-nowrap">
-            · {index + 1} of {total}
+            {index + 1} of {total}
           </span>
         </h1>
       </div>
-      <ol className="flex gap-1" aria-hidden="true">
-        {theme.scenarios.map((s, i) => (
-          <li
-            key={s.id}
-            className={`h-1.5 flex-1 rounded-full ${
-              i < index ? 'bg-pitch-green' : i === index ? 'bg-gold' : 'bg-gray-200'
-            }`}
-          />
-        ))}
-      </ol>
 
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <div className="space-y-1 px-4 pb-3 pt-4">
-          <h2 className="font-bold text-gray-800">{scenario.title}</h2>
-          <p className="text-sm text-gray-700">{scenario.situation}</p>
+      <div
+        className={
+          'flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-gray-200 ' +
+          'bg-white shadow-sm sm:block sm:flex-none sm:overflow-hidden'
+        }
+      >
+        {/* On phones the title leads the situation on one line to save room for the pitch. */}
+        <div className="shrink-0 px-4 pb-1.5 pt-2 sm:space-y-1 sm:pb-3 sm:pt-4">
+          <h2 className="inline font-bold text-gray-800 sm:block">{scenario.title}</h2>{' '}
+          <p
+            className={`inline text-[13px] leading-snug text-gray-700 sm:block sm:text-sm ${
+              answered ? 'max-sm:hidden' : ''
+            }`}
+          >
+            {scenario.situation}
+          </p>
         </div>
         <LivePitch
           scenario={scenario}
@@ -176,18 +204,26 @@ function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: Scen
           onChoose={choose}
           onRun={startRun}
         />
-        <div className="space-y-3 p-4">
-          <div className="space-y-2">
+        {/* On phones this part scrolls on its own if a very small screen cannot fit it, while the
+            Next button below it never moves. Once answered, the strip under the pitch already says
+            what was picked, so the option buttons make room for the feedback. */}
+        <div
+          className={
+            'min-h-0 shrink space-y-2 overflow-y-auto px-3 pt-3 ' +
+            `sm:space-y-3 sm:overflow-visible sm:px-4 sm:pt-4 ${chosen ? '' : 'pb-3 sm:pb-4'}`
+          }
+        >
+          <div className={`space-y-1.5 sm:space-y-2 ${answered ? 'max-sm:hidden' : ''}`}>
             {scenario.options.map((option) => (
               <button
                 key={option.id}
                 type="button"
-                disabled={selected !== null}
+                disabled={answered}
                 onClick={() => choose(option.id)}
                 className={optionClass(option, selected)}
               >
                 <span className="font-bold">{option.id}.</span> {option.label}
-                {selected !== null && option.correct && (
+                {answered && option.correct && (
                   <span className="font-bold text-green-700"> ✓ Best choice</span>
                 )}
                 {option.id === selected && !option.correct && (
@@ -198,50 +234,55 @@ function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: Scen
           </div>
 
           {chosen && correct && (
-            <>
-              <div
-                role="status"
-                className={`rounded-xl border p-3 text-sm ${
-                  chosen.correct ? 'border-green-200 bg-green-50' : 'border-amber-200 bg-amber-50'
-                }`}
-              >
-                <p className="font-semibold text-gray-800">
-                  {chosen.correct ? (
-                    <>
-                      <Icon name="check-circle" className="mr-1 -my-1" /> Great decision!
-                    </>
-                  ) : (
-                    <>
-                      <Icon name="thinking" className="mr-1 -my-1" /> Good try, but there&apos;s a
-                      better option
-                    </>
-                  )}
-                </p>
-                <p className="mt-1 text-gray-700">{chosen.feedback}</p>
-                {!chosen.correct && (
-                  <p className="mt-2 text-gray-700">
-                    <span className="font-semibold">Why {correct.id} is better:</span>{' '}
-                    {correct.feedback}
-                  </p>
+            <div
+              role="status"
+              className={`rounded-xl border p-2.5 text-[13px] leading-snug sm:p-3 sm:text-sm ${
+                chosen.correct ? 'border-green-200 bg-green-50' : 'border-amber-200 bg-amber-50'
+              }`}
+            >
+              <p className="font-semibold text-gray-800">
+                {chosen.correct ? (
+                  <>
+                    <Icon name="check-circle" className="mr-1 -my-1" /> Great decision!
+                  </>
+                ) : (
+                  <>
+                    <Icon name="thinking" className="mr-1 -my-1" /> Good try, but there&apos;s a
+                    better option
+                  </>
                 )}
-                <p className="mt-2 text-pitch-dark">
-                  <span className="font-semibold">Coach&apos;s cue:</span> {scenario.cue}
+              </p>
+              <p className="mt-0.5 text-gray-700 sm:mt-1">{chosen.feedback}</p>
+              {!chosen.correct && (
+                <p className="mt-1.5 text-gray-700 sm:mt-2">
+                  <span className="font-semibold">Why {correct.id} is better:</span>{' '}
+                  {correct.feedback}
                 </p>
-              </div>
-              <button
-                ref={nextRef}
-                type="button"
-                onClick={onNext}
-                className="w-full rounded-lg bg-pitch-green py-2 font-semibold text-white transition-colors hover:bg-pitch-dark"
-              >
-                {index === total - 1 ? 'See my score' : 'Next situation →'}
-              </button>
-            </>
+              )}
+              <p className="mt-1.5 text-pitch-dark sm:mt-2">
+                <span className="font-semibold">Coach&apos;s cue:</span> {scenario.cue}
+              </p>
+            </div>
           )}
+
         </div>
+        {chosen && correct && (
+          <div className="shrink-0 px-3 pb-3 pt-2 sm:px-4 sm:pb-4 sm:pt-3">
+            <button
+              ref={nextRef}
+              type="button"
+              onClick={onNext}
+              className="w-full rounded-lg bg-pitch-green py-2.5 font-semibold text-white transition-colors hover:bg-pitch-dark"
+            >
+              {index === total - 1 ? 'See my score' : 'Next situation →'}
+            </button>
+          </div>
+        )}
       </div>
 
-      <PitchLegend />
+      <div className="hidden shrink-0 sm:block">
+        <PitchLegend />
+      </div>
     </div>
   );
 }
