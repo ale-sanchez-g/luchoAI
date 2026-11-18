@@ -227,6 +227,13 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
   buttons: they are the keyboard and screen-reader way to answer, and the no-drag alternative
   WCAG 2.5.7 asks for. Positions are a pure function of elapsed time (`sceneAt`), driven by
   `usePlayClock`, so no effect sets state; with reduced motion plays jump to how they end
+- Game IQ on phones (below `sm`) is one screen: `ScenarioView` is a fixed, full-height column
+  (`--app-height`, 40px kept clear for the iPhone's floating address bar), the pitch takes the
+  height left over (`LivePitch`, container-query sized 4:3), and answering swaps the A/B/C buttons
+  for the feedback with Next pinned below it. Don't add anything tall to that screen: the pitch
+  shrinks first. The pitch key is hidden on phones for this reason. `e2e/game-iq-one-screen.mjs`
+  walks every situation at 320, 375 and 390 wide and fails if an answer, the pitch or Next leaves
+  the screen
 - The home page explains the app in the same four steps as its tour video (AI key, profile, coach
   and plan, games and wellbeing). The video, `public/video/how-luchoai-works.mp4`, is recorded
   from the real app by `scripts/how-it-works-video.mjs` (mocked AI, pinned clock, captions on a

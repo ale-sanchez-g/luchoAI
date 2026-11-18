@@ -32,6 +32,9 @@ const base = `http://localhost:${server.address().port}`;
 const THEMES = 8;
 const SITUATIONS = 30;
 const MIN_FACE_PX = 28;
+// A 320px-wide phone shows the whole round on one screen, so the pitch is as big as the room under
+// it allows; the A/B/C buttons below it are the full-size way to answer.
+const MIN_FACE_PX_NARROW = 14;
 
 const failures = [];
 async function step(name, fn) {
@@ -78,6 +81,7 @@ function measure() {
     face, label, others,
     pitch: { l: vb.x, t: vb.y, r: vb.x + vb.width, b: vb.y + vb.height },
     faceHeightPx: image.getBoundingClientRect().height,
+    vw: innerWidth,
     faces: svg.querySelectorAll('image').length,
   };
 }
@@ -101,7 +105,7 @@ function problems(m) {
     if (overlaps(m.label, o)) found.push(`YOU label covers a ${o.kind}`);
     if (o.kind !== 'opponent' && overlaps(m.face, o)) found.push(`face covers a ${o.kind}`);
   }
-  if (m.faceHeightPx < MIN_FACE_PX) found.push(`face only ${m.faceHeightPx.toFixed(1)}px tall`);
+  if (m.faceHeightPx < (m.vw < 360 ? MIN_FACE_PX_NARROW : MIN_FACE_PX)) found.push(`face only ${m.faceHeightPx.toFixed(1)}px tall`);
   return found;
 }
 
@@ -191,7 +195,8 @@ for (const vp of [
     if (size[0] < 128 || size[0] !== size[1]) throw new Error(`decoded as ${size.join('x')}`);
   });
 
-  await step('the pitch key shows the face next to "You"', async () => {
+  // Phones fit a round on one screen, so the pitch key is left out there to give the pitch room.
+  if (vp.width >= 640) await step('the pitch key shows the face next to "You"', async () => {
     const key = page.getByRole('list', { name: 'Pitch key' });
     const item = key.getByRole('listitem').filter({ hasText: 'You' }).first();
     const box = await item.locator('svg').boundingBox();
