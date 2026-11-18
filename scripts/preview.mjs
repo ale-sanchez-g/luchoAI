@@ -45,12 +45,39 @@ const TYPES = {
   '.webp': 'image/webp',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
+  '.mp4': 'video/mp4',
 };
 
-function send(res, status, file) {
+// Parses a single "bytes=start-end" range, or returns null for anything else.
+function byteRange(header, size) {
+  const match = /^bytes=(\d*)-(\d*)$/.exec(header ?? '');
+  if (!match || (match[1] === '' && match[2] === '')) return null;
+  if (match[1] === '') return { start: Math.max(0, size - Number(match[2])), end: size - 1 };
+  const end = match[2] === '' ? size - 1 : Math.min(Number(match[2]), size - 1);
+  return { start: Number(match[1]), end };
+}
+
+function send(res, status, file, rangeHeader) {
   const type = TYPES[path.extname(file)] ?? 'application/octet-stream';
+  const size = fs.statSync(file).size;
   // Never cache, so a fresh build shows on the next reload.
-  res.writeHead(status, { 'content-type': type, 'cache-control': 'no-store' });
+  const headers = { 'content-type': type, 'cache-control': 'no-store', 'accept-ranges': 'bytes' };
+  // Safari only plays a video from a server that answers byte ranges, as GitHub Pages does.
+  const range = status === 200 ? byteRange(rangeHeader, size) : null;
+  if (range && (range.start > range.end || range.start >= size)) {
+    res.writeHead(416, { 'content-range': `bytes */${size}` }).end();
+    return;
+  }
+  if (range) {
+    res.writeHead(206, {
+      ...headers,
+      'content-range': `bytes ${range.start}-${range.end}/${size}`,
+      'content-length': range.end - range.start + 1,
+    });
+    fs.createReadStream(file, range).pipe(res);
+    return;
+  }
+  res.writeHead(status, { ...headers, 'content-length': size });
   fs.createReadStream(file).pipe(res);
 }
 
@@ -76,7 +103,7 @@ const server = http.createServer((req, res) => {
   if (stat?.isDirectory() && !pathname.endsWith('/')) return redirect(res, `${pathname}/`);
   const target = stat?.isDirectory() ? path.join(file, 'index.html') : file;
   if (!fs.existsSync(target) || !fs.statSync(target).isFile()) return notFound();
-  return send(res, 200, target);
+  return send(res, 200, target, req.headers.range);
 });
 
 server.listen(PORT, HOST, () => {

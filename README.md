@@ -4,6 +4,10 @@ An AI-augmented coaching platform for young football (soccer) players aged 8–1
 
 ![LuchoAI home page](public/screenshot-home.png)
 
+The home page explains how LuchoAI works in four steps (switch on your AI coach, make your player
+profile, train with your coach, then play and check in), says which parts need an AI key, and
+answers parents' questions. It also has a short video tour recorded from the real app.
+
 ## Features
 
 - **AI Coach Chat** — Ask your personal AI coach anything about football, technique, and tactics
@@ -48,6 +52,16 @@ npm run preview -- --host  # also prints an address for a phone on the same Wi-F
 This builds the site exactly as the deploy does and serves it at the same addresses as GitHub
 Pages, so you can click through a change before pushing to `main`. Nothing is published. The
 "Try 5 free questions" button only appears if `GEMINI_FREE_API_KEY` is set when you run it.
+
+### Re-record the home page video
+
+```bash
+NODE_ENV=production NEXT_PUBLIC_BASE_PATH= npm run build && npm run tour-video
+```
+
+The tour is recorded from the real app in a browser, with canned AI replies (no key, no real AI
+calls). It needs [ffmpeg](https://ffmpeg.org) and writes `public/video/how-luchoai-works.mp4`
+plus its poster. Re-record it whenever a screen it shows changes.
 
 ## Architecture
 
