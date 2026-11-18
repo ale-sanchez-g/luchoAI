@@ -18,6 +18,8 @@ const TYPES = {
   '.css': 'text/css',
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
+  '.webp': 'image/webp',
+  '.mp4': 'video/mp4',
   '.webmanifest': 'application/manifest+json',
   '.woff2': 'font/woff2',
   '.txt': 'text/plain',
@@ -176,12 +178,11 @@ await step('header links navigate client-side without a full reload', async () =
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  // The landing page has its own hero instead of the shared header, so start inside the app.
-  await page.goto(`${base}/games/`, { waitUntil: 'networkidle' });
+  await page.goto(`${base}/`, { waitUntil: 'networkidle' });
   await page.evaluate(() => {
     window.__sameDocument = true;
   });
-  for (const target of ['/wellbeing/', '/profile/', '/training/', '/games/', '/coach/']) {
+  for (const target of ['/games/', '/wellbeing/', '/profile/', '/training/', '/coach/', '/']) {
     await page.locator(`header a[href="${target}"]`).first().click();
     await page.waitForURL(`${base}${target}`);
     await page.waitForLoadState('networkidle');

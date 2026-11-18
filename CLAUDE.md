@@ -17,7 +17,7 @@ Fully static Next.js site. No server — all AI calls happen from the browser us
 ```
 src/
   app/                  # Next.js App Router
-    page.tsx            # Landing page
+    page.tsx            # Home: tour video, the 4 steps, what needs a key, grown-ups, FAQ
     layout.tsx          # Root layout + metadata
     globals.css         # Tailwind base styles
     coach/page.tsx      # AI coaching chat
@@ -27,6 +27,7 @@ src/
     profile/page.tsx    # Player profile: step-by-step set-up, then one-page edit
   components/
     Header.tsx          # Navigation bar
+    HowItWorksVideo.tsx # Home page tour: poster + play button, loads nothing until played
     Icon.tsx            # Leaf icon (<img> from public/icons) used instead of emojis
     CoachChat.tsx       # Main AI chat interface
     MessageBubble.tsx   # Individual chat message bubble
@@ -111,6 +112,10 @@ npm run preview
 
 # Run tests
 npm test
+
+# Re-record the home page tour video from the real app (mocked AI, needs ffmpeg). Build without
+# GEMINI_FREE_API_KEY first; writes public/video/how-luchoai-works.mp4 and its poster
+NODE_ENV=production NEXT_PUBLIC_BASE_PATH= npm run build && npm run tour-video
 
 # Lint (covers src/ and sentinel/; plain ESLint CLI, Next 16 removed `next lint`)
 npm run lint
@@ -222,6 +227,15 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
   buttons: they are the keyboard and screen-reader way to answer, and the no-drag alternative
   WCAG 2.5.7 asks for. Positions are a pure function of elapsed time (`sceneAt`), driven by
   `usePlayClock`, so no effect sets state; with reduced motion plays jump to how they end
+- The home page explains the app in the same four steps as its tour video (AI key, profile, coach
+  and plan, games and wellbeing). The video, `public/video/how-luchoai-works.mp4`, is recorded
+  from the real app by `scripts/how-it-works-video.mjs` (mocked AI, pinned clock, captions on a
+  stage page around an iframe), never drawn or generated. Re-record it whenever a screen it shows
+  changes, then set `TOUR_LENGTH` to the length the script prints: `HomePage.test.tsx` keeps the
+  captions on the page's four steps and `HowItWorksVideo.test.tsx` checks the MP4's real length
+  and size (under 3MB, poster under 60KB). Nothing downloads until play is pressed, and the
+  page only promises "Try it free" when the build has the free key. After changing the page, run
+  `e2e/home-page.mjs` (it plays the video where the browser has H.264)
 - Wellbeing check-ins are sensitive data about children: keep them in `localStorage` only and never include them in AI prompts or send them anywhere
 - Helpline numbers in `src/lib/wellbeing.ts` were verified on 2026-10-13 — re-verify against the official sites before changing them
 - Game library content (`src/lib/game-library`) is for children playing without a coach: follow `docs/game-library.md`. There are deliberately no heading games, no elimination, no exercise as a penalty and no outcome-based match missions; `game-library.test.ts` enforces these, so don't loosen the rules to make a game pass. A new game also needs `noTwists` for any kind of twist that would contradict it (a game with no roles opts out of `roles`, a game with no score of `scoring`)
