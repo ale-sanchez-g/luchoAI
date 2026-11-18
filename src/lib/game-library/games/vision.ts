@@ -142,15 +142,15 @@ export const VISION_GAMES: LibraryGame[] = [
     minutes: 12,
     noTwists: ['talk', 'call'],
     setup:
-      'Mark a 15 big step square. Play 4 v 2 inside it, with players in different coloured ' +
+      'Mark a square 15 big steps wide. Play 4v2 inside it, with players in different coloured ' +
       'bibs. One ball.',
     howToPlay:
       'The team of four keeps the ball. Before each pass, the passer calls the name of the ' +
       'free player (the one no defender can reach). Pass to them only if they really are ' +
       'free. A named pass that finds the free player scores a point.',
     focus: 'Look at the defenders first, not the ball. The free player shows up in the gaps.',
-    easier: 'Play 4 v 1.',
-    harder: 'Play 4 v 3, with a smaller square.',
+    easier: 'Play 4v1.',
+    harder: 'Play 4v3, with a smaller square.',
   },
   {
     id: 'vision-two-ball-awareness',

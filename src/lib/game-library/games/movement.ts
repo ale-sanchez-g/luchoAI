@@ -58,7 +58,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     howToPlay:
       'The receiver moves left or right until they have a clear line to the passer, then ' +
       'calls for the ball. The passer plays it once the line is open. The receiver controls ' +
-      'it, and plays it back. Do 10, then swap. Add a point for each pass that avoids the cone.',
+      'it and plays it back. Do 10, then swap. Add a point for each pass that avoids the cone.',
     focus: 'Move so the passer can see you, not so the defender can.',
     easier: 'Make the cone smaller, or move it to one side.',
     harder: 'Have the passer look away until the receiver calls.',
@@ -183,7 +183,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     howToPlay:
       'The attacker dribbles at the defender. The teammate runs around the outside of them ' +
       '(an overlap). The attacker plays the ball into the runner’s path, or fakes it and cuts ' +
-      'inside. Finish with a shot. Take 6 goes then rotate roles.',
+      'inside. Finish with a shot. Take 6 goes, then rotate roles.',
     focus: 'Overlapper: run fast and wide, calling early. Dribbler: decide to pass or keep it.',
     easier: 'The defender stands still.',
     harder: 'The defender may close down, and you must finish within 10 seconds.',
@@ -199,8 +199,8 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     minutes: 12,
     noTwists: ['talk', 'handicap'],
     setup:
-      'Mark a square 15 big steps wide. Put 2 defenders inside (cones if you have too few ' +
-      'players) and give the rest a ball to share. Everyone else is a passer.',
+      'Mark a square 15 big steps wide. Put 2 defenders inside (use cones if you have too few ' +
+      'players). Everyone else is a passer, and the passers share one ball.',
     howToPlay:
       'The passers keep the ball moving between them, trying to find lanes the defenders ' +
       'cannot block. If you have no pass, move until you create one. Call “free!” when you ' +
@@ -262,7 +262,7 @@ export const MOVEMENT_GAMES: LibraryGame[] = [
     noTwists: ['players', 'roles'],
     setup:
       'Make a pitch 25 big steps long and 20 wide. Put two small goals (two cones each) on ' +
-      'each end line, 6 big steps apart. Play 3 v 3 or 4 v 4.',
+      'each end line, 6 big steps apart. Play 3v3 or 4v4.',
     howToPlay:
       'Each team attacks the two goals at one end and defends the two at the other. Score in ' +
       'either goal. With four goals there is always a free one, so look up and spot it! ' +

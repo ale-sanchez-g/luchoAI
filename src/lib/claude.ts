@@ -19,10 +19,10 @@ import {
 const MAX_CONTEXT_MESSAGES = 20;
 
 export const FREE_LIMIT_MESSAGE =
-  'You have used your free questions. Add your own API key to keep going.';
+  'You have used your free questions. Add your own AI key to keep going.';
 
 export const FREE_PLAN_LIMIT_MESSAGE =
-  'You have used your free training plans. Add your own API key to make more.';
+  'You have used your free training plans. Add your own AI key to make more.';
 
 // Free questions and plans run on Gemini with the key baked in at build time; the count is
 // checked before the call and only spent once it succeeds. Plans use the cheapest model.

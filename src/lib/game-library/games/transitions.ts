@@ -140,7 +140,7 @@ export const TRANSITIONS_GAMES: LibraryGame[] = [
     minutes: 12,
     setup:
       'Mark a rectangle 12 big steps wide and 20 long. Put a small gate (two cones) in the ' +
-      'middle of each short end. Play 4 v 2 inside it, with one ball.',
+      'middle of each short end. Play 4v2 inside it, with one ball.',
     howToPlay:
       'The four keep the ball away from the two. If the two win it, they must switch the play: ' +
       'pass along the ground through the gate at the far end from where they won it. That is a ' +
@@ -181,7 +181,7 @@ export const TRANSITIONS_GAMES: LibraryGame[] = [
     level: 'intermediate',
     minutes: 15,
     noTwists: ['players', 'pace'],
-    setup: 'Make a pitch 35 big steps long and 20 wide with a small goal at each end. Play 4 v 4.',
+    setup: 'Make a pitch 35 big steps long and 20 wide with a small goal at each end. Play 4v4.',
     howToPlay:
       'Play a normal small game. When a team wins the ball, they have six seconds to shoot or ' +
       'it goes to the other team. A goal scored within six seconds of winning the ball counts ' +

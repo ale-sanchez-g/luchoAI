@@ -121,7 +121,7 @@ export const GAME_TWISTS: GameTwist[] = [
     id: 'beat-the-clock',
     name: 'Beat the clock',
     kind: 'pace',
-    rule: 'Set a 60 second timer and count your score. Then try to beat it in the next round.',
+    rule: 'Set a 60-second timer and count your score. Then try to beat it in the next round.',
     skills: ['first-touch', 'passing', 'dribbling', 'taking-on', 'finishing', 'movement', 'vision'],
     minPlayers: 1,
     level: 'beginner',

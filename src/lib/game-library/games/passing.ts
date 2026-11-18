@@ -41,7 +41,7 @@ export const PASSING_GAMES: LibraryGame[] = [
   },
   {
     id: 'passing-gate-keepers',
-    name: 'Gate Keepers',
+    name: 'Gatekeepers',
     skill: 'passing',
     players: [2, 2],
     ages: [8, 18],
