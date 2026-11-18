@@ -95,7 +95,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     minutes: 12,
     noTwists: ['talk', 'players', 'handicap', 'attention'],
     setup:
-      'Play a small game, 3 v 3 or 4 v 4, in a pitch about 25 big steps long. Pick a captain for ' +
+      'Play a small game, 3v3 or 4v4, in a pitch about 25 big steps long. Pick a captain for ' +
       'each team to start with.',
     howToPlay:
       'The captain’s job is to give three clear, helpful instructions to their team during the ' +
@@ -180,7 +180,7 @@ export const TEAMWORK_GAMES: LibraryGame[] = [
     minutes: 12,
     noTwists: ['talk', 'players', 'handicap', 'roles'],
     setup:
-      'Make a pitch 25 big steps long with a small goal at each end. Play 3 v 3 or 4 v 4. ' +
+      'Make a pitch 25 big steps long with a small goal at each end. Play 3v3 or 4v4. ' +
       'Each player is given a role for 3 minutes: attacker, defender, or playmaker.',
     howToPlay:
       'Play a normal small game, staying in your role. After 3 minutes, everyone swaps to a ' +

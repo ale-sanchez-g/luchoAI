@@ -903,7 +903,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
     pitchGames: [
       {
         name: '5-Second Hunt',
-        players: '8 players (4 v 4)',
+        players: '8 players (4v4)',
         setup: 'A small pitch, about 30 by 20 big steps, with a small goal at each end.',
         howToPlay:
           'Play a normal game. When your team loses the ball, you have 5 seconds to win it ' +
@@ -921,7 +921,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
         howToPlay:
           'The attacker dribbles at the defender and tries to score. The defender must not ' +
           'dive in: stay on your feet, back off slowly and show the attacker towards the ' +
-          'side. Count to 3, then the helper sprints back to make it 2 v 1. Defenders score a ' +
+          'side. Count to 3, then the helper sprints back to make it 2v1. Defenders score a ' +
           'point if they win the ball or stop the shot.',
         focus: "Delay, don't dive. Buy time until help arrives.",
         harder: 'Add a second attacker, so the defender has to block a pass too.',
@@ -978,10 +978,10 @@ export const DECISION_THEMES: DecisionTheme[] = [
           },
           {
             id: 'B',
-            label: 'Ambush! Sprint in from their blind side to make it 2 v 1',
+            label: 'Ambush! Sprint in from their blind side to make it 2v1',
             correct: true,
             feedback:
-              "They can't see you coming, so you and your teammate trap them 2 v 1 and win " +
+              "They can't see you coming, so you and your teammate trap them 2v1 and win " +
               'the ball. Then look to counter!',
             marker: { x: 55.5, y: 36 },
             play: [
@@ -1009,7 +1009,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
         ],
         cue:
           'Opponent facing their own goal or head down? That is your trigger: ambush and make ' +
-          'it 2 v 1.',
+          'it 2v1.',
       },
       {
         id: 'defend-lock-in',
@@ -1238,7 +1238,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
     pitchGames: [
       {
         name: 'Rondo Hunters',
-        players: '8 or 9 players (6 or 7 v 2)',
+        players: '8 or 9 players (6 or 7v2)',
         setup:
           'Mark a square about 10 big steps wide. Six or seven players stand around it, with ' +
           'two defenders inside. Each defender holds a bib in their hand, so swapping is quick.',
@@ -1590,7 +1590,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
       },
       {
         name: 'Support or Run Past?',
-        players: '5 players (3 v 2)',
+        players: '5 players (3v2)',
         setup:
           'A channel about 30 big steps long and 20 wide, with a small goal at one end. One ' +
           'defender guards the goal. A chasing defender starts at the other end, next to ' +
@@ -1882,12 +1882,12 @@ export const DECISION_THEMES: DecisionTheme[] = [
     pitchGames: [
       {
         name: 'Three Choices',
-        players: '4 players (2 v 1 + keeper)',
+        players: '4 players (2v1 + keeper)',
         setup:
           'A goal with a goalkeeper. Put cones about 20 big steps out to mark a shooting zone. ' +
           'Two attackers start about 35 big steps from goal, and a defender waits in the zone.',
         howToPlay:
-          'The attackers go 2 v 1 at goal. Shots only count from inside the shooting zone, so ' +
+          'The attackers go 2v1 at goal. Shots only count from inside the shooting zone, so ' +
           "if you're too far away, carry it closer first. No clear shot? Pass to your " +
           'teammate. Swap the defender every 3 goes.',
         focus: "Can I score? Shoot. Can't? Pass to someone who can. Too far? Get closer.",
@@ -1895,7 +1895,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
       },
       {
         name: 'Over, Through or Around',
-        players: '8 players (4 v 4)',
+        players: '8 players (4v4)',
         setup: 'A pitch about 40 by 30 big steps, with an end zone 5 steps deep at each end.',
         howToPlay:
           'Score by passing to a teammate who runs into the end zone you attack. Nobody can ' +
@@ -2141,7 +2141,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
     pitchGames: [
       {
         name: 'Spare Player',
-        players: '3 players (2 v 1)',
+        players: '3 players (2v1)',
         setup:
           'Mark a pitch about 20 steps long and 12 steps wide, with a small goal made of two ' +
           'cones at one end. Two attackers start at the other end, and one defender waits in ' +
@@ -2154,7 +2154,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
       },
       {
         name: 'Switch to Score',
-        players: '8 players (4 v 4)',
+        players: '8 players (4v4)',
         setup:
           'A pitch about 40 steps long and 30 steps wide, with a goal at each end. Mark a ' +
           'line down the middle of the pitch, lengthways.',
@@ -2304,7 +2304,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
             correct: true,
             feedback:
               "You are your team's insurance. If you lose the ball, you are already there to " +
-              'stop the counter-attack. If you never need it, you lost nothing.',
+              'stop the counter-attack. If you never need it, you lose nothing.',
             marker: { x: 33, y: 51 },
             play: [
               { you: { x: 34, y: 51 }, o1: { x: 73, y: 19.5 }, ball: { x: 73, y: 23.5 } },
@@ -2426,7 +2426,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
     pitchGames: [
       {
         name: 'Five-Second Win-Back',
-        players: '6 players (3 v 3)',
+        players: '6 players (3v3)',
         setup: 'A pitch about 25 steps long and 20 steps wide, with a small goal at each end.',
         howToPlay:
           'Play a normal game. When a team loses the ball, they have five seconds to win it ' +
@@ -2437,7 +2437,7 @@ export const DECISION_THEMES: DecisionTheme[] = [
       },
       {
         name: 'Stay Behind the Ball',
-        players: '8 players (4 v 4)',
+        players: '8 players (4v4)',
         setup:
           'A pitch about 40 steps long and 30 steps wide, with a goal at each end. Mark a line ' +
           'across the middle.',

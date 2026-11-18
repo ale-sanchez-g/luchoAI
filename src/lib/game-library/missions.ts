@@ -132,8 +132,8 @@ export const MATCH_MISSIONS: MatchMission[] = [
     id: 'defending-1v1-stand-tall-and-wait',
     title: 'Stay on your feet and wait',
     mission:
-      'When you defend, try to stand between the attacker and the goal, wait, and not lunge ' +
-      'in.',
+      'When you defend, try to stand between the attacker and the goal, and wait instead of ' +
+      'lunging in.',
     why: 'Patient defenders stay on their feet, so one slip does not leave a gap behind them.',
     afterMatch: 'What happened when you were patient?',
     skill: 'defending-1v1',
@@ -337,7 +337,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
     id: 'vision-scan-before-receiving',
     title: 'Scan before you receive',
     mission:
-      'For one half, try to scan before every time you receive the ball. Afterwards, notice ' +
+      'For one half, try to scan before you receive the ball, every time. Afterwards, notice ' +
       'how often you managed it.',
     why: 'Scanning is a habit, and habits are built one match at a time.',
     afterMatch: 'How did scanning change your first touch? What would help you do it more?',
@@ -383,7 +383,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
     id: 'athleticism-warm-up-properly',
     title: 'Warm up properly',
     mission:
-      'Do a full warm-up before kick-off: join your team’s, or jog, stretch and touch the ball ' +
+      'Do a full warm-up before kick-off: join your team’s warm-up, or jog, stretch and touch the ball ' +
       'for ten minutes.',
     why: 'A good warm-up can lower the chance of getting hurt and helps your body feel ready.',
     afterMatch: 'How did your body feel in the first ten minutes? Would you change your warm-up?',
@@ -431,7 +431,7 @@ export const MATCH_MISSIONS: MatchMission[] = [
   {
     id: 'teamwork-one-organising-call',
     title: 'One organising call',
-    mission: 'Try to give one useful call each phase of play, such as “squeeze up” or “step out”.',
+    mission: 'Try to give one useful call in each phase of play, such as “squeeze up” or “step out”.',
     why: 'Clear calls from many players help a team move as one.',
     afterMatch: 'Which call changed what your team did? How did you know to make it?',
     skill: 'teamwork',
