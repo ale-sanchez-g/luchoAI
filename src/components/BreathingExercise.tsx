@@ -64,7 +64,7 @@ export default function BreathingExercise() {
       </h3>
       <p className="text-sm text-gray-600 mt-1">
         Breathing out slowly tells your body it&apos;s safe to calm down. Breathe in through your
-        nose for {BREATHE_IN_SECONDS}, then out through your mouth for {BREATHE_OUT_SECONDS}, like
+        nose for {BREATHE_IN_SECONDS} seconds, then out through your mouth for {BREATHE_OUT_SECONDS} seconds, like
         slowly blowing out birthday candles. Great before a game or after a tough moment.
       </p>
 

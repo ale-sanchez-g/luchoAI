@@ -85,8 +85,8 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
       'to score a point. The defenders score if they win it or force a bad pass. Swap jobs ' +
       'each round.',
     focus: 'When one player presses, everyone nearby locks in on the closest option.',
-    easier: 'Play 3 v 1, with the defender pressing.',
-    harder: 'Play 4 v 3 or shorten the time to 15 seconds.',
+    easier: 'Play 3v1, with the defender pressing.',
+    harder: 'Play 4v3 or shorten the time to 15 seconds.',
   },
   {
     id: 'team-defending-stay-compact',
@@ -160,7 +160,7 @@ export const TEAM_DEFENDING_GAMES: LibraryGame[] = [
     level: 'intermediate',
     minutes: 12,
     setup:
-      'Mark a pitch 25 big steps wide and 30 long. Play 3 v 3 or 4 v 4. A spare player, if you ' +
+      'Mark a pitch 25 big steps wide and 30 long. Play 3v3 or 4v4. A spare player, if you ' +
       'have one, is neutral and joins whichever team has the ball.',
     howToPlay:
       'The defending team may only press the ball when they spot a trigger: a heavy touch, ' +

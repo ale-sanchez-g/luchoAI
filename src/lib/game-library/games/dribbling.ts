@@ -166,8 +166,8 @@ export const DRIBBLING_GAMES: LibraryGame[] = [
     minutes: 10,
     noTwists: ['roles'],
     setup:
-      'Mark a long lane, 20 big steps long. Put cones at the start, the 8 step mark, the 12 ' +
-      'step mark and the end.',
+      'Mark a lane 20 big steps long. Put cones at the start, at the 8-step mark, at the ' +
+      '12-step mark and at the end.',
     howToPlay:
       'Dribble fast with big touches along the first stretch, then slow down with tiny ' +
       'touches in the middle zone, then burst away again to the end. Walk back and repeat 6 ' +

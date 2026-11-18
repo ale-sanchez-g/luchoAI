@@ -9,7 +9,7 @@ import type {
   AIProviderConfig,
   SavedPlan,
 } from '@/types';
-import { generateTrainingPlan } from '@/lib/claude';
+import { FREE_PLAN_LIMIT_MESSAGE, generateTrainingPlan } from '@/lib/claude';
 import {
   getFreePlansLeft,
   getSavedPlans,
@@ -146,8 +146,11 @@ export default function TrainingPlanView({
       setViewedSavedId(null);
       setSaveError('');
     } catch (err) {
-      const detail = err instanceof Error ? err.message : String(err);
-      setError(`Could not generate training plan: ${detail}`);
+      setError(
+        err instanceof Error && err.message === FREE_PLAN_LIMIT_MESSAGE
+          ? FREE_PLAN_LIMIT_MESSAGE
+          : 'Could not make your training plan. Check your AI key and try again.',
+      );
     } finally {
       setLoading(false);
     }
@@ -207,7 +210,7 @@ export default function TrainingPlanView({
           {freePlansLeft !== null && (
             <p className="text-xs text-gray-500">
               {outOfFreePlans
-                ? 'No free plans left. Add your own API key to make more.'
+                ? 'No free plans left. Add your own AI key to make more.'
                 : `${freePlansLeft} free ${freePlansLeft === 1 ? 'plan' : 'plans'} left`}
             </p>
           )}

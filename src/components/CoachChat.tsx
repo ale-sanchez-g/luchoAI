@@ -18,7 +18,7 @@ const WELCOME: Message = {
   id: 'welcome',
   role: 'assistant',
   content:
-    "Hola! I'm LuchoAI, your personal football coach. Set up your player profile to get personalised advice, or just ask me anything about football!",
+    "¡Hola! I'm LuchoAI, your personal football coach. Set up your player profile to get personalised advice, or just ask me anything about football!",
   timestamp: new Date(),
 };
 
@@ -26,7 +26,7 @@ function buildWelcome(profile: PlayerProfile | null): Message {
   if (!profile) return WELCOME;
   return {
     ...WELCOME,
-    content: `Hola ${profile.name}! I'm LuchoAI, your personal football coach. Ready to take your game to the next level? What would you like to work on today?`,
+    content: `¡Hola, ${profile.name}! I'm LuchoAI, your personal football coach. Ready to take your game to the next level? What would you like to work on today?`,
   };
 }
 
@@ -98,7 +98,7 @@ export default function CoachChat({ providerConfig, playerProfile }: CoachChatPr
       setError(
         err instanceof Error && err.message === FREE_LIMIT_MESSAGE
           ? FREE_LIMIT_MESSAGE
-          : 'Could not reach your coach. Check your API key and try again.',
+          : 'Could not reach your coach. Check your AI key and try again.',
       );
     } finally {
       setLoading(false);

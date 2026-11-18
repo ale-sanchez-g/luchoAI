@@ -19,6 +19,8 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
   const [error, setError] = useState('');
 
   const provider = PROVIDERS.find((p) => p.id === selectedProvider)!;
+  const freeQuestionsLeft = getFreeQuestionsLeft();
+  const freePlansLeft = getFreePlansLeft();
 
   function handleProviderChange(id: AIProvider): void {
     setSelectedProvider(id);
@@ -31,7 +33,7 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
   function handleSubmit(e: React.FormEvent): void {
     e.preventDefault();
     if (!provider.keyValidation(apiKey.trim())) {
-      setError(`Invalid API key format for ${provider.name}. Expected: ${provider.keyPlaceholder}`);
+      setError(`That key doesn't look right for ${provider.name}. It should look like ${provider.keyPlaceholder}`);
       return;
     }
     const config: AIProviderConfig = {
@@ -67,7 +69,7 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Provider selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">AI Provider</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">AI provider</label>
             <div className="grid grid-cols-2 gap-2">
               {PROVIDERS.map((p) => (
                 <button
@@ -110,7 +112,7 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
           {/* API key input */}
           <div>
             <label htmlFor="apiKey" className="block text-sm font-medium text-gray-700 mb-1">
-              API Key
+              AI key
             </label>
             <input
               id="apiKey"
@@ -139,11 +141,11 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
             type="submit"
             className="w-full bg-pitch-green text-white py-2 px-4 rounded-lg font-semibold hover:bg-pitch-dark transition-colors"
           >
-            Start Training
+            Start training
           </button>
         </form>
 
-        {getFreeKey() && (getFreeQuestionsLeft() > 0 || getFreePlansLeft() > 0) && (
+        {getFreeKey() && (freeQuestionsLeft > 0 || freePlansLeft > 0) && (
           <div className="mt-4 border-t pt-4 text-center">
             <button
               type="button"
@@ -152,13 +154,16 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
             >
               Try it free
             </button>
-            <p className="mt-1 text-xs text-gray-500">No key needed. {getFreeQuestionsLeft()} questions and {getFreePlansLeft()} training plans,
-              powered by Google Gemini.</p>
+            <p className="mt-1 text-xs text-gray-500">
+              No key needed. {freeQuestionsLeft} {freeQuestionsLeft === 1 ? 'question' : 'questions'}{' '}
+              and {freePlansLeft} training {freePlansLeft === 1 ? 'plan' : 'plans'}, powered by
+              Google Gemini.
+            </p>
           </div>
         )}
 
         <p className="text-xs text-gray-400 mt-4 text-center">
-          Your key is stored only in your browser and never shared.
+          Your key is stored only in your browser. It is only ever sent to the AI company you choose.
         </p>
       </div>
     </div>
