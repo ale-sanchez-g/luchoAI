@@ -1,0 +1,89 @@
+{
+  "model": "onnx-community/Kokoro-82M-v1.0-ONNX",
+  "modelSha256": "8fbea51ea711f2af382e88c833d9e288c6dc82ce5e98421ea61c058ce21a34cb",
+  "voice": "bf_emma",
+  "speed": 0.9,
+  "lang": "en-gb",
+  "lines": {
+    "intro-1": {
+      "ms": 4467,
+      "text": "How LuchoAI works. Your football coach for ages 8 to 18."
+    },
+    "start-1": {
+      "ms": 2847,
+      "text": "Open LuchoAI and tap Get started."
+    },
+    "step1-1": {
+      "ms": 2351,
+      "text": "Step 1: Switch on your AI coach."
+    },
+    "step1-2": {
+      "ms": 2194,
+      "text": "A grown-up picks an AI company."
+    },
+    "step1-3": {
+      "ms": 3631,
+      "text": "Then pastes in the AI key. It stays on this device."
+    },
+    "step2-1": {
+      "ms": 2194,
+      "text": "Step 2: Make your player profile."
+    },
+    "step2-2": {
+      "ms": 2429,
+      "text": "Answer five quick questions about you."
+    },
+    "step2-3": {
+      "ms": 2116,
+      "text": "Done! Now pick what to do first."
+    },
+    "step3-1": {
+      "ms": 2116,
+      "text": "Step 3: Train with your coach."
+    },
+    "step3-2": {
+      "ms": 2299,
+      "text": "Ask your coach anything about football."
+    },
+    "step3-3": {
+      "ms": 1959,
+      "text": "Your coach answers, just for you."
+    },
+    "step3-4": {
+      "ms": 2038,
+      "text": "Make a training plan for your week."
+    },
+    "step3-5": {
+      "ms": 2403,
+      "text": "Save it, and see how to set up each drill."
+    },
+    "step4-1": {
+      "ms": 2116,
+      "text": "Step 4: Play, think and check in."
+    },
+    "step4-2": {
+      "ms": 2116,
+      "text": "New games to play every Monday."
+    },
+    "step4-3": {
+      "ms": 2743,
+      "text": "Game IQ: drag yourself to the best spot."
+    },
+    "step4-4": {
+      "ms": 1698,
+      "text": "Then watch what happens!"
+    },
+    "step4-5": {
+      "ms": 1724,
+      "text": "Check in with how you feel."
+    },
+    "step4-6": {
+      "ms": 2168,
+      "text": "It stays on this device, just for you."
+    },
+    "outro-1": {
+      "ms": 7628,
+      "text": "You're ready to play! Tap Get started to switch on your coach and make your profile. Games and Wellbeing work without an AI key."
+    }
+  }
+}

@@ -114,8 +114,15 @@ npm run preview
 npm test
 
 # Re-record the home page tour video from the real app (mocked AI, needs ffmpeg). Build without
-# GEMINI_FREE_API_KEY first; writes public/video/how-luchoai-works.mp4 and its poster
+# GEMINI_FREE_API_KEY first; writes public/video/how-luchoai-works.mp4 with its voice-over, its
+# poster and scripts/tour-voice/timeline.json, then checks voice and captions are in sync
 NODE_ENV=production NEXT_PUBLIC_BASE_PATH= npm run build && npm run tour-video
+node e2e/tour-video-sync.mjs    # the sync check on its own
+
+# Record the voice-over again after editing scripts/tour-voice/lines.json (Python set-up: README),
+# then check Whisper hears every word
+python scripts/tour-voice/generate.py
+HF_HUB_DISABLE_XET=1 python scripts/tour-voice/check_speech.py
 
 # Lint (covers src/ and sentinel/; plain ESLint CLI, Next 16 removed `next lint`)
 npm run lint
@@ -237,12 +244,25 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
 - The home page explains the app in the same four steps as its tour video (AI key, profile, coach
   and plan, games and wellbeing). The video, `public/video/how-luchoai-works.mp4`, is recorded
   from the real app by `scripts/how-it-works-video.mjs` (mocked AI, pinned clock, captions on a
-  stage page around an iframe), never drawn or generated. Re-record it whenever a screen it shows
-  changes, then set `TOUR_LENGTH` to the length the script prints: `HomePage.test.tsx` keeps the
-  captions on the page's four steps and `HowItWorksVideo.test.tsx` checks the MP4's real length
-  and size (under 3MB, poster under 60KB). Nothing downloads until play is pressed, and the
-  page only promises "Try it free" when the build has the free key. After changing the page, run
-  `e2e/home-page.mjs` (it plays the video where the browser has H.264)
+  stage page around an iframe): its picture is never drawn or generated. Re-record it whenever a
+  screen it shows changes, then set `TOUR_LENGTH` to the length the script prints:
+  `HomePage.test.tsx` keeps the video's steps on the page's four and `HowItWorksVideo.test.tsx`
+  checks the MP4's real length and size (under 3MB, poster under 60KB). Nothing downloads until
+  play is pressed, and the page only promises "Try it free" when the build has the free key.
+  After changing the page, run `e2e/home-page.mjs` (it plays the video, voice and all, where the
+  browser has H.264)
+- The tour's voice-over is AI-generated: Kokoro-82M (open, Apache-2.0, from Hugging Face) with
+  its British `bf_emma` voice, recorded per line by `scripts/tour-voice/generate.py` (set-up in
+  README). The words live once, in `scripts/tour-voice/lines.json`: one line is one caption and
+  one committed MP3 in `scripts/tour-voice/clips` (lengths in `lengths.json`), and "Step n:
+  <title>." opens each step. Everything the voice says is on screen, so the video works muted.
+  The recorder keeps each caption up for its recording plus a 600 ms breath, lays the clips in
+  where the captions showed (`timeline.json`) and runs `e2e/tour-video-sync.mjs`, which measures
+  from the MP4 that every caption changes within 0.1 s of its voice. After editing a line,
+  record it again and run `check_speech.py` (Whisper must hear every word) before re-recording
+  the video: the recorder and `HowItWorksVideo.test.tsx` refuse a clip made from other words.
+  The page says the voice is made by AI, starts it with the sound on and, where a browser blocks
+  sound, plays on muted with a note; keep all three
 - Wellbeing check-ins are sensitive data about children: keep them in `localStorage` only and never include them in AI prompts or send them anywhere
 - Helpline numbers in `src/lib/wellbeing.ts` were verified on 2026-10-13 — re-verify against the official sites before changing them
 - Game library content (`src/lib/game-library`) is for children playing without a coach: follow `docs/game-library.md`. There are deliberately no heading games, no elimination, no exercise as a penalty and no outcome-based match missions; `game-library.test.ts` enforces these, so don't loosen the rules to make a game pass. A new game also needs `noTwists` for any kind of twist that would contradict it (a game with no roles opts out of `roles`, a game with no score of `scoring`)

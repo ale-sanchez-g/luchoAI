@@ -7,16 +7,23 @@ const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 export const TOUR_VIDEO_SRC = `${BASE_PATH}/video/how-luchoai-works.mp4`;
 export const TOUR_POSTER_SRC = `${BASE_PATH}/video/how-luchoai-works-poster.webp`;
 /** Length of the tour video as a player shows it (m:ss). HowItWorksVideo.test.tsx checks it. */
-export const TOUR_LENGTH = '1:15';
+export const TOUR_LENGTH = '1:40';
+
+function soundBlocked(error: unknown): boolean {
+  if (typeof error !== 'object' || error === null || !('name' in error)) return false;
+  return error.name === 'NotAllowedError';
+}
 
 /**
- * The home page tour, recorded from the real app by scripts/how-it-works-video.mjs. Nothing is
- * downloaded until the play button is pressed, so the page stays light on phone data.
+ * The home page tour, recorded from the real app by scripts/how-it-works-video.mjs, with an
+ * AI-generated voice reading out the captions. Nothing is downloaded until the play button is
+ * pressed, so the page stays light on phone data.
  */
 export default function HowItWorksVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [started, setStarted] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [silent, setSilent] = useState(false);
 
   // The play button disappears once pressed, so keyboard focus moves to the player's controls.
   useEffect(() => {
@@ -25,8 +32,19 @@ export default function HowItWorksVideo() {
 
   function start(): void {
     setStarted(true);
-    // play() must run inside the tap itself, or phones block it.
-    videoRef.current?.play().catch(() => setFailed(true));
+    const video = videoRef.current;
+    if (!video) return;
+    // play() must run inside the tap itself, or phones block it and its sound.
+    video.play().catch((error: unknown) => {
+      // Some browsers only allow silent videos. The captions carry every word, so play on.
+      if (!soundBlocked(error) || video.muted) {
+        setFailed(true);
+        return;
+      }
+      video.muted = true;
+      setSilent(true);
+      video.play().catch(() => setFailed(true));
+    });
   }
 
   return (
@@ -39,11 +57,13 @@ export default function HowItWorksVideo() {
             src={TOUR_VIDEO_SRC}
             poster={TOUR_POSTER_SRC}
             preload="none"
-            muted
             playsInline
             controls={started && !failed}
             tabIndex={started ? 0 : -1}
             onError={() => setFailed(true)}
+            onVolumeChange={(e) => {
+              if (!e.currentTarget.muted) setSilent(false);
+            }}
             aria-label="Video: how LuchoAI works"
             className="h-full w-full object-contain"
           />
@@ -61,7 +81,7 @@ export default function HowItWorksVideo() {
                 </span>
                 <span>
                   Watch how it works{' '}
-                  <span className="block text-xs font-semibold">{TOUR_LENGTH} · no sound</span>
+                  <span className="block text-xs font-semibold">{TOUR_LENGTH} · with sound</span>
                 </span>
               </span>
             </button>
@@ -76,8 +96,16 @@ export default function HowItWorksVideo() {
           )}
         </div>
       </div>
+      {silent && !failed && (
+        <p
+          role="status"
+          className="mt-3 rounded-xl bg-white p-3 text-sm font-medium text-pitch-dark"
+        >
+          The sound is off, but the words are on screen. Tap the speaker to hear the voice.
+        </p>
+      )}
       <figcaption className="mt-3 text-center text-sm text-green-100">
-        A quick tour of the real app.
+        A quick tour of the real app, read out by an AI&nbsp;voice. The words are on screen too.
       </figcaption>
     </figure>
   );

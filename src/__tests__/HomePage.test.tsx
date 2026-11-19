@@ -138,14 +138,15 @@ describe('HomePage', () => {
   });
 
   it('tours the same four steps in the video as the page lists', () => {
-    // The video's captions are set in its recording script, which cannot import the page.
-    const script = fs.readFileSync(
-      path.resolve(__dirname, '../../scripts/how-it-works-video.mjs'),
-      'utf8',
+    // The video's captions and voice-over come from its narration, which opens each step with
+    // "Step n: <title>." (scripts/how-it-works-video.mjs reads the steps from there too).
+    const lines: { text: string }[] = JSON.parse(
+      fs.readFileSync(path.resolve(__dirname, '../../scripts/tour-voice/lines.json'), 'utf8'),
     );
-    const block = script.match(/const STEPS = \[([\s\S]*?)\];/);
-    expect(block).not.toBeNull();
-    const videoSteps = Array.from(block![1].matchAll(/'([^']+)'/g), (m) => m[1]);
-    expect(videoSteps).toEqual(STEP_TITLES);
+    const videoSteps = lines.flatMap(({ text }) => {
+      const step = text.match(/^Step (\d): (.+)\.$/);
+      return step ? [`${step[1]}. ${step[2]}`] : [];
+    });
+    expect(videoSteps).toEqual(STEP_TITLES.map((title, i) => `${i + 1}. ${title}`));
   });
 });

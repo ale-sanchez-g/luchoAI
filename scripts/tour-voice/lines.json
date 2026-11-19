@@ -1,0 +1,25 @@
+[
+  { "id": "intro-1", "text": "How LuchoAI works. Your football coach for ages 8 to 18." },
+  { "id": "start-1", "text": "Open LuchoAI and tap Get started." },
+  { "id": "step1-1", "text": "Step 1: Switch on your AI coach." },
+  { "id": "step1-2", "text": "A grown-up picks an AI company." },
+  { "id": "step1-3", "text": "Then pastes in the AI key. It stays on this device." },
+  { "id": "step2-1", "text": "Step 2: Make your player profile." },
+  { "id": "step2-2", "text": "Answer five quick questions about you." },
+  { "id": "step2-3", "text": "Done! Now pick what to do first." },
+  { "id": "step3-1", "text": "Step 3: Train with your coach." },
+  { "id": "step3-2", "text": "Ask your coach anything about football." },
+  { "id": "step3-3", "text": "Your coach answers, just for you." },
+  { "id": "step3-4", "text": "Make a training plan for your week." },
+  { "id": "step3-5", "text": "Save it, and see how to set up each drill." },
+  { "id": "step4-1", "text": "Step 4: Play, think and check in." },
+  { "id": "step4-2", "text": "New games to play every Monday." },
+  { "id": "step4-3", "text": "Game IQ: drag yourself to the best spot." },
+  { "id": "step4-4", "text": "Then watch what happens!" },
+  { "id": "step4-5", "text": "Check in with how you feel." },
+  { "id": "step4-6", "text": "It stays on this device, just for you." },
+  {
+    "id": "outro-1",
+    "text": "You're ready to play! Tap Get started to switch on your coach and make your profile. Games and Wellbeing work without an AI key."
+  }
+]
