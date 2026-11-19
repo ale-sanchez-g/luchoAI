@@ -3,14 +3,21 @@
 // Usage: NODE_ENV=production NEXT_PUBLIC_BASE_PATH= npm run build && npm run tour-video
 // Build without GEMINI_FREE_API_KEY: the "Try it free" button only exists on some builds, so the
 // tour shows the set-up screen that every build has. Needs ffmpeg on the PATH. Writes
-// public/video/how-luchoai-works.mp4 (H.264, 720x1280, no sound) and its poster, then prints
-// the length: update TOUR_LENGTH in src/components/HowItWorksVideo.tsx if it no longer fits.
-// Re-run it whenever a screen the tour shows changes.
+// public/video/how-luchoai-works.mp4 (H.264 720x1280 with an AAC voice-over) and its poster,
+// plus scripts/tour-voice/timeline.json (when each line starts), checks the voice and captions
+// are in sync (e2e/tour-video-sync.mjs) and prints the length: update TOUR_LENGTH in
+// src/components/HowItWorksVideo.tsx if it no longer fits. Re-run it whenever a screen the tour
+// shows changes.
 //
 // The app runs in an iframe on a "stage" page that adds the caption strip, a finger that shows
 // each tap and the title cards. Every AI reply is canned with a route, so the script never calls
 // a real AI provider and needs no key. Frames come from Chrome's screencast and keep the time
 // they were drawn, so the video plays at the speed the tour ran.
+//
+// The words come from scripts/tour-voice/lines.json: each line is one caption and one recording
+// in scripts/tour-voice/clips (made by scripts/tour-voice/generate.py; see README.md). A line
+// stays up for its recording plus a breath, so the voice is never cut off or talked over, and a
+// browser records no sound: the clips are laid into the video at the moment each caption shows.
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import http from 'node:http';
@@ -33,13 +40,23 @@ const TOUR_TIME = new Date('2026-11-18T05:30:00Z');
 // The app's sticky header: scrolling never parks a target underneath it.
 const APP_HEADER = 56;
 
-// The four steps of "How it works" on the home page, word for word (HomePage.test.tsx checks).
-const STEPS = [
-  'Switch on your AI coach',
-  'Make your player profile',
-  'Train with your coach',
-  'Play, think and check in',
-];
+const VOICE_DIR = path.resolve('scripts/tour-voice');
+const CLIPS = path.join(VOICE_DIR, 'clips');
+const TIMELINE = path.join(VOICE_DIR, 'timeline.json');
+const LINES = JSON.parse(fs.readFileSync(path.join(VOICE_DIR, 'lines.json'), 'utf8'));
+const LINE = Object.fromEntries(LINES.map((line) => [line.id, line]));
+// Kokoro speaks at 24 kHz, so the soundtrack keeps that rate.
+const VOICE_RATE = 24000;
+// Quiet after every line, so each one lands before the next starts.
+const BREATH_MS = 600;
+// The caption strip fades the old words out over this long before showing the new ones.
+const CAPTION_FADE_MS = 230;
+const AI_VOICE = 'Voice-over: AI-generated with Kokoro-82M (bf_emma)';
+
+// The four steps of "How it works" on the home page, word for word (HomePage.test.tsx checks):
+// the lines that read "Step 1: <title>." and so on.
+const STEP_TITLE = /^Step (\d): (.+)\.$/;
+const STEPS = LINES.flatMap((line) => line.text.match(STEP_TITLE)?.[2] ?? []);
 const STEP_NOTES = [
   'A grown-up adds an AI key',
   'Five quick questions',
@@ -118,6 +135,16 @@ function run(command, args) {
   return result.stdout.trim();
 }
 
+// A recording as mono samples at the soundtrack's rate.
+function decodeClip(file) {
+  const result = spawnSync('ffmpeg', [
+    '-v', 'error', '-i', file, '-ac', '1', '-ar', String(VOICE_RATE), '-f', 'f32le', '-',
+  ], { maxBuffer: 64 * 1024 * 1024 });
+  if (result.status !== 0) throw new Error(`ffmpeg could not read ${file}:\n${result.stderr}`);
+  const bytes = result.stdout;
+  return new Float32Array(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.length));
+}
+
 const homeHtml = path.join(OUT, 'index.html');
 if (!fs.existsSync(homeHtml)) {
   fail('No out/ folder. Run: NODE_ENV=production NEXT_PUBLIC_BASE_PATH= npm run build');
@@ -129,6 +156,33 @@ if (!home.includes('"/_next/')) {
 if (spawnSync('ffmpeg', ['-version']).status !== 0) fail('ffmpeg is not installed (ffmpeg.org).');
 const appCss = home.match(/href="(\/_next\/static\/[^"]+\.css)"/)?.[1];
 if (!appCss) fail('Could not find the app stylesheet in out/index.html.');
+
+const clipFile = (id) => path.join(CLIPS, `${id}.mp3`);
+const lengthsFile = path.join(CLIPS, 'lengths.json');
+const RECORDED = fs.existsSync(lengthsFile)
+  ? JSON.parse(fs.readFileSync(lengthsFile, 'utf8')).lines
+  : {};
+// A line edited after its recording would be timed by the old length and say the old words.
+const stale = LINES.filter(
+  (line) => RECORDED[line.id]?.text !== line.text || !fs.existsSync(clipFile(line.id)),
+);
+if (stale.length) {
+  fail(
+    `No up-to-date recording for ${stale.map((line) => line.id).join(', ')}. Record the voice ` +
+      'again with scripts/tour-voice/generate.py (see README.md).',
+  );
+}
+const numbered = LINES.flatMap((line) => line.text.match(STEP_TITLE)?.[1] ?? []);
+if (numbered.join() !== STEP_NOTES.map((_, i) => i + 1).join()) {
+  fail(`lines.json must open each of the ${STEP_NOTES.length} steps with "Step n: <title>."`);
+}
+
+// A title card shows its line as a heading (the first sentence) over paragraphs (the rest).
+function cardHtml(id) {
+  const [heading, ...rest] = LINE[id].text.match(/[^.!?]+[.!?]+/g).map((s) => s.trim());
+  const paragraphs = rest.map((s) => `<p>${s.replace('Get started', '<b>Get started</b>')}</p>`);
+  return `<h1>${heading.replace(/\.$/, '')}</h1>${paragraphs.join('')}`;
+}
 
 function stageHtml() {
   const steps = STEPS.map(
@@ -228,15 +282,12 @@ function stageHtml() {
   <div id="finger"><div class="ring"></div><div class="dot"></div></div>
   <div id="intro" class="card">
     <img src="/icons/ball.svg" width="72" height="72" alt="">
-    <h1>How LuchoAI works</h1>
-    <p>Your football coach for ages 8 to 18.</p>
+    ${cardHtml('intro-1')}
     <ol>${steps}</ol>
   </div>
   <div id="outro" class="card hidden">
     <img src="/icons/trophy.svg" width="88" height="88" alt="">
-    <h1>You're ready to play!</h1>
-    <p>Tap <b>Get started</b> to switch on your coach and make your profile.</p>
-    <p>Games and Wellbeing work without an AI key.</p>
+    ${cardHtml('outro-1')}
   </div>
 </div>
 <script>
@@ -244,9 +295,9 @@ function stageHtml() {
   window.tour = {
     async say(num, kicker, text) {
       el('caption').classList.add('changing');
-      await new Promise((r) => setTimeout(r, 230));
+      await new Promise((r) => setTimeout(r, ${CAPTION_FADE_MS}));
       el('kicker').querySelector('.num').textContent = num ? String(num) : '';
-      el('kicker-text').textContent = num ? 'Step ' + num + ' of 4 · ' + kicker : kicker;
+      el('kicker-text').textContent = kicker;
       el('text').textContent = text;
       el('caption').classList.remove('changing');
     },
@@ -363,10 +414,48 @@ async function stopRecording() {
   return end;
 }
 
+// ── Voice and captions ───────────────────────────────────────────────────────
+// When each line's recording starts, on the same clock as the frames.
+const cues = [];
+// When the last line has been spoken and has had its breath.
+let quietAt = 0;
+let currentStep = { num: 0, title: '' };
+
+// Waits for the last line and its breath, plus `ms` (less, when negative).
+async function voiceDone(ms = 0) {
+  const wait = (quietAt - Date.now() / 1000) * 1000 + ms;
+  if (wait > 0) await hold(wait);
+}
+
+// Starts a line's recording now: the soundtrack is laid in from these cues after recording.
+async function speak(id) {
+  await voiceDone();
+  const at = Date.now() / 1000;
+  cues.push({ id, at });
+  quietAt = at + (RECORDED[id].ms + BREATH_MS) / 1000;
+}
+
+// Shows a line in the caption strip. "Step n: <title>." opens a step: the title shows large,
+// then the step's other lines show it in the kicker above them.
+async function caption(id, kicker) {
+  const { text } = LINE[id];
+  const title = text.match(STEP_TITLE);
+  if (title) currentStep = { num: Number(title[1]), title: title[2] };
+  const of = `Step ${currentStep.num} of ${STEPS.length}`;
+  let shown = [currentStep.num, `${of} · ${currentStep.title}`, text];
+  if (title) shown = [currentStep.num, of, title[2]];
+  else if (kicker) shown = [0, kicker, text];
+  await page.evaluate(([n, k, t]) => window.tour.say(n, k, t), shown);
+}
+
+// The next caption with its voice. The old words fade out during the last line's breath.
+async function say(id, kicker) {
+  await voiceDone(-CAPTION_FADE_MS);
+  await caption(id, kicker);
+  await speak(id);
+}
+
 // ── Stage helpers ────────────────────────────────────────────────────────────
-const say = (num, kicker, text) =>
-  page.evaluate(([n, k, t]) => window.tour.say(n, k, t), [num, kicker, text]);
-const step = (n, text) => say(n, STEPS[n - 1], text);
 
 async function centre(locator) {
   const box = await locator.boundingBox();
@@ -465,30 +554,37 @@ try {
   await hold(800);
   const posterPng = path.join(work, 'poster.png');
   await page.screenshot({ path: posterPng });
-  await say(0, 'Start here', 'Open LuchoAI and tap Get started');
+  // Ready under the title card, for when it lifts.
+  await caption('start-1', 'Start here');
 
   await startRecording();
-  await hold(3400);
+  // A moment of quiet first, so the video never opens mid-word.
+  await hold(500);
+  await speak('intro-1');
+  await voiceDone();
   await page.evaluate(() => window.tour.card('intro', false));
+  await speak('start-1');
   await hold(1300);
   await tap(app.getByRole('link', { name: 'Get started' }).first());
 
-  // Step 1: the AI key.
+  // Step 1: the AI key. A step's title is said while its first screen settles.
   await heading('Welcome to LuchoAI');
   if (await app.getByRole('button', { name: 'Try it free' }).count()) {
     throw new Error('this build has the free trial: rebuild without GEMINI_FREE_API_KEY');
   }
-  await step(1, 'A grown-up picks an AI company');
+  await say('step1-1');
+  await say('step1-2');
   await hold(700);
   await tap(app.getByRole('button', { name: /Anthropic/ }), { pause: 600 });
-  await step(1, 'Then pastes in the AI key. It stays on this device.');
-  await type(app.getByLabel('API Key'), 'sk-ant-tour-video-key', 40);
+  await say('step1-3');
+  await type(app.getByLabel('AI key'), 'sk-ant-tour-video-key', 40);
   await hold(500);
-  await tap(app.getByRole('button', { name: 'Start Training' }));
+  await tap(app.getByRole('button', { name: 'Start training' }));
 
   // Step 2: the profile.
   await heading('Who is setting up this profile?');
-  await step(2, 'Answer five quick questions about you');
+  await say('step2-1');
+  await say('step2-2');
   await hold(700);
   await tap(choice("I'm the player"), { pause: 300 });
   await tap(nextButton());
@@ -507,12 +603,13 @@ try {
   await tap(choice('First touch'), { pause: 300 });
   await tap(nextButton(), { thenHide: true });
   await heading("You're all set, Mia!");
-  await step(2, 'Done! Now pick what to do first');
+  await say('step2-3');
   await hold(1500);
 
   // Step 3: the coach, then a training plan. Each caption changes as the finger sets off, so
   // the words lead the action.
-  await step(3, 'Ask your coach anything about football');
+  await say('step3-1');
+  await say('step3-2');
   await tap(app.getByRole('link', { name: 'Ask my coach a question' }));
   const message = app.getByRole('textbox', { name: 'Message to your coach' });
   await message.waitFor();
@@ -520,10 +617,10 @@ try {
   await type(message, 'How can I get a better first touch?', 45);
   await tap(app.getByRole('button', { name: 'Send message' }), { thenHide: true });
   await app.getByText(/Great question, Mia!/).waitFor();
-  await step(3, 'Your coach answers, just for you');
+  await say('step3-3');
   await hold(3000);
 
-  await step(3, 'Make a training plan for your week');
+  await say('step3-4');
   await tap(menu('Training'));
   const generate = app.getByRole('button', { name: 'Generate Plan' });
   await generate.waitFor();
@@ -531,17 +628,18 @@ try {
   await tap(generate);
   await app.getByRole('button', { name: 'Save this plan' }).waitFor();
   await hold(600);
-  await step(3, 'Save it, and see how to set up each drill');
+  await say('step3-5');
   await tap(app.getByRole('button', { name: 'Save this plan' }), { thenHide: true });
   await reveal(app.locator('figure svg[role="img"]').first());
   await hold(2400);
 
   // Step 4: games, Game IQ and the wellbeing check-in.
-  await step(4, 'New games to play every Monday');
+  await say('step4-1');
+  await say('step4-2');
   await tap(menu('Games'));
   await app.getByRole('heading', { level: 1, name: "This week's games" }).waitFor();
   await hold(2200);
-  await step(4, 'Game IQ: drag yourself to the best spot');
+  await say('step4-3');
   await tap(app.getByRole('tab', { name: 'Game IQ' }));
   const theme = /Move into Space.*(situations · Play|· Play again)/;
   await tap(app.getByRole('button', { name: theme }));
@@ -563,14 +661,16 @@ try {
   });
   const feedback = app.getByRole('status').filter({ hasText: 'Great decision!' });
   await feedback.waitFor();
-  await step(4, 'Then watch what happens!');
+  await say('step4-4');
   await page.evaluate(() => window.tour.hideFinger());
   await app.locator('[data-live-pitch][data-stage="done"]').waitFor({ timeout: 15000 });
   await hold(1300);
   await alignBottom(feedback);
   await hold(1500);
 
-  await step(4, 'Check in with how you feel');
+  await say('step4-5');
+  // On a phone Game IQ fills the screen, menu and all: back out to the games first.
+  await tap(app.getByRole('button', { name: /All games/ }), { pause: 500 });
   await tap(menu('Wellbeing'));
   await app.getByRole('heading', { name: 'Daily check-in' }).waitFor();
   await reveal(app.getByRole('heading', { name: 'Daily check-in' }), 'top');
@@ -580,15 +680,18 @@ try {
     const option = app.locator('[role="radiogroup"]').nth(i).locator(`label[title="${answer}"]`);
     await tap(option, { pause: 100, move: 0.3 });
   }
-  await step(4, 'It stays on this device, just for you');
+  await say('step4-6');
   await tap(app.getByRole('button', { name: 'Save check-in' }), { thenHide: true });
   await app.getByText('Balance boosters for you').waitFor();
   await reveal(app.getByText('Balance boosters for you'));
   await hold(2300);
 
   await page.evaluate(() => window.tour.hideFinger());
+  await voiceDone();
   await page.evaluate(() => window.tour.card('outro', true));
-  await hold(3400);
+  await speak('outro-1');
+  // The end card stays up a moment after the last word.
+  await voiceDone(600);
   const end = await stopRecording();
 
   if (errors.length) throw new Error(`page errors during the tour:\n${errors.join('\n')}`);
@@ -604,13 +707,40 @@ try {
   list.push(`file '${frames.at(-1).file}'`);
   const listFile = path.join(work, 'frames.txt');
   fs.writeFileSync(listFile, `${list.join('\n')}\n`);
+
+  // The soundtrack: each recording at the moment its caption showed, timed from the first frame.
+  const t0 = frames[0].t;
+  const soundtrack = new Float32Array(Math.ceil((end - t0) * VOICE_RATE));
+  let quietFrom = 0;
+  for (const { id, at } of cues) {
+    const start = Math.round((at - t0) * VOICE_RATE);
+    const clip = decodeClip(clipFile(id));
+    if (start < quietFrom) throw new Error(`${id} starts before the line before it has ended`);
+    if (start + clip.length > soundtrack.length) throw new Error(`${id} runs past the end`);
+    soundtrack.set(clip, start);
+    quietFrom = start + clip.length;
+  }
+  const voiceFile = path.join(work, 'voice.f32');
+  fs.writeFileSync(voiceFile, Buffer.from(soundtrack.buffer));
+
   fs.mkdirSync(VIDEO_DIR, { recursive: true });
   run('ffmpeg', [
     '-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', listFile,
+    '-f', 'f32le', '-ar', String(VOICE_RATE), '-ac', '1', '-i', voiceFile,
+    '-map', '0:v', '-map', '1:a',
     '-vf', `fps=${FPS},scale=720:1280:flags=lanczos,format=yuv420p`,
     '-c:v', 'libx264', '-preset', 'veryslow', '-crf', '27', '-tune', 'animation',
-    '-profile:v', 'high', '-level:v', '3.1', '-movflags', '+faststart', '-an', VIDEO,
+    '-profile:v', 'high', '-level:v', '3.1',
+    // One voice in mono: 48 kbit/s keeps it clear and the whole video under 3 MB.
+    '-c:a', 'aac', '-b:a', '48k', '-metadata:s:a:0', 'language=eng',
+    '-metadata', `comment=${AI_VOICE}`, '-movflags', '+faststart', VIDEO,
   ]);
+  const timeline = cues.map(({ id, at }) => ({
+    id,
+    start: Number((at - t0).toFixed(3)),
+    ms: RECORDED[id].ms,
+  }));
+  fs.writeFileSync(TIMELINE, `${JSON.stringify({ lines: timeline }, null, 2)}\n`);
   run('ffmpeg', [
     '-y', '-loglevel', 'error', '-i', posterPng, '-vf', 'scale=720:1280',
     '-c:v', 'libwebp', '-quality', '80', '-compression_level', '6', POSTER,
@@ -624,6 +754,9 @@ try {
   console.log(`${path.relative(process.cwd(), VIDEO)}: ${seconds.toFixed(1)} s, ${kb(VIDEO)}`);
   console.log(`TOUR_LENGTH in src/components/HowItWorksVideo.tsx should be '${clock}'.`);
   console.log(`${path.relative(process.cwd(), POSTER)}: ${kb(POSTER)}`);
+  console.log(`${path.relative(process.cwd(), TIMELINE)}: ${cues.length} lines\n`);
+  const sync = spawnSync('node', [path.resolve('e2e/tour-video-sync.mjs')], { stdio: 'inherit' });
+  if (sync.status !== 0) throw new Error('the voice and the captions are out of sync (above)');
 } catch (e) {
   failure = e;
   fs.mkdirSync(path.dirname(FAILED_SHOT), { recursive: true });
