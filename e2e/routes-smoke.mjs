@@ -49,6 +49,7 @@ const ROUTES = [
   { path: '/games/', name: 'games' },
   { path: '/wellbeing/', name: 'wellbeing' },
   { path: '/profile/', name: 'profile' },
+  { path: '/privacy/', name: 'privacy' },
   { path: '/no-such-page/', name: 'not-found', expectStatus: 404 },
 ];
 

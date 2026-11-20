@@ -16,6 +16,7 @@ answers parents' questions. It also has a short video tour recorded from the rea
 - **Weekly Games** — A fresh set of practice games every Monday, picked from a growing library to match each player's goals, age and level: one to play alone, one with a friend, one with a group and one new thing to try, plus a match mission to take to their next game (no AI key needed)
 - **Game IQ** — Decision games on moving into space, first touch, pressing, defending together, quick counter-attacks, when to shoot or pass, using the spare player and switching the play, and reacting fast after the ball is lost or cleared. Watch the play build up, make your move on the pitch (drag yourself or the ball with a mouse or finger, or tap a spot), then see what happens, plus on-pitch games to practise each one
 - **Wellbeing** — Daily mood and life-balance check-in, calm breathing, a mistake reset routine, and free helplines for young people (check-ins never leave the device)
+- **Privacy** — A plain-language page on what is saved on the device, what is sent to the AI company and where, with a button that deletes everything LuchoAI saved
 - **Multi-provider AI** — Choose from Anthropic Claude, OpenAI GPT, Google Gemini, or Hugging Face models
 
 ![AI Coach setup screen](public/screenshot-coach.png)

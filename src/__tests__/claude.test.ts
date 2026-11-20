@@ -442,3 +442,97 @@ describe('generateTrainingPlan', () => {
     });
   });
 });
+
+describe('what reaches the AI company', () => {
+  // The privacy page promises these never leave the device, whatever the player has saved.
+  const MARKER = 'kept-on-this-device-7d3f';
+  const PLAN_JSON = JSON.stringify({ weeklyGoal: 'Sharper first touch', sessions: [] });
+  const FREE_TRIAL: AIProviderConfig = {
+    provider: 'gemini',
+    model: 'gemini-3.6-flash',
+    apiKey: '',
+    free: true,
+  };
+
+  beforeEach(() => {
+    localStorage.clear();
+    localStorage.setItem(
+      'luchoai_wellbeing_checkins',
+      JSON.stringify([
+        {
+          date: '2026-11-18',
+          mood: 2,
+          balance: { sleep: 1, football: 3, school: 2, people: 1, fun: 1 },
+          proudOf: `${MARKER} check-in`,
+        },
+      ]),
+    );
+    localStorage.setItem(
+      'luchoai_saved_plans',
+      JSON.stringify([
+        {
+          id: 'saved-1',
+          savedAt: '2026-11-18T10:00:00.000Z',
+          plan: { weeklyGoal: `${MARKER} plan`, sessions: [], generatedAt: '2026-11-18' },
+        },
+      ]),
+    );
+    localStorage.setItem('luchoai_game_scores', JSON.stringify({ [`${MARKER}-theme`]: 3 }));
+
+    for (const mock of [
+      mockCreate,
+      mockOpenAICreate,
+      mockGeminiSendMessage,
+      mockGeminiGenerateContent,
+      mockHfChatCompletion,
+    ]) {
+      mock.mockReset();
+    }
+    (GoogleGenerativeAI as unknown as jest.Mock).mockClear();
+    mockCreate
+      .mockResolvedValueOnce({ content: [{ type: 'text', text: 'Keep your eyes on the ball.' }] })
+      .mockResolvedValueOnce({ content: [{ type: 'text', text: PLAN_JSON }] });
+    mockOpenAICreate
+      .mockResolvedValueOnce({ choices: [{ message: { content: 'Cushion the ball.' } }] })
+      .mockResolvedValueOnce({ choices: [{ message: { content: PLAN_JSON } }] });
+    mockGeminiSendMessage.mockResolvedValue({ response: { text: () => 'Soft touch.' } });
+    mockGeminiGenerateContent.mockResolvedValue({ response: { text: () => PLAN_JSON } });
+    mockHfChatCompletion
+      .mockResolvedValueOnce({ choices: [{ message: { content: 'Relax your foot.' } }] })
+      .mockResolvedValueOnce({ choices: [{ message: { content: PLAN_JSON } }] });
+  });
+
+  function everythingSent(): string {
+    const gemini = (GoogleGenerativeAI as unknown as jest.Mock).mock.results.map((result) => {
+      const getModel = result.value.getGenerativeModel as jest.Mock;
+      const chats = getModel.mock.results.map(
+        (model) => (model.value.startChat as jest.Mock).mock.calls,
+      );
+      return [getModel.mock.calls, chats];
+    });
+    return JSON.stringify([
+      mockCreate.mock.calls,
+      mockOpenAICreate.mock.calls,
+      mockGeminiSendMessage.mock.calls,
+      mockGeminiGenerateContent.mock.calls,
+      mockHfChatCompletion.mock.calls,
+      gemini,
+    ]);
+  }
+
+  it.each([
+    ['Anthropic', ANTHROPIC_CONFIG],
+    ['OpenAI', OPENAI_CONFIG],
+    ['Gemini', GEMINI_CONFIG],
+    ['Hugging Face', HF_CONFIG],
+    ['the free trial', FREE_TRIAL],
+  ])('%s gets the question and profile, not check-ins, plans or scores', async (_, config) => {
+    await sendMessage(config, makeHistory(2), 'How do I improve my first touch?', SAMPLE_PROFILE);
+    await generateTrainingPlan(config, SAMPLE_PROFILE);
+
+    const sent = everythingSent();
+    expect(sent).toContain('How do I improve my first touch?');
+    expect(sent).toContain(SAMPLE_PROFILE.name);
+    expect(sent).not.toContain(MARKER);
+  });
+});

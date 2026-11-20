@@ -25,6 +25,7 @@ src/
     games/page.tsx      # Weekly games + Game IQ decision games (no AI, no API key needed)
     wellbeing/page.tsx  # Wellbeing check-in, reset tools, helplines (no AI, no API key needed)
     profile/page.tsx    # Player profile: step-by-step set-up, then one-page edit
+    privacy/page.tsx    # Privacy: what is saved, what leaves the device, delete it all
   components/
     Header.tsx          # Navigation bar
     HowItWorksVideo.tsx # Home page tour: poster + play button, loads nothing until played
@@ -43,6 +44,7 @@ src/
     PitchDiagram.tsx    # SVG pitch + legend; drag YOU/ball or tap a letter; YOU is the key-player face
     WellbeingCheckIn.tsx  # Daily mood + life-balance check-in and history
     BreathingExercise.tsx # Guided breathe-in-4 / breathe-out-6 pacer
+    DeletePlayerData.tsx  # Privacy page: what is saved here now, delete it all
   lib/
     claude.ts           # Anthropic SDK client (sendMessage, generateTrainingPlan)
     prompts.ts          # System prompts (incl. chat scope rules) and player profile injection
@@ -54,6 +56,7 @@ src/
     use-visual-viewport-height.ts  # Sets --app-height to the visible screen (iPhone keyboard)
     use-stored-state.ts # useStoredState: state loaded from localStorage after hydration
     storage.ts          # localStorage helpers (apiKey, playerProfile, check-ins, game scores)
+    privacy.ts          # Privacy page wording: what each storage key holds, AI company links
     drill-setups.ts     # The drill pictures the AI can pick (slalom, gates, wall...) and their scenes
     decision-games.ts   # Game IQ scenarios, their plays + on-pitch games (static content)
     pitch-play.ts       # Game IQ motion: beats, timelines, answer targets, drops (pure functions)
@@ -264,6 +267,14 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
   The page says the voice is made by AI, starts it with the sound on and, where a browser blocks
   sound, plays on muted with a note; keep all three
 - Wellbeing check-ins are sensitive data about children: keep them in `localStorage` only and never include them in AI prompts or send them anywhere
+- The privacy page (`/privacy`, wording in `src/lib/privacy.ts`) must stay true. When what
+  LuchoAI saves, sends or loads changes (a new `localStorage` key, a new AI provider, a new
+  profile field in the prompts, anything fetched from another site), update the page and
+  `PRIVACY_UPDATED`. `privacy.test.ts` fails until every storage key is described, the compiler
+  until every provider has a policy link, `claude.test.ts` if check-ins, saved plans or Game IQ
+  scores reach any AI request, and `e2e/privacy-page.mjs` if a page load contacts another site
+  or sets a cookie. Its delete button (`clearPlayerData`) removes every key except the two
+  free-trial counts, so a new key is deleted by default
 - Helpline numbers in `src/lib/wellbeing.ts` were verified on 2026-10-13 — re-verify against the official sites before changing them
 - Game library content (`src/lib/game-library`) is for children playing without a coach: follow `docs/game-library.md`. There are deliberately no heading games, no elimination, no exercise as a penalty and no outcome-based match missions; `game-library.test.ts` enforces these, so don't loosen the rules to make a game pass. A new game also needs `noTwists` for any kind of twist that would contradict it (a game with no roles opts out of `roles`, a game with no score of `scoring`)
 - Write game text in your own words. Game ideas are free to reuse, but federation and coaching-site wording, diagrams and branded names (see docs/game-library.md) are not

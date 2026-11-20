@@ -2,17 +2,17 @@
   "lines": [
     {
       "id": "intro-1",
-      "start": 0.495,
+      "start": 0.497,
       "ms": 4467
     },
     {
       "id": "start-1",
-      "start": 5.565,
+      "start": 5.567,
       "ms": 2847
     },
     {
       "id": "step1-1",
-      "start": 9.013,
+      "start": 9.014,
       "ms": 2351
     },
     {
@@ -27,77 +27,77 @@
     },
     {
       "id": "step2-1",
-      "start": 18.989,
+      "start": 18.988,
       "ms": 2194
     },
     {
       "id": "step2-2",
-      "start": 21.782,
+      "start": 21.781,
       "ms": 2429
     },
     {
       "id": "step2-3",
-      "start": 37.22,
+      "start": 36.378,
       "ms": 2116
     },
     {
       "id": "step3-1",
-      "start": 39.937,
+      "start": 39.093,
       "ms": 2116
     },
     {
       "id": "step3-2",
-      "start": 42.654,
+      "start": 41.81,
       "ms": 2299
     },
     {
       "id": "step3-3",
-      "start": 49.178,
+      "start": 48.116,
       "ms": 1959
     },
     {
       "id": "step3-4",
-      "start": 52.316,
+      "start": 51.251,
       "ms": 2038
     },
     {
       "id": "step3-5",
-      "start": 56.86,
+      "start": 55.788,
       "ms": 2403
     },
     {
       "id": "step4-1",
-      "start": 61.099,
+      "start": 59.925,
       "ms": 2116
     },
     {
       "id": "step4-2",
-      "start": 63.815,
+      "start": 62.642,
       "ms": 2116
     },
     {
       "id": "step4-3",
-      "start": 67.21,
+      "start": 65.998,
       "ms": 2743
     },
     {
       "id": "step4-4",
-      "start": 74.128,
+      "start": 72.795,
       "ms": 1698
     },
     {
       "id": "step4-5",
-      "start": 80.149,
+      "start": 78.801,
       "ms": 1724
     },
     {
       "id": "step4-6",
-      "start": 88.11,
+      "start": 86.555,
       "ms": 2168
     },
     {
       "id": "outro-1",
-      "start": 92.03,
+      "start": 90.435,
       "ms": 7628
     }
   ]

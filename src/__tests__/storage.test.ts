@@ -16,8 +16,17 @@ import {
   savePlan,
   removeSavedPlan,
   MAX_SAVED_PLANS,
+  STORAGE_KEYS,
+  PLAYER_DATA_KEYS,
+  hasPlayerData,
+  clearPlayerData,
+  spendFreeQuestion,
+  spendFreePlan,
+  getFreeQuestionsLeft,
+  getFreePlansLeft,
 } from '@/lib/storage';
 import { BALANCE_AREAS } from '@/lib/wellbeing';
+import { FREE_PLAN_LIMIT, FREE_QUESTION_LIMIT } from '@/lib/free-key';
 import type {
   PlayerProfile,
   AIProviderConfig,
@@ -362,6 +371,50 @@ describe('storage', () => {
         JSON.stringify([null, { id: 'x' }, { ...good[0], plan: { weeklyGoal: 1 } }, good[0]]),
       );
       expect(getSavedPlans()).toHaveLength(1);
+    });
+  });
+
+  describe('deleting player data', () => {
+    it('treats every key as player data except the free-trial counts', () => {
+      const freeCounts: string[] = [STORAGE_KEYS.FREE_QUESTIONS_USED, STORAGE_KEYS.FREE_PLANS_USED];
+      expect([...PLAYER_DATA_KEYS].sort()).toEqual(
+        Object.values(STORAGE_KEYS)
+          .filter((key) => !freeCounts.includes(key))
+          .sort(),
+      );
+    });
+
+    it('knows when nothing about the player is saved, even with free tries used', () => {
+      expect(hasPlayerData()).toBe(false);
+      spendFreeQuestion();
+      spendFreePlan();
+      expect(hasPlayerData()).toBe(false);
+      setPlayerProfile(SAMPLE_PROFILE);
+      expect(hasPlayerData()).toBe(true);
+    });
+
+    it('deletes everything about the player and keeps the free-trial counts', () => {
+      setProviderConfig(SAMPLE_CONFIG);
+      setPlayerProfile(SAMPLE_PROFILE);
+      saveCheckIn({
+        date: '2026-11-18',
+        mood: 4,
+        balance: { sleep: 3, football: 3, school: 2, people: 3, fun: 3 },
+        proudOf: 'Scored with my left foot',
+      });
+      saveBestScore('space', 3);
+      localStorage.setItem(STORAGE_KEYS.SAVED_PLANS, '[]');
+      spendFreeQuestion();
+      spendFreePlan();
+
+      clearPlayerData();
+
+      for (const key of PLAYER_DATA_KEYS) expect(localStorage.getItem(key)).toBeNull();
+      expect(hasPlayerData()).toBe(false);
+      expect(getProviderConfig()).toBeNull();
+      expect(getPlayerProfile()).toBeNull();
+      expect(getFreeQuestionsLeft()).toBe(FREE_QUESTION_LIMIT - 1);
+      expect(getFreePlansLeft()).toBe(FREE_PLAN_LIMIT - 1);
     });
   });
 });

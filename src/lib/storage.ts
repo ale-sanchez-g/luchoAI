@@ -12,7 +12,7 @@ import type {
   TrainingPlan,
 } from '@/types';
 
-const KEYS = {
+export const STORAGE_KEYS = {
   API_KEY: 'luchoai_api_key',
   PLAYER_PROFILE: 'luchoai_player_profile',
   PROVIDER_CONFIG: 'luchoai_provider_config',
@@ -23,7 +23,21 @@ const KEYS = {
   FREE_PLANS_USED: 'luchoai_free_plans_used',
 } as const;
 
-const MAX_CHECKINS = 30;
+export type StorageKey = (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS];
+
+// The free-trial counts say nothing about the player, and keeping them stops "delete my data"
+// from handing out a fresh free trial on the shared key.
+const KEPT_ON_DELETE: readonly StorageKey[] = [
+  STORAGE_KEYS.FREE_QUESTIONS_USED,
+  STORAGE_KEYS.FREE_PLANS_USED,
+];
+
+/** Every key that holds the player's own data. A new key is player data unless listed above. */
+export const PLAYER_DATA_KEYS: readonly StorageKey[] = Object.values(STORAGE_KEYS).filter(
+  (key) => !KEPT_ON_DELETE.includes(key),
+);
+
+export const MAX_CHECKINS = 30;
 const MAX_MOOD_LEVEL = 5;
 const MAX_BALANCE_LEVEL = 3;
 
@@ -54,20 +68,20 @@ function isCheckIn(value: unknown): value is WellbeingCheckIn {
 
 export function getApiKey(): string | null {
   if (typeof window === 'undefined') return null;
-  return localStorage.getItem(KEYS.API_KEY);
+  return localStorage.getItem(STORAGE_KEYS.API_KEY);
 }
 
 export function setApiKey(key: string): void {
-  localStorage.setItem(KEYS.API_KEY, key);
+  localStorage.setItem(STORAGE_KEYS.API_KEY, key);
 }
 
 export function clearApiKey(): void {
-  localStorage.removeItem(KEYS.API_KEY);
+  localStorage.removeItem(STORAGE_KEYS.API_KEY);
 }
 
 export function getProviderConfig(): AIProviderConfig | null {
   if (typeof window === 'undefined') return null;
-  const raw = localStorage.getItem(KEYS.PROVIDER_CONFIG);
+  const raw = localStorage.getItem(STORAGE_KEYS.PROVIDER_CONFIG);
   if (raw) {
     try {
       return JSON.parse(raw) as AIProviderConfig;
@@ -76,7 +90,7 @@ export function getProviderConfig(): AIProviderConfig | null {
     }
   }
   // Backwards compat: migrate old anthropic-only key
-  const legacyKey = localStorage.getItem(KEYS.API_KEY);
+  const legacyKey = localStorage.getItem(STORAGE_KEYS.API_KEY);
   if (legacyKey) {
     return { provider: 'anthropic', model: 'claude-opus-4-8', apiKey: legacyKey };
   }
@@ -84,15 +98,15 @@ export function getProviderConfig(): AIProviderConfig | null {
 }
 
 export function setProviderConfig(config: AIProviderConfig): void {
-  localStorage.setItem(KEYS.PROVIDER_CONFIG, JSON.stringify(config));
+  localStorage.setItem(STORAGE_KEYS.PROVIDER_CONFIG, JSON.stringify(config));
   if (config.provider === 'anthropic') {
-    localStorage.setItem(KEYS.API_KEY, config.apiKey);
+    localStorage.setItem(STORAGE_KEYS.API_KEY, config.apiKey);
   }
 }
 
 export function clearProviderConfig(): void {
-  localStorage.removeItem(KEYS.PROVIDER_CONFIG);
-  localStorage.removeItem(KEYS.API_KEY);
+  localStorage.removeItem(STORAGE_KEYS.PROVIDER_CONFIG);
+  localStorage.removeItem(STORAGE_KEYS.API_KEY);
 }
 
 export const PROFILE_MIN_AGE = 8;
@@ -131,7 +145,7 @@ function normalizeProfile(value: unknown): PlayerProfile | null {
 
 export function getPlayerProfile(): PlayerProfile | null {
   if (typeof window === 'undefined') return null;
-  const raw = localStorage.getItem(KEYS.PLAYER_PROFILE);
+  const raw = localStorage.getItem(STORAGE_KEYS.PLAYER_PROFILE);
   if (!raw) return null;
   try {
     return normalizeProfile(JSON.parse(raw));
@@ -141,12 +155,12 @@ export function getPlayerProfile(): PlayerProfile | null {
 }
 
 export function setPlayerProfile(profile: PlayerProfile): void {
-  localStorage.setItem(KEYS.PLAYER_PROFILE, JSON.stringify(normalizeProfile(profile)));
+  localStorage.setItem(STORAGE_KEYS.PLAYER_PROFILE, JSON.stringify(normalizeProfile(profile)));
 }
 
 export function getCheckIns(): WellbeingCheckIn[] {
   if (typeof window === 'undefined') return [];
-  const raw = localStorage.getItem(KEYS.WELLBEING_CHECKINS);
+  const raw = localStorage.getItem(STORAGE_KEYS.WELLBEING_CHECKINS);
   if (!raw) return [];
   try {
     const parsed: unknown = JSON.parse(raw);
@@ -161,17 +175,17 @@ export function saveCheckIn(checkIn: WellbeingCheckIn): WellbeingCheckIn[] {
   const updated = [...getCheckIns().filter((c) => c.date !== checkIn.date), checkIn]
     .sort((a, b) => a.date.localeCompare(b.date))
     .slice(-MAX_CHECKINS);
-  localStorage.setItem(KEYS.WELLBEING_CHECKINS, JSON.stringify(updated));
+  localStorage.setItem(STORAGE_KEYS.WELLBEING_CHECKINS, JSON.stringify(updated));
   return updated;
 }
 
 export function clearCheckIns(): void {
-  localStorage.removeItem(KEYS.WELLBEING_CHECKINS);
+  localStorage.removeItem(STORAGE_KEYS.WELLBEING_CHECKINS);
 }
 
 export function getBestScores(): BestScores {
   if (typeof window === 'undefined') return {};
-  const raw = localStorage.getItem(KEYS.GAME_SCORES);
+  const raw = localStorage.getItem(STORAGE_KEYS.GAME_SCORES);
   if (!raw) return {};
   try {
     const parsed: unknown = JSON.parse(raw);
@@ -192,7 +206,7 @@ export function saveBestScore(themeId: DecisionThemeId, score: number): BestScor
   const previous = scores[themeId];
   if (previous !== undefined && previous >= score) return scores;
   const updated = { ...scores, [themeId]: score };
-  localStorage.setItem(KEYS.GAME_SCORES, JSON.stringify(updated));
+  localStorage.setItem(STORAGE_KEYS.GAME_SCORES, JSON.stringify(updated));
   return updated;
 }
 
@@ -247,7 +261,7 @@ function reviveSavedPlan(value: unknown): SavedPlan | null {
 /** Saved plans, newest first. */
 export function getSavedPlans(): SavedPlan[] {
   if (typeof window === 'undefined') return [];
-  const raw = localStorage.getItem(KEYS.SAVED_PLANS);
+  const raw = localStorage.getItem(STORAGE_KEYS.SAVED_PLANS);
   if (!raw) return [];
   try {
     const parsed: unknown = JSON.parse(raw);
@@ -276,7 +290,7 @@ export function savePlan(plan: TrainingPlan): SavePlanResult {
   };
   const updated = [saved, ...plans];
   try {
-    localStorage.setItem(KEYS.SAVED_PLANS, JSON.stringify(updated));
+    localStorage.setItem(STORAGE_KEYS.SAVED_PLANS, JSON.stringify(updated));
   } catch {
     return { ok: false, reason: 'storage', plans };
   }
@@ -285,29 +299,39 @@ export function savePlan(plan: TrainingPlan): SavePlanResult {
 
 export function removeSavedPlan(id: string): SavedPlan[] {
   const updated = getSavedPlans().filter((saved) => saved.id !== id);
-  localStorage.setItem(KEYS.SAVED_PLANS, JSON.stringify(updated));
+  localStorage.setItem(STORAGE_KEYS.SAVED_PLANS, JSON.stringify(updated));
   return updated;
 }
 
 /** Counted in the browser only, so it limits honest use rather than stopping a determined one. */
 export function getFreeQuestionsLeft(): number {
   if (typeof window === 'undefined') return 0;
-  const used = Number(localStorage.getItem(KEYS.FREE_QUESTIONS_USED));
+  const used = Number(localStorage.getItem(STORAGE_KEYS.FREE_QUESTIONS_USED));
   return Math.max(0, FREE_QUESTION_LIMIT - (Number.isFinite(used) ? used : 0));
 }
 
 export function spendFreeQuestion(): void {
   const used = FREE_QUESTION_LIMIT - getFreeQuestionsLeft();
-  localStorage.setItem(KEYS.FREE_QUESTIONS_USED, String(used + 1));
+  localStorage.setItem(STORAGE_KEYS.FREE_QUESTIONS_USED, String(used + 1));
 }
 
 export function getFreePlansLeft(): number {
   if (typeof window === 'undefined') return 0;
-  const used = Number(localStorage.getItem(KEYS.FREE_PLANS_USED));
+  const used = Number(localStorage.getItem(STORAGE_KEYS.FREE_PLANS_USED));
   return Math.max(0, FREE_PLAN_LIMIT - (Number.isFinite(used) ? used : 0));
 }
 
 export function spendFreePlan(): void {
   const used = FREE_PLAN_LIMIT - getFreePlansLeft();
-  localStorage.setItem(KEYS.FREE_PLANS_USED, String(used + 1));
+  localStorage.setItem(STORAGE_KEYS.FREE_PLANS_USED, String(used + 1));
+}
+
+export function hasPlayerData(): boolean {
+  if (typeof window === 'undefined') return false;
+  return PLAYER_DATA_KEYS.some((key) => localStorage.getItem(key) !== null);
+}
+
+/** Deletes everything LuchoAI saved about the player in this browser, keeping the free counts. */
+export function clearPlayerData(): void {
+  for (const key of PLAYER_DATA_KEYS) localStorage.removeItem(key);
 }

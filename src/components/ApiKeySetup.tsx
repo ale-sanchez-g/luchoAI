@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { PROVIDERS } from '@/lib/providers';
 import ErrorMessage from './ErrorMessage';
 import Icon from './Icon';
@@ -162,8 +163,12 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
           </div>
         )}
 
-        <p className="text-xs text-gray-400 mt-4 text-center">
-          Your key is stored only in your browser. It is only ever sent to the AI company you choose.
+        <p className="mt-4 text-center text-xs text-gray-500">
+          Your key is stored only in your browser. It is only ever sent to the AI company you
+          choose.{' '}
+          <Link href="/privacy" className="whitespace-nowrap font-semibold text-pitch-green underline">
+            Read the privacy page
+          </Link>
         </p>
       </div>
     </div>

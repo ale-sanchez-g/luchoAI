@@ -152,6 +152,7 @@ describe('page metadata', () => {
   it.each([
     ['@/app/games/page', 'Games — LuchoAI'],
     ['@/app/wellbeing/page', 'Wellbeing — LuchoAI'],
+    ['@/app/privacy/page', 'Privacy — LuchoAI'],
   ])('%s sets the tab title', (modulePath, title) => {
     const { metadata } = loadWithBasePath<{ metadata: Metadata }>(modulePath, '');
     expect(metadata.title).toBe(title);

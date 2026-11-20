@@ -29,7 +29,10 @@ interface Point {
 interface Question {
   question: string;
   answer: string;
+  link?: { href: string; text: string };
 }
+
+const PRIVACY_LINK = { href: '/privacy', text: 'Read the privacy page' };
 
 const KEY_COMPANIES = 'Claude, OpenAI, Gemini or Hugging Face';
 
@@ -175,6 +178,7 @@ function questions(freeTrial: boolean): Question[] {
         'and clearing your browser data deletes them. When you chat or make a plan, your ' +
         'question and profile go to the AI company you picked so it can answer. Check-ins ' +
         'never leave the device.',
+      link: PRIVACY_LINK,
     },
     {
       question: 'Who is LuchoAI for?',
@@ -344,6 +348,12 @@ export default function HomePage() {
               <p className="mt-2 text-green-100">
                 LuchoAI is made for children, so it keeps things simple and private.
               </p>
+              <Link
+                href={PRIVACY_LINK.href}
+                className="mt-4 inline-block font-semibold text-yellow-300 underline hover:text-yellow-200"
+              >
+                {PRIVACY_LINK.text} <span aria-hidden="true">&rarr;</span>
+              </Link>
             </div>
             <ul className="mt-8 space-y-4 lg:mt-0">
               {GROWN_UP_POINTS.map((point) => (
@@ -379,6 +389,14 @@ export default function HomePage() {
                     </span>
                   </summary>
                   <p className="px-4 pb-4 text-gray-700">{q.answer}</p>
+                  {q.link && (
+                    <Link
+                      href={q.link.href}
+                      className="mx-4 mb-4 inline-block font-semibold text-pitch-green underline hover:text-pitch-dark"
+                    >
+                      {q.link.text} <span aria-hidden="true">&rarr;</span>
+                    </Link>
+                  )}
                 </details>
               ))}
             </div>
@@ -403,6 +421,17 @@ export default function HomePage() {
           </div>
         </section>
       </main>
+      <footer className="border-t border-gray-200 bg-white">
+        <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-6 text-sm text-gray-600">
+          <p>LuchoAI: football coaching for players aged 8 to 18.</p>
+          <Link
+            href={PRIVACY_LINK.href}
+            className="font-semibold text-pitch-green underline hover:text-pitch-dark"
+          >
+            Privacy
+          </Link>
+        </div>
+      </footer>
     </div>
   );
 }
