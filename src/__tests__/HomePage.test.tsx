@@ -104,6 +104,23 @@ describe('HomePage', () => {
     expect(within(section).getByText(/set a spending limit/)).toBeInTheDocument();
   });
 
+  it('links to the privacy page for grown-ups, in the answers and in the footer', () => {
+    render(<HomePage />);
+    const grownUps = screen.getByRole('region', { name: 'For parents, carers and coaches' });
+    const questions = screen.getByRole('region', { name: 'Questions' });
+    for (const section of [grownUps, questions]) {
+      expect(within(section).getByRole('link', { name: /Read the privacy page/ })).toHaveAttribute(
+        'href',
+        '/privacy',
+      );
+    }
+    const footer = screen.getByRole('contentinfo');
+    expect(within(footer).getByRole('link', { name: 'Privacy' })).toHaveAttribute(
+      'href',
+      '/privacy',
+    );
+  });
+
   it('is honest that questions and the profile go to the AI company', () => {
     render(<HomePage />);
     const section = screen.getByRole('region', { name: 'Questions' });

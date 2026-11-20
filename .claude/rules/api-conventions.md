@@ -28,13 +28,18 @@ All persistence is via `localStorage` through `src/lib/storage.ts`:
 
 | Key | Type | Purpose |
 |-----|------|---------|
-| `luchoai_api_key` | `string` | User's Anthropic API key |
+| `luchoai_api_key` | `string` | Anthropic API key: legacy copy, written only when the provider is Anthropic |
+| `luchoai_provider_config` | `JSON` | `AIProviderConfig`: provider, model and key; `free: true` and no key for "Try it free" |
 | `luchoai_player_profile` | `JSON` | Serialised `PlayerProfile`. `position` may be `all-round`; optional `exploring` and `setupBy` (`player` or `parent`) |
-| `luchoai_wellbeing_checkins` | `JSON` | `WellbeingCheckIn[]`, last 30 days. Sensitive: never send to an AI provider |
+| `luchoai_wellbeing_checkins` | `JSON` | `WellbeingCheckIn[]`, the 30 most recent. Sensitive: never send to an AI provider |
 | `luchoai_saved_plans` | `JSON` | `SavedPlan[]`, newest first, max 5. A sixth save is refused until the player removes one |
 | `luchoai_free_questions_used` | `number` | Free Gemini questions spent (limit 5) |
 | `luchoai_free_plans_used` | `number` | Free training plans spent (limit 2) |
 | `luchoai_game_scores` | `JSON` | Best Game IQ score per decision theme |
+
+Every key must be described on the privacy page (`src/lib/privacy.ts`, checked by
+`privacy.test.ts`). "Delete my LuchoAI data" (`clearPlayerData`) removes them all except the
+two free-trial counts, which say nothing about the player and keep the free trial fair.
 
 ## Error Handling
 
