@@ -27,7 +27,7 @@ const COLORS = {
   pitch: '#1a7f3c',
   dark: '#0f5a2b',
   ink: '#111827',
-  you: '#f59e0b',
+  you: '#ffb12f',
   opponent: '#dc2626',
   run: '#fde68a',
   answer: '#fef3c7',

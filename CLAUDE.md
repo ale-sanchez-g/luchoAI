@@ -79,6 +79,7 @@ src/
     game-library.test.ts   # Content gates: safety, kindness, size, coverage, ways to play
     game-rotation.test.ts  # Weekly rotation engine
     next-framework.test.ts # Upgrade guards: static-export config, lint tooling, manifest, page titles
+    color-contrast.test.ts # WCAG 2.1 AA contrast of every colour pair the app paints
     __mocks__/
       styleMock.ts      # CSS module mock for Jest
 .github/
@@ -193,6 +194,13 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
   4. Add or extend an end-to-end script in `e2e/` for the feature (see `e2e/saved-plans.mjs`) so the next session can re-run it, and re-run the existing `e2e/*.mjs` scripts to catch regressions.
   5. Say in the final report what you ran and what you saw. If you could not run a browser, say so plainly rather than claiming it was validated
 - Always run `npm run build` after changes to catch static-export issues (no dynamic routes, no server-side API routes)
+- Colours meet WCAG 2.1 AA: 4.5:1 for text, 3:1 for large text and for marks that carry meaning.
+  `color-contrast.test.ts` checks every colour pair the app paints, from `tailwind.config.ts` and
+  Tailwind's palette, and that the diagrams draw YOU in the brand `gold`. `e2e/wcag-aa.mjs` runs
+  axe-core's WCAG 2.1 A and AA rules on every page and a few screens behind a tap, at three sizes,
+  and measures text on gradients and pictures against the pixels under its letters. Both keep a
+  `KNOWN_GAPS` list of problems older than the checks; fixing one fails them until its entry is
+  deleted. Run both after any colour change, and never add to `KNOWN_GAPS` to let a new colour in
 - Never commit `.env.local` or API keys
 - The coaching persona lives in `src/lib/prompts.ts` — edit `BASE_SYSTEM_PROMPT` to tune tone and coaching focus
 - Prefer editing existing components over creating new ones

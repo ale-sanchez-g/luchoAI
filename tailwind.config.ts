@@ -11,7 +11,7 @@ const config: Config = {
       colors: {
         'pitch-green': '#1a7f3c',
         'pitch-dark': '#0f5a2b',
-        gold: '#f59e0b',
+        gold: '#ffb12f',
       },
       keyframes: {
         // A ring that grows and fades around what you can drag on the Game IQ pitch.
