@@ -198,9 +198,12 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
   `color-contrast.test.ts` checks every colour pair the app paints, from `tailwind.config.ts` and
   Tailwind's palette, and that the diagrams draw YOU in the brand `gold`. `e2e/wcag-aa.mjs` runs
   axe-core's WCAG 2.1 A and AA rules on every page and a few screens behind a tap, at three sizes,
-  and measures text on gradients and pictures against the pixels under its letters. Both keep a
-  `KNOWN_GAPS` list of problems older than the checks; fixing one fails them until its entry is
-  deleted. Run both after any colour change, and never add to `KNOWN_GAPS` to let a new colour in
+  measures text on gradients and pictures against the pixels under its letters, and fails a page
+  with no `<main>`, heading or skip link to jump to past the header (2.4.1). Every pair and every
+  screen passes. The script's `KNOWN_GAPS` list is empty and only takes a problem an axe-core
+  upgrade finds in a screen that was already there, never a new colour. Run both after any colour
+  change. The home hero's pitch lines stay at 5% white so the small white text over them keeps
+  4.5:1
 - Never commit `.env.local` or API keys
 - The coaching persona lives in `src/lib/prompts.ts` — edit `BASE_SYSTEM_PROMPT` to tune tone and coaching focus
 - Prefer editing existing components over creating new ones
@@ -259,7 +262,9 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
   for the feedback with Next pinned below it. Don't add anything tall to that screen: the pitch
   shrinks first. The pitch key is hidden on phones for this reason. `e2e/game-iq-one-screen.mjs`
   walks every situation at 320, 375 and 390 wide and fails if an answer, the pitch or Next leaves
-  the screen
+  the screen. At 320 the feedback can still be too tall, so once answered its panel is a
+  focusable "Your answer" region: the same script checks Shift+Tab from Next reaches it and End
+  scrolls it
 - The home page explains the app in the same four steps as its tour video (AI key, profile, coach
   and plan, games and wellbeing). The video, `public/video/how-luchoai-works.mp4`, is recorded
   from the real app by `scripts/how-it-works-video.mjs` (mocked AI, pinned clock, captions on a

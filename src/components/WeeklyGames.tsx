@@ -75,7 +75,7 @@ function GameCard({ pick, defaultOpen, reasonLabels }: GameCardProps) {
           <h3 className="font-bold text-gray-800">{game.name}</h3>
           <span
             aria-hidden="true"
-            className="text-gray-400 transition-transform group-open:rotate-180"
+            className="text-gray-500 transition-transform group-open:rotate-180"
           >
             ▾
           </span>

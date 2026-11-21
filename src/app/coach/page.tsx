@@ -34,7 +34,10 @@ export default function CoachPage() {
   return (
     <div className="flex h-[var(--app-height,100dvh)] flex-col overflow-hidden bg-gray-50">
       <Header />
-      <div className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col bg-white shadow-sm">
+      <main className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col bg-white shadow-sm">
+        {/* Visually hidden: on screen the chat explains itself, but this and <main> give screen
+            reader users somewhere to jump to past the header links (WCAG 2.4.1). */}
+        <h1 className="sr-only">Chat with your coach</h1>
         <div className="flex flex-shrink-0 items-center justify-between gap-2 border-b bg-pitch-green/10 px-4 py-1.5">
           <p className="min-w-0 truncate text-xs font-medium text-pitch-dark">
             {playerProfile
@@ -52,14 +55,16 @@ export default function CoachPage() {
             </span>
             <button
               onClick={() => { clearProviderConfig(); setProviderConfig(null); }}
-              className="px-1 py-2 text-xs text-pitch-green hover:text-pitch-dark underline"
+              className={
+                'px-1 py-2 text-xs font-semibold text-pitch-dark underline hover:decoration-2'
+              }
             >
               Switch
             </button>
           </div>
         </div>
         <CoachChat providerConfig={providerConfig} playerProfile={playerProfile} />
-      </div>
+      </main>
     </div>
   );
 }

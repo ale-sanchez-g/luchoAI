@@ -198,7 +198,8 @@ const OUTLINE_BUTTON =
 const SECTION = 'mx-auto max-w-4xl px-4 py-12 sm:py-16';
 const SECTION_TITLE = 'text-3xl font-black text-pitch-dark sm:text-4xl';
 
-// Faint pitch markings behind the hero.
+// Faint pitch markings behind the hero. At 5% white, the small white text that crosses them still
+// reads at 4.5:1 on the light end of the gradient (WCAG 1.4.3); at 10% it did not.
 function PitchLines() {
   return (
     <svg
@@ -208,7 +209,7 @@ function PitchLines() {
       fill="none"
       stroke="white"
       strokeWidth="3"
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-10"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-5"
     >
       <rect x="40" y="40" width="1120" height="620" rx="6" />
       <line x1="600" y1="40" x2="600" y2="660" />
@@ -234,7 +235,7 @@ export default function HomePage() {
           <PitchLines />
           <div className="relative mx-auto grid max-w-4xl items-center gap-10 px-4 py-10 sm:py-14 lg:grid-cols-[1fr_auto] lg:gap-12">
             <div>
-              <p className="inline-block rounded-full bg-white/15 px-3 py-1 text-sm font-semibold">
+              <p className="inline-block rounded-full bg-white/10 px-3 py-1 text-sm font-semibold">
                 For football players aged 8 to 18
               </p>
               <h1 className="mt-4 text-[1.75rem] font-black leading-tight min-[360px]:text-[2rem] sm:text-5xl">
@@ -255,11 +256,11 @@ export default function HomePage() {
               </div>
               <p className="mt-4 text-sm text-green-50">
                 No sign-up. No AI key yet?{' '}
-                <Link href="/games" className="font-semibold text-yellow-300 underline">
+                <Link href="/games" className="font-semibold text-white underline">
                   Games
                 </Link>{' '}
                 and{' '}
-                <Link href="/wellbeing" className="font-semibold text-yellow-300 underline">
+                <Link href="/wellbeing" className="font-semibold text-white underline">
                   Wellbeing
                 </Link>{' '}
                 work without one.

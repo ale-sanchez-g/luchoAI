@@ -90,11 +90,19 @@ const PAIRS: Pair[] = [
   { text: 'green-100', on: 'pitch-dark', kind: 'text', where: 'Dark cards, helplines, Game IQ' },
   { text: 'green-200', on: 'pitch-dark', kind: 'text', where: 'Header bar: the other page links' },
   { text: 'yellow-300', on: 'pitch-dark', kind: 'text', where: 'Links on dark sections' },
-  { text: 'gray-500', on: 'white', kind: 'text', where: 'Secondary text on cards' },
+  { text: 'gray-500', on: 'white', kind: 'text', where: 'Secondary text on cards, AI key hint' },
   { text: 'gray-500', on: 'gray-50', kind: 'text', where: 'Secondary text on the page' },
   { text: 'gray-600', on: 'white', kind: 'text', where: 'Section intros' },
   { text: 'gray-700', on: 'gray-50', kind: 'text', where: 'Card body text on muted cards' },
   { text: 'gray-800', on: 'gray-100', kind: 'text', where: 'Coach chat messages' },
+  { text: 'gray-600', on: 'gray-100', kind: 'text', where: 'Coach chat: time on a coach message' },
+  { text: 'green-100', on: 'pitch-green', kind: 'text', where: 'Coach chat: time on your message' },
+  {
+    text: 'pitch-dark',
+    on: 'pitch-green/10',
+    kind: 'text',
+    where: 'Coach chat: the AI bar and its "Switch"',
+  },
   { text: 'gray-900', on: 'white', kind: 'text', where: 'Headings' },
   { text: 'green-900', on: 'green-100', kind: 'text', where: '"No AI key needed" badge' },
   { text: 'green-900', on: 'green-50', kind: 'text', where: 'Success cards' },
@@ -108,16 +116,7 @@ const PAIRS: Pair[] = [
   { text: 'pitch-green', on: 'white', kind: 'mark', where: 'Focus ring' },
   { text: 'white', on: 'pitch-dark', kind: 'mark', where: 'Focus ring on dark grounds, menu button' },
   { text: 'gray-900', on: 'pitch-green', kind: 'mark', where: 'Outline of YOU on the pitch' },
-];
-
-// Pairs that were below the floor before this test was added (e2e/wcag-aa.mjs lists the same
-// ones on the real pages). Each must stay below it until fixed: then move it up into PAIRS.
-const KNOWN_GAPS: Pair[] = [
-  { text: 'gray-400', on: 'white', kind: 'text', where: 'AI key set-up: the hint under the box' },
-  { text: 'gray-400', on: 'gray-100', kind: 'text', where: 'Coach chat: time on a coach message' },
-  { text: 'green-200', on: 'pitch-green', kind: 'text', where: 'Coach chat: time on your message' },
-  { text: 'pitch-green', on: 'pitch-green/10', kind: 'text', where: 'Coach chat: "Switch"' },
-  { text: 'gray-400', on: 'white', kind: 'mark', where: "This week's games: the ▾ on each game" },
+  { text: 'gray-500', on: 'white', kind: 'mark', where: "This week's games: the ▾ on each game" },
 ];
 
 describe('WCAG 2.1 AA colour contrast', () => {
@@ -125,13 +124,6 @@ describe('WCAG 2.1 AA colour contrast', () => {
     '%s',
     (_name, pair) => {
       expect(ratioOf(pair)).toBeGreaterThanOrEqual(FLOOR[pair.kind]);
-    },
-  );
-
-  it.each(KNOWN_GAPS.map((p) => [`${p.text} on ${p.on} (${p.where})`, p] as const))(
-    'known gap, still below the floor: %s',
-    (_name, pair) => {
-      expect(ratioOf(pair)).toBeLessThan(FLOOR[pair.kind]);
     },
   );
 

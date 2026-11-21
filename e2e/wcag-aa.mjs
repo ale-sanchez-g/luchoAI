@@ -13,6 +13,9 @@
 // Floors (WCAG 2.1, 1.4.3 and 1.4.11): 4.5:1 for text, 3:1 for large text (24px, or 18.66px
 // bold) and for symbols.
 //
+// Results axe leaves for a person to review are printed, not failed, apart from "bypass": a page
+// with nothing to jump to past the header (no <main>, heading or skip link) fails 2.4.1.
+//
 // Fails on anything not in KNOWN_GAPS, and on a known gap that no longer shows, so the list stays
 // true. Each failing screen is saved to e2e/screenshots (gitignored).
 import http from 'node:http';
@@ -25,73 +28,13 @@ const require = createRequire(import.meta.url);
 const AXE_SOURCE = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
 const WCAG_21_AA = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
 
-// Problems that were in the app before this check was added, listed so they cannot spread
-// unnoticed: each names its colours, what it says and where it shows. `on: 'pixels'` means it was
-// measured against what is behind the text. Fix one, then delete its entry: the check fails until
-// you do. The ratio in `where` is the lowest seen.
-const KNOWN_GAPS = [
-  {
-    text: '#9ca3af',
-    on: '#ffffff',
-    says: /^Get your (key|token) at /,
-    pages: ['/coach/', '/training/', '/profile/'],
-    where: 'AI key set-up: the hint under the key box (ApiKeySetup.tsx, gray-400), 2.5:1',
-  },
-  {
-    text: '#9ca3af',
-    on: '#f3f4f6',
-    says: /^\d{1,2}:\d{2}/,
-    pages: ['/coach/'],
-    where: 'Coach chat: the time under a coach message (MessageBubble.tsx, gray-400), 2.3:1',
-  },
-  {
-    text: '#bbf7d0',
-    on: '#1a7f3c',
-    says: /^\d{1,2}:\d{2}/,
-    pages: ['/coach/'],
-    where: 'Coach chat: the time under your own message (MessageBubble.tsx, green-200), 4.2:1',
-  },
-  {
-    text: '#1a7f3c',
-    on: '#e8f2ec',
-    says: /^Switch$/,
-    pages: ['/coach/'],
-    where: 'Coach chat: "Switch" on the AI bar (coach/page.tsx, pitch-green), 4.4:1',
-  },
-  {
-    text: '#9ca3af',
-    on: 'pixels',
-    says: /^▾$/,
-    pages: ['/games/'],
-    where: "This week's games: the ▾ that opens a game (WeeklyGames.tsx, gray-400), 2.5:1",
-  },
-  {
-    text: '#fde047',
-    on: 'pixels',
-    says: /^(Games|Wellbeing)$/,
-    pages: ['/'],
-    where: 'Home hero: the yellow-300 links where a pitch line runs under them (phones), 3.7:1',
-  },
-  {
-    text: '#dcfce7',
-    on: 'pixels',
-    says: /^A quick tour/,
-    pages: ['/'],
-    where: 'Home hero: the caption under the tour video, over the pitch lines (phones), 4.1:1',
-  },
-  {
-    text: '#ffffff',
-    on: 'pixels',
-    says: /aged 8 to 18/,
-    pages: ['/'],
-    where: 'Home hero: the eyebrow pill where the pitch outline runs under it (desktop), 4.3:1',
-  },
-  {
-    rule: 'scrollable-region-focusable',
-    pages: ['/games/'],
-    where: 'Game IQ answer at 320px: its panel scrolls but takes no keyboard focus (DecisionGame)',
-  },
-];
+// Problems already in the app when a check first finds them (say, after an axe-core upgrade),
+// listed so they cannot spread unnoticed while they wait for a fix. Each names its colours
+// (`text`, and `on`, or 'pixels' when measured against what is behind the text), what it `says`
+// and the `pages` it shows on, or else the axe `rule`; `where` says where and the lowest ratio
+// seen. Fix one, then delete its entry: the check fails until you do. Never list something new.
+// Empty since issue #42 fixed the nine this check found when it was added.
+const KNOWN_GAPS = [];
 
 const OUT = path.resolve('out');
 const SHOTS = path.resolve('e2e/screenshots');
@@ -448,6 +391,14 @@ async function audit(page, decoder, label, pagePath, viewport) {
     }
   }
   for (const rule of results.incomplete) {
+    // axe only asks a person to review "bypass" (2.4.1, level A) when it finds no skip link,
+    // heading or <main> to jump to past the header. Every page here gives one, so that fails.
+    if (rule.id === 'bypass') {
+      if (!isKnown({ rule: rule.id, path: pagePath })) {
+        problems.push(`bypass: ${rule.help}: no <main> landmark, heading or skip link`);
+      }
+      continue;
+    }
     if (rule.id !== 'color-contrast') {
       const key = `${pagePath} ${rule.id}`;
       if (!review.has(key)) review.set(key, `${rule.help} (${rule.nodes[0].target.join(' ')})`);
@@ -621,4 +572,5 @@ if (failures.length) {
   console.log(`\n${failures.length} problem(s):\n- ${failures.join('\n- ')}`);
   process.exit(1);
 }
-console.log('\nAll screens meet WCAG 2.1 AA, apart from the known gaps listed above');
+const apart = KNOWN_GAPS.length ? ', apart from the known gaps listed above' : '';
+console.log(`\nAll screens meet WCAG 2.1 AA${apart}`);

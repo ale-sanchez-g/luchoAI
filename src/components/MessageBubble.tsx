@@ -46,7 +46,7 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
             {message.content}
           </ReactMarkdown>
         </div>
-        <p className={`text-xs mt-1 ${isUser ? 'text-green-200' : 'text-gray-400'}`}>
+        <p className={`text-xs mt-1 ${isUser ? 'text-green-100' : 'text-gray-600'}`}>
           {new Date(message.timestamp).toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit',
