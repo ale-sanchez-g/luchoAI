@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* The full-screen menu (Header.tsx) is a modal <dialog>: the page under it must not scroll. */
+html:has(dialog:modal) {
+  overflow: hidden;
+}

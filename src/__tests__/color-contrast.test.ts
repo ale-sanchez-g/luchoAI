@@ -65,7 +65,12 @@ function contrast(a: string, b: string): number {
 const ratioOf = (pair: Pair): number => contrast(tone(pair.text), tone(pair.on));
 
 const PAIRS: Pair[] = [
-  { text: 'gold', on: 'pitch-dark', kind: 'text', where: 'Header: the page you are on' },
+  {
+    text: 'gold',
+    on: 'pitch-dark',
+    kind: 'text',
+    where: 'Header and its menu: the page you are on, and the bar that marks it',
+  },
   {
     text: 'gray-900',
     on: 'gold',
@@ -78,12 +83,12 @@ const PAIRS: Pair[] = [
   { text: 'white', on: 'pitch-green', kind: 'text', where: 'Primary buttons, your chat messages' },
   { text: 'pitch-green', on: 'white', kind: 'text', where: 'Links and secondary buttons' },
   { text: 'pitch-green', on: 'gray-50', kind: 'text', where: 'Links on the page background' },
-  { text: 'white', on: 'pitch-dark', kind: 'text', where: 'Header, dark cards and sections' },
+  { text: 'white', on: 'pitch-dark', kind: 'text', where: 'Header, menu links, dark cards' },
   { text: 'pitch-dark', on: 'white', kind: 'text', where: 'Section titles' },
   { text: 'pitch-dark', on: 'red-50', kind: 'text', where: 'Error messages' },
   { text: 'green-50', on: 'pitch-dark', kind: 'text', where: 'Body text in the grown-ups section' },
   { text: 'green-100', on: 'pitch-dark', kind: 'text', where: 'Dark cards, helplines, Game IQ' },
-  { text: 'green-200', on: 'pitch-dark', kind: 'text', where: 'Header: the other page links' },
+  { text: 'green-200', on: 'pitch-dark', kind: 'text', where: 'Header bar: the other page links' },
   { text: 'yellow-300', on: 'pitch-dark', kind: 'text', where: 'Links on dark sections' },
   { text: 'gray-500', on: 'white', kind: 'text', where: 'Secondary text on cards' },
   { text: 'gray-500', on: 'gray-50', kind: 'text', where: 'Secondary text on the page' },
@@ -101,7 +106,7 @@ const PAIRS: Pair[] = [
   { text: 'red-800', on: 'white', kind: 'text', where: 'Danger headings' },
   { text: 'white', on: 'red-600', kind: 'text', where: 'Delete-everything button' },
   { text: 'pitch-green', on: 'white', kind: 'mark', where: 'Focus ring' },
-  { text: 'white', on: 'pitch-dark', kind: 'mark', where: 'Focus ring on dark grounds' },
+  { text: 'white', on: 'pitch-dark', kind: 'mark', where: 'Focus ring on dark grounds, menu button' },
   { text: 'gray-900', on: 'pitch-green', kind: 'mark', where: 'Outline of YOU on the pitch' },
 ];
 

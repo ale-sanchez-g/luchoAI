@@ -3,8 +3,8 @@
 //
 // Runs axe's WCAG 2.0 and 2.1 level A and AA rules on every page, for a first-time visitor and a
 // returning player, and on the screens behind a few taps (a coach reply, a training plan, a Game
-// IQ "when" situation with its GO! button, a low-mood check-in), at 320x568, 375x667 and
-// 1280x800. The AI is mocked: nothing leaves the machine.
+// IQ "when" situation with its GO! button, a low-mood check-in, the phone menu opened from the
+// header), at 320x568, 375x667 and 1280x800. The AI is mocked: nothing leaves the machine.
 //
 // axe cannot judge text on a gradient or a picture (the hero and its pitch markings) or a lone
 // symbol such as → or ▾, so this script measures those itself: it screenshots the text, then
@@ -583,6 +583,18 @@ for (const vp of VIEWPORTS) {
     await page.goto(`${base}/wellbeing/`, { waitUntil: 'networkidle' });
     await page.getByText('It sounds like things are tough right now.').waitFor();
     await audit(page, decoder, `wellbeing support ${vp.name}`, '/wellbeing/', vp);
+    await context.close();
+  }
+  // Below 768px the header's links live in a full-screen menu behind the three-line button.
+  if (vp.width < 768) {
+    const context = await newPlayerContext(browser, vp, RETURNING_PLAYER);
+    const decoder = await context.newPage();
+    const page = await context.newPage();
+    await page.goto(`${base}/wellbeing/`, { waitUntil: 'networkidle' });
+    await page.getByRole('button', { name: 'Menu', exact: true }).click();
+    await page.getByRole('dialog', { name: 'Menu' }).waitFor();
+    await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished)));
+    await audit(page, decoder, `header menu open ${vp.name}`, '/wellbeing/', vp);
     await context.close();
   }
 }

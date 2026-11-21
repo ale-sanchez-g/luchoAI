@@ -19,9 +19,15 @@ const config: Config = {
           '0%': { transform: 'scale(1)', opacity: '0.9' },
           '100%': { transform: 'scale(1.8)', opacity: '0' },
         },
+        // The full-screen menu fades in rather than flashing over the page.
+        'menu-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       animation: {
         'pitch-pulse': 'pitch-pulse 1.8s ease-out infinite',
+        'menu-in': 'menu-in 150ms ease-out',
       },
     },
   },

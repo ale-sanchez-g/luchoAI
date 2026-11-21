@@ -27,7 +27,7 @@ src/
     profile/page.tsx    # Player profile: step-by-step set-up, then one-page edit
     privacy/page.tsx    # Privacy: what is saved, what leaves the device, delete it all
   components/
-    Header.tsx          # Navigation bar
+    Header.tsx          # Header: links in the bar from md up, a full-screen menu on phones
     HowItWorksVideo.tsx # Home page tour: poster + play button, loads nothing until played
     Icon.tsx            # Leaf icon (<img> from public/icons) used instead of emojis
     CoachChat.tsx       # Main AI chat interface
@@ -216,7 +216,15 @@ NEXT_PUBLIC_BASE_PATH=                      # leave empty for local dev
   exception and lint fails on unused disable comments
 - `next/image` requires `unoptimized: true` in `next.config.ts` for static export — do not remove that config
 - No emojis in the UI or data: use `<Icon name="…" />` (source art in `iconography/leaf`, served copy in `public/icons`, kept identical by `Icon.test.tsx`). Data fields hold an `IconName`, not an emoji. Use icons at 28px or larger
-- Coach chat layout: the page is one fixed-height column (`h-[var(--app-height,100dvh)]`, `min-h-0` on the panels) so only the message list scrolls and the header and message box stay on screen. Never use `scrollIntoView` or `100vh` there, keep the message box at 16px (`text-base`) or iPhones zoom in, and test at 375×667 and 320×568 (`CoachChat.test.tsx` guards the causes)
+- Coach chat layout: the page is one fixed-height column (`h-[var(--app-height,100dvh)]`, `min-h-0` on the panels) so only the message list scrolls and the header and message box stay on screen. Never use `scrollIntoView` or `100vh` there, keep the message box at 16px (`text-base`) or iPhones zoom in, and test at 375×667 and 320×568 (`CoachChat.test.tsx` guards the causes). The message list is a focusable `Messages` region, so keyboard users can scroll a long chat
+- Header (`Header.tsx`): below `md` (768px) the links live in a full-screen menu, a native
+  modal `<dialog>` opened by the three-line button: text links only, no icons, its X where
+  the button was. Escape, the X, a link or a screen turning wide closes it, and
+  `globals.css` keeps the page behind still. From `md` up the links sit in
+  the bar. Both mark the current page with `aria-current` and gold plus a bar, not colour
+  alone. The header is 56px tall at every size (the tour's `APP_HEADER`, `scroll-mt-14` on
+  the home page and the menu's `scroll-pt-14` rely on it). After changing it, run
+  `e2e/header-menu.mjs` and re-record the tour video, which opens pages from the menu
 - Profile set-up is for players and for parents who may know little football. Keep the wording in
   `src/lib/profile-copy.ts`, worded per age group (8-10 get places on a pitch, not position names)
   and per author. Every question keeps a "not sure" answer, and nothing is pre-picked except "try
