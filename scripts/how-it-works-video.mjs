@@ -540,7 +540,12 @@ async function drag(from, to) {
 const heading = (name) => app.getByRole('heading', { level: 1, name }).waitFor();
 const choice = (text) => app.locator('label', { hasText: text }).first();
 const nextButton = () => app.getByRole('button', { name: /^(Next|Finish)$/ });
-const menu = (name) => app.locator('header').getByRole('link', { name, exact: true });
+
+// On a phone the header's links sit in a full-screen menu behind its three-line button.
+async function openFromMenu(name) {
+  await tap(app.getByRole('button', { name: 'Menu', exact: true }), { pause: 550 });
+  await tap(app.getByRole('dialog', { name: 'Menu' }).getByRole('link', { name, exact: true }));
+}
 
 // ── The tour ─────────────────────────────────────────────────────────────────
 let failure = null;
@@ -621,7 +626,7 @@ try {
   await hold(3000);
 
   await say('step3-4');
-  await tap(menu('Training'));
+  await openFromMenu('Training');
   const generate = app.getByRole('button', { name: 'Generate Plan' });
   await generate.waitFor();
   await hold(500);
@@ -636,7 +641,7 @@ try {
   // Step 4: games, Game IQ and the wellbeing check-in.
   await say('step4-1');
   await say('step4-2');
-  await tap(menu('Games'));
+  await openFromMenu('Games');
   await app.getByRole('heading', { level: 1, name: "This week's games" }).waitFor();
   await hold(2200);
   await say('step4-3');
@@ -671,7 +676,7 @@ try {
   await say('step4-5');
   // On a phone Game IQ fills the screen, menu and all: back out to the games first.
   await tap(app.getByRole('button', { name: /All games/ }), { pause: 500 });
-  await tap(menu('Wellbeing'));
+  await openFromMenu('Wellbeing');
   await app.getByRole('heading', { name: 'Daily check-in' }).waitFor();
   await reveal(app.getByRole('heading', { name: 'Daily check-in' }), 'top');
   await tap(choice(/^Good$/), { pause: 300 });

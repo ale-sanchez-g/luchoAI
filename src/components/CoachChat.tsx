@@ -14,6 +14,11 @@ interface CoachChatProps {
   playerProfile: PlayerProfile | null;
 }
 
+const MESSAGE_LIST =
+  'min-h-0 flex-1 overflow-y-auto overscroll-contain scroll-smooth p-3 ' +
+  'focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 ' +
+  'focus-visible:outline-pitch-green motion-reduce:scroll-auto sm:p-4';
+
 const WELCOME: Message = {
   id: 'welcome',
   role: 'assistant',
@@ -107,9 +112,13 @@ export default function CoachChat({ providerConfig, playerProfile }: CoachChatPr
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
+      {/* Focusable, so keyboard users can scroll back through a long chat (WCAG 2.1.1). */}
       <div
         ref={scrollerRef}
-        className="min-h-0 flex-1 overflow-y-auto overscroll-contain scroll-smooth p-3 motion-reduce:scroll-auto sm:p-4"
+        role="region"
+        aria-label="Messages"
+        tabIndex={0}
+        className={MESSAGE_LIST}
       >
         {messages.map((m) => (
           <MessageBubble key={m.id} message={m} />

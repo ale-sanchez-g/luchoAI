@@ -51,6 +51,13 @@ describe('CoachChat on a small phone', () => {
     expect(container.querySelector('.overflow-y-auto')).toHaveProperty('scrollTop', 900);
   });
 
+  it('lets keyboard users reach the message list to scroll back through it', () => {
+    render(<CoachChat providerConfig={CONFIG} playerProfile={null} />);
+    const list = screen.getByRole('region', { name: 'Messages' });
+    expect(list).toHaveAttribute('tabindex', '0');
+    expect(list).toHaveClass('overflow-y-auto');
+  });
+
   it('uses a 16px message box so iPhones do not zoom in on focus', () => {
     render(<CoachChat providerConfig={CONFIG} playerProfile={null} />);
     expect(screen.getByPlaceholderText(PLACEHOLDER)).toHaveClass('text-base');

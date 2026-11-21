@@ -7,7 +7,7 @@ const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 export const TOUR_VIDEO_SRC = `${BASE_PATH}/video/how-luchoai-works.mp4`;
 export const TOUR_POSTER_SRC = `${BASE_PATH}/video/how-luchoai-works-poster.webp`;
 /** Length of the tour video as a player shows it (m:ss). HowItWorksVideo.test.tsx checks it. */
-export const TOUR_LENGTH = '1:40';
+export const TOUR_LENGTH = '1:44';
 
 function soundBlocked(error: unknown): boolean {
   if (typeof error !== 'object' || error === null || !('name' in error)) return false;
