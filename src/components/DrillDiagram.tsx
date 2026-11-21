@@ -9,7 +9,7 @@ const COLORS = {
   grass: '#1a7f3c',
   dark: '#0f5a2b',
   ink: '#111827',
-  you: '#f59e0b',
+  you: '#ffb12f',
   helper: '#2563eb',
   cone: '#f97316',
   dribble: '#fde68a',

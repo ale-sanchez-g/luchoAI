@@ -218,7 +218,7 @@ function stageHtml() {
   #kicker .num {
     display: inline-flex; align-items: center; justify-content: center;
     width: 22px; height: 22px; border-radius: 999px;
-    background: #f59e0b; color: #111827; font-size: 13px; letter-spacing: 0;
+    background: #ffb12f; color: #111827; font-size: 13px; letter-spacing: 0;
   }
   #kicker .num:empty { display: none; }
   #text { font-size: 21px; line-height: 1.22; font-weight: 800; }
@@ -239,7 +239,7 @@ function stageHtml() {
   }
   #finger.down .dot { transform: scale(.8); }
   #finger .ring {
-    position: absolute; inset: 0; border-radius: 50%; border: 4px solid #f59e0b; opacity: 0;
+    position: absolute; inset: 0; border-radius: 50%; border: 4px solid #ffb12f; opacity: 0;
   }
   #finger.tap .ring { animation: ring .55s ease-out; }
   @keyframes ring {
@@ -262,7 +262,7 @@ function stageHtml() {
   .card li .num {
     flex: none; display: flex; align-items: center; justify-content: center;
     width: 34px; height: 34px; border-radius: 999px;
-    background: #f59e0b; color: #111827; font-size: 18px; font-weight: 900;
+    background: #ffb12f; color: #111827; font-size: 18px; font-weight: 900;
   }
   .card li b { display: block; font-size: 17px; line-height: 1.25; }
   .card li small { display: block; margin-top: 2px; font-size: 14px; color: #dcfce7; }
