@@ -1,7 +1,8 @@
 // End-to-end check that a Game IQ situation fits one phone screen: before answering the pitch and
 // all the answers are in view, and after answering the pitch, the feedback and the Next button
 // are, with nothing to scroll. Walks every situation of every theme, answering with a wrong
-// answer (the longest feedback) at three sizes, then the first one at desktop size.
+// answer (the longest feedback) at three sizes, then the first one at desktop size. Where the
+// feedback must scroll (320 wide), keyboard users must be able to reach and scroll it (WCAG 2.1.1).
 // Usage: NODE_ENV=production NEXT_PUBLIC_BASE_PATH= npm run build && node e2e/game-iq-one-screen.mjs
 // Screenshots land in e2e/screenshots (gitignored). Exits non-zero on any failed check.
 import http from 'node:http';
@@ -60,6 +61,7 @@ for (const vp of [
   page.on('pageerror', (e) => errors.push(e.message));
   const problems = [];
   const note = (where, message) => problems.push(`${where}: ${message}`);
+  let clippedSeen = 0;
 
   await page.goto(`${base}/games/`);
   await page.getByRole('tab', { name: 'Game IQ' }).click();
@@ -130,6 +132,40 @@ for (const vp of [
       }
       if (!after.nextFocused) note(where, 'Next does not have focus');
       if (after.hScroll > 0) note(where, `horizontal scroll ${after.hScroll}px after answering`);
+      if (after.feedbackClipped) {
+        // The answer buttons have made way for the feedback, so the panel itself takes the focus:
+        // one Shift+Tab back from Next, then End scrolls to the coach's cue.
+        clippedSeen += 1;
+        await page.keyboard.press('Shift+Tab');
+        const panel = await page.evaluate(() => {
+          const el = document.querySelector('[role="status"]').parentElement;
+          return {
+            focused: document.activeElement === el,
+            tabindex: el.getAttribute('tabindex'),
+            role: el.getAttribute('role'),
+            name: el.getAttribute('aria-label'),
+            outline: getComputedStyle(el).outlineStyle,
+          };
+        });
+        // Chromium lets a scroller with nothing focusable in it take the focus anyway, but Safari
+        // does not: only the panel's own tabindex puts it in the tab order on an iPhone.
+        if (panel.tabindex !== '0') note(where, 'the scrolling feedback is not in the tab order');
+        if (!panel.focused) note(where, 'Shift+Tab from Next misses the scrolling feedback');
+        if (panel.role !== 'region' || !panel.name) note(where, 'the feedback panel has no name');
+        if (panel.focused && panel.outline === 'none') note(where, 'no focus outline on the panel');
+        if (clippedSeen === 1) {
+          await page.screenshot({ path: `${SHOTS}/game-iq-one-screen-${vp.name}-panel-focus.png` });
+        }
+        await page.keyboard.press('End');
+        const scrolled = await page
+          .waitForFunction(
+            () => document.querySelector('[role="status"]').parentElement.scrollTop > 0,
+            null,
+            { timeout: 2000 },
+          )
+          .then(() => true, () => false);
+        if (!scrolled) note(where, 'End does not scroll the feedback');
+      }
       if (t === 0 && s === 0) await page.screenshot({ path: `${SHOTS}/game-iq-one-screen-${vp.name}-after.png` });
       if (s === count - 1 || !vp.phone) {
         if (!vp.phone) await page.screenshot({ path: `${SHOTS}/game-iq-one-screen-${vp.name}-after.png` });
@@ -144,6 +180,9 @@ for (const vp of [
     }
   }
 
+  if (vp.width < 360 && clippedSeen === 0) {
+    note(vp.name, 'no feedback needed its own scroll, so the keyboard check never ran');
+  }
   const failed = problems.length + errors.length;
   console.log(failed ? `FAIL ${vp.name}` : `PASS ${vp.name}`);
   problems.slice(0, 15).forEach((p) => console.log(`  ${p}`));

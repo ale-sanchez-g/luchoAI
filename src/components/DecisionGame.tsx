@@ -206,10 +206,17 @@ function ScenarioView({ theme, index, selected, onChoose, onNext, onQuit }: Scen
         />
         {/* On phones this part scrolls on its own if a very small screen cannot fit it, while the
             Next button below it never moves. Once answered, the strip under the pitch already says
-            what was picked, so the option buttons make room for the feedback. */}
+            what was picked, so the option buttons make room for the feedback. Answered, they are
+            disabled, so this part takes the focus itself and can still be scrolled by keyboard
+            (WCAG 2.1.1). */}
         <div
+          role={answered ? 'region' : undefined}
+          aria-label={answered ? 'Your answer' : undefined}
+          tabIndex={answered ? 0 : undefined}
           className={
             'min-h-0 shrink space-y-2 overflow-y-auto px-3 pt-3 ' +
+            'focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 ' +
+            'focus-visible:outline-pitch-green ' +
             `sm:space-y-3 sm:overflow-visible sm:px-4 sm:pt-4 ${chosen ? '' : 'pb-3 sm:pb-4'}`
           }
         >

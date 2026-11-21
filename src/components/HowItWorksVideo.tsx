@@ -104,7 +104,7 @@ export default function HowItWorksVideo() {
           The sound is off, but the words are on screen. Tap the speaker to hear the voice.
         </p>
       )}
-      <figcaption className="mt-3 text-center text-sm text-green-100">
+      <figcaption className="mt-3 text-center text-sm text-white">
         A quick tour of the real app, read out by an AI&nbsp;voice. The words are on screen too.
       </figcaption>
     </figure>

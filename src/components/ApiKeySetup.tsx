@@ -133,7 +133,7 @@ export default function ApiKeySetup({ onKeySet }: ApiKeySetupProps) {
               className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-green text-base sm:text-sm"
               required
             />
-            <p className="text-xs text-gray-400 mt-1">{provider.keyHint}</p>
+            <p className="text-xs text-gray-500 mt-1">{provider.keyHint}</p>
           </div>
 
           {error && <ErrorMessage>{error}</ErrorMessage>}
