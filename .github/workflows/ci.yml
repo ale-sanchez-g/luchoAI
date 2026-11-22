@@ -55,6 +55,21 @@ jobs:
       - name: Run tests
         run: npm test
 
+  content-scout:
+    name: Content scout loads
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Same Node as weekly-content-scout.yml: it runs the scout's TypeScript directly.
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Load the scout and the app content it reads (no key, no network)
+        run: node scripts/content-scout/run.mjs --check
+
   security:
     name: Security Audit
     runs-on: ubuntu-latest
