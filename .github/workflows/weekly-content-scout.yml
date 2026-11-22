@@ -1,0 +1,62 @@
+# Weekly content scout: Gemini searches the web for youth football training trends and opens
+# GitHub issues with content ideas (type of content, where in the app, which ages) for a person
+# to review. Docs: docs/content-scout.md. Nothing is built, merged or published automatically.
+#
+# Trust boundary: the job can read the code and write issues, nothing else. Everything Gemini
+# returns is untrusted text: the scout validates it, checks it against the game library's
+# safety rules, strips links and @mentions, and opens at most a few issues per run.
+name: Weekly content scout
+
+on:
+  schedule:
+    - cron: '41 21 * * 0' # Sundays 21:41 UTC: Monday morning in Australia
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Research and show the issues in the run summary, but open none
+        type: boolean
+        default: true
+      max_issues:
+        description: Most issues to open (1-5)
+        type: number
+        default: 3
+      focus:
+        description: Research focus (optional, e.g. "goalkeeping for 8-10s")
+        type: string
+        required: false
+
+permissions: {}
+
+concurrency:
+  group: content-scout
+  cancel-in-progress: false
+
+jobs:
+  scout:
+    name: Research trends and open content issues
+    runs-on: ubuntu-latest
+    timeout-minutes: 20 # Gemini calls can take minutes, with up to two retries each
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Node 24 runs the scout's TypeScript directly, so nothing is installed from npm.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - name: Research with Gemini and open issues for review
+        env:
+          GEMINI_RESEARCH_API_KEY: ${{ secrets.GEMINI_RESEARCH_API_KEY }}
+          GEMINI_FREE_API_KEY: ${{ secrets.GEMINI_FREE_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          CONTENT_SCOUT_MODEL: ${{ vars.CONTENT_SCOUT_MODEL }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          MAX_ISSUES: ${{ inputs.max_issues }}
+          CONTENT_SCOUT_FOCUS: ${{ inputs.focus }}
+        run: node scripts/content-scout/run.mjs

@@ -125,6 +125,14 @@ browser scripts, audits) and decides deterministically, without AI, whether the 
 auto-merge, needs review by the owners of the impacted files, or is blocked.
 See [docs/sentinel](./docs/sentinel/README.md).
 
+## New content ideas (content scout)
+
+Every week a workflow asks Gemini, with Google Search, what is new in youth football training,
+and opens GitHub issues with content ideas. Each one says what type of content to make, where it
+goes in the app and which ages it is for, with its sources and a reviewer checklist. A person
+reviews every issue; nothing is built automatically. It needs a `GEMINI_RESEARCH_API_KEY`
+repository secret. See [docs/content-scout.md](./docs/content-scout.md).
+
 ## Development
 
 See [CLAUDE.md](./CLAUDE.md) for full architecture, conventions, and AI integration details.
