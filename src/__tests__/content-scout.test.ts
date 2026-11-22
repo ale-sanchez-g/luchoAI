@@ -555,11 +555,19 @@ describe('content scout issues', () => {
       '1. [England Football](https://www.englandfootball.com/a%281%29) (englandfootball.com)',
     );
     expect(draft.body).toContain('2. [Study \\[2026\\]](https://www.frontiersin.org/b)');
+    expect(draft.body).toContain('<details><summary>Searches the research ran (1)</summary>');
     expect(draft.body).toContain('[q (1)](https://www.google.com/search?q=q%20%281%29)');
     expect(draft.body).toContain('| **Evidence** | 2 sources from 2 sites;');
+    expect(draft.body).toContain('Right for ages 11-13, and safe for a child playing without');
     expect(draft.body).toMatch(/No heading, no elimination/);
     expect(draft.body).toContain(`[run log](${runUrl})`);
     expect(keyFromBody(draft.body)).toBe(suggestion.key);
+  });
+
+  it('names every age band an idea covers', () => {
+    const [all] = check(idea({ ageMin: 8, ageMax: 18 })).accepted;
+    const body = renderIssue(all, run).body;
+    expect(body).toContain('| **Ages** | 8-18 (Explore, Build and Apply bands) |');
   });
 
   it('writes issue titles as plain text, since GitHub does not render them', () => {
@@ -587,6 +595,7 @@ describe('content scout issues', () => {
     ]);
     expect(draft.body).toContain('`context/<topic>.md`');
     expect(draft.body).toContain('12-16 (Build and Apply bands)');
+    expect(draft.body).toContain('- [ ] Right for ages 12-16.\n');
     // Redirects that were not followed still count, and show, by their site.
     expect(draft.body).toContain('| **Evidence** | 2 sources from 2 sites;');
     expect(draft.body).toContain(`1. [englandfootball.com](${REDIRECT}AAA)\n`);

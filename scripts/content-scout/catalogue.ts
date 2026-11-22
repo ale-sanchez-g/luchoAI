@@ -81,10 +81,11 @@ export const SECTIONS: Section[] = [
     holds:
       'The evidence-based knowledge base the AI coach and the training plans read: one ' +
       'markdown file per topic, with references and a last-reviewed date.',
-    files: ['context/<topic>.md', 'public/context/<topic>.md', 'src/lib/context.ts'],
+    files: ['context/<topic>.md', 'public/context/<topic>.md'],
     checks: [
       'Follow the metadata schema in context/00-index-and-metadata-schema.md',
       'Update `last_reviewed` and keep public/context/ identical to context/',
+      'A new topic file also needs an entry in `src/lib/context.ts`',
     ],
     label: 'section: coach',
   },

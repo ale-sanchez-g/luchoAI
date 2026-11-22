@@ -45,6 +45,10 @@ function linkUrl(url: string): string {
   return url.replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/\s/g, '%20');
 }
 
+function listOf(items: string[]): string {
+  return items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`;
+}
+
 function linkText(text: string): string {
   return text.replace(/[[\]]/g, (c) => `\\${c}`);
 }
@@ -62,7 +66,7 @@ const GAME_RULES =
 export function renderIssue(s: Suggestion, run: RunInfo): IssueDraft {
   const type = getContentType(s.contentType);
   const section = getSection(s.section);
-  const bands = s.bands.map((b) => b.name).join(' and ');
+  const bands = listOf(s.bands.map((b) => b.name));
   const rows: [string, string][] = [
     ['Content type', type.name],
     ['Add it to', `${section.name} (${section.pages.map((p) => `\`${p}\``).join(', ')})`],
@@ -95,16 +99,27 @@ export function renderIssue(s: Suggestion, run: RunInfo): IssueDraft {
       return `[${linkText(cleanText(q, 100))}](${url})`;
     })
     .join(' · ');
+  // The searches belong to the whole week's research, not to this idea, so they stay folded.
+  const searchList = searches
+    ? [
+        `<details><summary>Searches the research ran (${run.queries.length})</summary>`,
+        '',
+        searches,
+        '',
+        '</details>',
+        '',
+      ]
+    : [];
+  const played = type.screens.includes('kindness') && type.id !== 'wellbeing-tool';
   const checklist = [
     '- [ ] Open each source and check it says what this issue claims. The research reads ' +
       'search results and can get things wrong.',
-    `- [ ] Right for ages ${s.ageMin}-${s.ageMax}, and safe for a child playing without a coach.`,
+    `- [ ] Right for ages ${s.ageMin}-${s.ageMax}` +
+      (played ? ', and safe for a child playing without a coach.' : '.'),
     '- [ ] Written in our own words, with no copied text, diagrams or branded names.',
     '- [ ] Not already in the app, and it follows the rules for this section:',
     ...section.checks.map((c) => `  - ${c}`),
-    ...(type.screens.includes('kindness') && type.id !== 'wellbeing-tool'
-      ? [`- [ ] ${GAME_RULES}`]
-      : []),
+    ...(played ? [`- [ ] ${GAME_RULES}`] : []),
     s.section === 'wellbeing'
       ? '- [ ] Read by someone qualified in child wellbeing or safeguarding before it ships.'
       : '- [ ] Read by a coach before it ships.',
@@ -141,7 +156,7 @@ export function renderIssue(s: Suggestion, run: RunInfo): IssueDraft {
     '',
     ...sources,
     '',
-    ...(searches ? [`Searches it ran: ${searches}`, ''] : []),
+    ...searchList,
     '### Before building it',
     '',
     ...checklist,

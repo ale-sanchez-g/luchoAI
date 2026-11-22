@@ -108,6 +108,26 @@ GEMINI_RESEARCH_API_KEY=... node scripts/content-scout/run.mjs --dry-run
 A local dry run prints the summary. Without `GITHUB_TOKEN` and `GITHUB_REPOSITORY` it cannot check
 earlier issues for duplicates, and it says so.
 
+### Testing without a Gemini key
+
+`scripts/content-scout/stand-in.mjs` swaps Gemini for answers written by hand, so prompt or check
+changes can be tried with any model, Claude included:
+
+1. Run
+   `STANDIN_DIR=/tmp/scout node --import ./scripts/content-scout/stand-in.mjs scripts/content-scout/run.mjs --dry-run`.
+   It saves the research prompt to `/tmp/scout/prompts/research.json` and stops.
+2. Answer that prompt with real web research, written as a `generateContent` response with
+   `groundingMetadata`, in `/tmp/scout/responses/research.json`. Run again: the suggestion prompt
+   is saved to `prompts/suggest.json`.
+3. Answer that one in `responses/suggestions.json` and run once more. The real checks and issue
+   writer run on the answers, and the summary shows the issues.
+
+This tests the prompts, the checks and the issue text, but not the Gemini calls themselves:
+only a run with a real key does that. On 22 November 2026 Claude answered the prompts this way.
+All three ideas passed the checks, and reading the issues led to four fixes: searches folded away,
+age bands listed properly, a checklist line that only fits games, and a prompt rule that keeps
+safety reminders out of the text the checks read.
+
 ## Cost
 
 Each run makes two Gemini calls (roughly 15-25 thousand tokens in total) and the model runs

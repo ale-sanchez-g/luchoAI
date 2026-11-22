@@ -165,6 +165,8 @@ const RULES = [
     'or programme names, no named moves and no player or club names.',
   'Never suggest helplines or phone numbers, and never ask players for personal details.',
   'Encouraging, kind and right for the age group.',
+  'Keep safety reminders in the safety field. The title, summary and outline must not use the ' +
+    'banned words above at all, not even in a "never do this" sentence.',
   'No links or URLs in the text: cite sources by number only, in sourceIds.',
 ];
 

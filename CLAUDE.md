@@ -100,6 +100,7 @@ scripts/content-scout/  # The content scout (docs/content-scout.md), run by Node
   suggestions.ts        #   Checks every idea: sources, lists, safety rules, duplicates, text
   issues.ts             #   Issue text and the GitHub calls (list, labels, create)
   main.ts               #   The run: config, dry run, summary, --check
+  stand-in.mjs          #   Dev only: answer its prompts yourself (or with Claude), no Gemini key
 sentinel/               # Project Sentinel engine (TypeScript, no AI), see docs/sentinel/README.md
   src/                  # discovery, vulnerabilities, usage, impact, coverage, remediation,
                         # validation, governance, github, pipeline, cli.ts
