@@ -12,7 +12,7 @@ describe('providers', () => {
   describe('withSupportedModel', () => {
     const saved: AIProviderConfig = {
       provider: 'huggingface',
-      model: 'openai/gpt-oss-20b',
+      model: 'zai-org/GLM-5.3',
       apiKey: 'hf_test-key',
     };
 

@@ -59,7 +59,8 @@ export const PROVIDERS: ProviderDefinition[] = [
     keyValidation: (k) => k.length > 20,
     keyHint: 'Get your key at aistudio.google.com',
     models: [
-      { id: 'gemini-3.6-flash', name: 'Gemini 3.6 Flash', description: 'Latest, fast & capable' },
+      { id: 'gemini-3.8-flash', name: 'Gemini 3.8 Flash', description: 'Latest, fast & capable' },
+      { id: 'gemini-3.6-flash', name: 'Gemini 3.6 Flash', description: 'Fast & capable' },
       { id: 'gemini-3.5-flash', name: 'Gemini 3.5 Flash', description: 'Fast & capable' },
       { id: 'gemini-3.5-flash-lite', name: 'Gemini 3.5 Flash-Lite', description: 'Fastest & lightest' },
     ],
@@ -74,8 +75,10 @@ export const PROVIDERS: ProviderDefinition[] = [
     keyValidation: (k) => k.startsWith('hf_'),
     keyHint: 'Get your token at huggingface.co/settings/tokens',
     // Requests go to whichever Inference Provider currently serves the model, so only list
-    // models that several providers host. Checked 2026-10-13: Mistral 7B and Zephyr 7B had
-    // no provider left. Llama is gated, so each account must accept Meta's licence first.
+    // models that several providers host. Checked 2026-11-25 against the provider mapping on
+    // huggingface.co/docs/inference-providers/en/tasks/chat-completion: gpt-oss-120b (3
+    // providers), GLM-5.3 (5), DeepSeek-V4.1-Flash-1017 (5), Qwen3.8-27B (4). Llama 3.1 8B was
+    // dropped: two providers left and it is gated, so each account had to accept Meta's licence.
     models: [
       {
         id: 'openai/gpt-oss-120b',
@@ -83,14 +86,19 @@ export const PROVIDERS: ProviderDefinition[] = [
         description: 'Most capable',
       },
       {
-        id: 'openai/gpt-oss-20b',
-        name: 'gpt-oss 20B',
+        id: 'zai-org/GLM-5.3',
+        name: 'GLM 5.3',
+        description: 'Latest, capable',
+      },
+      {
+        id: 'deepseek-ai/DeepSeek-V4.1-Flash-1017',
+        name: 'DeepSeek V4.1 Flash',
         description: 'Fast & affordable',
       },
       {
-        id: 'meta-llama/Llama-3.1-8B-Instruct',
-        name: 'Llama 3.1 8B',
-        description: 'Needs Meta licence',
+        id: 'Qwen/Qwen3.8-27B',
+        name: 'Qwen 3.8 27B',
+        description: 'Fastest & lightest',
       },
     ],
     defaultModel: 'openai/gpt-oss-120b',
