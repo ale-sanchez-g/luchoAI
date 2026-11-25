@@ -36,21 +36,6 @@ export const PROVIDERS: ProviderDefinition[] = [
     defaultModel: 'claude-opus-5-5',
   },
   {
-    id: 'openai',
-    name: 'OpenAI (GPT)',
-    logo: 'robot',
-    description: "OpenAI's GPT models — well known and widely used",
-    keyPlaceholder: 'sk-...',
-    keyValidation: (k) => k.startsWith('sk-') && !k.startsWith('sk-ant-'),
-    keyHint: 'Get your key at platform.openai.com',
-    models: [
-      { id: 'gpt-4o', name: 'GPT-4o', description: 'Most capable' },
-      { id: 'gpt-4o-mini', name: 'GPT-4o mini', description: 'Fast & affordable' },
-      { id: 'gpt-4-turbo', name: 'GPT-4 Turbo', description: 'Advanced reasoning' },
-    ],
-    defaultModel: 'gpt-4o',
-  },
-  {
     id: 'gemini',
     name: 'Google Gemini',
     logo: 'sparkles',
@@ -59,8 +44,7 @@ export const PROVIDERS: ProviderDefinition[] = [
     keyValidation: (k) => k.length > 20,
     keyHint: 'Get your key at aistudio.google.com',
     models: [
-      { id: 'gemini-3.8-flash', name: 'Gemini 3.8 Flash', description: 'Latest, fast & capable' },
-      { id: 'gemini-3.6-flash', name: 'Gemini 3.6 Flash', description: 'Fast & capable' },
+      { id: 'gemini-3.6-flash', name: 'Gemini 3.6 Flash', description: 'Latest, fast & capable' },
       { id: 'gemini-3.5-flash', name: 'Gemini 3.5 Flash', description: 'Fast & capable' },
       { id: 'gemini-3.5-flash-lite', name: 'Gemini 3.5 Flash-Lite', description: 'Fastest & lightest' },
     ],

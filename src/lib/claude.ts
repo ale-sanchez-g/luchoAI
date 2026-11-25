@@ -1,5 +1,4 @@
 import Anthropic from '@anthropic-ai/sdk';
-import OpenAI from 'openai';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { HfInference } from '@huggingface/inference';
 import { jsonrepair } from 'jsonrepair';
@@ -124,54 +123,6 @@ async function generateTrainingPlanAnthropic(
   const block = response.content.find((b) => b.type === 'text');
   if (!block || block.type !== 'text') throw new Error('Unexpected response type');
   const plan = validateTrainingPlan(parsePlanJson(block.text));
-  return { ...plan, generatedAt: new Date() };
-}
-
-// ─── OpenAI ───────────────────────────────────────────────────────────────────
-
-async function sendMessageOpenAI(
-  config: AIProviderConfig,
-  history: Message[],
-  newUserMessage: string,
-  playerProfile: PlayerProfile | null,
-  contextMessages: ContextMessage[] = [],
-): Promise<string> {
-  const client = new OpenAI({ apiKey: config.apiKey, dangerouslyAllowBrowser: true });
-  const context = history.slice(-MAX_CONTEXT_MESSAGES);
-  const response = await client.chat.completions.create({
-    model: config.model,
-    max_tokens: 1024,
-    messages: [
-      { role: 'system', content: buildSystemPrompt(playerProfile) },
-      ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
-      ...context.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
-      { role: 'user', content: newUserMessage },
-    ],
-  });
-  const content = response.choices[0]?.message?.content;
-  if (!content) throw new Error('Empty response from OpenAI');
-  return content;
-}
-
-async function generateTrainingPlanOpenAI(
-  config: AIProviderConfig,
-  playerProfile: PlayerProfile,
-  contextMessages: ContextMessage[] = [],
-): Promise<TrainingPlan> {
-  const client = new OpenAI({ apiKey: config.apiKey, dangerouslyAllowBrowser: true });
-  const response = await client.chat.completions.create({
-    model: config.model,
-    max_tokens: 2048,
-    response_format: { type: 'json_object' },
-    messages: [
-      { role: 'system', content: buildSystemPrompt(playerProfile) },
-      ...contextMessages.map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content })),
-      { role: 'user', content: buildTrainingPlanPrompt(playerProfile) },
-    ],
-  });
-  const content = response.choices[0]?.message?.content;
-  if (!content) throw new Error('Empty response from OpenAI');
-  const plan = validateTrainingPlan(JSON.parse(content));
   return { ...plan, generatedAt: new Date() };
 }
 
@@ -306,8 +257,6 @@ function dispatchSendMessage(
   switch (providerConfig.provider) {
     case 'anthropic':
       return sendMessageAnthropic(providerConfig, history, newUserMessage, playerProfile, contextMessages);
-    case 'openai':
-      return sendMessageOpenAI(providerConfig, history, newUserMessage, playerProfile, contextMessages);
     case 'gemini':
       return sendMessageGemini(providerConfig, history, newUserMessage, playerProfile, contextMessages);
     case 'huggingface':
@@ -333,8 +282,6 @@ function dispatchTrainingPlan(
   switch (providerConfig.provider) {
     case 'anthropic':
       return generateTrainingPlanAnthropic(providerConfig, playerProfile, contextMessages);
-    case 'openai':
-      return generateTrainingPlanOpenAI(providerConfig, playerProfile, contextMessages);
     case 'gemini':
       return generateTrainingPlanGemini(providerConfig, playerProfile, contextMessages);
     case 'huggingface':

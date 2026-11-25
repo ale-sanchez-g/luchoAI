@@ -50,7 +50,7 @@ for (const [width, height] of VIEWPORTS) {
 
   await page.evaluate(() => {
     localStorage.setItem('luchoai_provider_config',
-      JSON.stringify({ provider: 'anthropic', model: 'claude-opus-4-8', apiKey: 'sk-ant-test' }));
+      JSON.stringify({ provider: 'anthropic', model: 'claude-opus-5-5', apiKey: 'sk-ant-test' }));
   });
   await page.goto(`${base}/coach/`);
   check(await page.getByText(/^¡Hola! I'm LuchoAI/).isVisible(), `${tag} coach greets with ¡Hola!`);

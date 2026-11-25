@@ -22,13 +22,6 @@ jest.mock('@anthropic-ai/sdk', () =>
   }))
 );
 
-const mockOpenAICreate = jest.fn();
-jest.mock('openai', () =>
-  jest.fn().mockImplementation(() => ({
-    chat: { completions: { create: mockOpenAICreate } },
-  }))
-);
-
 const mockGeminiGenerateContent = jest.fn();
 const mockGeminiSendMessage = jest.fn();
 jest.mock('@google/generative-ai', () => ({
@@ -51,12 +44,6 @@ const ANTHROPIC_CONFIG: AIProviderConfig = {
   provider: 'anthropic',
   model: 'claude-opus-5-5',
   apiKey: 'sk-ant-key',
-};
-
-const OPENAI_CONFIG: AIProviderConfig = {
-  provider: 'openai',
-  model: 'gpt-4o',
-  apiKey: 'sk-openai-key',
 };
 
 const GEMINI_CONFIG: AIProviderConfig = {
@@ -95,7 +82,6 @@ function makeHistory(count: number): Message[] {
 describe('sendMessage', () => {
   beforeEach(() => {
     mockCreate.mockClear();
-    mockOpenAICreate.mockClear();
     mockGeminiSendMessage.mockClear();
     mockHfChatCompletion.mockClear();
   });
@@ -135,24 +121,6 @@ describe('sendMessage', () => {
     });
   });
 
-  describe('openai provider', () => {
-    it('sends message using OpenAI and returns content', async () => {
-      mockOpenAICreate.mockResolvedValueOnce({
-        choices: [{ message: { content: 'OpenAI response' } }],
-      });
-
-      const result = await sendMessage(OPENAI_CONFIG, [], 'hello', null);
-      expect(result).toBe('OpenAI response');
-    });
-
-    it('throws when OpenAI returns empty content', async () => {
-      mockOpenAICreate.mockResolvedValueOnce({ choices: [{ message: { content: null } }] });
-
-      await expect(sendMessage(OPENAI_CONFIG, [], 'hello', null)).rejects.toThrow(
-        'Empty response from OpenAI'
-      );
-    });
-  });
 
   describe('gemini provider', () => {
     it('sends message using Gemini and returns text', async () => {
@@ -225,7 +193,6 @@ describe('sendMessage', () => {
 describe('generateTrainingPlan', () => {
   beforeEach(() => {
     mockCreate.mockClear();
-    mockOpenAICreate.mockClear();
     mockGeminiGenerateContent.mockClear();
     mockHfChatCompletion.mockClear();
   });
@@ -322,28 +289,6 @@ describe('generateTrainingPlan', () => {
     });
   });
 
-  describe('openai provider', () => {
-    it('parses a training plan from OpenAI', async () => {
-      mockOpenAICreate.mockResolvedValueOnce({
-        choices: [{ message: { content: JSON.stringify(VALID_PLAN) } }],
-      });
-
-      const plan = await generateTrainingPlan(OPENAI_CONFIG, SAMPLE_PROFILE);
-      expect(plan.weeklyGoal).toBe('Improve dribbling');
-      expect(plan.generatedAt).toBeInstanceOf(Date);
-    });
-
-    it('requests json_object response_format', async () => {
-      mockOpenAICreate.mockResolvedValueOnce({
-        choices: [{ message: { content: JSON.stringify(VALID_PLAN) } }],
-      });
-
-      await generateTrainingPlan(OPENAI_CONFIG, SAMPLE_PROFILE);
-
-      const callArgs = mockOpenAICreate.mock.calls[0][0] as { response_format: unknown };
-      expect(callArgs.response_format).toEqual({ type: 'json_object' });
-    });
-  });
 
   describe('gemini provider', () => {
     it('parses a training plan from Gemini', async () => {
@@ -481,7 +426,6 @@ describe('what reaches the AI company', () => {
 
     for (const mock of [
       mockCreate,
-      mockOpenAICreate,
       mockGeminiSendMessage,
       mockGeminiGenerateContent,
       mockHfChatCompletion,
@@ -492,9 +436,6 @@ describe('what reaches the AI company', () => {
     mockCreate
       .mockResolvedValueOnce({ content: [{ type: 'text', text: 'Keep your eyes on the ball.' }] })
       .mockResolvedValueOnce({ content: [{ type: 'text', text: PLAN_JSON }] });
-    mockOpenAICreate
-      .mockResolvedValueOnce({ choices: [{ message: { content: 'Cushion the ball.' } }] })
-      .mockResolvedValueOnce({ choices: [{ message: { content: PLAN_JSON } }] });
     mockGeminiSendMessage.mockResolvedValue({ response: { text: () => 'Soft touch.' } });
     mockGeminiGenerateContent.mockResolvedValue({ response: { text: () => PLAN_JSON } });
     mockHfChatCompletion
@@ -512,7 +453,6 @@ describe('what reaches the AI company', () => {
     });
     return JSON.stringify([
       mockCreate.mock.calls,
-      mockOpenAICreate.mock.calls,
       mockGeminiSendMessage.mock.calls,
       mockGeminiGenerateContent.mock.calls,
       mockHfChatCompletion.mock.calls,
@@ -522,7 +462,6 @@ describe('what reaches the AI company', () => {
 
   it.each([
     ['Anthropic', ANTHROPIC_CONFIG],
-    ['OpenAI', OPENAI_CONFIG],
     ['Gemini', GEMINI_CONFIG],
     ['Hugging Face', HF_CONFIG],
     ['the free trial', FREE_TRIAL],

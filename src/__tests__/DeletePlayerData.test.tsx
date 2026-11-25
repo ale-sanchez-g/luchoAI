@@ -13,7 +13,7 @@ import {
 } from '@/lib/storage';
 
 function seedPlayer(): void {
-  setProviderConfig({ provider: 'openai', model: 'gpt-4o', apiKey: 'sk-test-key' });
+  setProviderConfig({ provider: 'gemini', model: 'gemini-3.6-flash', apiKey: 'AIza-test-key-long-enough' });
   setPlayerProfile({
     name: 'Mia',
     age: 11,
@@ -50,7 +50,7 @@ describe('DeletePlayerData', () => {
     render(<DeletePlayerData freeTrial />);
     expect(savedLines()).toEqual([
       'A player profile',
-      'An AI key for OpenAI (GPT)',
+      'An AI key for Google Gemini',
       '1 saved training plan',
       '2 wellbeing check-ins',
       'Game IQ best scores',

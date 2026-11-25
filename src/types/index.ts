@@ -1,7 +1,7 @@
 import type { IconName } from '@/lib/icons';
 import type { DrillSetup } from '@/lib/drill-setups';
 
-export type AIProvider = 'anthropic' | 'openai' | 'gemini' | 'huggingface';
+export type AIProvider = 'anthropic' | 'gemini' | 'huggingface';
 
 export interface AIProviderConfig {
   provider: AIProvider;

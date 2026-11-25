@@ -34,7 +34,7 @@ interface Question {
 
 const PRIVACY_LINK = { href: '/privacy', text: 'Read the privacy page' };
 
-const KEY_COMPANIES = 'Claude, OpenAI, Gemini or Hugging Face';
+const KEY_COMPANIES = 'Claude, Gemini or Hugging Face';
 
 // The free trial only exists in builds made with the deploy's free key, so the page only
 // promises it when this build has one.
@@ -158,7 +158,7 @@ function questions(freeTrial: boolean): Question[] {
       question: 'What is an AI key?',
       answer:
         'A code, a bit like a password, from an AI company such as Anthropic (Claude), ' +
-        'OpenAI, Google (Gemini) or Hugging Face. It lets LuchoAI ask that AI for coaching ' +
+        'Google (Gemini) or Hugging Face. It lets LuchoAI ask that AI for coaching ' +
         'tips. A grown-up makes one on the company’s website and pastes it in once.',
     },
     {

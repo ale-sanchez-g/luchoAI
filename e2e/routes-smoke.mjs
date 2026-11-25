@@ -62,7 +62,7 @@ const VIEWPORTS = [
 const RETURNING_PLAYER = {
   luchoai_provider_config: JSON.stringify({
     provider: 'anthropic',
-    model: 'claude-opus-4-8',
+    model: 'claude-opus-5-5',
     apiKey: 'sk-ant-e2e',
   }),
   luchoai_player_profile: JSON.stringify({

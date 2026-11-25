@@ -17,22 +17,21 @@ answers parents' questions. It also has a short video tour recorded from the rea
 - **Game IQ** — Decision games on moving into space, first touch, pressing, defending together, quick counter-attacks, when to shoot or pass, using the spare player and switching the play, and reacting fast after the ball is lost or cleared. Watch the play build up, make your move on the pitch (drag yourself or the ball with a mouse or finger, or tap a spot), then see what happens, plus on-pitch games to practise each one
 - **Wellbeing** — Daily mood and life-balance check-in, calm breathing, a mistake reset routine, and free helplines for young people (check-ins never leave the device)
 - **Privacy** — A plain-language page on what is saved on the device, what is sent to the AI company and where, with a button that deletes everything LuchoAI saved
-- **Multi-provider AI** — Choose from Anthropic Claude, OpenAI GPT, Google Gemini, or Hugging Face models
+- **Multi-provider AI** — Choose from Anthropic Claude, Google Gemini, or Hugging Face models
 
 ![AI Coach setup screen](public/screenshot-coach.png)
 
 ## AI Providers
 
-LuchoAI supports four AI providers. You choose your provider and model on first launch; your API key is stored only in your browser.
+LuchoAI supports three AI providers. You choose your provider and model on first launch; your API key is stored only in your browser.
 
 | Provider | Models | Get a key |
 |---|---|---|
-| Anthropic (Claude) | Claude Opus 4.8, Sonnet 4.6, Haiku 4.5 | [console.anthropic.com](https://console.anthropic.com) |
-| OpenAI (GPT) | GPT-4o, GPT-4o mini, GPT-4 Turbo | [platform.openai.com](https://platform.openai.com) |
-| Google Gemini | Gemini 2.0 Flash, 1.5 Pro, 1.5 Flash | [aistudio.google.com](https://aistudio.google.com) |
-| Hugging Face | gpt-oss 120B, gpt-oss 20B, Llama 3.1 8B | [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) |
+| Anthropic (Claude) | Claude Opus 5.5, Sonnet 5.5, Haiku 5.5 | [console.anthropic.com](https://console.anthropic.com) |
+| Google Gemini | Gemini 3.6 Flash, 3.5 Flash, 3.5 Flash-Lite | [aistudio.google.com](https://aistudio.google.com) |
+| Hugging Face | gpt-oss 120B, GLM 5.3, DeepSeek V4.1 Flash, Qwen 3.8 27B | [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) |
 
-Hugging Face requests run on [Inference Providers](https://huggingface.co/docs/inference-providers), which bill against your account's monthly credits (free accounts get a small allowance). Llama 3.1 8B is gated: accept Meta's licence on its model page before using it.
+Hugging Face requests run on [Inference Providers](https://huggingface.co/docs/inference-providers), which bill against your account's monthly credits (free accounts get a small allowance).
 
 ## Quick Start
 
