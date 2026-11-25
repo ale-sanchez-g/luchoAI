@@ -32,7 +32,7 @@ describe('CoachPage', () => {
   // WCAG 2.4.1 Bypass Blocks: screen-reader users jump past the header links to the chat by its
   // landmark or its heading. e2e/wcag-aa.mjs checks every page for the same in a browser.
   it('puts the chat in a main landmark that starts with a heading', async () => {
-    setProviderConfig({ provider: 'anthropic', model: 'claude-opus-4-8', apiKey: 'sk-ant-test' });
+    setProviderConfig({ provider: 'anthropic', model: 'claude-opus-5-5', apiKey: 'sk-ant-test' });
     render(<CoachPage />);
 
     const main = await screen.findByRole('main');

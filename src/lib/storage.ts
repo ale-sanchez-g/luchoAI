@@ -92,7 +92,7 @@ export function getProviderConfig(): AIProviderConfig | null {
   // Backwards compat: migrate old anthropic-only key
   const legacyKey = localStorage.getItem(STORAGE_KEYS.API_KEY);
   if (legacyKey) {
-    return { provider: 'anthropic', model: 'claude-opus-4-8', apiKey: legacyKey };
+    return { provider: 'anthropic', model: 'claude-opus-5-5', apiKey: legacyKey };
   }
   return null;
 }

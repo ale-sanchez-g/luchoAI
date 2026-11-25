@@ -31,7 +31,7 @@ describe('providers', () => {
     it('leaves other providers on their saved model when it is listed', () => {
       const anthropic: AIProviderConfig = {
         provider: 'anthropic',
-        model: 'claude-sonnet-4-6',
+        model: 'claude-sonnet-5-5',
         apiKey: 'sk-ant-test',
       };
       expect(withSupportedModel(anthropic)).toBe(anthropic);

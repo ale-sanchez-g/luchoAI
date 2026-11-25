@@ -29,11 +29,11 @@ export const PROVIDERS: ProviderDefinition[] = [
     keyValidation: (k) => k.startsWith('sk-ant-'),
     keyHint: 'Get your key at console.anthropic.com',
     models: [
-      { id: 'claude-opus-4-8', name: 'Claude Opus 4.8', description: 'Most powerful' },
-      { id: 'claude-sonnet-4-6', name: 'Claude Sonnet 4.6', description: 'Fast & capable' },
-      { id: 'claude-haiku-4-5-20251001', name: 'Claude Haiku 4.5', description: 'Fastest & lightest' },
+      { id: 'claude-opus-5-5', name: 'Claude Opus 5.5', description: 'Most powerful' },
+      { id: 'claude-sonnet-5-5', name: 'Claude Sonnet 5.5', description: 'Fast & capable' },
+      { id: 'claude-haiku-5-5', name: 'Claude Haiku 5.5', description: 'Fastest & lightest' },
     ],
-    defaultModel: 'claude-opus-4-8',
+    defaultModel: 'claude-opus-5-5',
   },
   {
     id: 'openai',
