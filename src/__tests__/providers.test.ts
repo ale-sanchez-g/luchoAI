@@ -12,7 +12,7 @@ describe('providers', () => {
   describe('withSupportedModel', () => {
     const saved: AIProviderConfig = {
       provider: 'huggingface',
-      model: 'openai/gpt-oss-20b',
+      model: 'zai-org/GLM-5.3',
       apiKey: 'hf_test-key',
     };
 
@@ -31,7 +31,7 @@ describe('providers', () => {
     it('leaves other providers on their saved model when it is listed', () => {
       const anthropic: AIProviderConfig = {
         provider: 'anthropic',
-        model: 'claude-sonnet-4-6',
+        model: 'claude-sonnet-5-5',
         apiKey: 'sk-ant-test',
       };
       expect(withSupportedModel(anthropic)).toBe(anthropic);

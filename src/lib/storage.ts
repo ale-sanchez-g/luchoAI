@@ -1,6 +1,7 @@
 import { SKILL_LEVELS } from './skill-levels';
 import { isPosition } from './positions';
 import { FREE_PLAN_LIMIT, FREE_QUESTION_LIMIT } from './free-key';
+import { PROVIDERS } from './providers';
 import type {
   PlayerProfile,
   AIProviderConfig,
@@ -84,7 +85,9 @@ export function getProviderConfig(): AIProviderConfig | null {
   const raw = localStorage.getItem(STORAGE_KEYS.PROVIDER_CONFIG);
   if (raw) {
     try {
-      return JSON.parse(raw) as AIProviderConfig;
+      const parsed = JSON.parse(raw) as AIProviderConfig;
+      // A provider LuchoAI no longer offers (OpenAI) can't be used, so ask for a new key.
+      return PROVIDERS.some((p) => p.id === parsed.provider) ? parsed : null;
     } catch {
       return null;
     }
@@ -92,7 +95,7 @@ export function getProviderConfig(): AIProviderConfig | null {
   // Backwards compat: migrate old anthropic-only key
   const legacyKey = localStorage.getItem(STORAGE_KEYS.API_KEY);
   if (legacyKey) {
-    return { provider: 'anthropic', model: 'claude-opus-4-8', apiKey: legacyKey };
+    return { provider: 'anthropic', model: 'claude-opus-5-5', apiKey: legacyKey };
   }
   return null;
 }

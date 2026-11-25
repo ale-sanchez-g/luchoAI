@@ -147,10 +147,6 @@ export const AI_COMPANY_POLICIES: Record<AIProvider, CompanyPolicy> = {
     href: 'https://www.anthropic.com/legal/privacy',
     linkText: 'Anthropic privacy policy',
   },
-  openai: {
-    href: 'https://openai.com/policies/privacy-policy/',
-    linkText: 'OpenAI privacy policy',
-  },
   gemini: {
     href: 'https://ai.google.dev/gemini-api/terms',
     linkText: 'Gemini API terms',

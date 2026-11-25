@@ -71,7 +71,7 @@ for (const vp of [
       status: 200,
       headers: { 'content-type': 'application/json', 'access-control-allow-origin': '*' },
       body: JSON.stringify({
-        id: 'msg_1', type: 'message', role: 'assistant', model: 'claude-opus-4-8',
+        id: 'msg_1', type: 'message', role: 'assistant', model: 'claude-opus-5-5',
         content: [{ type: 'text', text: JSON.stringify(PLAN) }],
         stop_reason: 'end_turn', stop_sequence: null, usage: { input_tokens: 1, output_tokens: 1 },
       }),
@@ -80,7 +80,7 @@ for (const vp of [
   await page.addInitScript(() => {
     if (localStorage.getItem('seeded')) return;
     localStorage.setItem('seeded', '1');
-    localStorage.setItem('luchoai_provider_config', JSON.stringify({ provider: 'anthropic', model: 'claude-opus-4-8', apiKey: 'sk-ant-e2e' }));
+    localStorage.setItem('luchoai_provider_config', JSON.stringify({ provider: 'anthropic', model: 'claude-opus-5-5', apiKey: 'sk-ant-e2e' }));
     localStorage.setItem('luchoai_player_profile', JSON.stringify({ name: 'Sid', age: 9, position: 'forward', skillLevel: 'beginner', goals: ['Dribbling'], weaknesses: [] }));
   });
   const errors = [];

@@ -82,7 +82,7 @@ const VIEWPORTS = [
 const RETURNING_PLAYER = {
   luchoai_provider_config: JSON.stringify({
     provider: 'anthropic',
-    model: 'claude-opus-4-8',
+    model: 'claude-opus-5-5',
     apiKey: 'sk-ant-e2e',
   }),
   luchoai_player_profile: JSON.stringify({
@@ -140,7 +140,7 @@ function anthropicReply(text) {
       id: 'msg_e2e',
       type: 'message',
       role: 'assistant',
-      model: 'claude-opus-4-8',
+      model: 'claude-opus-5-5',
       content: [{ type: 'text', text }],
       stop_reason: 'end_turn',
       stop_sequence: null,

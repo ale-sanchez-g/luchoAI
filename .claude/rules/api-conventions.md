@@ -8,7 +8,7 @@ LuchoAI is a fully static site (Next.js static export for GitHub Pages). There a
 
 - All Claude API calls live in `src/lib/claude.ts`
 - Use `dangerouslyAllowBrowser: true` on the Anthropic client (required for browser use)
-- Model: `claude-opus-4-8` — change here only, not scattered across files
+- Model: `claude-opus-5-5` — change here only, not scattered across files
 - Always handle errors with user-friendly messages; never leak raw API errors to the UI
 - Max tokens: 1024 for chat, 2048 for training plan generation
 

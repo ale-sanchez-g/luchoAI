@@ -17,7 +17,7 @@ jest.mock('@/lib/context', () => ({
 
 const CONFIG: AIProviderConfig = {
   provider: 'anthropic',
-  model: 'claude-opus-4-8',
+  model: 'claude-opus-5-5',
   apiKey: 'sk-ant-test',
 };
 

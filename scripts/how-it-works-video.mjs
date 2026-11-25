@@ -361,7 +361,7 @@ await context.clock.setFixedTime(TOUR_TIME);
 
 // Canned AI replies. Anything else off this machine is blocked: the tour must not reach out.
 const anthropicReply = (text) => ({
-  id: 'msg_tour', type: 'message', role: 'assistant', model: 'claude-opus-4-8',
+  id: 'msg_tour', type: 'message', role: 'assistant', model: 'claude-opus-5-5',
   content: [{ type: 'text', text }], stop_reason: 'end_turn', stop_sequence: null,
   usage: { input_tokens: 1, output_tokens: 1 },
 });

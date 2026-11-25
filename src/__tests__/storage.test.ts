@@ -46,7 +46,7 @@ const SAMPLE_PROFILE: PlayerProfile = {
 
 const SAMPLE_CONFIG: AIProviderConfig = {
   provider: 'anthropic',
-  model: 'claude-opus-4-8',
+  model: 'claude-opus-5-5',
   apiKey: 'sk-ant-test-key',
 };
 
@@ -101,14 +101,12 @@ describe('storage', () => {
       expect(getProviderConfig()).toBeNull();
     });
 
-    it('stores openai provider config', () => {
-      const openaiConfig: AIProviderConfig = {
-        provider: 'openai',
-        model: 'gpt-4o',
-        apiKey: 'sk-test-openai-key',
-      };
-      setProviderConfig(openaiConfig);
-      expect(getProviderConfig()).toEqual(openaiConfig);
+    it('ignores a saved config for a provider that is no longer offered', () => {
+      localStorage.setItem(
+        'luchoai_provider_config',
+        JSON.stringify({ provider: 'openai', model: 'gpt-4o', apiKey: 'sk-test-openai-key' }),
+      );
+      expect(getProviderConfig()).toBeNull();
     });
   });
 

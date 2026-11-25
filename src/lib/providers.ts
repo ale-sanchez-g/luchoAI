@@ -29,26 +29,11 @@ export const PROVIDERS: ProviderDefinition[] = [
     keyValidation: (k) => k.startsWith('sk-ant-'),
     keyHint: 'Get your key at console.anthropic.com',
     models: [
-      { id: 'claude-opus-4-8', name: 'Claude Opus 4.8', description: 'Most powerful' },
-      { id: 'claude-sonnet-4-6', name: 'Claude Sonnet 4.6', description: 'Fast & capable' },
-      { id: 'claude-haiku-4-5-20251001', name: 'Claude Haiku 4.5', description: 'Fastest & lightest' },
+      { id: 'claude-opus-5-5', name: 'Claude Opus 5.5', description: 'Most powerful' },
+      { id: 'claude-sonnet-5-5', name: 'Claude Sonnet 5.5', description: 'Fast & capable' },
+      { id: 'claude-haiku-5-5', name: 'Claude Haiku 5.5', description: 'Fastest & lightest' },
     ],
-    defaultModel: 'claude-opus-4-8',
-  },
-  {
-    id: 'openai',
-    name: 'OpenAI (GPT)',
-    logo: 'robot',
-    description: "OpenAI's GPT models — well known and widely used",
-    keyPlaceholder: 'sk-...',
-    keyValidation: (k) => k.startsWith('sk-') && !k.startsWith('sk-ant-'),
-    keyHint: 'Get your key at platform.openai.com',
-    models: [
-      { id: 'gpt-4o', name: 'GPT-4o', description: 'Most capable' },
-      { id: 'gpt-4o-mini', name: 'GPT-4o mini', description: 'Fast & affordable' },
-      { id: 'gpt-4-turbo', name: 'GPT-4 Turbo', description: 'Advanced reasoning' },
-    ],
-    defaultModel: 'gpt-4o',
+    defaultModel: 'claude-opus-5-5',
   },
   {
     id: 'gemini',
@@ -74,8 +59,10 @@ export const PROVIDERS: ProviderDefinition[] = [
     keyValidation: (k) => k.startsWith('hf_'),
     keyHint: 'Get your token at huggingface.co/settings/tokens',
     // Requests go to whichever Inference Provider currently serves the model, so only list
-    // models that several providers host. Checked 2026-10-13: Mistral 7B and Zephyr 7B had
-    // no provider left. Llama is gated, so each account must accept Meta's licence first.
+    // models that several providers host. Checked 2026-11-25 against the provider mapping on
+    // huggingface.co/docs/inference-providers/en/tasks/chat-completion: gpt-oss-120b (3
+    // providers), GLM-5.3 (5), DeepSeek-V4.1-Flash-1017 (5), Qwen3.8-27B (4). Llama 3.1 8B was
+    // dropped: two providers left and it is gated, so each account had to accept Meta's licence.
     models: [
       {
         id: 'openai/gpt-oss-120b',
@@ -83,14 +70,19 @@ export const PROVIDERS: ProviderDefinition[] = [
         description: 'Most capable',
       },
       {
-        id: 'openai/gpt-oss-20b',
-        name: 'gpt-oss 20B',
+        id: 'zai-org/GLM-5.3',
+        name: 'GLM 5.3',
+        description: 'Latest, capable',
+      },
+      {
+        id: 'deepseek-ai/DeepSeek-V4.1-Flash-1017',
+        name: 'DeepSeek V4.1 Flash',
         description: 'Fast & affordable',
       },
       {
-        id: 'meta-llama/Llama-3.1-8B-Instruct',
-        name: 'Llama 3.1 8B',
-        description: 'Needs Meta licence',
+        id: 'Qwen/Qwen3.8-27B',
+        name: 'Qwen 3.8 27B',
+        description: 'Fastest & lightest',
       },
     ],
     defaultModel: 'openai/gpt-oss-120b',
